@@ -22,20 +22,47 @@
 			wrdate : date
 			content : varchar2(3000)
 		 -->
-		 <select>
+		 <select id="bigcate" name="bigcate">
 		 <option>카테고리를 선택하세요</option>
 		 <c:forEach var="big" items="${bigcate }">		 
-		 	<option id="bigcate" onclick="value(this)">${big.NO } : ${big.BIGCATE } </option>
+		 	<option value="${big.NO}">${big.NO }:${big.BIGCATE } </option>
 		 </c:forEach>
 		 </select>
-		 <select id="smallcate">
+		 <select id="smallcate" name="smallcate">
+		 	<option>카테고리를 선택하세요</option>
 		 
-		 </select>
-		 <input name="title" type="text"/>
+		 </select><br/>
+		 제목 : <input name="title" type="text" placeholder="제목"/>
+		 이미지 업로드 : <button name="img" type="button">fileupload</button><br/>
+		 가격 : <input  name="price" type="number"/><br/>
+	 	 작성자 : 세션에서 뽑아오기<input id="writerer" name="writer"/><br/>
+	 	 내용 : <br/>
+	 	 <textarea name="content" rows="50" cols="100"></textarea> <br/>
+	 	 
+		 
+		 
 		 <script type="text/javascript">
-		 	var value = function(target){
-		 		console.log(this.value);
-		 	}
+		 	$("#bigcate").on("change",function(){
+		 		var bigno = $("#bigcate").val().split(":");
+		 		bigno = bigno[0];
+		 		console.log(bigno);
+		 		var param = {
+		 			"bigno":bigno	
+		 		};
+		 		$.post("${pageContext.servletContext.contextPath}/ajax/cate.do",param).done(function(rst){
+		 			console.log(rst);
+		 			var obj = rst;
+		 			var html="";
+		 			for(var i=0;i<obj.length;i++){
+		 				html += "<option value=\""+obj[i].SMALLNO+"\">"+obj[i].SMALLNO+" : "+obj[i].SMALLCATE+"</option>";
+		 				console.log(obj[i]);
+		 			}
+		 			
+		 			$("#smallcate").html(html);
+		 		
+		 			
+		 		});
+		 	});
 		 	//bigcate에서 smallcatelist 뽑아내는 ajax 
 /* 		 	$("#bigcate").on("click",function(target){
 		 		$.ajax({
@@ -55,7 +82,7 @@
 		 		});
 		 	}); */
 		 	</script>
-	
+		
 		<button type="submit">확인</button>
 	</form>
 </body>
