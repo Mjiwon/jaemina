@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,11 +31,25 @@ u {
 	<div class="jumbotron jumbotron-fluid" align="center"
 		style="background-color: #CCFFCC; padding-top: 10px; padding-bottom: 30px;">
 		<div align="left">
-			<ul class="nav justify-content-end">
-				<li class="nav-item"><a class="nav-link disabled" href="#"><b>판매시작하기</b></a></li>
-				<li class="nav-item"><a class="nav-link disabled" href="#"><b>로그인</b></a></li>
-				<li class="nav-item"><a class="nav-link active" href="#"><b>회원가입</b></a></li>
-			</ul>
+			<c:choose>
+				<c:when test="${!empty auth}">
+					<ul class="nav justify-content-end">
+						<li class="nav-item"><a class="nav-link disabled" href="#"><b>판매</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled" href="#"><b>구매</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled" href="#"><b>메세지</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled" href="#"><b>찜한선물</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled" href="#"><b>${user.ID }</b></a></li>
+					</ul>
+				</c:when>
+				<c:otherwise>
+					<ul class="nav justify-content-end">
+						<li class="nav-item"><a class="nav-link disabled" href="#"><b>판매시작하기</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled" href="#"><b>로그인</b></a></li>
+						<li class="nav-item"><a class="nav-link active" href="#"><b>회원가입</b></a></li>
+					</ul>
+				</c:otherwise>
+			</c:choose>
+			
 			<ul class="nav">
 		</div>
 		<div class="container">

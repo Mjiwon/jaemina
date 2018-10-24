@@ -11,13 +11,19 @@
 
 	<context:component-scan base-package="app" />
 
-	<!-- <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" 
-		/> <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"> 
-		<property name="definitions" value="/WEB-INF/tiles/*.xml"></property> </bean> -->
+	<!-- <bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" /> -->
+	
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions" value="/WEB-INF/tiles/*.xml"></property>
+	</bean>
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
 
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
+	
 	<bean id="ds"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
