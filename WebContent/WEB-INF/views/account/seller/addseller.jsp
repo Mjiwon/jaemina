@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h2>판매자 인증</h2>
-	<form action="${pageContext.servletContext.contextPath }/addseller.do" method="post">
+	<form action="${pageContext.servletContext.contextPath }/addseller.do" method="post" enctype="multipart/form-data">
 		학력 : <input type="text" name="academy"> <br>
 		경력 : <input
 			type="text" name="career"><br>	
