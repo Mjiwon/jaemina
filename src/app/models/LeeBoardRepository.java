@@ -1,4 +1,4 @@
-package app.model;
+package app.models;
 
 import java.util.Map;
 
@@ -7,16 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MSellerDao {
+public class LeeBoardRepository {
 
 	@Autowired
 	SqlSessionTemplate template;
 	
-	public int addSeller1(Map map) {
-		return template.insert("account.addSeller1",map);
+	public int addBoard1(Map data) {
+		return template.insert("board.addBoard1", data);
 	}
 	
-	public int addSeller2(Map map) {
-		return template.insert("account.addSeller",map);
+	public int addBoard2(Map data) {
+		return template.insert("board.addBoard2",data);
 	}
+	
 }
