@@ -16,4 +16,12 @@ public class EunAccountRepository{
 	 
 		return template.update("account.addbank",data);
 }
+	
+	public int addSeller1(Map map) {
+		return template.insert("account.addSeller1",map);
+	}
+	
+	public int addSeller2(Map map) {
+		return template.insert("account.addSeller",map);
+	}
 }

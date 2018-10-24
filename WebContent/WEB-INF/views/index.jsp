@@ -31,7 +31,7 @@ u {
 		style="background-color: #CCFFCC; padding-top: 10px; padding-bottom: 30px;">
 		<div align="left">
 			<ul class="nav justify-content-end">
-				<li class="nav-item"><a class="nav-link disabled" href="#"><b>판매시작하기</b></a></li>
+				<li class="nav-item"><a class="nav-link disabled" href="addbank.do"><b>판매시작하기</b></a></li>
 				<li class="nav-item"><a class="nav-link disabled" href="#"><b>로그인</b></a></li>
 				<li class="nav-item"><a class="nav-link active" href="#"><b>회원가입</b></a></li>
 			</ul>
