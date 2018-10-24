@@ -25,7 +25,7 @@
 		 <select id="bigcate" name="bigcate">
 		 <option>카테고리를 선택하세요</option>
 		 <c:forEach var="big" items="${bigcate }">		 
-		 	<option value="${big.NO}">${big.NO }:${big.BIGCATE } </option>
+		 	<option value="${big.NO}">${big.NO }:${big.BIGCATE }   </option>
 		 </c:forEach>
 		 </select>
 		 <select id="smallcate" name="smallcate">
