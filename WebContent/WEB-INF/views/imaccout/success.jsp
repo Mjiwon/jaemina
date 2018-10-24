@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-계좌인증 성공
+${user.ID}님 계좌인증 성공 하셨습니다!!
+<form action="${pageContext.servletContext.contextPath }/addseller.do">
+<input type="submit" value="다음단계로">
+</form>
 </body>
 </html>
