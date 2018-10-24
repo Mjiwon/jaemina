@@ -12,12 +12,8 @@ public class WriteController {
 
 	@GetMapping("/write.do")
 	public String writeGetHandle() {
+		
 		return "WEB-INF/views/in.jsp";
 	}
 	
-	/*@PostMapping("/read.do")
-	public String readPostHandle(@RequestParam Map param) {
-	
-	}
-	*/
 }
