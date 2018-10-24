@@ -35,9 +35,13 @@
 			value="/WEB-INF/mapper/*.xml" />
 	</bean>
 
+
 	<bean id="sqlTemplate"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory"
 			ref="sqlSessionFactory" />
 	</bean>
+
+	<bean id="gson" class="com.google.gson.Gson" />
+
 </beans>
