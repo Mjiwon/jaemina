@@ -24,7 +24,7 @@ public class AccountController {
 Map<String, HttpSession> sessions;
 	
 	public AccountController() {
-		sessions = new HashMap<>();
+		sessions = new HashMap<>();   
 	}
 	
 	@Autowired
