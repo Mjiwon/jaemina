@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="account">
+
+	<select id="getAccount" resultType="java.util.HashMap">
+		select * from account where
+		id=#{id} and pass=#{pass}
+	</select>
+
+	<select id="getAccountById" resultType="java.util.HashMap">
+		select * from account
+		where id=#{id}
+	</select>
+
+	<select id="getAccountByEmail" resultType="java.util.HashMap">
+		select * from account
+		where email=#{email}
+	</select>
+
+	<insert id="addUser" parameterType="java.util.HashMap">
+		insert into account
+		values(acc_seq.nextval, #{id}, #{email}, #{pass}, null)
+	</insert>
+	
 	<insert id="addSeller1" parameterType="java.util.HashMap">
 		insert into
 		account_profile
 		values(#{id},#{academy},#{career},#{imgpath},#{introuce})
 	</insert>
+	
 	<insert id="addSeller2" parameterType="java.util.HashMap">
 		insert into
 		account_profile values(#{id},#{academy},#{career},null,#{introuce})
 	</insert>
+	
 	<update id="addbank" parameterType="java.util.HashMap">
-		update account set bank=#{BANK} where id=#{ID}
+		update account set
+		bank=#{BANK} where id=#{ID}
 	</update>
 </mapper> 
