@@ -17,6 +17,6 @@ public class MSellerDao {
 	}
 	
 	public int addSeller2(Map map) {
-		return template.insert("account.addSeller",map);
+		return template.insert("account.addSeller2",map);
 	}
 }

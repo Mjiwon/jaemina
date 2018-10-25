@@ -100,17 +100,20 @@ public class EunAccountController {
 		
 		imgpath.transferTo(dst);
 		
-		String img = path+"/"+fileName;
-		System.out.println("살려줘" + img) ;
 		
-/*		if(param.get("imgpath")!=null) {
+		String img = path+"\\"+fileName;
+		System.out.println("살려줘" + img) ;
+
+		param.put("imgpath", img);
+		
+		if(param.get("imgpath")!=null) {
 			int i = mSellDao.addSeller1(param);
 			System.out.println(i);			
 		}else {
 			System.out.println("들어옴?");
 			int i = mSellDao.addSeller2(param);
 			System.out.println(i);
-		}*/
+		}
 		return "/WEB-INF/views/account/seller/sellerHome.jsp";
 	}
 }
