@@ -39,7 +39,7 @@ public class LeeController {
 	public String writeGetHandle(Map map) {
 		List<Map> bcatelist = bcaterepo.getBigCate();
 		map.put("bigcate", bcatelist);
-		
+		 
 		return "/WEB-INF/views/write.jsp";
 	}
 	@PostMapping("/write.do")
