@@ -11,7 +11,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath }/css/signin.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
@@ -22,27 +22,56 @@
 	<form action="${pageContext.servletContext.contextPath }/join.do"
 		class="form-signin" method="post">
 		<h1 class="h3 mb-3 font-weight-normal">재미나</h1>
-		<label for="inputId" class="sr-only">아이디</label> 
-		<input type="text"
+		<label for="inputId" class="sr-only">아이디</label> <input type="text"
 			id="inputId" class="form-control" name="getId" placeholder="아이디"
 			onkeyup="getid(this);" required autofocus> <small
 			id="checked"></small> <label for="inputPassword1" class="sr-only">비밀번호</label>
 		<input type="password" id="inputPassword1" class="form-control"
-			name="getPass1" placeholder="비밀번호" onkeyup="getpass2(this);" required
+			name="getPass" placeholder="비밀번호" onkeyup="getpass2(this);" required
 			autofocus> <label for="inputPassword2" class="sr-only">
-			비밀번호재입력</label> <input type="password" id="inputPassword2" class="form-control"
-			name="getPass2" placeholder="비밀번호 재입력" onkeyup="getpass2(this);"required autofocus> 
-			<small id="checked2"></small> 
-			<label
-			for="inputEmail" class="sr-only">이메일</label> <input type="email"
-			id="inputEmail" class="form-control" name="getEmail"
-			placeholder="이메일" onkeyup="getemail(this);" required autofocus>
-		<small id="checked3"></small>
+			비밀번호재입력</label> <input type="password" id="inputPassword2"
+			class="form-control" name="getPass1" placeholder="비밀번호 재입력"
+			onkeyup="getpass2(this);" required autofocus> <small
+			id="checked2"></small> <label for="inputEmail" class="sr-only">이메일</label>
+		<input type="email" id="inputEmail" class="form-control"
+			name="getEmail" placeholder="이메일" onkeyup="getemail(this);" required
+			autofocus> <small id="checked3"></small>
+		<button type="button" id="emailauth" disabled="disabled">인증번호 전송</button>
+		<label for="inputId" class="sr-only">인증번호</label> <input type="text"
+			id="confirm" class="form-control" name="confirm" placeholder="인증번호"
+			disabled="disabled" required autofocus>
+		<button type="button" id="confirmok" disabled="disabled">인증하기</button>
+		<small id="checked4"></small>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">회원가입</button>
 		<a href="${pageContext.servletContext.contextPath }/login.do">로그인</a>
 		<p class="mt-5 mb-3 text-muted">&copy; 2018 Jaemina CORP</p>
 	</form>
 	<script type="text/javascript">
+		$("#emailauth").on("click", function() {
+			var param = $("#inputEmail").val();
+			$("#confirm").prop("disabled", false);
+			$("#confirmok").prop("disabled", false);
+			console.log(param);
+			$.post("${pageContext.servletContext.contextPath}/mail.do", param).done(function(rst) {
+				
+			});
+		});
+		$("#confirmok").on("click", function() {
+			var param = $("#confirm").val();
+			$.post("${pageContext.servletContext.contextPath}/emailauth.do", param).done(function(rst) {
+				if(rst = true) {
+					document.getElementById("checked4").innerHTML = "인증완료";
+					document.getElementById("checked4").style.color = "green";
+				}else {
+					document.getElementById("checked4").innerHTML = "인증실패";
+					document.getElementById("checked4").style.color = "red";
+					$("#confirm").prop("disabled", true);
+					$("#confirmok").prop("disabled", true);
+					document.getElementById("emailauth").innerHTML = "재전송";
+				}
+			});
+		});
+		
 		var r = new RegExp(/^[a-z]{1,1}\w{3,11}$/);
 		var getid = function(target) {
 			if (r.test(target.value) == true) {
@@ -90,6 +119,7 @@
 			if (r2.test(target.value) == true) {
 				document.getElementById("checked3").innerHTML = "사용 가능한 Email입니다.";
 				document.getElementById("checked3").style.color = "green";
+				$("#emailauth").prop("disabled", false);
 				var req = new XMLHttpRequest();
 				req.open("get", "joinemail_check.do?w=" + target.value, true);
 				console.log(target.value);
@@ -101,6 +131,7 @@
 						if (idd.includes(target.value) == true) {
 							document.getElementById("checked3").innerHTML = "이미 사용중인 Email입니다.";
 							document.getElementById("checked3").style.color = "red";
+							$("#emailauth").prop("disabled", true);
 						}
 					}
 				}
@@ -108,6 +139,7 @@
 			} else {
 				document.getElementById("checked3").innerHTML = "사용 불가능한 Email 형식입니다.";
 				document.getElementById("checked3").style.color = "red";
+				$("#emailauth").prop("disabled", true);
 			}
 		};
 	</script>
