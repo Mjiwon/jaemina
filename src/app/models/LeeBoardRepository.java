@@ -1,5 +1,6 @@
 package app.models;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,6 +19,10 @@ public class LeeBoardRepository {
 	
 	public int addBoard2(Map data) {
 		return template.insert("board.addBoard2",data);
+	}
+	
+	public List<Map> getBoardList(){
+		return template.selectList("board.getBoardList");
 	}
 	
 }

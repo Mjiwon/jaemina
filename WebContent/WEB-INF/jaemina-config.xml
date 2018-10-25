@@ -22,6 +22,7 @@
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
 
+	<!-- multipart resolever add(id를 꼭 multipartResolver로 설정 -->
 	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
 	
 	<bean id="ds"
@@ -49,5 +50,9 @@
 	</bean>
 
 	<bean id="gson" class="com.google.gson.Gson" />
+
+
+
+
 
 </beans>

@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>판매글</h1>
-	<form action="${pageContext.servletContext.contextPath }/write.do" method="post">
+	<form action="${pageContext.servletContext.contextPath }/write.do" method="post" enctype="multipart/form-data">
 		<!-- 
 			no : number(6,0)
 			bigcate : number(1,0)
@@ -32,8 +32,8 @@
 		 	<option>카테고리를 선택하세요</option>
 		 
 		 </select><br/>
-		 제목 : <input name="title" type="text" placeholder="제목"/>
-		 이미지 업로드 : <button name="img" type="button">fileupload</button><br/>
+		 제목 : <input name="title" type="text" placeholder="제목"/><br/>
+		 이미지 업로드 : <input type="file" name="imgpath"/><br/>
 		 가격 : <input  name="price" type="number"/><br/>
 	 	 작성자 : 세션에서 뽑아오기<input id="writerer" name="writer" value="${user.ID }" readonly/><br/>
 	 	 내용 : <br/>
@@ -46,9 +46,11 @@
 		 		var bigno = $("#bigcate").val().split(":");
 		 		bigno = bigno[0];
 		 		console.log(bigno);
+		 		
 		 		var param = {
 		 			"bigno":bigno	
 		 		};
+		 		
 		 		$.post("${pageContext.servletContext.contextPath}/ajax/cate.do",param).done(function(rst){
 		 			console.log(rst);
 		 			var obj = rst;
