@@ -25,7 +25,7 @@
 		 <select id="bigcate" name="bigcate">
 		 <option>카테고리를 선택하세요</option>
 		 <c:forEach var="big" items="${bigcate }">		 
-		 	<option value="${big.NO}">${big.NO }:${big.BIGCATE }   </option>
+		 	<option value="${big.NO}">${big.NO }:${big.BIGCATE }</option>
 		 </c:forEach>
 		 </select>
 		 <select id="smallcate" name="smallcate">
@@ -45,24 +45,20 @@
 		 	$("#bigcate").on("change",function(){
 		 		var bigno = $("#bigcate").val().split(":");
 		 		bigno = bigno[0];
+
 		 		console.log(bigno);
-		 		
+
 		 		var param = {
 		 			"bigno":bigno	
 		 		};
 		 		
 		 		$.post("${pageContext.servletContext.contextPath}/ajax/cate.do",param).done(function(rst){
-		 			console.log(rst);
-		 			var obj = rst;
+		 			//var obj = rst;
 		 			var html="";
 		 			for(var i=0;i<obj.length;i++){
 		 				html += "<option value=\""+obj[i].SMALLNO+"\">"+obj[i].SMALLNO+" : "+obj[i].SMALLCATE+"</option>";
-		 				console.log(obj[i]);
 		 			}
-		 			
 		 			$("#smallcate").html(html);
-		 		
-		 			
 		 		});
 		 	});
 		 	//bigcate에서 smallcatelist 뽑아내는 ajax 
