@@ -28,6 +28,7 @@ import app.service.SocketService;
 @Controller
 public class LeeController {
 	
+	
 	@Autowired
 	Gson gson;
 	
