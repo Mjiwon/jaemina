@@ -48,18 +48,21 @@
 	</form>
 	<script type="text/javascript">
 		$("#emailauth").on("click", function() {
-			var param = $("#inputEmail").val();
+			var param = 
+				{"email":$("#inputEmail").val()};
 			$("#confirm").prop("disabled", false);
 			$("#confirmok").prop("disabled", false);
-			console.log(param);
 			$.post("${pageContext.servletContext.contextPath}/mail.do", param).done(function(rst) {
 				
 			});
 		});
 		$("#confirmok").on("click", function() {
-			var param = $("#confirm").val();
+			var param = 
+				{"confirmkey":$("#confirm").val()};
+			console.log(param);
 			$.post("${pageContext.servletContext.contextPath}/emailauth.do", param).done(function(rst) {
-				if(rst = true) {
+				console.log(param);
+				if(rst != null) {
 					document.getElementById("checked4").innerHTML = "인증완료";
 					document.getElementById("checked4").style.color = "green";
 				}else {
@@ -122,10 +125,8 @@
 				$("#emailauth").prop("disabled", false);
 				var req = new XMLHttpRequest();
 				req.open("get", "joinemail_check.do?w=" + target.value, true);
-				console.log(target.value);
 				req.onreadystatechange = function() {
 					if (this.readyState == 4) {
-						console.log(this.responseText);
 						var obj = JSON.parse(this.responseText);
 						var idd = obj.EMAIL;
 						if (idd.includes(target.value) == true) {

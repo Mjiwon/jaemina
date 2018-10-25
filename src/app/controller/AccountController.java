@@ -85,8 +85,8 @@ Map<String, HttpSession> sessions;
 	
 	//email 인증 전송
 	@RequestMapping("/mail.do")
-	public void sendTest(@RequestParam String param,WebRequest wr) {
-		String receiver = param;
+	public void sendTest(@RequestParam Map param,WebRequest wr) {
+		String receiver = (String) param.get("email");
 		SimpleMailMessage msg = new SimpleMailMessage();
 		sender.createMimeMessage();
 		msg.setSubject("재미나 이메일 인증번호");
@@ -111,19 +111,20 @@ Map<String, HttpSession> sessions;
 	
 	// email인증 ajax
 	@RequestMapping("/emailauth.do")
-	@ResponseBody
-	public boolean emailauthHandle(@RequestParam String param, WebRequest wr) {
+	public void emailauthHandle(@RequestParam Map param, WebRequest wr) {
 		String confirm = (String)wr.getAttribute("confirmKey", WebRequest.SCOPE_SESSION);
-		String confirm1 = param;
-		boolean rst;
+		String confirm1 = (String)param.get("confirmkey");
+		String rst;
 		wr.removeAttribute("confirmKey", WebRequest.SCOPE_SESSION);
 		if(confirm.equals(confirm1)) {
-			rst = true;
+			rst = "true";
+			wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
+			System.out.println(rst);
 		}else {
-			rst = false;
+			rst = null;
+			wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
+			System.out.println(rst);
 		}
-		wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
-		return rst;
 	}
 	
 	@PostMapping("/join.do")
