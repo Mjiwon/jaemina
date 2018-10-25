@@ -1,7 +1,10 @@
 package app.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +13,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 import app.model.EunAccountRepository;
+import app.model.MSellerDao;
 
 @Controller
 public class EunAccountController {
 
 	@Autowired
 	EunAccountRepository eunAccountRepository;
+	
+	@Autowired
+	MSellerDao mSellDao;
+	
+	@Autowired
+	ServletContext ctx;
 
 	@GetMapping("/addbank.do")
 	public String AddBankGetHandle(HttpSession sesion) {
@@ -26,7 +37,7 @@ public class EunAccountController {
 		 *
 		 */
 		System.out.println("GET확인");
-		return "/WEB-INF/views/imaccout/addbank.jsp";
+		return "/WEB-INF/views/account/seller/addbank.jsp";
 	}
 
 	@PostMapping("/addbank.do")
@@ -47,13 +58,13 @@ public class EunAccountController {
 				System.out.println(i + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");		
 			if (i == 1) {
 				System.out.println("성공");
-			return  "/WEB-INF/views/imaccout/success.jsp";
+			return  "/WEB-INF/views/account/seller/success.jsp";
 			} else
 				System.out.println("실패");
-			return "/WEB-INF/views/imaccout/addbank.jsp";
+			return "/WEB-INF/views/account/seller/addbank.jsp";
 			
 		}else {
-		return "/WEB-INF/views/imaccout/addbank.jsp";
+		return "/WEB-INF/views/account/seller/addbank.jsp";
 		}
 
 	}
@@ -66,17 +77,36 @@ public class EunAccountController {
 	}
 
 	@PostMapping("/addseller.do")
-	public String addSellerHandle(@RequestParam Map param, WebRequest wr) {
+	public String addSellerHandle(@RequestParam Map param,@RequestParam MultipartFile imgpath ,WebRequest wr) throws IOException {
 		System.out.println(param);
-		System.out.println("/" + param.get("imgpath"));
-		if (param.get("imgpath") != null) {
-			int i = eunAccountRepository.addSeller1(param);
-			System.out.println(i);
-		} else {
-			System.out.println("들어옴?");
-			int i = eunAccountRepository.addSeller2(param);
-			System.out.println(i);
+		System.out.println(imgpath);
+		
+		String fileName = imgpath.getOriginalFilename();
+		System.out.println(fileName);
+		
+		String path = ctx.getRealPath("/storage");
+		File dir = new File(path);
+		if(!dir.exists()) {
+			dir.mkdirs();
 		}
-		return "/WEB-INF/views/account/seller/addseller.jsp";
+		File dst = new File(dir, fileName);
+		System.out.println(path);
+		
+		imgpath.transferTo(dst);
+		
+		String img = path+"/"+fileName;
+		System.out.println("살려줘" + img) ;
+		
+		Map m = (Map)wr.getAttribute("user", WebRequest.SCOPE_SESSION);
+		param.put("id", (String)m.get("ID"));
+/*		if(param.get("imgpath")!=null) {
+			int i = mSellDao.addSeller1(param);
+			System.out.println(i);			
+		}else {
+			System.out.println("들어옴?");
+			int i = mSellDao.addSeller2(param);
+			System.out.println(i);
+		}*/
+		return "/WEB-INF/views/account/seller/sellerHome.jsp";
 	}
 }

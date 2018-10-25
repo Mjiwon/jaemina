@@ -3,6 +3,8 @@ package app.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
 
@@ -41,7 +44,8 @@ public class LeeController {
 	}
 	@PostMapping("/write.do")
 	public String writePostHandle(@RequestParam Map map) {
-		if(map.get("imgpath")!=null) {
+		System.out.println("lee컨트롤러 " +map);
+		if(map.get("imgpath")==null) {
 			int r = boardrepo.addBoard1(map);			
 		}else {
 			int r = boardrepo.addBoard2(map);

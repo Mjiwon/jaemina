@@ -35,7 +35,7 @@
 		 제목 : <input name="title" type="text" placeholder="제목"/>
 		 이미지 업로드 : <button name="img" type="button">fileupload</button><br/>
 		 가격 : <input  name="price" type="number"/><br/>
-	 	 작성자 : 세션에서 뽑아오기<input id="writerer" name="writer"/><br/>
+	 	 작성자 : 세션에서 뽑아오기<input id="writerer" name="writer" value="${user.ID }" readonly/><br/>
 	 	 내용 : <br/>
 	 	 <textarea name="content" rows="50" cols="100"></textarea> <br/>
 	 	 
