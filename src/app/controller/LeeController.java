@@ -28,6 +28,7 @@ import app.service.SocketService;
 @Controller
 public class LeeController {
 	
+	
 	@Autowired
 	Gson gson;
 	
@@ -78,10 +79,10 @@ public class LeeController {
 	@RequestMapping(path="/ajax/cate.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String cateAjaxHandle(@RequestParam String bigno) {
-		System.out.println("GET param : "+bigno);
+		//System.out.println("GET param : "+bigno);
 		int bno = Integer.parseInt(bigno);
 		List<Map> scatelist = scaterepo.getSmallCate(bno);
-		System.out.println("scatelist : "+scatelist);
+		//System.out.println("scatelist : "+scatelist);
 		
 		return gson.toJson(scatelist);
 	}
