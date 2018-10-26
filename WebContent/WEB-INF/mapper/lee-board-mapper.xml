@@ -10,4 +10,7 @@
 	<select id="getBoardList" resultType="java.util.HashMap">
 		select * from board order by no desc	
 	</select>
+	<select id="getDetailBoard" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select * from board where no=#{no}
+	</select>
 </mapper>

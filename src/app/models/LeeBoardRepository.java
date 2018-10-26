@@ -25,4 +25,8 @@ public class LeeBoardRepository {
 		return template.selectList("board.getBoardList");
 	}
 	
+	public Map getDetailBoard(int no) {
+		return template.selectOne("board.getDetailBoard",no);
+	}
+	
 }

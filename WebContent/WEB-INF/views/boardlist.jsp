@@ -12,7 +12,7 @@
 	<h1>판매글 리스트</h1>
 	<ul>
 	<c:forEach var="l" items="${boardlist }">
-		<li>No : ${l.NO } | 제목 : ${l.TITLE } | 날짜 : ${l.WRDATE } | 가격 : ${l.PRICE }</li>	
+		<li><a href="${pageContext.servletContext.contextPath }/board/detail.do?no=${l.NO}">No : ${l.NO } | 제목 : ${l.TITLE } | 날짜 : ${l.WRDATE } | 가격 : ${l.PRICE }</a></li>	
 	</c:forEach>
 	</ul>
 </body>

@@ -94,6 +94,15 @@ public class LeeController {
 		return "/WEB-INF/views/boardlist.jsp";
 	}
 	
+	// 상세페이지
+	@RequestMapping("/board/detail.do")
+	public String boardDetailHandle(@RequestParam Map param, Map map) {
+		int detailno = Integer.parseInt((String)param.get("no"));
+		Map detail = boardrepo.getDetailBoard(detailno);
+		map.put("detail", detail);
+		return "/WEB-INF/views/detail.jsp";
+	}
+	
 	// 문의하기 기능
 	
 	@Autowired
@@ -108,12 +117,18 @@ public class LeeController {
 	@Autowired
 	LeeQAMessageRepository mrepo;
 	
+	@GetMapping("/qa/buyqa.do")
+	public String buyqaHandle(@RequestParam Map map) {
+		System.out.println("writer : "+map);
+		return "/WEB-INF/views/qa.jsp";
+	}
+	
 	@PostMapping("/qa/sendmsg.do")
 	public String qaPostSendMsgHandle(@RequestParam Map map, HttpSession session) {
 		Map info = (Map)session.getAttribute("user");
 		info.put("sender", info.get("ID"));
 		info.put("receiver", map.get("WRITER"));
-		return "";
+		return "/WEB-INF/views/qa.jsp";
 	}
 	
 	

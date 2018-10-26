@@ -9,8 +9,8 @@
 <body>
 	<h1>문의하기</h1>
 	<form action="${pageContext.servletContext.contextPath }/qa/sendmsg.do" method="post">
-		<textarea rows="100" cols="100"></textarea><br/>
-		<input id=""/>
+		<textarea rows="30" cols="100"></textarea><br/>
+		<input id="qamsg"/>
 		<button type="submit">전송</button>
 	</form>
 
