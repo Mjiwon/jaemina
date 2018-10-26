@@ -20,8 +20,7 @@
 </script>
 </head>
 <body>
-	<form action="${pageContext.servletContext.contextPath}/addbank.do"
-		method="post">
+	<form action="${pageContext.servletContext.contextPath}/addbank.do" method="post">
 		<select name="bankname">
 		<option>하나은행</option>
 		<option>농협은행</option>
