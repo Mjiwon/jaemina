@@ -42,6 +42,7 @@ public class HoSellerController {
 	public String UpdateSellerGetHandle() {
 		return  "/WEB-INF/views/account/seller/update_seller.jsp";
 	}
+	
 	@PostMapping("update_seller.do")
 	public String UpdateSellerPostHandle(@RequestParam Map p, @RequestParam MultipartFile imgpath,HttpSession session)throws IOException {
 		String fileName =imgpath.getOriginalFilename();
