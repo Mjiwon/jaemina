@@ -73,7 +73,7 @@ public class BoardController {
 	public String cateAjaxHandle(@RequestParam String bigno) {
 		int bno = Integer.parseInt(bigno);
 		List<Map> scatelist = boardrepo.getSmallCate(bno);
-		
+		System.out.println(scatelist);
 		return gson.toJson(scatelist);
 	}
 	
