@@ -46,8 +46,9 @@
 				<option>NH농협</option>
 				<option>하나카드</option>
 				<option>씨티카드</option>
-			</select>	
-					
+			</select>
+			
+			<input type="text">					
 		</div>
 		
 		<div class="tab-pane fade" id="nav-profile" role="tabpanel"	aria-labelledby="nav-profile-tab">
