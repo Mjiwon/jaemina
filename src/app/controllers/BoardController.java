@@ -60,7 +60,7 @@ public class BoardController {
 			boardrepo.addBoard1(map);
 		}else {
 			imgpath.transferTo(dst);
-			map.put("imgpath", path+"\\"+filename);
+			map.put("imgpath", "/storage/board"+"\\"+filename);
 			boardrepo.addBoard2(map);
 		}
 		return "/WEB-INF/views/index.jsp";

@@ -8,9 +8,9 @@
 <title>판매글</title>
 </head>
 <body>
-	${writer }
 	<h1>상세페이지</h1>
 	<p>
+	<img alt="" src="${pageContext.servletContext.contextPath }${detail.IMGPATH}"><br/>
 	${detail.BIGCATE} | ${detail.SMALLCATE}<br/>
 	title : ${detail.TITLE }<br/>
 	작성 날짜 : ${detail.WRDATE} | 작성자 : ${detail.WRITER }<br/>
