@@ -56,7 +56,7 @@ Map<String, HttpSession> sessions;
 	public String loginPostHandler(WebRequest wr, Map map, HttpSession session) {
 		String id = wr.getParameter("getId");
 		String pass = wr.getParameter("getPass");
-		boolean rst = (boolean)wr.getAttribute("rst", WebRequest.SCOPE_SESSION);
+		
 		map.put("id", id);
 		map.put("pass", pass);
 		Map mapp = accountRepository.getAccount(map);
