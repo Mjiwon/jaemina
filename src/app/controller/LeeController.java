@@ -114,5 +114,29 @@ public class LeeController {
 	@Autowired
 	SocketService socketService;
 	
+	@Autowired
+	LeeQAMessageRepository mrepo;
+	
+	@GetMapping("/qa/buyqa.do")
+	public String buyqaHandle(@RequestParam Map param, Map map, HttpSession session) {
+		System.out.println("user : "+session.getAttribute("user"));
+		map.put("writer", (String)param.get("writer"));
+		map.put("no", Integer.parseInt((String)param.get("no")));
+		return "/WEB-INF/views/buyqa.jsp";
+	}
+	
+	// 쪽지구현
+	@PostMapping("/qa/buyqa.do")
+	public String buyqaPostHandle(@RequestParam Map map, HttpSession session) {
+	
+		Map data = (Map)session.getAttribute("user");
+		System.out.println(session.getAttribute("user"));
+		String sender = (String)data.get("ID");  
+		map.put("sender", sender);
+		System.out.println("map : "+map);
+		int r = mrepo.addMsg(map);
+		System.out.println("message result :"+r);
+		return "/WEB-INF/views/qaresult.jsp";
+	}
 
 }
