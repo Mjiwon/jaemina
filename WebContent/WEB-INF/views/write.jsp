@@ -47,7 +47,10 @@
 
 		 <script type="text/javascript">
 		 	$("#bigcate").on("change",function(){
+
 		 		var bigno = $("#bigcate").val();
+
+
 		 		var param = {
 		 			"bigno": bigno	
 		 		};
