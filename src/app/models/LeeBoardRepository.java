@@ -29,4 +29,8 @@ public class LeeBoardRepository {
 		return template.selectOne("board.getDetailBoard",no);
 	}
 	
+	public List<Map> getSearchList(String searchKey) {
+		return template.selectList("board.getSearchList", "%"+searchKey+"%");
+	}
+	
 }

@@ -43,17 +43,15 @@
 		 
 		 <script type="text/javascript">
 		 	$("#bigcate").on("change",function(){
-		 		var bigno = $("#bigcate").val().split(":");
-		 		bigno = bigno[0];
+		 		var bigno = $("#bigcate").val();
 
-		 		console.log(bigno);
 
 		 		var param = {
 		 			"bigno":bigno	
 		 		};
 		 		
 		 		$.post("${pageContext.servletContext.contextPath}/ajax/cate.do",param).done(function(rst){
-		 			//var obj = rst;
+		 			var obj = rst;
 		 			var html="";
 		 			for(var i=0;i<obj.length;i++){
 		 				html += "<option value=\""+obj[i].SMALLNO+"\">"+obj[i].SMALLNO+" : "+obj[i].SMALLCATE+"</option>";
