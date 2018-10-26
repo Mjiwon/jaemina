@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -57,8 +58,10 @@ public class LeeController {
 	// 판매글 DB에 insert
 
 	@PostMapping("/write.do")
-	public String writePostHandle(@RequestParam Map map,@RequestParam MultipartFile attach) throws IOException {
+	public String writePostHandle(@RequestParam Map map,@RequestParam MultipartFile imgpath) throws IOException {
 		// 파일(이미지) 업로드
+		System.out.println("param : "+map);
+		System.out.println("imgpath : "+imgpath);
 		String filename = map.get("writer") +"-"+map.get("title")+"-board"+".jpg";
 		String path = ctx.getRealPath("/storage/board");
 		File dir = new File(path);
@@ -66,12 +69,14 @@ public class LeeController {
 			dir.mkdirs();
 		}
 		File dst = new File(dir, filename);
-		attach.transferTo(dst);
-		map.put("imgpath", path+"\\"+filename);
-		int r = boardrepo.addBoard2(map);
+		if(imgpath==null) {
+			boardrepo.addBoard1(map);
+		}else {
+			imgpath.transferTo(dst);
+			map.put("imgpath", path+"\\"+filename);
+			boardrepo.addBoard2(map);
+		}
 
-		System.out.println("board insert result : "+r);
-		System.out.println("map : "+map);
 		return "";
 	}
 	
@@ -104,34 +109,10 @@ public class LeeController {
 		return "/WEB-INF/views/detail.jsp";
 	}
 	
-	// 문의하기 기능
+	// 문의하기 기능 (WebSocket -> 로그인 안되어 있으면 쪽지)
 	
 	@Autowired
 	SocketService socketService;
 	
-	// 문의 페이지로 이동하기
-	@GetMapping("/qa/sendmsg.do")
-	public String qaGetSendMsgHandle() {
-		return "/WEB-INF/views/qa.jsp";
-	}
-	
-/*	@Autowired
-	LeeQAMessageRepository mrepo;
-	
-	@GetMapping("/qa/buyqa.do")
-	public String buyqaHandle(@RequestParam Map map) {
-		System.out.println("writer : "+map);
-		return "/WEB-INF/views/qa.jsp";
-	}
-	
-	@PostMapping("/qa/sendmsg.do")
-	public String qaPostSendMsgHandle(@RequestParam Map map, HttpSession session) {
-		Map info = (Map)session.getAttribute("user");
-		info.put("sender", info.get("ID"));
-		info.put("receiver", map.get("WRITER"));
-		return "/WEB-INF/views/qa.jsp";
-	}
-	
-	
-*/	
+
 }

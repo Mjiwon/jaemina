@@ -7,10 +7,13 @@
 <title>QA</title>
 </head>
 <body>
+	
 	<h1>문의하기</h1>
-	<form action="${pageContext.servletContext.contextPath }/qa/sendmsg.do" method="post">
-		<textarea rows="30" cols="100"></textarea><br/>
-		<input id="qamsg"/>
+	<form action="${pageContext.servletContext.contextPath }/qa/buyqa.do" method="post">
+	문의 : ${writer }
+		<input hidden="" name="receiver" value="${writer }"/>
+		<input hidden="" name="no" value="${no }"/>
+		<input id="qamsg" name="content"/>
 		<button type="submit">전송</button>
 	</form>
 

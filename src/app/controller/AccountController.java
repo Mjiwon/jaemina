@@ -58,6 +58,7 @@ Map<String, HttpSession> sessions;
 		String pass = wr.getParameter("getPass");
 		
 		map.put("id", id);
+		
 		map.put("pass", pass);
 		Map mapp = accountRepository.getAccount(map);
 		if(mapp != null) {
