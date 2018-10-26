@@ -21,22 +21,21 @@
 </head>
 <body>
 	<h3>결재선택</h3>
-	<nav>
+	<nav style="width: 50%; height: 50%;">
 		<div class="nav nav-tabs" id="nav-tab" role="tablist">
 			<a class="nav-item nav-link active" id="nav-home-tab"
 				data-toggle="tab" href="#nav-home" role="tab"
-				aria-controls="nav-home" aria-selected="true">신용카드</a> 
-				
-				<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
+				aria-controls="nav-home" aria-selected="true">신용카드</a> <a
+				class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
 				href="#nav-profile" role="tab" aria-controls="nav-profile"
-				aria-selected="false">무통장입금</a> 
+				aria-selected="false">무통장입금</a>
 		</div>
 	</nav>
-	<div class="tab-content" id="nav-tabContent">
-		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-			<br/>
-			<select name="cardpay">
-				<option>카드사를 선택해주세요</option>
+	<div class="tab-content" id="nav-tabContent" style="width: 50%; height: 50%;">
+		<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+			aria-labelledby="nav-home-tab">
+			<br /> <select name="cardpay">
+				<option>카드사 선택</option>
 				<option>삼성카드</option>
 				<option>하나카드</option>
 				<option>비씨카드</option>
@@ -47,16 +46,41 @@
 				<option>하나카드</option>
 				<option>씨티카드</option>
 			</select>
+			<div>
+				<label>카드번호</label> <br/>
+				<input type="text" class="cardnumber"
+					maxlength="4" size="5" name="cardnum"> - <input type="text"
+					class="cardnumber" maxlength="4" size="5" name="cardnum"> -
+				<input type="text" class="cardnumber" maxlength="4" size="5"
+					name="cardnum"> - <input type="text" class="cardnumber"
+					maxlength="4" size="5" name="cardnum">
+			</div>
+			<script>
+				$(".cardnumber").on("keyup", function() {
+					var max = $(this).attr("maxlength");
+					if (this.value.length >= max) {
+						$(this).next(".cardnumber").focus();
+					}
+				});
+			</script>
+			<div>
+				<label>년/월</label> <br/>
+				 <input type="text" name="year" size="2">
+				/ <input type="text" name="month" size="2">
+			</div>
+			<div>
+				<label>cvs번호</label> <br/>
+				<input type="text" name="cvs" size="2">
+			</div>
+		</div>
+
+		<div class="tab-pane fade" id="nav-profile" role="tabpanel"
+			aria-labelledby="nav-profile-tab" style="width: 50%; height: 50%;">
 			
-			<input type="text">					
-		</div>
-		
-		<div class="tab-pane fade" id="nav-profile" role="tabpanel"	aria-labelledby="nav-profile-tab">
-
 		</div>
 
-	</div> 
-<%-- 
+	</div>
+	<%-- 
 	<form action="${pageContext.servletContext.contextPath }/">
 		<input class="checkbox" type="checkbox" name="payment" onclick=""
 			value="신용카드" checked>신용카드 <input class="checkbox"
