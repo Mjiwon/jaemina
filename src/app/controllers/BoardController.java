@@ -90,7 +90,7 @@ public class BoardController {
 		int detailno = Integer.parseInt((String)param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
 		map.put("detail", detail);
-		return "/WEB-INF/views/detail.jsp";
+		return "/WEB-INF/views/detail2.jsp";
 	}
 	
 	// 문의하기 기능 (WebSocket -> 로그인 안되어 있으면 쪽지)
