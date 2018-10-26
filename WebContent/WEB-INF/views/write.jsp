@@ -38,16 +38,14 @@
 	 	 작성자 : 세션에서 뽑아오기<input id="writerer" name="writer" value="${user.ID }" readonly/><br/>
 	 	 내용 : <br/>
 	 	 <textarea name="content" rows="50" cols="100"></textarea> <br/>
-	 	 
-		 
 		 
 		 <script type="text/javascript">
 		 	$("#bigcate").on("change",function(){
-		 		var bigno = $("#bigcate").val().split(":");
+		 		var bigno = $("#bigcate").val().split(":");		
 		 		bigno = bigno[0];
 		 		console.log(bigno);
 		 		var param = {
-		 			"bigno":bigno	
+		 			"bigno": bigno	
 		 		};
 		 		$.post("${pageContext.servletContext.contextPath}/ajax/cate.do",param).done(function(rst){
 		 			console.log(rst);
@@ -60,7 +58,6 @@
 		 			
 		 			$("#smallcate").html(html);
 		 		
-		 			
 		 		});
 		 	});
 		 	//bigcate에서 smallcatelist 뽑아내는 ajax 

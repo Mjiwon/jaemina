@@ -42,6 +42,7 @@ public class LeeController {
 		
 		return "/WEB-INF/views/write.jsp";
 	}
+	
 	@PostMapping("/write.do")
 	public String writePostHandle(@RequestParam Map map) {
 		System.out.println("lee컨트롤러 " +map);
