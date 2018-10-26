@@ -55,7 +55,7 @@ public class EunAccountController {
 		if(banknumber.matches(regEx)){
 			p.put("bank",bankname+"/"+banknumber);
 			int i = eunAccountRepository.addbank(p);
-				System.out.println(i + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");		
+				System.out.println(i + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			if (i == 1) {
 				System.out.println("성공");
 			return  "/WEB-INF/views/account/seller/success.jsp";
@@ -66,37 +66,31 @@ public class EunAccountController {
 		}else {
 		return "/WEB-INF/views/account/seller/addbank.jsp";
 		}
-
 	}
-
+		
+		
 	@GetMapping("/addseller.do")
-	public String addSellerHandle() {
-		System.out.println("여긴오니");
+	public String addSellerGetHandle(){
 		return "/WEB-INF/views/account/seller/addseller.jsp";
-
 	}
 
 	@PostMapping("/addseller.do")
 	public String addSellerHandle(@RequestParam Map param,@RequestParam MultipartFile imgpath ,WebRequest wr) throws IOException {
-		System.out.println(param);
-		System.out.println(imgpath);
 
 		Map m = (Map)wr.getAttribute("user", WebRequest.SCOPE_SESSION);
 		String id = (String)m.get("ID");
-		param.put("id", id);
+		//param.put("id", id);
 
 		String paramFileName = imgpath.getName();
 		String fileName = id +"-seller" + "-" + paramFileName+".jpg";
 		
-		System.out.println(fileName);
-		
 		String path = ctx.getRealPath("/storage/sellerProfile");
 		File dir = new File(path);
+		System.out.println("exists"+dir.exists());
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
 		File dst = new File(dir, fileName);
-		System.out.println(path);
 		
 		imgpath.transferTo(dst);
 		
@@ -106,7 +100,7 @@ public class EunAccountController {
 
 		param.put("imgpath", img);
 		
-		if(param.get("imgpath")!=null) {
+		if(param.get("imgpath")==null) {
 			int i = mSellDao.addSeller1(param);
 			System.out.println(i);			
 		}else {

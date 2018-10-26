@@ -114,7 +114,7 @@ public class LeeController {
 		return "/WEB-INF/views/qa.jsp";
 	}
 	
-	@Autowired
+/*	@Autowired
 	LeeQAMessageRepository mrepo;
 	
 	@GetMapping("/qa/buyqa.do")
@@ -132,5 +132,5 @@ public class LeeController {
 	}
 	
 	
-	
+*/	
 }
