@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <title>판매글</title>
 </head>
 <body>
+	${writer }
 	<h1>상세페이지</h1>
 	<p>
 	${detail.BIGCATE} | ${detail.SMALLCATE}<br/>
@@ -16,15 +18,14 @@
 	</p>
 	<hr/>
 	내용<br/>
+	<hr/>
 	<p>
 		${detail.CONTENT }
 	</p>
 	<hr/>
 	<p>
-	<form action="${pageContext.servletContext.contextPath }/qa/buyqa.do?writer=${detail.WRITER }" method="get">
-		
-		<button type="submit">문의</button>
-	</form>
+		판매자에게 문의하기<br/>
+	<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}"><button >문의</button></a>
 	</p>
 </body>
 </html>
