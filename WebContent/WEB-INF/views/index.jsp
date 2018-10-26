@@ -30,9 +30,7 @@ u {
 <body>
 	<div class="jumbotron jumbotron-fluid" align="center"
 		style="background-color: #CCFFCC; padding-top: 10px; padding-bottom: 30px;">
-		<div align="left">
-
-
+		<div align="left" style="padding-right: 100px;">
 			<c:choose>
 				<c:when test="${!empty auth}">
 					<ul class="nav justify-content-end">
@@ -41,8 +39,16 @@ u {
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>구매</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>메세지</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>찜한선물</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled" href="#"><b>${user.ID }</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/sellerpr.do"><b>판매자 블로그</b></a></li>
+						<li class="nav-item dropdown" >
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: black;">${user.ID }</a>
+						   <div class="dropdown-menu">
+						     <a class="dropdown-item" href="#"><b style="color: green;">${user.ID }</b>의 재미나</a>
+						     <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/sellerpr.do">프로필</a>
+						     <a class="dropdown-item" href="#">계정설정</a>
+						     <div class="dropdown-divider"></div>
+						     <a class="dropdown-item" href="#">로그아웃</a>
+						   </div>
+						 </li>
 					</ul>
 				</c:when>
 				<c:otherwise>

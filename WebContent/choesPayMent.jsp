@@ -31,6 +31,7 @@
 				aria-selected="false">무통장입금</a>
 		</div>
 	</nav>
+	<form action="${pageContext.servletContext.contextPath }/choespayment.do" method="post">
 	<div class="tab-content" id="nav-tabContent" style="width: 50%; height: 50%;">
 		<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
 			aria-labelledby="nav-home-tab">
@@ -48,12 +49,10 @@
 			</select>
 			<div>
 				<label>카드번호</label> <br/>
-				<input type="text" class="cardnumber"
-					maxlength="4" size="5" name="cardnum"> - <input type="text"
-					class="cardnumber" maxlength="4" size="5" name="cardnum"> -
-				<input type="text" class="cardnumber" maxlength="4" size="5"
-					name="cardnum"> - <input type="text" class="cardnumber"
-					maxlength="4" size="5" name="cardnum">
+				<input type="text" class="cardnumber" maxlength="4" size="5" name="cardnum"> - 
+				<input type="text" class="cardnumber" maxlength="4" size="5" name="cardnum"> -
+				<input type="text" class="cardnumber" maxlength="4" size="5" name="cardnum"> - 
+				<input type="text" class="cardnumber" maxlength="4" size="5" name="cardnum">
 			</div>
 			<script>
 				$(".cardnumber").on("keyup", function() {
@@ -65,18 +64,20 @@
 			</script>
 			<div>
 				<label>년/월</label> <br/>
-				 <input type="text" name="year" size="2">
-				/ <input type="text" name="month" size="2">
+				 <input type="text" name="year" size="2"> / <input type="text" name="month" size="2">
 			</div>
 			<div>
 				<label>cvs번호</label> <br/>
 				<input type="text" name="cvs" size="2">
 			</div>
+			<button type="submit">결재하기</button>
 		</div>
+		</form>
 
 		<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 			aria-labelledby="nav-profile-tab" style="width: 50%; height: 50%;">
-			
+			하나은행 : 12348-57324-35813 (예금주 : 재미나)<br>
+			국민은행 : 424002-04-084197 (예금주 : 재미나)
 		</div>
 
 	</div>
