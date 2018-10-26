@@ -1,4 +1,4 @@
-package app.controller;
+﻿package app.controllers;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,48 +20,35 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
-import app.models.LeeBigCateRepository;
-import app.models.LeeBoardRepository;
-import app.models.LeeQAMessageRepository;
-import app.models.LeeSmallCateRepository;
+import app.models.BoardRepository;
+import app.models.QAMessageRepository;
 import app.service.SocketService;
 
 @Controller
-public class LeeController {
-	
-	
+public class BoardController {
 	@Autowired
 	Gson gson;
 	
 	@Autowired
-	LeeBoardRepository boardrepo;
-	
-	@Autowired
-	LeeBigCateRepository bcaterepo;
-	
-	@Autowired
-	LeeSmallCateRepository scaterepo;
+	BoardRepository boardrepo;
 	
 	@Autowired
 	ServletContext ctx;
 	
-	// 게시글
+	// 게시글 
 	// 판매글로 이동
 	@GetMapping("/write.do")
 	public String writeGetHandle(Map map) {
-		List<Map> bcatelist = bcaterepo.getBigCate();
+		List<Map> bcatelist = boardrepo.getBigCate();
 		map.put("bigcate", bcatelist);
 		 
 		return "/WEB-INF/views/write.jsp";
 	}
 
 	// 판매글 DB에 insert
-
 	@PostMapping("/write.do")
 	public String writePostHandle(@RequestParam Map map,@RequestParam MultipartFile imgpath) throws IOException {
 		// 파일(이미지) 업로드
-		System.out.println("param : "+map);
-		System.out.println("imgpath : "+imgpath);
 		String filename = map.get("writer") +"-"+map.get("title")+"-board"+".jpg";
 		String path = ctx.getRealPath("/storage/board");
 		File dir = new File(path);
@@ -76,8 +63,7 @@ public class LeeController {
 			map.put("imgpath", path+"\\"+filename);
 			boardrepo.addBoard2(map);
 		}
-
-		return "";
+		return "/WEB-INF/views/index.jsp";
 	}
 	
 	// 카테고리 분류의 AJAX
@@ -85,10 +71,8 @@ public class LeeController {
 	@RequestMapping(path="/ajax/cate.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String cateAjaxHandle(@RequestParam String bigno) {
-		//System.out.println("GET param : "+bigno);
 		int bno = Integer.parseInt(bigno);
-		List<Map> scatelist = scaterepo.getSmallCate(bno);
-		//System.out.println("scatelist : "+scatelist);
+		List<Map> scatelist = boardrepo.getSmallCate(bno);
 		
 		return gson.toJson(scatelist);
 	}
@@ -115,28 +99,55 @@ public class LeeController {
 	SocketService socketService;
 	
 	@Autowired
-	LeeQAMessageRepository mrepo;
+	QAMessageRepository mrepo;
 	
 	@GetMapping("/qa/buyqa.do")
 	public String buyqaHandle(@RequestParam Map param, Map map, HttpSession session) {
-		System.out.println("user : "+session.getAttribute("user"));
 		map.put("writer", (String)param.get("writer"));
 		map.put("no", Integer.parseInt((String)param.get("no")));
 		return "/WEB-INF/views/buyqa.jsp";
 	}
+	//----------------------------------------------------------------------------------------------------------------------------
 	
+	@GetMapping("/search.do")
+	public String searchController() {
+		return "/WEB-INF/views/search.jsp";
+	}
+	
+	@PostMapping("/searchList.do")
+	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
+		String searchKey = (String)param.get("searchKey");
+		List<Map> list = boardrepo.getSearchList(searchKey);
+		System.out.println(list);
+		map.put("searchResult", list);
+		return "/WEB-INF/views/searchList.jsp";
+	}
+	// 구매 결정 컨트롤러
+	// 구현중
+	@PostMapping("/choespayment.do")
+	public String choespaymentHandle(@RequestParam Map param, @RequestParam String[] cardnum) {
+		System.out.println(param);
+		String[] cardnumber = new String[cardnum.length];
+		for(int i = 0; i<cardnum.length;i++) {
+			cardnumber[i]=cardnum[i];
+		}
+		param.put("cardnum", cardnumber);
+		System.out.println(param);
+		return "/index.do";
+	}
+	
+	//----------------------------------------------------------------------------------------------------------------------------
 	// 쪽지구현
 	@PostMapping("/qa/buyqa.do")
 	public String buyqaPostHandle(@RequestParam Map map, HttpSession session) {
 	
 		Map data = (Map)session.getAttribute("user");
-		System.out.println(session.getAttribute("user"));
 		String sender = (String)data.get("ID");  
 		map.put("sender", sender);
-		System.out.println("map : "+map);
 		int r = mrepo.addMsg(map);
-		System.out.println("message result :"+r);
+		
 		return "/WEB-INF/views/qaresult.jsp";
 	}
-
+	
+	
 }

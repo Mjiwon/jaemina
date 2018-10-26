@@ -13,8 +13,7 @@
 	<select id="getDetailBoard" parameterType="java.lang.Integer" resultType="java.util.HashMap">
 		select * from board where no=#{no}
 	</select>
-	
-	<select id="getSearchList" parameterType="java.lang.String" resultType="java.util.HashMap">
+<select id="getSearchList" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from board where title like #{searchKey} or content like #{searchKey}
 	</select>
 </mapper>

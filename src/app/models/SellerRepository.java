@@ -1,4 +1,4 @@
-package app.model;
+package app.models;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class HoSellerRepository {
+public class SellerRepository {
 
 	@Autowired
 	SqlSessionTemplate template;

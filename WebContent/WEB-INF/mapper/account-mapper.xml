@@ -38,7 +38,7 @@
 		update account set bank=#{bank} where id=#{id}
 	</update>
 
-	<select id = "getAllBoard" resultType="java.util.HashMap">
+	<select id="getAllBoard" resultType="java.util.HashMap">
 		select * from board
 	</select>
 	

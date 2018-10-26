@@ -1,4 +1,4 @@
-package app.model;
+package app.models;
 
 import java.util.Map;
 
@@ -26,5 +26,18 @@ public class AccountRepository {
 	
 	public Map getAccountByEmail(String email) {
 		return template.selectOne("account.getAccountByEmail", email);
+	}
+	
+	public int addbank(Map data) {
+		 
+		return template.update("account.addbank",data);
+	}	
+	
+	public int addSeller1(Map map) {
+		return template.insert("account.addSeller1",map);
+	}
+	
+	public int addSeller2(Map map) {
+		return template.insert("account.addSeller2",map);
 	}
 }
