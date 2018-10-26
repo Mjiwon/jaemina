@@ -105,7 +105,7 @@ public class LeeController {
 		return "/WEB-INF/views/qa.jsp";
 	}
 	
-	@Autowired
+/*	@Autowired
 	LeeQAMessageRepository mrepo;
 	
 	@PostMapping("/qa/sendmsg.do")
@@ -117,5 +117,5 @@ public class LeeController {
 	}
 	
 	
-	
+*/	
 }

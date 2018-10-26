@@ -35,8 +35,7 @@
 	</insert>
 	
 	<update id="addbank" parameterType="java.util.HashMap">
-		update account set
-		bank=#{BANK} where id=#{ID}
+		update account set bank=#{bank} where id=#{id}
 	</update>
 
 	<select id = "getAllBoard" resultType="java.util.HashMap">

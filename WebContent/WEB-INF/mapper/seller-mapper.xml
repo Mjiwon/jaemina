@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seller">
+
+<!-- <insert id="addSeller" parameterType="java.util.HashMap">
+		insert into 
+		account_profile
+		values(#{id},#{academy},#{career},#{imgpath},#{introuce})
+	</insert>
+	 -->
+<update id="updateSeller1" parameterType="java.util.HashMap">
+	update account_profile set career = #{career} , academy=#{academy} , imgpath=#{imgpath}, introduce=#{introduce}
+	where id=#{id}
+</update>
+
+<update id="updateSeller2" parameterType="java.util.HashMap">
+	update account_profile set career = #{career} , academy=#{academy} , introduce=#{introduce}
+	where id=#{id}
+</update>
+
+<select id="getSeller" parameterType="java.lang.String" resultType="java.util.HashMap">
+	select * from account_profile where id=#{id}
+</select>
+
+</mapper>

@@ -42,6 +42,7 @@ u {
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>메세지</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>찜한선물</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>${user.ID }</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/sellerpr.do"><b>판매자 블로그</b></a></li>
 					</ul>
 				</c:when>
 				<c:otherwise>
