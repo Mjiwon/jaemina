@@ -53,8 +53,9 @@ public class LeeController {
 		 
 		return "/WEB-INF/views/write.jsp";
 	}
-	
+
 	// 판매글 DB에 insert
+
 	@PostMapping("/write.do")
 	public String writePostHandle(@RequestParam Map map,@RequestParam MultipartFile attach) throws IOException {
 		// 파일(이미지) 업로드
