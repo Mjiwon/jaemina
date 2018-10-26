@@ -85,7 +85,8 @@ Map<String, HttpSession> sessions;
 	
 	//email 인증 전송
 	@RequestMapping("/mail.do")
-	public void sendTest(@RequestParam Map param,WebRequest wr) {
+	@ResponseBody
+	public String sendTest(@RequestParam Map param,WebRequest wr) {
 		String receiver = (String) param.get("email");
 		SimpleMailMessage msg = new SimpleMailMessage();
 		sender.createMimeMessage();
@@ -107,11 +108,13 @@ Map<String, HttpSession> sessions;
 			e.printStackTrace();
 			System.out.println("Fail!");
 		}
+		return text;
 	}
 	
 	// email인증 ajax
 	@RequestMapping("/emailauth.do")
-	public void emailauthHandle(@RequestParam Map param, WebRequest wr) {
+	@ResponseBody
+	public String emailauthHandle(@RequestParam Map param, WebRequest wr) {
 		String confirm = (String)wr.getAttribute("confirmKey", WebRequest.SCOPE_SESSION);
 		String confirm1 = (String)param.get("confirmkey");
 		String rst;
@@ -120,10 +123,12 @@ Map<String, HttpSession> sessions;
 			rst = "true";
 			wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
 			System.out.println(rst);
+			return rst;
 		}else {
 			rst = null;
 			wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
 			System.out.println(rst);
+			return rst;
 		}
 	}
 	
