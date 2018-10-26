@@ -33,27 +33,24 @@
 		 
 		 </select><br/>
 		 제목 : <input name="title" type="text" placeholder="제목"/><br/>
-		 이미지 업로드 : <input type="file" name="imgpath"/><br/>
+		 이미지 업로드 : <input  type="file" name="imgpath"/><br/>
 		 가격 : <input  name="price" type="number"/><br/>
-	 	 작성자 : 세션에서 뽑아오기<input id="writerer" name="writer" value="${user.ID }" readonly/><br/>
+	 	 작성자 : <input id="writerer" name="writer" value="${user.ID }" readonly/><br/>
 	 	 내용 : <br/>
 	 	 <textarea name="content" rows="50" cols="100"></textarea> <br/>
 	 	 
 		 
-		 
+		
 		 <script type="text/javascript">
 		 	$("#bigcate").on("change",function(){
-		 		var bigno = $("#bigcate").val().split(":");
-		 		bigno = bigno[0];
-
-		 		console.log(bigno);
-
+		 		console.log($("#bigcate").val());
+		 		var bigno = $("#bigcate").val();
 		 		var param = {
 		 			"bigno":bigno	
 		 		};
 		 		
 		 		$.post("${pageContext.servletContext.contextPath}/ajax/cate.do",param).done(function(rst){
-		 			//var obj = rst;
+		 			var obj = rst;
 		 			var html="";
 		 			for(var i=0;i<obj.length;i++){
 		 				html += "<option value=\""+obj[i].SMALLNO+"\">"+obj[i].SMALLNO+" : "+obj[i].SMALLCATE+"</option>";
@@ -79,6 +76,7 @@
 		 			
 		 		});
 		 	}); */
+		 	
 		 	</script>
 		
 		<button type="submit">확인</button>
