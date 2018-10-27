@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 
 import app.models.BoardRepository;
 import app.models.QAMessageRepository;
+import app.models.SellerRepository;
 import app.service.SocketService;
 
 @Controller
@@ -31,6 +32,9 @@ public class BoardController {
 	
 	@Autowired
 	BoardRepository boardrepo;
+	
+	@Autowired
+	SellerRepository sellerrepo;
 	
 	@Autowired
 	ServletContext ctx;
@@ -89,8 +93,13 @@ public class BoardController {
 	public String boardDetailHandle(@RequestParam Map param, Map map) {
 		int detailno = Integer.parseInt((String)param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
+		String sellerid = (String)detail.get("WRITER");
+		System.out.println(sellerid);
+		Map writer = sellerrepo.getSeller(sellerid);
+		System.out.println(writer);
 		map.put("detail", detail);
-		return "/WEB-INF/views/detail2.jsp";
+		map.put("writer", writer);
+		return "/WEB-INF/views/detail.jsp";
 	}
 	
 	// 문의하기 기능 (WebSocket -> 로그인 안되어 있으면 쪽지)
@@ -118,7 +127,6 @@ public class BoardController {
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		String searchKey = (String)param.get("searchKey");
 		List<Map> list = boardrepo.getSearchList(searchKey);
-		System.out.println(list);
 		map.put("searchResult", list);
 		return "/WEB-INF/views/searchList.jsp";
 	}
