@@ -166,11 +166,14 @@ Map<String, HttpSession> sessions;
 			if(sessions.containsKey(id)) {
 				sessions.remove("user");	// 기존 로그인 사용자 없애기
 				sessions.remove("auth");	//
+				sessions.remove("loginId");
 				wr.setAttribute("auth", true, WebRequest.SCOPE_SESSION);	// 새로 로그인
-				wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION); 
+				wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
+				wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
 			}else {				
 				wr.setAttribute("auth", true, WebRequest.SCOPE_SESSION);
 				wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
+				wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
 			}
 			return "/WEB-INF/views/index.jsp";	// 로그인 후 인덱스 페이지로 이동
 		}else {

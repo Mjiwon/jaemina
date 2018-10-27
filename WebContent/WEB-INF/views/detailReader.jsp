@@ -28,7 +28,7 @@
 <body class="bg-light">
 
 	<div class="container">
-		<div class="py-5 text-center">
+		<div class="py-5 text-center" id="title">
 			<img class="d-block mx-auto mb-4"
 				src="../../assets/brand/bootstrap-solid.svg" alt="" width="72"
 				height="72">
@@ -44,14 +44,18 @@
 
 				<form class="card p-2">
 					<div class="card" style="width: 18rem;">
-						<img class="card-img-top" src="${pageContext.servletContext.contextPath }${writer.IMGPATH}" alt="Card image cap" 	>
+						<img class="card-img-top"
+							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
+							alt="Card image cap">
 						<div class="card-body">
 							<h5 class="card-title">${writer.WRITER }</h5>
 							<p>판매자 : ${writer.ID }
 							<p>학력 : ${writer.ACADEMY }</p>
 							<p>경력 : ${writer.CAREER }</p>
 							<p>소개 : ${writer.INTRODUCE }</p>
-							<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}" class="btn btn-primary">판매자에게 문의하기</a>
+							<a
+								href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}"
+								class="btn btn-primary">판매자에게 문의하기</a>
 						</div>
 					</div>
 				</form>
@@ -69,14 +73,15 @@
 								readonly>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="firstName">작성자</label> <input type="text"
-								class="form-control" id="firstName" placeholder=""
+
+					<div class="mb-3">
+						<label for="username">작성자</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="username"
 								value="${detail.WRITER }" readonly="readonly"
-								style="width: 610px; background-color: white;">
-							<div class="invalid-feedback" style="width: 100%;">Valid
-								first name is required.</div>
+								style="background-color: white;">
+							<div class="invalid-feedback" style="width: 100%;">Your
+								username is required.</div>
 						</div>
 					</div>
 
@@ -86,18 +91,18 @@
 						<label for="username">금액</label>
 						<div class="input-group">
 							<input type="text" class="form-control" id="username"
-								value="<fmt:formatNumber>${detail.PRICE }</fmt:formatNumber>원" readonly="readonly"
-								style="background-color: white;">
+								value="<fmt:formatNumber>${detail.PRICE }</fmt:formatNumber>원"
+								readonly="readonly" style="background-color: white;">
 							<div class="invalid-feedback" style="width: 100%;">Your
 								username is required.</div>
 						</div>
 					</div>
 
 					<div class="mb-3">
-						<label for="address">내용</label> <input type="text"
-							class="form-control" id="address" value="${detail.CONTENT }"
-							readonly="readonly"
-							style="background-color: white; height: 514px;">
+						<label for="address">내용</label>
+						<textarea rows="12" cols="81" class="form control" id="content"
+							name="content" readonly="readonly"
+							style="background-color: white;">${detail.CONTENT }</textarea>
 						<div class="invalid-feedback">Please enter your shipping
 							address.</div>
 					</div>
@@ -112,7 +117,6 @@
 			<p class="mb-1">&copy; 2018-2019 재미나</p>
 		</footer>
 	</div>
-
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->

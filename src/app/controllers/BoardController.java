@@ -29,6 +29,7 @@ import app.service.SocketService;
 
 @Controller
 public class BoardController {
+
 	@Autowired
 	Gson gson;
 	
@@ -85,22 +86,61 @@ public class BoardController {
 	
 	// 판매글 불러오기
 	@GetMapping("/board/list.do")
-	public String boardListHandle(Map map) {
+	public String boardListHandle(Map map, WebRequest wr) {
 		map.put("boardlist", boardrepo.getBoardList());
+		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 		return "/WEB-INF/views/boardlist.jsp";
 	}
 	
 	// 상세페이지
 	@RequestMapping("/board/detail.do")
-	public String boardDetailHandle(@RequestParam Map param, Map map) {
+	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String)param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
 		String sellerid = (String)detail.get("WRITER");
 		Map writer = sellerrepo.getSeller(sellerid);
+		String id = (String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
 		map.put("detail", detail);
 		map.put("writer", writer);
-		return "/WEB-INF/views/detail.jsp";
+		if(sellerid.equals(id)) {
+			return "/WEB-INF/views/detailWriter.jsp";
+		} else {
+			return "/WEB-INF/views/detailReader.jsp";
+		}
 	}
+	
+	@RequestMapping("/board/modifyDetail.do")
+	public String boardModifyHandle(@RequestParam Map param, Map map, WebRequest wr) {
+		int detailno = Integer.parseInt((String)param.get("no"));
+		Map detail = boardrepo.getDetailBoard(detailno);
+		map.put("detail", detail);
+		wr.setAttribute("boardNum", detailno, WebRequest.SCOPE_SESSION);
+		return "/WEB-INF/views/detailModify.jsp";
+	}
+	
+	@RequestMapping("/board/detailUpdate.do")
+	public String boardDetailUpdateHandle(@RequestParam Map param, Map map, WebRequest wr) {
+		int detailno = (int) wr.getAttribute("boardNum", WebRequest.SCOPE_SESSION);
+		param.put("no", detailno);
+		boardrepo.updateDetailBoard(param);
+		Map newDetail = boardrepo.getDetailBoard(detailno);
+		map.put("detail", newDetail);
+		wr.removeAttribute("boardNum", WebRequest.SCOPE_SESSION);
+		return "/WEB-INF/views/detailWriter.jsp";
+	}
+	
+	@RequestMapping("/board/deleteDetail.do")
+	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
+		int detailno = Integer.parseInt((String)param.get("no"));
+		boardrepo.deleteDetailBoard(detailno);
+		if(wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) == null) {
+			return "redirect:list.do";
+		}else {
+			map.put("searchKey", wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION));
+			return "redirect:searchList.do";
+		}
+	}
+	
 	
 	// 문의하기 기능 (WebSocket -> 로그인 안되어 있으면 쪽지)
 	
@@ -118,12 +158,12 @@ public class BoardController {
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!
-	@GetMapping("/search.do")
+	@GetMapping("/board/search.do")
 	public String searchController() {
 		return "/WEB-INF/views/search.jsp";
 	}
 	
-	@PostMapping("/searchList.do")
+	@RequestMapping("/board/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		String searchKey = (String)param.get("searchKey");
 		List<String> li = new ArrayList<>();
@@ -135,9 +175,11 @@ public class BoardController {
 			System.out.println(li);
 			List<Map> list = boardrepo.getSearchListByList(li);
 			map.put("searchResult", list);
+			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
 		}else {
 			List<Map> list = boardrepo.getSearchListByString(searchKey);
 			map.put("searchResult", list);
+			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
 		}
 		return "/WEB-INF/views/searchList.jsp";
 	}

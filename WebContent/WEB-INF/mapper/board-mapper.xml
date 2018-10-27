@@ -14,6 +14,10 @@
 		select * from board where no=#{no}
 	</select>
 	
+	<update id="updateDetailBoard" parameterType="java.util.HashMap">
+		update board set price=#{price}, content=#{content} where no=#{no}
+	</update>
+	
 	<select id="getSearchListByList" parameterType="java.util.List" resultType="java.util.HashMap">
 		select * from board where title like <foreach collection="list" item="searchKey" separator=" and title like ">#{searchKey}</foreach>
 		or content like <foreach collection="list" item="searchKey" separator=" and content like ">#{searchKey}</foreach>
@@ -22,4 +26,8 @@
 	<select id="getSearchListByString" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from board where title like #{searchKey} or content like #{searchKey}
 	</select>
+	
+	<delete id="deleteDetailBoard" parameterType="java.lang.Integer">
+		delete from board where no=#{no}
+	</delete>
 </mapper>

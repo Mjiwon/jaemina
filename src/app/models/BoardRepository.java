@@ -46,5 +46,11 @@ public class BoardRepository {
 		return template.selectList("board.getSearchListByString", "%"+searchKey+"%");
 	}
 	
+	public int updateDetailBoard(Map data) {
+		return template.update("board.updateDetailBoard", data);
+	}
 	
+	public int deleteDetailBoard(int no) {
+		return template.delete("board.deleteDetailBoard", no);
+	}
 }
