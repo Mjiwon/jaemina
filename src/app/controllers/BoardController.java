@@ -117,7 +117,7 @@ public class BoardController {
 		return "/WEB-INF/views/buyqa.jsp";
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
-	// 검색 기능 완료
+	// 검색 기능 완료!
 	@GetMapping("/search.do")
 	public String searchController() {
 		return "/WEB-INF/views/search.jsp";
