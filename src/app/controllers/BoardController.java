@@ -2,6 +2,8 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -115,7 +117,7 @@ public class BoardController {
 		return "/WEB-INF/views/buyqa.jsp";
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
-	
+	// 검색 기능 완료
 	@GetMapping("/search.do")
 	public String searchController() {
 		return "/WEB-INF/views/search.jsp";
@@ -124,8 +126,19 @@ public class BoardController {
 	@PostMapping("/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		String searchKey = (String)param.get("searchKey");
-		List<Map> list = boardrepo.getSearchList(searchKey);
-		map.put("searchResult", list);
+		List<String> li = new ArrayList<>();
+		if(searchKey.indexOf(" ") != -1) {
+			String[] searchKeys = searchKey.split(" ");
+			for(int i=0; i<searchKeys.length; i++) {
+				li.add("%" + searchKeys[i] + "%");
+			}
+			System.out.println(li);
+			List<Map> list = boardrepo.getSearchListByList(li);
+			map.put("searchResult", list);
+		}else {
+			List<Map> list = boardrepo.getSearchListByString(searchKey);
+			map.put("searchResult", list);
+		}
 		return "/WEB-INF/views/searchList.jsp";
 	}
 	// 구매 결정 컨트롤러

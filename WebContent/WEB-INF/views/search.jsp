@@ -34,5 +34,9 @@ u {
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
 			</form>
 	</div>
+	
+	<script type="text/javascript">
+		var $("#searchKey")
+	</script>
 </body>
 </html>
