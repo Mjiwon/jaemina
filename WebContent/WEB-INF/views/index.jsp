@@ -25,7 +25,7 @@ u {
 }
 </style>
 
-<title>재미나</title>
+<title>재미</title>
 </head>
 <body>
 	<div class="jumbotron jumbotron-fluid" align="center"
