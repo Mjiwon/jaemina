@@ -35,7 +35,7 @@
 								<div class="card-body">
 									<p class="card-text">${l.TITLE }</p>
 									<p class="card-text" style="color: red;">
-										<b><fmt:formatNumber>${l.PRICE }</fmt:formatNumber></b>
+										<b><fmt:formatNumber>${l.PRICE }</fmt:formatNumber>원</b>
 									</p>
 								</div>
 							</div>
