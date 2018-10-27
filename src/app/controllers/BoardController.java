@@ -87,7 +87,7 @@ public class BoardController {
 	@GetMapping("/board/list.do")
 	public String boardListHandle(Map map) {
 		map.put("boardlist", boardrepo.getBoardList());
-		return "/WEB-INF/views/boardlist.jsp";
+		return "/WEB-INF/views/board/boardlist.jsp";
 	}
 	
 	// 상세페이지
@@ -99,7 +99,7 @@ public class BoardController {
 		Map writer = sellerrepo.getSeller(sellerid);
 		map.put("detail", detail);
 		map.put("writer", writer);
-		return "/WEB-INF/views/detail.jsp";
+		return "/WEB-INF/views/board/detail.jsp";
 	}
 	
 	// 문의하기 기능 (WebSocket -> 로그인 안되어 있으면 쪽지)
@@ -114,7 +114,7 @@ public class BoardController {
 	public String buyqaHandle(@RequestParam Map param, Map map, HttpSession session) {
 		map.put("writer", (String)param.get("writer"));
 		map.put("no", Integer.parseInt((String)param.get("no")));
-		return "/WEB-INF/views/buyqa.jsp";
+		return "/WEB-INF/views/board/buyqa.jsp";
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!
@@ -165,7 +165,7 @@ public class BoardController {
 		map.put("sender", sender);
 		int r = mrepo.addMsg(map);
 		
-		return "/WEB-INF/views/qaresult.jsp";
+		return "/WEB-INF/views/board/qaresult.jsp";
 	}
 	
 	

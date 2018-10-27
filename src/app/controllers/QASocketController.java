@@ -11,7 +11,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import app.service.SocketService;
 
 @Controller
-public class QAController extends TextWebSocketHandler{
+public class QASocketController extends TextWebSocketHandler{
 	
 	@Autowired
 	SocketService socketService;

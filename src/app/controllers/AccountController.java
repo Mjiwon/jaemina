@@ -349,7 +349,7 @@ Map<String, HttpSession> sessions;
 			// 비밀번호 변경
 			@GetMapping("/chageuser.do")
 			public String ChageUserGetHandle() {
-				return "/WEB-INF/views/account/mypage/history/chage_user.jsp";
+				return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
 			}
 			
 			@PostMapping("/chageuser.do")
@@ -387,6 +387,14 @@ Map<String, HttpSession> sessions;
 		return "/WEB-INF/views/index.jsp";
 	}
 	
+	
+	//----------------------------------------------------------------------------------------------------------------------------
+	// 계정설정관련 
+	
+	@RequestMapping("/modified.do")
+	public String modifiedHandle() {
+		return "/WEB-INF/views/account/mypage/modified/modifiedindex.jsp";
+	}
 	
 	
 }

@@ -44,7 +44,9 @@ u {
 						   <div class="dropdown-menu">
 						     <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/sellHistory.do"><b style="color: green;">${user.ID }</b>의 재미나</a>
 						     <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/myboard.do">프로필</a>
-						     <a class="dropdown-item" href="#">계정설정</a>
+						     <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/modified.do">계정설정</a>
+						     <div class="dropdown-divider"></div>
+						     <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/serviceqa.do">고객센터</a>
 						     <div class="dropdown-divider"></div>
 						     <a class="dropdown-item" href="#">로그아웃</a>
 						   </div>

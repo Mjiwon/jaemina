@@ -49,5 +49,9 @@
 		select * from board
 	</select>
 	
+	<update id="changeuser" parameterType="java.util.HashMap">
+		update account set pass =#{pass} where id=#{id}
+	</update>
+	
 </mapper> 
 
