@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -50,7 +51,7 @@
 							<p>학력 : ${writer.ACADEMY }</p>
 							<p>경력 : ${writer.CAREER }</p>
 							<p>소개 : ${writer.INTRODUCE }</p>
-							<a href="pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}" class="btn btn-primary">판매자에게 문의하기</a>
+							<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}" class="btn btn-primary">판매자에게 문의하기</a>
 						</div>
 					</div>
 				</form>
@@ -85,7 +86,7 @@
 						<label for="username">금액</label>
 						<div class="input-group">
 							<input type="text" class="form-control" id="username"
-								value="${detail.PRICE }원" readonly="readonly"
+								value="<fmt:formatNumber>${detail.PRICE }</fmt:formatNumber>원" readonly="readonly"
 								style="background-color: white;">
 							<div class="invalid-feedback" style="width: 100%;">Your
 								username is required.</div>

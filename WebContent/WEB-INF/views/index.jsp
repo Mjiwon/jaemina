@@ -36,7 +36,7 @@ u {
 					<ul class="nav justify-content-end">
 						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/write.do"><b>판매글올리기</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/addbank.do"><b>판매</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled" href="#"><b>구매</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/list.do"><b>구매</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>메세지</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>찜한선물</b></a></li>
 						<li class="nav-item dropdown" >
