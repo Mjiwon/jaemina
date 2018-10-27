@@ -28,7 +28,7 @@ u {
 	<div class="container">
 			<h1 class="display-4">재미나</h1>
 			<p class="lead">아름다운 재능을 나누다</p>
-			<form action="${pageContext.servletContext.contextPath }/searchList.do" class="form-inline my-2 my-lg-0" method="post">
+			<form action="${pageContext.servletContext.contextPath }/board/searchList.do" class="form-inline my-2 my-lg-0" method="post">
 				<input class="form-control mr-sm-2" type="text" placeholder="Search" id="searchKey" name="searchKey"
 					aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
