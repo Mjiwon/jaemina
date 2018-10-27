@@ -38,8 +38,12 @@ public class BoardRepository {
 		return template.selectOne("board.getDetailBoard",no);
 	}
 	
-public List<Map> getSearchList(String searchKey) {
-		return template.selectList("board.getSearchList", "%"+searchKey+"%");
+	public List<Map> getSearchListByList(List<String> li) {
+		return template.selectList("board.getSearchListByList", li);
+	}
+	
+	public List<Map> getSearchListByString(String searchKey) {
+		return template.selectList("board.getSearchListByString", "%"+searchKey+"%");
 	}
 	
 	
