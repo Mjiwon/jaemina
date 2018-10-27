@@ -110,12 +110,12 @@
 
 						<div class="mb-3">
 							<label>Title이미지</label>
-							<input 	type="file" class="form-control" id="img">
+							<input 	type="file" class="form-control" id="img" name="imgpath">
 						</div>
 
 						<div class="mb-3">
 							<label>금액</label> 
-							<input type="number" class="form-control" id="price">
+							<input type="number" class="form-control" name="price">
 							
 						</div>
 
