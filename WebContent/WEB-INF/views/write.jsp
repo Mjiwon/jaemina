@@ -37,8 +37,8 @@
 					<div class="mb-3">
 							<label>작성자</label>
 							<div class="input-group">
-								<input type="text" class="form-control" id="title"
-									name="title" value="${user.ID }" readonly>
+								<input type="text" class="form-control" id="writer"
+									name="writer" value="${user.ID }" readonly>
 							</div>
 						</div>
 					<div class="row">
