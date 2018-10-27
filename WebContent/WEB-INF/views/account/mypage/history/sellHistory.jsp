@@ -19,24 +19,30 @@
 <title>${user.ID }의 재미나</title>
 </head>
 <body>
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">판매관리</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">구매관리</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">메세지</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="chageuser.do">계정설정</a>
-  </li>
-</ul>
-
-아이디:${user.ID }</br/>
-이메일:${user.EMAIL }<br/>
-계좌번호:${user.BANK }<br/>
+	<div class="container">
+	  <div class="row">
+	    <div class="col-md-1">
+	      <img src="${pageContext.servletContext.contextPath }${Seller.IMGPATH}" class="rounded-circle" height="75" width="75">
+	      
+	    </div>
+	    <div class="col-10">
+	      <ul class="nav">
+			  <li class="nav-item">
+			    <a class="nav-link active" href="#">판매관리</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">구매관리</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">메세지</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="chageuser.do">계정설정</a>
+			  </li>
+			</ul>
+	    </div>
+	  </div>
+	 </div>
 
 </body>
 </html>
