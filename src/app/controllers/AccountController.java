@@ -3,6 +3,7 @@ package app.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -184,13 +185,24 @@ Map<String, HttpSession> sessions;
 	
 	// 판매자 계좌번호 등록
 	@GetMapping("/addbank.do")
-	public String AddBankGetHandle(HttpSession sesion) {
-		/*
-		 * 이미 계좌 등록한 계좌 막기 세션 이용해서 BANK값이 널이 아니면 차단
-		 *
-		 */
+	public String AddBankGetHandle(HttpSession session) {
+		Map suser=(Map)session.getAttribute("user");
+		String sid=(String)suser.get("ID");
+		Map duser =(Map)accountRepository.Myinfo(sid);
+		String dbank=(String)duser.get("BANK");
+		
+		//이미 등록했으면 판매글 오리기로 이동
+		Map dseller=(Map)accountRepository.Sellerinfo(sid);
+		System.out.println("판매자 정보"+dseller);
+		if(dbank==null) {
 		return "/WEB-INF/views/account/seller/addbank.jsp";
+		}else
+			if(dseller==null) {
+				return "/WEB-INF/views/account/seller/addseller.jsp";
+			}else
+				return "/WEB-INF/views/write.jsp";
 	}
+		
 
 	@PostMapping("/addbank.do")
 	public String AddBankPostHandle(@RequestParam Map p, HttpSession session) {
@@ -214,7 +226,7 @@ Map<String, HttpSession> sessions;
 
 	//----------------------------------------------------------------------------------------------------------------------------
 	
-	// 판매자 추가 컨트롤러
+	// 판매자 등록 컨트롤러
 	@GetMapping("/addseller.do")
 	public String addSellerGetHandle() {
 		return "/WEB-INF/views/account/seller/addseller.jsp";
@@ -223,8 +235,12 @@ Map<String, HttpSession> sessions;
 	@PostMapping("/addseller.do")
 	public String addSellerHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, WebRequest wr) throws IOException {
 		Map m = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
+		System.out.println("유저 정보"+m);
 		String id = (String) m.get("ID");
-
+		System.out.println("유저 아이디"+id);
+		
+		param.put("id", id);
+		
 		String paramFileName = imgpath.getName();
 		String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
 		String realpath = ctx.getRealPath("/storage/sellerProfile");
@@ -239,18 +255,19 @@ Map<String, HttpSession> sessions;
 
 		String img = path + "/" + fileName;
 		param.put("imgpath", img);
-
-		if (param.get("imgpath") == null) {
-			int i = accountRepository.addSeller1(param);
-		} else {
+		
+		if (param.get("imgpath") != null) {
 			int i = accountRepository.addSeller2(param);
+			System.out.println("나오니 널이아니니??");
+		} else {
+			int i = accountRepository.addSeller1(param);
+			System.out.println("나오니??");
 		}
 		return "/WEB-INF/views/account/seller/sellerHome.jsp";
 	}
-	//----------------------------------------------------------------------------------------------------------------------------
 		
 	@Autowired
-	SellerRepository hoSellerRepository;
+	SellerRepository SellerRepository;
 
 	// 판매자 정보 
 	// 판매자 정보 페이지로 이동
@@ -258,7 +275,7 @@ Map<String, HttpSession> sessions;
 	public String addSellerPostHandle(@RequestParam Map p, HttpSession session) {
 		Map user = (Map) session.getAttribute("user");
 		String id = (String) user.get("ID");
-		Map Seller = hoSellerRepository.getSeller(id);
+		Map Seller = SellerRepository.getSeller(id);
 		session.setAttribute("Seller", Seller);
 
 		return "/WEB-INF/views/account/seller/sellerHome.jsp";
@@ -297,14 +314,29 @@ Map<String, HttpSession> sessions;
 		p.put("imgpath", img);
 
 		if (p.get("imgpath") != null) {
-			int i = hoSellerRepository.updateSeller1(p);
+			int i = SellerRepository.updateSeller1(p);
 
 		} else {
-			int j = hoSellerRepository.updateSeller2(p);
+			int j = SellerRepository.updateSeller2(p);
 		}
 		return "/WEB-INF/views/index.jsp";
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
+		// 판매자 블러그 올린글 확인
+			
+			@RequestMapping("/myboard.do")
+			public String MyBoardHandle(HttpSession session) {
+				System.out.println("들어와야지");
+				Map suser=(Map)session.getAttribute("user");
+				String id=(String)suser.get("ID");
+				System.out.println(suser+id);
+				
+				List<Map> MyBoard=SellerRepository.getmyboard(id);
+				System.out.println(MyBoard);
+				session.setAttribute("MyBoard", MyBoard);
+				
+				return "/WEB-INF/views/account/seller/sellerHome.jsp";
+			}
 	
 	// 회원 마이 페이지 이동
 	// 구현중
@@ -312,6 +344,41 @@ Map<String, HttpSession> sessions;
 	public String sellHistoryHendle() {
 		return "/WEB-INF/views/account/mypage/history/sellHistory.jsp";
 	}
+	//--------------------------------------------------------------------------------------
+	
+			// 비밀번호 변경
+			@GetMapping("/chageuser.do")
+			public String ChageUserGetHandle() {
+				return "/WEB-INF/views/account/mypage/history/chage_user.jsp";
+			}
+			
+			@PostMapping("/chageuser.do")
+			public String ChageUserPostHandle(@RequestParam Map p,HttpSession session) {
+				Map suser = (Map)session.getAttribute("user");
+				String sid=(String)suser.get("ID");
+				String spass=(String)suser.get("PASS");
+				System.out.println(sid+spass);
+				
+				String pass=(String)p.get("pass");
+				String npass=(String)p.get("npass");
+				String nppass=(String)p.get("nppass");
+				
+				System.out.println(pass+npass+nppass);
+				if(spass.equals(pass)) {
+					if(npass.equals(nppass)) {
+						Map user_new=new HashMap();
+						user_new.put("id", sid);
+						user_new.put("pass",npass);
+						int i=accountRepository.changeuser(user_new);
+						System.out.println(i);
+						return "/WEB-INF/views/account/mypage/history/sellHistory.jsp";
+					}else
+						return "/WEB-INF/views/account/mypage/history/chage_user.jsp";	
+							
+				}else
+				return "/WEB-INF/views/account/mypage/history/chage_user.jsp";
+			}
+		
 	
 	//----------------------------------------------------------------------------------------------------------------------------
 	// index 확인 전용 맵핑

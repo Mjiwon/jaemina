@@ -21,5 +21,8 @@
 <select id="getSeller" parameterType="java.lang.String" resultType="java.util.HashMap">
 	select * from account_profile where id=#{id}
 </select>
+<select id="get_myboard" parameterType="java.lang.String" resultType="java.util.HashMap">
+	select * from board where writer=#{id}
+</select>
 
 </mapper>

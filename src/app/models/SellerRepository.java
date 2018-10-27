@@ -29,6 +29,9 @@ public class SellerRepository {
 	public int updateSeller2(Map map) {
 		return template.update("seller.updateSeller2",map);
 	}
+	public List<Map> getmyboard(String id){
+		return template.selectList("seller.get_myboard",id);
+	}
 
 
 }

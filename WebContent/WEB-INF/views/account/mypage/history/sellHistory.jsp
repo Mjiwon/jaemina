@@ -30,10 +30,13 @@
     <a class="nav-link" href="#">메세지</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" href="#">계정설정</a>
+    <a class="nav-link" href="chageuser.do">계정설정</a>
   </li>
 </ul>
 
+아이디:${user.ID }</br/>
+이메일:${user.EMAIL }<br/>
+계좌번호:${user.BANK }<br/>
 
 </body>
 </html>
