@@ -142,7 +142,7 @@ public class BoardController {
 	}
 	
 	
-	// 문의하기 기능 (WebSocket -> 로그인 안되어 있으면 쪽지)
+	// 문의하기 기능 (WebSocket -> 로그인 안되어 있으면 쪽지)!
 	
 	@Autowired
 	SocketService socketService;
