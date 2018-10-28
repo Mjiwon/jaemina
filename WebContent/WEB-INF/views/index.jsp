@@ -378,12 +378,6 @@ u {
 				Website 2018</p>
 		</div>
 	</footer>
-
-<script type="text/javascript">
-	$("#searchbtn").on("click", function() {
-		$("#searchKey").trigger("submit");
-	})
-</script>
 </body>
 
 </html>
