@@ -37,7 +37,7 @@
 		<div class="col-md-8 order-md-1">
 			<h4 class="mb-3">카테고리 : ${detail.BIGCATE} | ${detail.SMALLCATE}</h4>
 			<form class="needs-validation"
-				action="${pageContext.servletContext.contextPath }/board/detailUpdate.do" method="post"
+				action="${pageContext.servletContext.contextPath }/board/detailUpdate.do" method="post" id="modifybtn"
 				novalidate>
 				<div class="mb-3">
 					<label for="username">작성 날짜</label>
@@ -76,7 +76,7 @@
 				</div>
 
 				<hr class="mb-4">
-				<button class="btn btn-primary btn-lg btn-block" type="submit">수정
+				<button class="btn btn-primary btn-lg btn-block" type="button" id="modify">수정
 					완료</button>
 			</form>
 		</div>
@@ -86,6 +86,16 @@
 		<p class="mb-1">&copy; 2018-2019 재미나</p>
 	</footer>
 	</div>
+	
+	<script type="text/javascript">
+		$("#modify").on("click", function() {
+			if(window.confirm("수정하시겠습니까?") == true) {
+				$("#modifybtn").trigger("submit");				
+			}else {
+				return;
+			}
+		});
+	</script>
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
