@@ -39,7 +39,7 @@ u {
 	<!-- Navigation -->
 	<nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">JAEMINA</a>
+			<a class="navbar-brand" href="${pageContext.servletContext.contextPath }/index.do">JAEMINA</a>
 
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<c:choose>
