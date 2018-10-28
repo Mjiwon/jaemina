@@ -182,7 +182,7 @@ BoardRepository boardrepo;
 			return "/redirect:/index.do";	// 로그인 후 인덱스 페이지로 이동
 		}else {
 			wr.setAttribute("err", true, WebRequest.SCOPE_SESSION);	// 로그인 실패시
-			return "redirect:/login.do";
+			return "/redirect:/login.do";
 		}
 	}
 	//----------------------------------------------------------------------------------------------------------------------------

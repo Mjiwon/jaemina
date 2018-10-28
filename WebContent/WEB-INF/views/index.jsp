@@ -4,13 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- JAEMINA_HOME -->
+<link
+	href="${pageContext.servletContext.contextPath }/css/home_css/bootstrap.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.servletContext.contextPath }/css/home_css/modern-business.css"
+	rel="stylesheet">
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script
@@ -18,238 +22,361 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 u {
 	text-decoration: none;
-	border-bottom: 1px solid;
+	border-bottom: 2px solid;
 	padding-bottom: 2px;
 }
 </style>
 
-<title>재미</title>
+<title>JAEMINA_HOME</title>
+
 </head>
+
 <body>
-	<div class="jumbotron jumbotron-fluid" align="center"
-		style="background-color: #CCFFCC; padding-top: 10px; padding-bottom: 30px;">
-		<div align="left" style="padding-right: 100px;">
-			<c:choose>
-				<c:when test="${!empty auth}">
-					<ul class="nav justify-content-end">
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/write.do"><b>판매글올리기</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/addbank.do"><b>판매</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/board/list.do"><b>구매</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled" href="#"><b>메세지</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled" href="#"><b>찜한선물</b></a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-							role="button" aria-haspopup="true" aria-expanded="false"
-							style="color: black;">${user.ID }</a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
-									style="color: green;">${user.ID }</b>의 재미나</a> <a
-									class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/myboard.do">프로필</a>
-								<a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/modified.do">계정설정</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/serviceqa.do">고객센터</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">로그아웃</a>
-							</div></li>
-					</ul>
-				</c:when>
-				<c:otherwise>
-					<ul class="nav justify-content-end">
-						<li class="nav-item"><a class="nav-link disabled" href="#"><b>판매시작하기</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled" href="#"><b>로그인</b></a></li>
-						<li class="nav-item"><a class="nav-link active" href="#"><b>회원가입</b></a></li>
-					</ul>
-				</c:otherwise>
-			</c:choose>
 
-
-			<ul class="nav">
-		</div>
+	<!-- Navigation -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top">
 		<div class="container">
-			<h1 class="display-4">재미나</h1>
-			<p class="lead">아름다운 재능을 나누다</p>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="text" placeholder="Search"
-					aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
+			<a class="navbar-brand" href="index.html">JAEMINA</a>
+
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<c:choose>
+					<c:when test="${empty auth}">
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item">
+								<button type="button" class="btn btn-light">
+									<a href="${pageContext.servletContext.contextPath }/login.do"
+										style="color: black;">판매시작</a>
+								</button>
+							</li>
+							<li class="nav-item">
+								<button type="button" class="btn btn-secondary">
+									<a href="${pageContext.servletContext.contextPath }/login.do"
+										style="color: white;">로그인</a>
+								</button>
+							</li>
+							<li class="nav-item">
+								<button type="button" class="btn btn-primary">
+									<a href="${pageContext.servletContext.contextPath }/join.do"
+										style="color: white;">회원가입</a>
+								</button>
+							</li>
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item"><a class="nav-link disabled"
+								href="${pageContext.servletContext.contextPath }/write.do"
+								style="color: black;"><b>판매글올리기</b></a></li>
+							<li class="nav-item"><a class="nav-link disabled"
+								href="${pageContext.servletContext.contextPath }/addbank.do"
+								style="color: black;"><b>판매</b></a></li>
+							<li class="nav-item"><a class="nav-link disabled"
+								href="${pageContext.servletContext.contextPath }/board/list.do"
+								style="color: black;"><b>구매</b></a></li>
+							<li class="nav-item"><a class="nav-link disabled" href="#"
+								style="color: black;"><b>메세지</b></a></li>
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle btn-primary"
+								data-toggle="dropdown" href="#" role="button"
+								aria-haspopup="true" aria-expanded="false"
+								style="color: white; border-radius: 10px;">
+									<button type="button" class="btn btn-primary">
+										<b>${user.ID }</b>
+									</button>
+							</a>
+								<div class="dropdown-menu btn btn-ligh btn btn-primary">
+									<a class="dropdown-item"
+										href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
+										style="color: green;">${user.ID }</b>의 재미나</a> <a
+										class="dropdown-item"
+										href="${pageContext.servletContext.contextPath }/myboard.do">프로필</a>
+									<a class="dropdown-item"
+										href="${pageContext.servletContext.contextPath }/modified.do">계정설정</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item"
+										href="${pageContext.servletContext.contextPath }/serviceqa.do">고객센터</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">로그아웃</a>
+								</div></li>
+						</ul>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
-		<br>
+	</nav>
+
+	<header>
+		<div id="carouselExampleIndicators" class="carousel"
+			data-ride="carousel">
+			<div class="carousel-inner" role="listbox">
+
+				<!-- Slide One - Set the background image for this slide in the line below -->
+				<div class="carousel-item active"
+					style="background-image: url('${pageContext.servletContext.contextPath }/images/home_images/2.jpeg'); background-size:cover;">
+					<div class="carousel-caption d-none d-md-block">
+						<div class="row">
+							<div class="col">
+								<u><b><font size="3">등록된 서비스</font></b></u> <br /> <b><font
+									size="6">5건</font></b>
+							</div>
+							<div class="col">
+								<u><b><font size="3">총 거래 건 수</font></b></u> <br /> <b><font
+									size="6">5건</font></b>
+							</div>
+							<div class="col">
+								<u><b><font size="3">의뢰인 평균 만족도</font></b></u> <br /> <b><font
+									size="6">98%</font></b>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div id="r" class="row">
+					<div class="col-lg-6">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Search for..." aria-label="Search for...">
+							<span class="input-group-btn">
+								<button class="btn btn-secondary" type="button">Go!</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- Page Content -->
+	<div class="container" style="padding-bottom: 20px;">
+
+		<div id="row_1" class="row">
+			<div class="col-lg-3">
+				<img class="rounded-circle"
+					src="${pageContext.servletContext.contextPath }/images/home_images/web.svg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h5>디자인</h5>
+				<p>
+					<a class="btn btn-secondary" href="#" role="button">View
+						details &raquo;</a>
+				</p>
+			</div>
+			<!-- /.col-lg-4 -->
+
+			<div class="col-lg-3	">
+				<img class="rounded-circle"
+					src="${pageContext.servletContext.contextPath }/images/home_images/ux.svg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h5>IT·프로그래밍</h5>
+				<p>
+					<a class="btn btn-secondary" href="#" role="button">View
+						details &raquo;</a>
+				</p>
+			</div>
+			<!-- /.col-lg-4 -->
+
+			<div class="col-lg-3">
+				<img class="rounded-circle"
+					src="${pageContext.servletContext.contextPath }/images/home_images/motion.svg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h5>콘텐츠 제작</h5>
+				<p>
+					<a class="btn btn-secondary" href="#" role="button">View
+						details &raquo;</a>
+				</p>
+			</div>
+			<!-- /.col-lg-4 -->
+
+			<div class="col-lg-3">
+				<img class="rounded-circle"
+					src="${pageContext.servletContext.contextPath }/images/home_images/mobile-ui.svg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h5>마케팅</h5>
+				<p>
+					<a class="btn btn-secondary" href="#" role="button">View
+						details &raquo;</a>
+				</p>
+			</div>
+			<!-- /.col-lg-4 -->
+		</div>
+		<!-- /.row -->
+
+		<!-- Portfolio Section -->
+		<h3>마케팅 카테고리</h3>
 		<div class="row">
-			<div class="col">
-				<u>등록된 서비스</u> <br /> <b><font size="6">5건</font></b>
+			<div class="col-lg-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="${pageContext.servletContext.contextPath }/images/home_images/post1.png"
+						alt=""></a>
+					<div class="card-body">
+						<div class="card-title">
+							<a href="#">Project One</a>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col">
-				<u>총 거래 건 수</u> <br /> <b><font size="6">5건</font></b>
+			<div class="col-lg-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/700x400" alt=""></a>
+					<div class="card-body">
+						<div class="card-title">
+							<a href="#">Project Two</a>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col">
-				<u>의뢰인 평균 만족도</u> <br /> <b><font size="6">98%</font></b>
+			<div class="col-lg-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/700x400" alt=""></a>
+					<div class="card-body">
+						<div class="card-title">
+							<a href="#">Project Three</a>
+						</div>
+					</div>
+				</div>
 			</div>
-
 		</div>
-	</div>
-	<div align="center">
-		<nav class="nav" style="background-color: #e3f2fd;">
-			<ul class="nav justify-content-center">
-				<c:forEach var="big" items="${bigcate }">
-					<li value="${big.NO}" class="nav-item" id="bigcate"><a
-						class="nav-link" href="#">${big.BIGCATE }</a></li>
 
-				</c:forEach>
-
-				<!-- <li class="nav-item"><a class="nav-link" href="#">디자인</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">IT·프로그래밍</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">마케팅</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">문서작성</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">레슨</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">핸드메이드</a></li>  -->
-			</ul>
-		</nav>
-	</div>
-	<div class="dropdown">
-		<c:forEach var="big" items="${bigcate }">
-			<select class="btn btn-light dropdown-toggle" id="bigcate"
-				name="bigcate" style="border-color: black;">
-				<option value="${big.NO}">${big.BIGCATE }</option>
-			</select>
-		</c:forEach>
-		<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-			<select class="dropdown-item" id="smallcate">
-				<option>뚜뚱뚜뚱</option>
-			</select>
-		</div>
-		</ul>
-	</div>
-
-	<div class="dropdown">
-	<c:forEach var="big" items="${bigcate }">
-		<button class="btn btn-secondary dropdown-toggle" type="button"
-			id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
-			aria-expanded="false" id="bigcate"
-				name="bigcate"><a href="${pageContext.servletContext.contextPath }/board/list.do" style="color: white;">${big.BIGCATE }</a></button>
-	</c:forEach>
-		<div class="dropdown-menu" aria-labelledby="dropdownMenu2" id="smallcate">
-			
-		</div>
-	</div>
-
-	<script>
-	$("#bigcate").on("change",function(){
-		var bigno = $("#bigcate").val();
-		
-		var param = {
-			"bigno" : bigno	
-		};
-		$.post("${pageContext.servletContext.contextPath }/ajax/cate.do",param).done(function(rst){
-			var obj = rst;
-			var html = "";
-			for(var i = 0; i< obj.length;i++){
-				html += "<a class=\"dropdown-item\" id=\"smallcate\">"+obj[i].SMALLCATE+"</a>";
-			}
-			$("#smallcate").html(html);
-		});
-	});
-	</script>
-
-	<div align="center">
-		<br />
-		<h4>카테고리별 전문가 랭킹</h4>
+		<h3>디자인 카테고리</h3>
 		<div class="row">
-			<div class="col">
-				<label>디자인</label>
-				<table class="table">
-					<tbody>
-						<tr>
-							<th scope="row">1위</th>
-							<td>꿈쏙에</td>
-							<td><A href="#">saan</A></td>
-						</tr>
-						<tr>
-							<th scope="row">2위</th>
-							<td>Jacob</td>
-							<td><A href="#">jiwoni</A></td>
-						</tr>
-						<tr>
-							<th scope="row">3위</th>
-							<td>Larry</td>
-							<td><A href="#">hjhhjh</A></td>
-						</tr>
-						<tr>
-							<th scope="row">4위</th>
-							<td>Larry</td>
-							<td><A href="#">hjhhjh</A></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="col-lg-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/700x400" alt=""></a>
+					<div class="card-body">
+						<div class="card-title">
+							<a href="#">Project Four</a>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col">
-				<label>IT·프로그래밍</label>
-				<table class="table">
-					<tbody>
-						<tr>
-							<th scope="row">1위</th>
-							<td>꿈쏙에</td>
-							<td><A href="#">saan</A></td>
-						</tr>
-						<tr>
-							<th scope="row">2위</th>
-							<td>Jacob</td>
-							<td><A href="#">jiwoni</A></td>
-						</tr>
-						<tr>
-							<th scope="row">3위</th>
-							<td>Larry</td>
-							<td><A href="#">hjhhjh</A></td>
-						</tr>
-						<tr>
-							<th scope="row">4위</th>
-							<td>Larry</td>
-							<td><A href="#">hjhhjh</A></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="col-lg-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/700x400" alt=""></a>
+					<div class="card-body">
+						<div class="card-title">
+							<a href="#">Project Five</a>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col">
-				<label>문서작성</label>
-				<table class="table">
-					<tbody>
-						<tr>
-							<th scope="row">1위</th>
-							<td>꿈쏙에</td>
-							<td><A href="#">saan</A></td>
-						</tr>
-						<tr>
-							<th scope="row">2위</th>
-							<td>Jacob</td>
-							<td><A href="#">jiwoni</A></td>
-						</tr>
-						<tr>
-							<th scope="row">3위</th>
-							<td>Larry</td>
-							<td><A href="#">hjhhjh</A></td>
-						</tr>
-						<tr>
-							<th scope="row">4위</th>
-							<td>Larry</td>
-							<td><A href="#">hjhhjh</A></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="col-lg-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/700x400" alt=""></a>
+					<div class="card-body">
+						<div class="card-title">
+							<a href="#">Project Six</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+		<div align="center" style="border: 1px gray solid;">
+			<br />
+			<h4>카테고리별 전문가 랭킹</h4>
+			<div class="row">
+				<div class="col">
+					<label>디자인</label>
+					<table class="table">
+						<tbody>
+							<tr>
+								<th scope="row">1위</th>
+								<td>꿈쏙에</td>
+								<td><A href="#">saan</A></td>
+							</tr>
+							<tr>
+								<th scope="row">2위</th>
+								<td>Jacob</td>
+								<td><A href="#">jiwoni</A></td>
+							</tr>
+							<tr>
+								<th scope="row">3위</th>
+								<td>Larry</td>
+								<td><A href="#">hjhhjh</A></td>
+							</tr>
+							<tr>
+								<th scope="row">4위</th>
+								<td>Larry</td>
+								<td><A href="#">hjhhjh</A></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col">
+					<label>IT·프로그래밍</label>
+					<table class="table">
+						<tbody>
+							<tr>
+								<th scope="row">1위</th>
+								<td>꿈쏙에</td>
+								<td><A href="#">saan</A></td>
+							</tr>
+							<tr>
+								<th scope="row">2위</th>
+								<td>Jacob</td>
+								<td><A href="#">jiwoni</A></td>
+							</tr>
+							<tr>
+								<th scope="row">3위</th>
+								<td>Larry</td>
+								<td><A href="#">hjhhjh</A></td>
+							</tr>
+							<tr>
+								<th scope="row">4위</th>
+								<td>Larry</td>
+								<td><A href="#">hjhhjh</A></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col">
+					<label>문서작성</label>
+					<table class="table">
+						<tbody>
+							<tr>
+								<th scope="row">1위</th>
+								<td>꿈쏙에</td>
+								<td><A href="#">saan</A></td>
+							</tr>
+							<tr>
+								<th scope="row">2위</th>
+								<td>Jacob</td>
+								<td><A href="#">jiwoni</A></td>
+							</tr>
+							<tr>
+								<th scope="row">3위</th>
+								<td>Larry</td>
+								<td><A href="#">hjhhjh</A></td>
+							</tr>
+							<tr>
+								<th scope="row">4위</th>
+								<td>Larry</td>
+								<td><A href="#">hjhhjh</A></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
+	<!-- /.container -->
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Your
+				Website 2018</p>
+		</div>
+	</footer>
 
 </body>
+
 </html>
