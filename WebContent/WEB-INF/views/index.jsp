@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
@@ -17,6 +18,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 u {
 	text-decoration: none;
@@ -34,23 +37,32 @@ u {
 			<c:choose>
 				<c:when test="${!empty auth}">
 					<ul class="nav justify-content-end">
-						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/write.do"><b>판매글올리기</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/addbank.do"><b>판매</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/list.do"><b>구매</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled"
+							href="${pageContext.servletContext.contextPath }/write.do"><b>판매글올리기</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled"
+							href="${pageContext.servletContext.contextPath }/addbank.do"><b>판매</b></a></li>
+						<li class="nav-item"><a class="nav-link disabled"
+							href="${pageContext.servletContext.contextPath }/board/list.do"><b>구매</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>메세지</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="#"><b>찜한선물</b></a></li>
-						<li class="nav-item dropdown" >
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: black;">${user.ID }</a>
-						   <div class="dropdown-menu">
-						     <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/sellHistory.do"><b style="color: green;">${user.ID }</b>의 재미나</a>
-						     <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/myboard.do">프로필</a>
-						     <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/modified.do">계정설정</a>
-						     <div class="dropdown-divider"></div>
-						     <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/serviceqa.do">고객센터</a>
-						     <div class="dropdown-divider"></div>
-						     <a class="dropdown-item" href="#">로그아웃</a>
-						   </div>
-						 </li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+							role="button" aria-haspopup="true" aria-expanded="false"
+							style="color: black;">${user.ID }</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item"
+									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
+									style="color: green;">${user.ID }</b>의 재미나</a> <a
+									class="dropdown-item"
+									href="${pageContext.servletContext.contextPath }/myboard.do">프로필</a>
+								<a class="dropdown-item"
+									href="${pageContext.servletContext.contextPath }/modified.do">계정설정</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item"
+									href="${pageContext.servletContext.contextPath }/serviceqa.do">고객센터</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">로그아웃</a>
+							</div></li>
 					</ul>
 				</c:when>
 				<c:otherwise>
@@ -61,7 +73,7 @@ u {
 					</ul>
 				</c:otherwise>
 			</c:choose>
-			
+
 
 			<ul class="nav">
 		</div>
@@ -88,18 +100,68 @@ u {
 
 		</div>
 	</div>
-	<div align="left">
+	<div align="center">
 		<nav class="nav" style="background-color: #e3f2fd;">
 			<ul class="nav justify-content-center">
-				<li class="nav-item"><a class="nav-link" href="#">디자인</a></li>
+				<c:forEach var="big" items="${bigcate }">
+					<li value="${big.NO}" class="nav-item" id="bigcate"><a
+						class="nav-link" href="#">${big.BIGCATE }</a></li>
+
+				</c:forEach>
+
+				<!-- <li class="nav-item"><a class="nav-link" href="#">디자인</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">IT·프로그래밍</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">마케팅</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">문서작성</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">레슨</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">핸드메이드</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">핸드메이드</a></li>  -->
 			</ul>
 		</nav>
 	</div>
+	<div class="dropdown">
+		<c:forEach var="big" items="${bigcate }">
+			<select class="btn btn-light dropdown-toggle" id="bigcate"
+				name="bigcate" style="border-color: black;">
+				<option value="${big.NO}">${big.BIGCATE }</option>
+			</select>
+		</c:forEach>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			<select class="dropdown-item" id="smallcate">
+				<option>뚜뚱뚜뚱</option>
+			</select>
+		</div>
+		</ul>
+	</div>
+
+	<div class="dropdown">
+	<c:forEach var="big" items="${bigcate }">
+		<button class="btn btn-secondary dropdown-toggle" type="button"
+			id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false" id="bigcate"
+				name="bigcate"><a href="${pageContext.servletContext.contextPath }/board/list.do" style="color: white;">${big.BIGCATE }</a></button>
+	</c:forEach>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenu2" id="smallcate">
+			
+		</div>
+	</div>
+
+	<script>
+	$("#bigcate").on("change",function(){
+		var bigno = $("#bigcate").val();
+		
+		var param = {
+			"bigno" : bigno	
+		};
+		$.post("${pageContext.servletContext.contextPath }/ajax/cate.do",param).done(function(rst){
+			var obj = rst;
+			var html = "";
+			for(var i = 0; i< obj.length;i++){
+				html += "<a class=\"dropdown-item\" id=\"smallcate\">"+obj[i].SMALLCATE+"</a>";
+			}
+			$("#smallcate").html(html);
+		});
+	});
+	</script>
 
 	<div align="center">
 		<br />

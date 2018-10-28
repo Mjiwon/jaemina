@@ -26,13 +26,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import app.models.AccountRepository;
-
-
+import app.models.BoardRepository;
 import app.models.SellerRepository;
 
 @Controller
 public class AccountController {
 Map<String, HttpSession> sessions;
+
+@Autowired
+BoardRepository boardrepo;
 	
 	public AccountController() {
 		sessions = new HashMap<>(); 
@@ -46,10 +48,12 @@ Map<String, HttpSession> sessions;
 	
 	// Index
 	@RequestMapping("/index.do")
-	public String indexHendler(WebRequest wr) {
+	public String indexHendler(WebRequest wr, Map map) {
 		if(wr.getAttribute("auth", WebRequest.SCOPE_SESSION) == null) {
 			return "/WEB-INF/views/account/login.jsp";
 		}else {
+			List<Map> bcatelist = boardrepo.getBigCate();
+			map.put("bigcate", bcatelist);
 			return "/WEB-INF/views/index.jsp";
 		}
 	}
@@ -175,10 +179,10 @@ Map<String, HttpSession> sessions;
 				wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
 				wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
 			}
-			return "/WEB-INF/views/index.jsp";	// 로그인 후 인덱스 페이지로 이동
+			return "/redirect:/index.do";	// 로그인 후 인덱스 페이지로 이동
 		}else {
-			wr.setAttribute("err", true, 0);	// 로그인 실패시
-			return "login.do";
+			wr.setAttribute("err", true, WebRequest.SCOPE_SESSION);	// 로그인 실패시
+			return "redirect:/login.do";
 		}
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
