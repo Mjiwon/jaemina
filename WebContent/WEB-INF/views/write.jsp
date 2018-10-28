@@ -78,25 +78,6 @@
 								});
 							});
 
-							/* bigcate에서 smallcatelist 뽑아내는 ajax */
-							/*  		 	$("#bigcate").on("click",function(target){
-							 $.ajax({
-							 "url":"${pageContext.servletContext.contextPath}/ajax/cate.do",
-							 "data":target.val()
-							 }).done(function(rst){
-							 var obj = JSON.parse(rst);
-							 var html = "";
-							 console.log(obj);
-							 for(var i=0; i<obj.SMALLNO.size();i++){
-							 html +="<option>"+obj.scatelist.SMALLCATE.get(i)+" : "+obj.scatelist.SMALLCATE.get(i)+"</option>";
-							 console.log(obj.scatelist.SMALLCATE.get(i)+" / "+obj.scatelist.SMALLCATE.get(i));
-							 }
-							
-							 $("#smallcate").html() = html;
-							
-							 });
-							 }); 
-							 */
 						</script>
 						</div>
 						
