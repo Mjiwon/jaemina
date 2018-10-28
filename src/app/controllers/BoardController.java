@@ -161,10 +161,6 @@ public class BoardController {
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!
-	@GetMapping("/board/search.do")
-	public String searchController() {
-		return "/WEB-INF/views/search.jsp";
-	}
 	
 	@RequestMapping("/board/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {

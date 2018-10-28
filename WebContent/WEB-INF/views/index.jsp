@@ -135,17 +135,19 @@ u {
 					</div>
 				</div>
 
+			<form action="${pageContext.servletContext.contextPath }/board/searchList.do" method="post">
 				<div id="r" class="row">
 					<div class="col-lg-6">
 						<div class="input-group">
 							<input type="text" class="form-control"
-								placeholder="Search for..." aria-label="Search for...">
+								placeholder="Search for..." aria-label="Search for..." id="searchKey" name="searchKey">
 							<span class="input-group-btn">
-								<button class="btn btn-secondary" type="button">Go!</button>
+								<button class="btn btn-secondary" type="submit">Go!</button>
 							</span>
 						</div>
 					</div>
 				</div>
+			</form>
 			</div>
 		</div>
 	</header>
@@ -377,6 +379,11 @@ u {
 		</div>
 	</footer>
 
+<script type="text/javascript">
+	$("#searchbtn").on("click", function() {
+		$("#searchKey").trigger("submit");
+	})
+</script>
 </body>
 
 </html>
