@@ -44,6 +44,9 @@ BoardRepository boardrepo;
 	AccountRepository accountRepository;
 	
 	@Autowired
+	BoardRepository boardRepository;
+	
+	@Autowired
 	JavaMailSender sender;
 	
 	// Index
@@ -54,6 +57,8 @@ BoardRepository boardrepo;
 		}else {
 			List<Map> bcatelist = boardrepo.getBigCate();
 			map.put("bigcate", bcatelist);
+			int boardCount = boardRepository.boardCount();
+			map.put("boardCount", boardCount);
 			return "/WEB-INF/views/index.jsp";
 		}
 	}

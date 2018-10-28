@@ -2,6 +2,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +44,9 @@ public class BoardController {
 	ServletContext ctx;
 	
 	// 게시글 
+	// 전체 게시글 갯수 불러오기
+	
+	
 	// 판매글로 이동
 	@GetMapping("/write.do")
 	public String writeGetHandle(Map map) {
@@ -57,7 +61,7 @@ public class BoardController {
 	public String writePostHandle(@RequestParam Map map,@RequestParam MultipartFile imgpath) throws IOException {
 		// 파일(이미지) 업로드
 		String filename = map.get("writer") +"-"+map.get("title")+"-board"+".jpg";
-		String path = ctx.getRealPath("/storage/board");
+		String path = ctx.getRealPath("\\storage\\board");
 		File dir = new File(path);
 		if(!dir.exists()) {
 			dir.mkdirs();
@@ -67,7 +71,7 @@ public class BoardController {
 			boardrepo.addBoard1(map);
 		}else {
 			imgpath.transferTo(dst);
-			map.put("imgpath", "/storage/board"+"\\"+filename);
+			map.put("imgpath", "\\storage\\board"+"\\"+filename);
 			boardrepo.addBoard2(map);
 		}
 		return "/WEB-INF/views/index.jsp";
@@ -90,7 +94,7 @@ public class BoardController {
 	public String boardListHandle(Map map, WebRequest wr) {
 		map.put("boardlist", boardrepo.getBoardList());
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
-		return "/WEB-INF/views/boardlist.jsp";
+		return "/WEB-INF/views/board/boardlist.jsp";
 	}
 	
 	
@@ -100,15 +104,29 @@ public class BoardController {
 	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String)param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
+		System.out.println(detail);
 		String sellerid = (String)detail.get("WRITER");
 		Map writer = sellerrepo.getSeller(sellerid);
 		String id = (String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
+		
+		String bigcate = ((BigDecimal)detail.get("BIGCATE")).toString();
+		String smallcate = ((BigDecimal)detail.get("SMALLCATE")).toString();
+		
+		Map cates = new HashMap<>();
+		cates.put("bigcate", bigcate);
+		cates.put("smallcate", smallcate);
+		
+		Map cate = boardrepo.getCate(cates);
+		
 		map.put("detail", detail);
 		map.put("writer", writer);
+		map.put("cate", cate);
+		System.out.println(map + "map이다");
+		
 		if(sellerid.equals(id)) {
-			return "/WEB-INF/views/detailWriter.jsp";
+			return "/WEB-INF/views/board/detailWriter.jsp";
 		} else {
-			return "/WEB-INF/views/detailReader.jsp";
+			return "/WEB-INF/views/board/detailReader.jsp";
 		}
 	}
 	
@@ -116,9 +134,23 @@ public class BoardController {
 	public String boardModifyHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String)param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
+		
+		//카테고리 가져오기
+		String bigcate = ((BigDecimal)detail.get("BIGCATE")).toString();
+		String smallcate = ((BigDecimal)detail.get("SMALLCATE")).toString();
+		
+		Map cates = new HashMap<>();
+		cates.put("bigcate", bigcate);
+		cates.put("smallcate", smallcate);
+		
+		Map cate = boardrepo.getCate(cates);
+		System.out.println(cate);
+		
 		map.put("detail", detail);
+		map.put("cate", cate);
+		
 		wr.setAttribute("boardNum", detailno, WebRequest.SCOPE_SESSION);
-		return "/WEB-INF/views/detailModify.jsp";
+		return "/WEB-INF/views/board/detailModify.jsp";
 	}
 	
 	@RequestMapping("/board/detailUpdate.do")
@@ -129,7 +161,7 @@ public class BoardController {
 		Map newDetail = boardrepo.getDetailBoard(detailno);
 		map.put("detail", newDetail);
 		wr.removeAttribute("boardNum", WebRequest.SCOPE_SESSION);
-		return "/WEB-INF/views/detailWriter.jsp";
+		return "/WEB-INF/views/board/detailWriter.jsp";
 	}
 	
 	@RequestMapping("/board/deleteDetail.do")

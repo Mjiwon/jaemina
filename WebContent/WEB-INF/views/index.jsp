@@ -120,7 +120,7 @@ u {
 						<div class="row">
 							<div class="col">
 								<u><b><font size="3">등록된 서비스</font></b></u> <br /> <b><font
-									size="6">5건</font></b>
+									size="6">${boardCount }건</font></b>
 							</div>
 							<div class="col">
 								<u><b><font size="3">총 거래 건 수</font></b></u> <br /> <b><font
