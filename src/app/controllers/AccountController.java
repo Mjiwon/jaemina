@@ -327,20 +327,29 @@ Map<String, HttpSession> sessions;
 	//----------------------------------------------------------------------------------------------------------------------------
 		// 판매자 블러그 올린글 확인
 			
-			@RequestMapping("/myboard.do")
-			public String MyBoardHandle(HttpSession session) {
-				System.out.println("들어와야지");
-				Map suser=(Map)session.getAttribute("user");
-				String id=(String)suser.get("ID");
-				System.out.println(suser+id);
-				
-				List<Map> MyBoard=SellerRepository.getmyboard(id);
-				System.out.println(MyBoard);
-				session.setAttribute("MyBoard", MyBoard);
-				
-				return "/WEB-INF/views/account/seller/sellerHome.jsp";
-			}
+	// 판매자 블러그 올린글 확인
 	
+		@RequestMapping("/myboard.do")
+		public String MyBoardHandle(HttpSession session) {
+			Map suser=(Map)session.getAttribute("user");
+			String id=(String)suser.get("ID");
+			
+			Map duser=accountRepository.Myinfo(id);
+			System.out.println("회원정보다"+duser);
+			String dbank=(String)duser.get("BANK");
+			
+			if(dbank!=null) {
+			List<Map> MyBoard=SellerRepository.getmyboard(id);
+			System.out.println(MyBoard);
+			session.setAttribute("MyBoard", MyBoard);
+			
+			//판매자 정보 가지고 오기
+			Map Seller = SellerRepository.getSeller(id);
+			session.setAttribute("Seller", Seller);
+			return "/WEB-INF/views/account/seller/sellerHome.jsp";
+		}else
+			return "/addbank.do";
+		}
 	// 회원 마이 페이지 이동
 	// 구현중
 	@RequestMapping("/sellHistory.do")
