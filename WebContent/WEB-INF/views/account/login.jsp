@@ -19,7 +19,6 @@
 <title>로그인</title>
 </head>
 <body class="text-center">
-
 	
 	<form action="${pageContext.servletContext.contextPath }/login.do" class="form-signin" method="post">
 		<h1 class="h3 mb-3 font-weight-normal">재미나</h1>
@@ -30,13 +29,15 @@
 			type="password" id="inputPassword" class="form-control" name="getPass"
 			placeholder="비밀번호" required>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">로 그 인</button>
-		<c:if test="${!empty err}">
+		<c:if test="${!empty err }">
 			<div class="alert alert-danger" role="alert">
 				등록되지 않은 아이디이거나,<br/> 아이디 또는 비밀번호를 잘못 입력하셨습니다.
 			</div>
 		</c:if>
-		<a href="${pageContext.servletContext.contextPath }/join.do" >회원가입</a>
+		<a href="${pageContext.servletContext.contextPath }/join.do" >회원가입</a><br/><br/>
+		<a href="${pageContext.servletContext.contextPath }/find_user.do">아이디 또는 비밀번호를 잊어버리셨나요?</a>
 		<p class="mt-5 mb-3 text-muted">&copy; 2018 Jaemina CORP</p>
 	</form>
+		
 </body>
 </html>

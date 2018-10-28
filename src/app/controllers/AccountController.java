@@ -148,6 +148,93 @@ BoardRepository boardrepo;
 		String json = gson.toJson(map);
 		return json;
 	}
+	
+	
+	//아이디 찾기
+		@GetMapping("/find_user.do")
+		public String FindUser() {
+			return "/WEB-INF/views/account/finduser.jsp";
+		}
+		
+		@PostMapping("/find_user.do")
+		public String FindUser(@RequestParam Map param,WebRequest wr) {;
+			/*String receiver = (String) param.get("email")*/;
+			
+			String receiver = (String)param.get("email");
+			System.out.println("이메일주소 보내요!!"+receiver);
+			
+			 Map fuser=accountRepository.FindUser(receiver);
+			 System.out.println("파인드 유저"+fuser);
+			 
+			 String fid=(String)fuser.get("ID");
+			 
+			 
+			SimpleMailMessage msg = new SimpleMailMessage();
+			sender.createMimeMessage();
+			msg.setSubject("재미나 아이디 찾기");
+			String text="회원님의 아이디는\n";
+			
+		
+			System.out.println(receiver);
+			
+			text += fid;
+			
+			msg.setText(text);
+			msg.setTo(receiver);
+			msg.setFrom("amdin1@jamina.mockingu.com");
+			System.out.println(msg);
+			try {
+				sender.send(msg);
+				System.out.println("SUCCESS!");
+			}catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				System.out.println("Fail!");
+			}
+			return "redirect:login.do";
+		}
+		
+		//비밀번호 찾기
+		@PostMapping("/find_pass.do")
+		public String Findpass(@RequestParam Map param,WebRequest wr) {;
+			/*String receiver = (String) param.get("email")*/;
+			
+			String id = (String)param.get("id");
+			String receiver=(String)param.get("email");
+			
+			String npass = UUID.randomUUID().toString().split("-")[0];
+			Map nuser = new HashMap();
+			nuser.put("pass", npass);
+			nuser.put("id", id);
+			
+			int i = accountRepository.FindPass(nuser);	 
+			Map user =accountRepository.Myinfo(id);
+			String dpass=(String)user.get("PASS");
+			
+			SimpleMailMessage msg = new SimpleMailMessage();
+			sender.createMimeMessage();
+			msg.setSubject("재미나 비밀번호 찾기");
+			String text="회원님의 비밀번호 는\n";
+			String text2="\n로그인 하시고 비밀번경을 하세요";
+			System.out.println("변경된 비밀번호"+dpass);
+			System.out.println(receiver);
+			//ㅎㅇ
+			text += dpass;
+			text += text2;
+			
+			msg.setText(text);
+			msg.setTo(receiver);
+			msg.setFrom("amdin1@jamina.mockingu.com");
+			try {
+				sender.send(msg);
+				System.out.println("SUCCESS!");
+			}catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				System.out.println("Fail!");
+			}
+			return "redirect:login.do";
+		}
 	//----------------------------------------------------------------------------------------------------------------------------
 	
 	// Login

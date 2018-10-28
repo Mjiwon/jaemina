@@ -53,4 +53,11 @@ public class AccountRepository {
 	public Map Sellerinfo(String data) {
 		return template.selectOne("account.Sellerinfo", data);
 	}
+	
+	public Map FindUser(String email) {
+		return template.selectOne("account.finduser",email);
+	}
+	public int FindPass(Map data) {
+		return template.update("account.findpass",data);
+	}
 }
