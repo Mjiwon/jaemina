@@ -33,11 +33,6 @@
 				src="../../assets/brand/bootstrap-solid.svg" alt="" width="72"
 				height="72">
 			<h2>제목 : ${detail.TITLE }</h2>
-			<a
-				href="${pageContext.servletContext.contextPath }/board/modifyDetail.do?no=${detail.NO}">수정</a>
-			<a
-				href="${pageContext.servletContext.contextPath }/board/deleteDetail.do?no=${detail.NO}" class="confirm">삭제</a>
-
 		</div>
 
 		<div class="row">
@@ -66,7 +61,7 @@
 				</form>
 			</div>
 			<div class="col-md-8 order-md-1">
-				<h4 class="mb-3">카테고리 : ${detail.BIGCATE} | ${detail.SMALLCATE}</h4>
+				<h4 class="mb-3">카테고리 : ${cate.BIGCATE} | ${cate.SMALLCATE}</h4>
 				<form class="needs-validation"
 					action="${pageContext.servletContext.contextPath }/buy.do"
 					novalidate>
@@ -122,17 +117,6 @@
 			<p class="mb-1">&copy; 2018-2019 재미나</p>
 		</footer>
 	</div>
-	
-	<script type="text/javascript">
-		var conf = document.getElementsByClassName("confirm");
-		var confirmIt = function (e) {
-			if(!confirm("정말 삭제 하시겠습니까?")) 
-				e.preventDefault();
-		};
-		for (var i = 0, l = conf.length; i < l; i++) {
-	        conf[i].addEventListener('click', confirmIt, false);
-	    };
-	</script>
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->

@@ -34,89 +34,73 @@
 				height="72">
 			<h2>제목 : ${detail.TITLE }</h2>
 		</div>
+		<div class="col-md-8 order-md-1">
+			<h4 class="mb-3">카테고리 : ${cate.BIGCATE} : ${cate.SMALLCATE}</h4>
+			<form class="needs-validation"
+				action="${pageContext.servletContext.contextPath }/board/detailUpdate.do" method="post" id="modifybtn"
+				novalidate>
+				<div class="mb-3">
+					<label for="username">작성 날짜</label>
+					<div class="input-group" style="">
+						<input type="text" class="form-control" id="date"
+							value="${detail.WRDATE}" style="background-color: white;"
+							readonly>
+					</div>
+				</div>
 
-		<div class="row">
-			<div class="col-md-4 order-md-2 mb-4">
-				<h4 class="d-flex justify-content-between align-items-center mb-3">
-					<span class="text-muted">판매자 정보</span>
-				</h4>
-
-
-				<form class="card p-2">
-					<div class="card" style="width: 18rem;">
-						<img class="card-img-top"
-							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
-							alt="Card image cap">
-						<div class="card-body">
-							<h5 class="card-title">${writer.WRITER }</h5>
-							<p>판매자 : ${writer.ID }
-							<p>학력 : ${writer.ACADEMY }</p>
-							<p>경력 : ${writer.CAREER }</p>
-							<p>소개 : ${writer.INTRODUCE }</p>
-							<a
-								href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}"
-								class="btn btn-primary">판매자에게 문의하기</a>
+				<div class="mb-3">
+					<label for="username">작성자</label>
+					<div class="input-group">
+						<input type="text" class="form-control" id="writer" name="writer"
+							value="${detail.WRITER }" readonly="readonly"
+							style="background-color: white;">
+						<div class="invalid-feedback" style="width: 100%;">Your
+							username is required.</div>
+					</div>
+				</div>
+				
+				<div class="mb-3">
+							<label>Title이미지</label>
+							<input 	type="file" class="form-control" id="img" name="imgpath">
 						</div>
+				
+
+				<div class="mb-3">
+					<label for="username">금액</label>
+					<div class="input-group">
+						<input type="number" class="form-control" id="price" name="price"
+							value="${detail.PRICE }" required autofocus>
 					</div>
-				</form>
-			</div>
-			<div class="col-md-8 order-md-1">
-				<h4 class="mb-3">카테고리 : ${detail.BIGCATE} | ${detail.SMALLCATE}</h4>
-				<form class="needs-validation"
-					action="${pageContext.servletContext.contextPath }/buy.do"
-					novalidate>
-					<div class="mb-3">
-						<label for="username">작성 날짜</label>
-						<div class="input-group" style="">
-							<input type="text" class="form-control" id="username"
-								value="${detail.WRDATE}" style="background-color: white;"
-								readonly>
-						</div>
-					</div>
+				</div>
 
-					<div class="mb-3">
-						<label for="username">작성자</label>
-						<div class="input-group">
-							<input type="text" class="form-control" id="username"
-								value="${detail.WRITER }" readonly="readonly"
-								style="background-color: white;">
-							<div class="invalid-feedback" style="width: 100%;">Your
-								username is required.</div>
-						</div>
-					</div>
+				<div class="mb-3">
+					<label for="address">내용</label>
+					<textarea rows="12" cols="81" class="form control" id="content"
+						name="content" required autofocus>${detail.CONTENT }</textarea>
+					<div class="invalid-feedback">내용을 입력해주세요.</div>
+				</div>
 
-
-
-					<div class="mb-3">
-						<label for="username">금액</label>
-						<div class="input-group">
-							<input type="text" class="form-control" id="username"
-								value="<fmt:formatNumber>${detail.PRICE }</fmt:formatNumber>원"
-								readonly="readonly" style="background-color: white;">
-							<div class="invalid-feedback" style="width: 100%;">Your
-								username is required.</div>
-						</div>
-					</div>
-
-					<div class="mb-3">
-						<label for="address">내용</label>
-						<textarea rows="12" cols="81" class="form control" id="content"
-							name="content" readonly="readonly"
-							style="background-color: white;">${detail.CONTENT }</textarea>
-						<div class="invalid-feedback">Please enter your shipping
-							address.</div>
-					</div>
-
-					<hr class="mb-4">
-					<button class="btn btn-primary btn-lg btn-block" type="submit">구매하기</button>
-				</form>
-			</div>
+				<hr class="mb-4">
+				<button class="btn btn-primary btn-lg btn-block" type="button" id="modify">수정
+					완료</button>
+			</form>
 		</div>
-
-		<footer class="my-5 pt-5 text-muted text-center text-small">
-			<p class="mb-1">&copy; 2018-2019 재미나</p>
-		</footer>
 	</div>
+
+	<footer class="my-5 pt-5 text-muted text-center text-small">
+		<p class="mb-1">&copy; 2018-2019 재미나</p>
+	</footer>
+	</div>
+	
+	<script type="text/javascript">
+		$("#modify").on("click", function() {
+			if(window.confirm("수정하시겠습니까?") == true) {
+				$("#modifybtn").trigger("submit");				
+			}else {
+				return;
+			}
+		});
+	</script>
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->

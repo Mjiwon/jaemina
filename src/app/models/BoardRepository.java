@@ -53,4 +53,13 @@ public class BoardRepository {
 	public int deleteDetailBoard(int no) {
 		return template.delete("board.deleteDetailBoard", no);
 	}
+	
+	public Map getCate(Map cates) {
+		return template.selectOne("board.getCate",cates);
+	}
+	
+	// 인덱스에서 사용할 것 (게시판 총갯수 불러오기 )
+	public int boardCount() {
+		return template.selectOne("board.boardCount");
+	}
 }

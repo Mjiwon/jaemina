@@ -57,7 +57,7 @@
 				</form>
 			</div>
 			<div class="col-md-8 order-md-1">
-				<h4 class="mb-3">카테고리 : ${detail.BIGCATE} | ${detail.SMALLCATE}</h4>
+				<h4 class="mb-3">카테고리 : ${cate.BIGCATE} | ${cate.SMALLCATE}</h4>
 				<form class="needs-validation"
 					action="${pageContext.servletContext.contextPath }/buy.do"
 					novalidate>
