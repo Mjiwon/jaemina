@@ -62,4 +62,9 @@ public class BoardRepository {
 	public int boardCount() {
 		return template.selectOne("board.boardCount");
 	}
+	
+	// 카테고리에 맞는 ㄱㅔ시글 불러오기
+	public List<Map> getCateBoard(int bigcate){
+		return template.selectList("board.getCateBoard",bigcate);
+	}
 }

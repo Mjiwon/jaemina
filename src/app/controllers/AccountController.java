@@ -56,6 +56,7 @@ BoardRepository boardrepo;
 			return "/WEB-INF/views/account/login.jsp";
 		}else {
 			List<Map> bcatelist = boardrepo.getBigCate();
+			System.out.println(bcatelist);
 			map.put("bigcate", bcatelist);
 			int boardCount = boardRepository.boardCount();
 			map.put("boardCount", boardCount);

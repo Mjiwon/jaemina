@@ -98,6 +98,13 @@ public class BoardController {
 	}
 	
 	
+	@RequestMapping("/board/lists.do")
+	public String boardListHandle(@RequestParam int bigcate, Map map) {
+		System.out.println("카테별 리스트 뽑아보자"+bigcate);
+		map.put("boardlist", boardrepo.getCateBoard(bigcate));
+		
+		return "/WEB-INF/views/board/boardlist.jsp";
+	}
 	
 	// 상세페이지
 	@RequestMapping("/board/detail.do")

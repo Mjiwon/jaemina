@@ -154,15 +154,29 @@ u {
 
 	<!-- Page Content -->
 	<div class="container" style="padding-bottom: 20px;">
-
-		<div id="row_1" class="row">
+	
+		<%--<div id="row_1" class="row">
+			 <c:forEach var="big" items="bcatelist">
+				<div class="col-lg-3">
+					<img class="rounded-circle"
+						src="${pageContext.servletContext.contextPath }/images/home_images/web.svg"
+						alt="Generic placeholder image" width="140" height="140">
+					<h5>${big.BIGCATE }</h5>
+					<p>
+						<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${big.NO}" role="button">View
+							details &raquo;</a>
+					</p>
+				</div>
+			</c:forEach>
+		</div>
+		
 			<div class="col-lg-3">
 				<img class="rounded-circle"
 					src="${pageContext.servletContext.contextPath }/images/home_images/web.svg"
 					alt="Generic placeholder image" width="140" height="140">
 				<h5>디자인</h5>
 				<p>
-					<a class="btn btn-secondary" href="#" role="button">View
+					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=2" role="button">View
 						details &raquo;</a>
 				</p>
 			</div>
@@ -174,7 +188,7 @@ u {
 					alt="Generic placeholder image" width="140" height="140">
 				<h5>IT·프로그래밍</h5>
 				<p>
-					<a class="btn btn-secondary" href="#" role="button">View
+					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1" role="button">View
 						details &raquo;</a>
 				</p>
 			</div>
@@ -184,9 +198,9 @@ u {
 				<img class="rounded-circle"
 					src="${pageContext.servletContext.contextPath }/images/home_images/motion.svg"
 					alt="Generic placeholder image" width="140" height="140">
-				<h5>콘텐츠 제작</h5>
+				<h5>레슨</h5>
 				<p>
-					<a class="btn btn-secondary" href="#" role="button">View
+					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=5" role="button">View
 						details &raquo;</a>
 				</p>
 			</div>
@@ -199,6 +213,56 @@ u {
 				<h5>마케팅</h5>
 				<p>
 					<a class="btn btn-secondary" href="#" role="button">View
+						details &raquo;</a>
+				</p>
+			</div>
+			<!-- /.col-lg-4 -->
+		</div> --%>
+		<div id="row_1" class="row">
+			<div class="col-lg-3">
+				<img class="rounded-circle"
+					src="${pageContext.servletContext.contextPath }/images/home_images/web.svg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h5>디자인</h5>
+				
+				<p>
+					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=2" role="button">View
+						details &raquo;</a>
+				</p>
+			</div>
+			<!-- /.col-lg-4 -->
+
+			<div class="col-lg-3	">
+				<img class="rounded-circle"
+					src="${pageContext.servletContext.contextPath }/images/home_images/ux.svg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h5>IT·프로그래밍</h5>
+				<p>
+					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1" role="button">View
+						details &raquo;</a>
+				</p>
+			</div>
+			<!-- /.col-lg-4 -->
+
+			<div class="col-lg-3">
+				<img class="rounded-circle"
+					src="${pageContext.servletContext.contextPath }/images/home_images/motion.svg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h5>레슨</h5>
+				<p>
+					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=5" role="button">View
+						details &raquo;</a>
+				</p>
+			</div>
+			<!-- /.col-lg-4 -->
+
+			<div class="col-lg-3">
+				<img class="rounded-circle"
+					src="${pageContext.servletContext.contextPath }/images/home_images/mobile-ui.svg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h5>마케팅</h5>
+				<p>
+					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=3" role="button">View
 						details &raquo;</a>
 				</p>
 			</div>
