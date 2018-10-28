@@ -78,6 +78,7 @@ public class BoardController {
 	@RequestMapping(path="/ajax/cate.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String cateAjaxHandle(@RequestParam String bigno) {
+		System.out.println(bigno);
 		int bno = Integer.parseInt(bigno);
 		List<Map> scatelist = boardrepo.getSmallCate(bno);
 		System.out.println(scatelist);
@@ -91,6 +92,8 @@ public class BoardController {
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 		return "/WEB-INF/views/boardlist.jsp";
 	}
+	
+	
 	
 	// 상세페이지
 	@RequestMapping("/board/detail.do")
