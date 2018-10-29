@@ -71,6 +71,7 @@ public class BoardController {
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
+		
 		File dst = new File(dir, filename);
 		if(imgpath==null) {
 			boardrepo.addBoard1(map);
@@ -80,9 +81,7 @@ public class BoardController {
 			boardrepo.addBoard2(map);
 			
 		}
-		
-		
-		
+
 		return "redirect:/board/detail.do?no="+no;
 	}
 	

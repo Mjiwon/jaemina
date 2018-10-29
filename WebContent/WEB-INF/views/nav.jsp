@@ -75,7 +75,7 @@
 									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
 									style="color: green;">${user.ID }</b>의 재미나</a> <a
 									class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/myboard.do">프로필</a>
+									href="${pageContext.servletContext.contextPath }/myboard.do">나의 블로그</a>
 								<a class="dropdown-item"
 									href="${pageContext.servletContext.contextPath }/modified.do">계정설정</a>
 								<div class="dropdown-divider"></div>

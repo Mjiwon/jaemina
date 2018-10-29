@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <body class="bg-light">
 <p>
 <br>
@@ -38,6 +38,7 @@
 						</div>
 						<script type="text/javascript">
 							$("#bigcate").on("change",function(){
+								console.log("??");
 								var bigno = $("#bigcate").val();
 								
 								var param = {
@@ -116,5 +117,3 @@
 		</div>
 
 	</div>
-</body>
-</html>

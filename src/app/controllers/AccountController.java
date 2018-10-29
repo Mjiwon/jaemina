@@ -327,7 +327,7 @@ BoardRepository boardrepo;
 			if(dseller==null) {
 				return "/WEB-INF/views/account/seller/addseller.jsp";
 			}else
-				return "/WEB-INF/views/write.jsp";
+				return "redirect:/write.do";
 	}
 		
 
@@ -446,7 +446,7 @@ BoardRepository boardrepo;
 		} else {
 			int j = SellerRepository.updateSeller2(p);
 		}
-		return "/WEB-INF/views/index.jsp";
+		return "/WEB-INF/views/account/seller/sellerHome.jsp";
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
 		// 판매자 블러그 올린글 확인
