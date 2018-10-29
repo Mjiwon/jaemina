@@ -1,7 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+<c:if test="${chageok==1}">
+	<script type="text/javascript">
+		window.alert("바꾸시려는 비밀번호가 일치하지 않습니다.");
+	</script>
+</c:if>
+<c:if test="${chageok==2}">
+	<script type="text/javascript">
+		window.alert("기존 비밀번호가 일치하지 않습니다.");
+	</script>
+</c:if>
+<c:if test="${chageok==3}">
+	<script type="text/javascript">
+		window.alert("기존 비밀번호가 일치하지 않고,\n 바꾸시려는 비밀번호도 둘다 일치하지 않습니다.");
+	</script>
+</c:if>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -20,7 +36,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <title>재미나-비밀번호 변경</title>
-
+<
 </head>
 <body>
 	<form action="${pageContext.servletContext.contextPath }/chageuser.do" method="post">

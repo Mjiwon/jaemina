@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+<c:if test="${chageok==0}">
+	<script type="text/javascript">
+		window.alert("비밀번호가 변경되었습니다.");
+	</script>
+</c:if>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -27,7 +33,7 @@
   <div class="col-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" >
       <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" >나의정보</a>
-      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" >비밀번호변경</a>
+      <a class="nav-link" id="v-pills-profile-tab" href="${pageContext.servletContext.contextPath }/chageuser.do" role="tab">비밀번호변경</a>
       <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" >회원탈퇴</a>
     </div>
   </div>

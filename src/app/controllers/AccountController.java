@@ -489,7 +489,7 @@ public class AccountController {
    }
 
    @PostMapping("/chageuser.do")
-   public String ChageUserPostHandle(@RequestParam Map p, HttpSession session) {
+   public String ChageUserPostHandle(@RequestParam Map p, HttpSession session, WebRequest wr) {
       Map suser = (Map) session.getAttribute("user");
       String sid = (String) suser.get("ID");
       String spass = (String) suser.get("PASS");
@@ -507,12 +507,20 @@ public class AccountController {
             user_new.put("pass", npass);
             int i = accountRepository.changeuser(user_new);
             System.out.println(i);
-            return "/WEB-INF/views/account/mypage/history/sellHistory.jsp";
+            wr.setAttribute("chageok", 0, WebRequest.SCOPE_REQUEST);
+            return "/WEB-INF/views/account/mypage/modified/modifiedindex.jsp";
          } else
-            return "/WEB-INF/views/account/mypage/history/chage_user.jsp";
-
-      } else
-         return "/WEB-INF/views/account/mypage/history/chage_user.jsp";
+        	 wr.setAttribute("chageok", 1, WebRequest.SCOPE_REQUEST);
+            return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
+      } else {
+    	  if(npass.equals(nppass)) {
+    		  wr.setAttribute("chageok", 2, WebRequest.SCOPE_REQUEST);
+    		  return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
+    	  } else {
+    		  wr.setAttribute("chageok", 3, WebRequest.SCOPE_REQUEST);
+    		  return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
+    	  }
+      }
    }
 
    // ----------------------------------------------------------------------------------------------------------------------------
