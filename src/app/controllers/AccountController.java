@@ -485,7 +485,7 @@ BoardRepository boardrepo;
 			public String ChageUserGetHandle() {
 				return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
 			}
-			
+			   
 			@PostMapping("/chageuser.do")
 			public String ChageUserPostHandle(@RequestParam Map p,HttpSession session) {
 				Map suser = (Map)session.getAttribute("user");
