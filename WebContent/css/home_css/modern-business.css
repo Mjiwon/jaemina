@@ -35,18 +35,18 @@ body {
 	background:url("../../images/2.jpeg") no-repeat center center;
 	background-size:cover;
 	opacity: .8;
-}
+}	
 
 .row .card-img {
 	background-size:cover;
 }
 
 #r {
-		width:50%;
+		width:60%;
 		position:absolute;
-		top:50%;
-		right:15%; 
 		/* margin-right:-250px; */
+		top:45%;
+		left: 35%;
 		z-index:50000;
 	}
 	
@@ -63,7 +63,7 @@ body {
 	}
 	
 	.nav-item button {
-		margin-right:20px;
+		margin-right:20px; 
 	
 	}
 	
