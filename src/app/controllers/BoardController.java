@@ -205,7 +205,7 @@ public class BoardController {
 	public String buyqaHandle(@RequestParam Map param, Map map, HttpSession session) {
 		map.put("writer", (String)param.get("writer"));
 		map.put("no", Integer.parseInt((String)param.get("no")));
-		return "/WEB-INF/views/board/buyqa.jsp";
+		return "account.buyQA";
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!

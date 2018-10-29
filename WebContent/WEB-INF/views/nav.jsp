@@ -90,3 +90,10 @@
 		</div>
 	</div>
 </nav>
+<script>
+	var ws = new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/waiting.do");
+	
+	ws.onmessage = function(got){
+		
+	};
+</script>

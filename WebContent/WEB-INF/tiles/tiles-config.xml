@@ -21,6 +21,16 @@
 		<put-attribute name="center" value="/WEB-INF/views/board/write.jsp"/>
 	</definition>
 	
+	<definition name="account.buyQA" template="/WEB-INF/tiles/qaTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/board/buyqa.jsp"/>
+		<put-attribute name="rigth" value="/WEB-INF/views/board/chatlist.jsp" />
+	</definition>
+	
+	<definition name="account.sellerHomme" template="/WEB-INF/tiles/sellerTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/board/write.jsp"/>
+	</definition>
 	
 	
 </tiles-definitions>

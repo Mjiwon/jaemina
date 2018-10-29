@@ -49,11 +49,20 @@
 	<bean id="gson" class="com.google.gson.Gson" />
 
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="13.125.245.183"/>
+		<property name="host" value="54.180.26.126"/>
 		<property name="port" value="25"/>
 		<property name="protocol" value="smtp"/>
 		<property name="defaultEncoding" value="UTF-8"/>
 	</bean>
-
-
+	
+	<websocket:handlers>
+		<websocket:mapping handler="alarmSocketController" path="/waiting.do"/>
+		<websocket:mapping handler="qaSocket" path="/boardQA.do"/>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
+	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+	
 </beans>

@@ -14,9 +14,7 @@ import com.google.gson.Gson;
 
 
 @Service
-public class SocketService {
-
-	
+public class SocketService {	
 	@Autowired
 	Gson gson;
 	
