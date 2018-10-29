@@ -16,6 +16,11 @@
 		<put-attribute name="center" value="/WEB-INF/views/board/detail.jsp"/>
 	</definition>
 	
+	<definition name="account.boardWrite" template="/WEB-INF/tiles/boardTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/board/write.jsp"/>
+	</definition>
+	
 	
 	
 </tiles-definitions>

@@ -53,7 +53,7 @@ public class BoardController {
 		List<Map> bcatelist = boardrepo.getBigCate();
 		map.put("bigcate", bcatelist);
 		 
-		return "/WEB-INF/views/write.jsp";
+		return "account.boardWrite";
 	}
 
 	// 판매글 DB에 insert
