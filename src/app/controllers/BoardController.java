@@ -58,10 +58,15 @@ public class BoardController {
 
 	// 판매글 DB에 insert
 	@PostMapping("/write.do")
-	public String writePostHandle(@RequestParam Map map,@RequestParam MultipartFile imgpath) throws IOException {
+	public String writePostHandle(@RequestParam Map map,@RequestParam MultipartFile imgpath, WebRequest wr) throws IOException {
 		// 파일(이미지) 업로드
 		String filename = map.get("writer") +"-"+map.get("title")+"-board"+".jpg";
 		String path = ctx.getRealPath("\\storage\\board");
+
+		Integer no = boardrepo.getSequenceVal();
+		map.put("no", no);
+		
+		System.out.println("쓰기완료 파람"+map);
 		File dir = new File(path);
 		if(!dir.exists()) {
 			dir.mkdirs();
@@ -73,8 +78,12 @@ public class BoardController {
 			imgpath.transferTo(dst);
 			map.put("imgpath", "\\storage\\board"+"\\"+filename);
 			boardrepo.addBoard2(map);
+			
 		}
-		return "/WEB-INF/views/index.jsp";
+		
+		
+		
+		return "redirect:/board/detail.do?no="+no;
 	}
 	
 	// 카테고리 분류의 AJAX
@@ -94,7 +103,7 @@ public class BoardController {
 	public String boardListHandle(Map map, WebRequest wr) {
 		map.put("boardlist", boardrepo.getBoardList());
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
-		return "/WEB-INF/views/board/boardlist.jsp";
+		return "account.boardlist";
 	}
 	
 	
@@ -103,7 +112,7 @@ public class BoardController {
 		System.out.println("카테별 리스트 뽑아보자"+bigcate);
 		map.put("boardlist", boardrepo.getCateBoard(bigcate));
 		
-		return "/WEB-INF/views/board/boardlist.jsp";
+		return "account.boardlist";
 	}
 	
 	// 상세페이지
@@ -212,14 +221,14 @@ public class BoardController {
 			}
 			System.out.println(li);
 			List<Map> list = boardrepo.getSearchListByList(li);
-			map.put("searchResult", list);
+			map.put("boardlist", list);
 			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
 		}else {
 			List<Map> list = boardrepo.getSearchListByString(searchKey);
-			map.put("searchResult", list);
+			map.put("boardlist", list);
 			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
 		}
-		return "/WEB-INF/views/searchList.jsp";
+		return "account.boardlist";
 	}
 	// 구매 결정 컨트롤러
 	// 구현중

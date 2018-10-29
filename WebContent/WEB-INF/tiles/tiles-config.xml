@@ -5,4 +5,17 @@
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/index.jsp"/>
 	</definition>
+	
+	<definition name="account.boardlist" template="/WEB-INF/tiles/boardTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/board/boardlist.jsp"/>
+	</definition>
+	
+	<definition name="account.boardDetail" template="/WEB-INF/tiles/boardTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/board/detail.jsp"/>
+	</definition>
+	
+	
+	
 </tiles-definitions>

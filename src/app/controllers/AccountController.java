@@ -53,7 +53,6 @@ BoardRepository boardrepo;
 	@RequestMapping("/index.do")
 	public String indexHendler(WebRequest wr, Map map) {
 		List<Map> bcatelist = boardrepo.getBigCate();
-		System.out.println(bcatelist);
 		map.put("bigcate", bcatelist);
 		if(wr.getAttribute("auth", WebRequest.SCOPE_SESSION) == null) {
 			int boardCount = boardRepository.boardCount();
