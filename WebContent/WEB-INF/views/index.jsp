@@ -1,112 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- JAEMINA_HOME -->
-<link
-	href="${pageContext.servletContext.contextPath }/css/home_css/bootstrap.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.servletContext.contextPath }/css/home_css/modern-business.css"
-	rel="stylesheet">
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-
-<style type="text/css">
-u {
-	text-decoration: none;
-	border-bottom: 2px solid;
-	padding-bottom: 2px;
-}
-</style>
-
-<title>JAEMINA_HOME</title>
-
-</head>
-
-<body>
-
-	<!-- Navigation -->
-	<nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="${pageContext.servletContext.contextPath }/index.do">JAEMINA</a>
-
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<c:choose>
-					<c:when test="${empty auth}">
-						<ul class="navbar-nav ml-auto">
-							<li class="nav-item">
-								<button type="button" class="btn btn-light">
-									<a href="${pageContext.servletContext.contextPath }/login.do"
-										style="color: black;">판매시작</a>
-								</button>
-							</li>
-							<li class="nav-item">
-								<button type="button" class="btn btn-secondary">
-									<a href="${pageContext.servletContext.contextPath }/login.do"
-										style="color: white;">로그인</a>
-								</button>
-							</li>
-							<li class="nav-item">
-								<button type="button" class="btn btn-primary">
-									<a href="${pageContext.servletContext.contextPath }/join.do"
-										style="color: white;">회원가입</a>
-								</button>
-							</li>
-						</ul>
-					</c:when>
-					<c:otherwise>
-						<ul class="navbar-nav ml-auto">
-							<li class="nav-item"><a class="nav-link disabled"
-								href="${pageContext.servletContext.contextPath }/write.do"
-								style="color: black;"><b>판매글올리기</b></a></li>
-							<li class="nav-item"><a class="nav-link disabled"
-								href="${pageContext.servletContext.contextPath }/addbank.do"
-								style="color: black;"><b>판매</b></a></li>
-							<li class="nav-item"><a class="nav-link disabled"
-								href="${pageContext.servletContext.contextPath }/board/list.do"
-								style="color: black;"><b>구매</b></a></li>
-							<li class="nav-item"><a class="nav-link disabled" href="#"
-								style="color: black;"><b>메세지</b></a></li>
-							<li class="nav-item dropdown"><a
-								class="nav-link dropdown-toggle btn-primary"
-								data-toggle="dropdown" href="#" role="button"
-								aria-haspopup="true" aria-expanded="false"
-								style="color: white; border-radius: 10px;">
-									<button type="button" class="btn btn-primary">
-										<b>${user.ID }</b>
-									</button>
-							</a>
-								<div class="dropdown-menu btn btn-ligh btn btn-primary">
-									<a class="dropdown-item"
-										href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
-										style="color: green;">${user.ID }</b>의 재미나</a> <a
-										class="dropdown-item"
-										href="${pageContext.servletContext.contextPath }/myboard.do">프로필</a>
-									<a class="dropdown-item"
-										href="${pageContext.servletContext.contextPath }/modified.do">계정설정</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item"
-										href="${pageContext.servletContext.contextPath }/serviceqa.do">고객센터</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="#">로그아웃</a>
-								</div></li>
-						</ul>
-					</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-	</nav>
 
 	<header>
 		<div id="carouselExampleIndicators" class="carousel"
@@ -154,12 +48,12 @@ u {
 
 	<!-- Page Content -->
 	<div class="container" style="padding-bottom: 20px;">
-	
-		<%--<div id="row_1" class="row">
-			 <c:forEach var="big" items="bcatelist">
+
+		<div id="row_1" class="row">
+			 <c:forEach var="big" items="${bigcate }">
 				<div class="col-lg-3">
 					<img class="rounded-circle"
-						src="${pageContext.servletContext.contextPath }/images/home_images/web.svg"
+						src="${pageContext.servletContext.contextPath }/images/home_images/${big.NO }.svg"
 						alt="Generic placeholder image" width="140" height="140">
 					<h5>${big.BIGCATE }</h5>
 					<p>
@@ -169,56 +63,8 @@ u {
 				</div>
 			</c:forEach>
 		</div>
-		
-			<div class="col-lg-3">
-				<img class="rounded-circle"
-					src="${pageContext.servletContext.contextPath }/images/home_images/web.svg"
-					alt="Generic placeholder image" width="140" height="140">
-				<h5>디자인</h5>
-				<p>
-					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=2" role="button">View
-						details &raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
 
-			<div class="col-lg-3	">
-				<img class="rounded-circle"
-					src="${pageContext.servletContext.contextPath }/images/home_images/ux.svg"
-					alt="Generic placeholder image" width="140" height="140">
-				<h5>IT·프로그래밍</h5>
-				<p>
-					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1" role="button">View
-						details &raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-
-			<div class="col-lg-3">
-				<img class="rounded-circle"
-					src="${pageContext.servletContext.contextPath }/images/home_images/motion.svg"
-					alt="Generic placeholder image" width="140" height="140">
-				<h5>레슨</h5>
-				<p>
-					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=5" role="button">View
-						details &raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-
-			<div class="col-lg-3">
-				<img class="rounded-circle"
-					src="${pageContext.servletContext.contextPath }/images/home_images/mobile-ui.svg"
-					alt="Generic placeholder image" width="140" height="140">
-				<h5>마케팅</h5>
-				<p>
-					<a class="btn btn-secondary" href="#" role="button">View
-						details &raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-		</div> --%>
-		<div id="row_1" class="row">
+		<%-- <div id="row_1" class="row">
 			<div class="col-lg-3">
 				<img class="rounded-circle"
 					src="${pageContext.servletContext.contextPath }/images/home_images/web.svg"
@@ -267,7 +113,7 @@ u {
 				</p>
 			</div>
 			<!-- /.col-lg-4 -->
-		</div>
+		</div> --%>
 		<!-- /.row -->
 
 		<!-- Portfolio Section -->

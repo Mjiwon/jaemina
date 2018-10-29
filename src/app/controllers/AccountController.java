@@ -53,14 +53,16 @@ BoardRepository boardrepo;
 	@RequestMapping("/index.do")
 	public String indexHendler(WebRequest wr, Map map) {
 		if(wr.getAttribute("auth", WebRequest.SCOPE_SESSION) == null) {
-			return "/WEB-INF/views/account/login.jsp";
+			int boardCount = boardRepository.boardCount();
+			map.put("boardCount", boardCount);
+			return "account.index";
 		}else {
 			List<Map> bcatelist = boardrepo.getBigCate();
 			System.out.println(bcatelist);
 			map.put("bigcate", bcatelist);
 			int boardCount = boardRepository.boardCount();
 			map.put("boardCount", boardCount);
-			return "/WEB-INF/views/index.jsp";
+			return "account.index";
 		}
 	}
 	

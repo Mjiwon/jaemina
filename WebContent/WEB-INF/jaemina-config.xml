@@ -11,8 +11,8 @@
 
 	<context:component-scan base-package="app" />
 
-	<!-- <bean id="tilesViewResolver"
-		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" /> -->
+	<bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" /> 
 	
 	<bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
