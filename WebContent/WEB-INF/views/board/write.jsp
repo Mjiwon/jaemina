@@ -5,13 +5,13 @@
 <p>
 <br>
 </p>
-	<div class="container">
+	<div class="container" >
 		<div class="py-5 text-center">
 			<h2>판매 글올리기</h2>
 		</div>
 		<div class="row">
 			<!-- 판매내용 작성 -->
-			<div class="col-md-8 order-md-1">
+			<div class="col-md-8 order-md-1" style="margin: auto;">
 				<form action="${pageContext.servletContext.contextPath }/write.do" method="post" enctype="multipart/form-data">
 					<div class="mb-3">
 							<label>작성자</label>
