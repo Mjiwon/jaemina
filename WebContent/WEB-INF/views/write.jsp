@@ -105,7 +105,7 @@
 							<textarea rows="20" cols="20" class="form-control" name="content"></textarea>
 						</div>
 
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-md-5 mb-3">
 								<label for="country">Country</label> <select
 									class="custom-select d-block w-100" id="country" required>
@@ -129,7 +129,7 @@
 									class="form-control" id="zip" placeholder="" required>
 								<div class="invalid-feedback">Zip code required.</div>
 							</div>
-						</div>		
+						</div>		 -->
 						<hr class="mb-4">
 						<button class="btn btn-primary btn-lg btn-block" type="submit">게시글 올리기</button>
 				</form>

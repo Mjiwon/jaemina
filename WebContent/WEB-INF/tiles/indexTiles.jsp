@@ -34,7 +34,7 @@ u {
 }
 </style>
 
-<title>재미나 - 관리자</title>
+<title>재능을 나누다 - 재미나</title>
 </head>
 <body>
 	<div>

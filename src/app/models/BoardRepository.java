@@ -67,4 +67,10 @@ public class BoardRepository {
 	public List<Map> getCateBoard(int bigcate){
 		return template.selectList("board.getCateBoard",bigcate);
 	}
+	
+	// 방번호 가져오기
+	public Integer getSequenceVal() {
+		Integer i = template.selectOne("board.getSequenceVal");
+		return i;
+	}
 }
