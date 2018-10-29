@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,7 @@
 </head>
 <body class="text-center">
 	
-	<form action="${pageContext.servletContext.contextPath }/admin/login.do" class="form-signin" method="post">
+	<form action="${path}/admin/login.do" class="form-signin" method="post">
 		<h1 class="h3 mb-3 font-weight-normal">재미나</h1>
 		<label for="inputId" class="sr-only">아이디</label> <input
 			type="text" id="inputId" class="form-control" name="getId"
@@ -34,7 +35,7 @@
 				등록되지 않은 아이디이거나,<br/> 아이디 또는 비밀번호를 잘못 입력하셨습니다.
 			</div>
 		</c:if>
-		<a href="${pageContext.servletContext.contextPath }/join.do" >회원가입</a>
+		<a href="${path }/join.do" >회원가입</a>
 		<p class="mt-5 mb-3 text-muted">&copy; 2018 Jaemina CORP</p>
 	</form>
 </body>
