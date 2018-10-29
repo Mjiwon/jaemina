@@ -380,7 +380,7 @@ BoardRepository boardrepo;
 		File dst = new File(dir, fileName);
 		imgpath.transferTo(dst);
 
-		String img = path + "/" + fileName;
+		String img = path + "\\" + fileName;
 		param.put("imgpath", img);
 		
 		if (param.get("imgpath") != null) {

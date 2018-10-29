@@ -71,12 +71,14 @@ public class BoardController {
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
-		
 		File dst = new File(dir, filename);
+		imgpath.transferTo(dst);
+		
+		String img = path+"\\"+filename;
+		
 		if(imgpath==null) {
 			boardrepo.addBoard1(map);
 		}else {
-			imgpath.transferTo(dst);
 			map.put("imgpath", "\\storage\\board"+"\\"+filename);
 			boardrepo.addBoard2(map);
 			
