@@ -83,7 +83,6 @@ public class BoardController {
 			boardrepo.addBoard2(map);
 			
 		}
-
 		return "redirect:/board/detail.do?no="+no;
 	}
 	
