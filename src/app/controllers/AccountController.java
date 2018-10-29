@@ -407,47 +407,52 @@ BoardRepository boardrepo;
 
 		return "/WEB-INF/views/account/seller/sellerHome.jsp";
 	}
-
-	// 판매자 정보 수정 페이지로 이동
+	
+	
+	
 	@GetMapping("/update_seller.do")
 	public String UpdateSellerGetHandle() {
 		return "/WEB-INF/views/account/seller/update_seller.jsp";
 	}
 
-	// 판매자 정보 수정 
+
 	@PostMapping("/update_seller.do")
-	public String UpdateSellerPostHandle(@RequestParam Map p, @RequestParam MultipartFile imgpath, HttpSession session)
-			throws IOException {
+		public String UpdateSellerPostHandle(@RequestParam Map p, @RequestParam MultipartFile imgpath, HttpSession session)
+				throws IOException {
+			
+			
+			session.removeAttribute("Seller");
+			Map user = (Map) session.getAttribute("user");
+			String id = (String) user.get("ID");
+			p.put("id", id);
 
-		Map user = (Map) session.getAttribute("user");
-		String id = (String) user.get("ID");
-		p.put("id", id);
+			String paramFileName = imgpath.getName();
+			String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
 
-		String paramFileName = imgpath.getName();
-		String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
+			String realpath = ctx.getRealPath("/storage/sellerProfile");
+			String path = "/storage/sellerProfile";
+			File dir = new File(realpath);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			File dst = new File(dir, fileName);
 
-		String realpath = ctx.getRealPath("/storage/sellerProfile");
-		String path = "/storage/sellerProfile";
-		File dir = new File(realpath);
-		if (!dir.exists()) {
-			dir.mkdirs();
+			imgpath.transferTo(dst);
+
+			String img = path + "/" + fileName;
+			System.out.println(img);
+			p.put("imgpath", img);
+
+			if (p.get("imgpath") != null) {
+				int i = SellerRepository.updateSeller1(p);
+
+			} else {
+				int j = SellerRepository.updateSeller2(p);
+			}
+			Map Seller=SellerRepository.getSeller(id);
+			session.setAttribute("Seller", Seller);
+			return "/WEB-INF/views/account/seller/sellerHome.jsp";
 		}
-		File dst = new File(dir, fileName);
-
-		imgpath.transferTo(dst);
-
-		String img = path + "/" + fileName;
-		System.out.println(img);
-		p.put("imgpath", img);
-
-		if (p.get("imgpath") != null) {
-			int i = SellerRepository.updateSeller1(p);
-
-		} else {
-			int j = SellerRepository.updateSeller2(p);
-		}
-		return "/WEB-INF/views/account/seller/sellerHome.jsp";
-	}
 	//----------------------------------------------------------------------------------------------------------------------------
 		// 판매자 블러그 올린글 확인
 			
@@ -487,7 +492,7 @@ BoardRepository boardrepo;
 			public String ChageUserGetHandle() {
 				return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
 			}
-			
+			   
 			@PostMapping("/chageuser.do")
 			public String ChageUserPostHandle(@RequestParam Map p,HttpSession session) {
 				Map suser = (Map)session.getAttribute("user");
