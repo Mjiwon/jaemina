@@ -288,6 +288,3 @@
 				Website 2018</p>
 		</div>
 	</footer>
-</body>
-
-</html>
