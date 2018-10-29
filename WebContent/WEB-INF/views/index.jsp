@@ -51,10 +51,10 @@
 
 		<div id="row_1" class="row">
 			 <c:forEach var="big" items="${bigcate }">
-				<div class="col-lg-3">
+				<div class="col-lg-2">
 					<img class="rounded-circle"
 						src="${pageContext.servletContext.contextPath }/images/home_images/${big.NO }.svg"
-						alt="Generic placeholder image" width="140" height="140">
+						alt="Generic placeholder image" width="100" height="140">
 					<h5>${big.BIGCATE }</h5>
 					<p>
 						<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${big.NO}" role="button">View
@@ -134,7 +134,7 @@
 			<div class="col-lg-4 col-sm-6 portfolio-item">
 				<div class="card h-100">
 					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/700x400" alt=""></a>
+						src="${pageContext.servletContext.contextPath }/images/home_images/post2.png" alt=""></a>
 					<div class="card-body">
 						<div class="card-title">
 							<a href="#">Project Two</a>
@@ -145,7 +145,7 @@
 			<div class="col-lg-4 col-sm-6 portfolio-item">
 				<div class="card h-100">
 					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/700x400" alt=""></a>
+						src="${pageContext.servletContext.contextPath }/images/home_images/post3.png" alt=""></a>
 					<div class="card-body">
 						<div class="card-title">
 							<a href="#">Project Three</a>
