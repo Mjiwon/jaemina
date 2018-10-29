@@ -60,12 +60,12 @@ public class BoardController {
 	@PostMapping("/write.do")
 	public String writePostHandle(@RequestParam Map map,@RequestParam MultipartFile imgpath, WebRequest wr) throws IOException {
 		// 파일(이미지) 업로드
-		String filename = map.get("writer") +"-"+map.get("title")+"-board"+".jpg";
-		String path = ctx.getRealPath("\\storage\\board");
-
 		Integer no = boardrepo.getSequenceVal();
 		map.put("no", no);
 		
+		String filename = map.get("writer")+"-"+no +"-"+map.get("title")+"-board"+".jpg";
+		String path = ctx.getRealPath("\\storage\\board");
+
 		System.out.println("쓰기완료 파람"+map);
 		File dir = new File(path);
 		if(!dir.exists()) {
