@@ -407,6 +407,13 @@ BoardRepository boardrepo;
 
 		return "/WEB-INF/views/account/seller/sellerHome.jsp";
 	}
+	
+	
+	
+	@GetMapping("/update_seller.do")
+	public String UpdateSellerGetHandle() {
+		return "/WEB-INF/views/account/seller/update_seller.jsp";
+	}
 
 
 	@PostMapping("/update_seller.do")
