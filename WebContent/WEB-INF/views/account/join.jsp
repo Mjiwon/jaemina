@@ -2,6 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<c:if test="${!empty joinYes }">
+      	<script>
+	      	window.alert("회원가입에 성공하셨습니다."+"\n"+"이제부터 로그인이 가능합니다.");
+	      	opener.location.href="${pageContext.servletContext.contextPath }/index.do";
+	      	window.close();
+      	</script>
+</c:if>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -45,7 +52,6 @@
 		<button type="button" id="confirmok" disabled="disabled">인증하기</button>
 		<small id="checked4"></small>
 		<button class="btn btn-lg btn-primary btn-block" type="submit" id="btnsubmit" disabled="disabled">회원가입</button>
-		<a href="${pageContext.servletContext.contextPath }/login.do">로그인</a>
 		<p class="mt-5 mb-3 text-muted">&copy; 2018 Jaemina CORP</p>
 	</form>
 	<script type="text/javascript">

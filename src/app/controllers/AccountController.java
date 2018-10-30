@@ -130,8 +130,9 @@ public class AccountController {
       map.put("pass", pass);
       map.put("email", email);
       accountRepository.addUser(map);
-
-      return "/WEB-INF/views/account/login.jsp";
+      
+      wr.setAttribute("joinYes", true, WebRequest.SCOPE_REQUEST);
+      return "/WEB-INF/views/account/join.jsp";
    }
 
    @RequestMapping("/joinid_check.do")
@@ -187,7 +188,7 @@ public class AccountController {
    // 아이디 찾기
    @GetMapping("/find_user.do")
    public String FindUser() {
-      return "/WEB-INF/views/account/finduser.jsp";
+      return "/WEB-INF/views/account/findid.jsp";
    }
 
    @PostMapping("/find_user.do")
@@ -225,17 +226,17 @@ public class AccountController {
             e.printStackTrace();
             System.out.println("Fail!");
          }
-         return "redirect:login.do";
+         wr.setAttribute("findidYes", true, WebRequest.SCOPE_REQUEST);
+         return "/WEB-INF/views/account/login.jsp";
       } else
-         return "/WEB-INF/views/finduser.jsp";
+         return "/WEB-INF/views/account/findid.jsp";
    }
 
    // 비밀번호 찾기
 
    @GetMapping("/find_pass.do")
    public String Findpass(WebRequest wr) {
-      System.out.println("여기오세요 안오면 뒤져ㅓ요");
-      return "/WEB-INF/views/account/finduser.jsp";
+      return "/WEB-INF/views/account/findpass.jsp";
 
    }
 
@@ -285,11 +286,11 @@ public class AccountController {
                System.out.println("Fail!");
             }
          }
-         wr.setAttribute("idpasscheck", 1, WebRequest.SCOPE_REQUEST);
+         wr.setAttribute("findpassYes", true, WebRequest.SCOPE_REQUEST);
          return "/WEB-INF/views/account/login.jsp";
       } else {
-         wr.setAttribute("idpasscheck", 0, WebRequest.SCOPE_REQUEST);
-         return "/WEB-INF/views/account/finduser.jsp";
+         wr.setAttribute("findpassNo", 0, WebRequest.SCOPE_REQUEST);
+         return "/WEB-INF/views/account/findpass.jsp";
       }
 
    }//end class
@@ -313,7 +314,6 @@ public class AccountController {
       map.put("pass", pass);
       Map mapp = accountRepository.getAccount(map);
       if (mapp != null) { // 로그인이 되었을 경우
-         wr.removeAttribute("err", 0);
          if (sessions.containsKey(id)) {
             sessions.remove("user"); // 기존 로그인 사용자 없애기
             sessions.remove("auth"); //
@@ -326,10 +326,11 @@ public class AccountController {
             wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
             wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
          }
-         return "redirect:/index.do"; // 로그인 후 인덱스 페이지로 이동
+         wr.setAttribute("loginYes", true, WebRequest.SCOPE_REQUEST);
+         return "/WEB-INF/views/account/login.jsp"; // 로그인 후 인덱스 페이지로 이동
       } else {
-         wr.setAttribute("err", true, WebRequest.SCOPE_SESSION); // 로그인 실패시
-         return "redirect:/login.do";
+         wr.setAttribute("err", true, WebRequest.SCOPE_REQUEST); // 로그인 실패시
+         return "/WEB-INF/views/account/login.jsp";
       }
    }
    

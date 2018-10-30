@@ -2,10 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<c:if test="${idpasscheck == 1}">
-   <script type="text/javascript">
-      window.alert("회원님의 이메일에 전송되었습니다 \n이메일을 확인해주세요");
-   </script>
+<c:if test="${!empty findidYes }">
+	<script>
+		window.alert("메일이 전송되었습니다."+"\n"+"메일을 확인해주세요.");
+	</script>
+</c:if>
+<c:if test="${!empty findpassYes }">
+	<script>
+		window.alert("메일이 전송되었습니다."+"\n"+"메일을 확인해주세요.");
+	</script>
 </c:if>
 <html>
 <head>
@@ -39,10 +44,16 @@
             등록되지 않은 아이디이거나,<br/> 아이디 또는 비밀번호를 잘못 입력하셨습니다.
          </div>
       </c:if>
-      <a href="${pageContext.servletContext.contextPath }/join.do" >회원가입</a><br/><br/>
-      <a href="${pageContext.servletContext.contextPath }/find_user.do">아이디 또는 비밀번호를 잊어버리셨나요?</a>
+      <a href="${pageContext.servletContext.contextPath }/find_user.do">아이디 찾기</a><br/>
+      <a href="${pageContext.servletContext.contextPath }/find_pass.do">비밀번호 찾기</a>
       <p class="mt-5 mb-3 text-muted">&copy; 2018 Jaemina CORP</p>
+      <c:if test="${!empty loginYes }">
+      	<script>
+	      	window.alert("로그인에 성공하셨습니다.");
+	      	opener.location.href="${pageContext.servletContext.contextPath }/index.do";
+	      	window.close();
+      	</script>
+      </c:if>
    </form>
-      
 </body>
 </html>
