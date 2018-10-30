@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -65,8 +66,7 @@ public class BoardController {
 		
 		String filename = map.get("writer")+"-"+no +"-"+map.get("title")+"-board"+".jpg";
 		String path = ctx.getRealPath("\\storage\\board");
-
-		System.out.println("쓰기완료 파람"+map);
+		
 		File dir = new File(path);
 		if(!dir.exists()) {
 			dir.mkdirs();
@@ -91,10 +91,8 @@ public class BoardController {
 	@RequestMapping(path="/ajax/cate.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String cateAjaxHandle(@RequestParam String bigno) {
-		System.out.println(bigno);
 		int bno = Integer.parseInt(bigno);
 		List<Map> scatelist = boardrepo.getSmallCate(bno);
-		System.out.println(scatelist);
 		return gson.toJson(scatelist);
 	}
 	
@@ -109,7 +107,6 @@ public class BoardController {
 	
 	@RequestMapping("/board/lists.do")
 	public String boardListHandle(@RequestParam int bigcate, Map map) {
-		System.out.println("카테별 리스트 뽑아보자"+bigcate);
 		map.put("boardlist", boardrepo.getCateBoard(bigcate));
 		
 		return "account.boardlist";
@@ -120,7 +117,6 @@ public class BoardController {
 	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String)param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
-		System.out.println(detail);
 		String sellerid = (String)detail.get("WRITER");
 		Map writer = sellerrepo.getSeller(sellerid);
 		String id = (String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
@@ -137,12 +133,11 @@ public class BoardController {
 		map.put("detail", detail);
 		map.put("writer", writer);
 		map.put("cate", cate);
-		System.out.println(map + "map이다");
 		
 		if(sellerid.equals(id)) {
-			return "/WEB-INF/views/board/detailWriter.jsp";
+			return "account.boardDetail";
 		} else {
-			return "/WEB-INF/views/board/detailReader.jsp";
+			return "account.boardDetail";
 		}
 	}
 	
@@ -160,7 +155,6 @@ public class BoardController {
 		cates.put("smallcate", smallcate);
 		
 		Map cate = boardrepo.getCate(cates);
-		System.out.println(cate);
 		
 		map.put("detail", detail);
 		map.put("cate", cate);
@@ -205,6 +199,21 @@ public class BoardController {
 	public String buyqaHandle(@RequestParam Map param, Map map, HttpSession session) {
 		map.put("writer", (String)param.get("writer"));
 		map.put("no", Integer.parseInt((String)param.get("no")));
+		Map user = (Map)session.getAttribute("user");
+		
+		List<Map> getChatLog = mrepo.getChatLog((String)param.get("writer"), (String)user.get("ID"));
+		if(getChatLog == null){
+			String uuid = UUID.randomUUID().toString().split("-")[0].toString();			
+			map.put("qamode", uuid);
+			System.out.println("uuid 없을떄");
+		}else {
+			for(int i = 0; i<getChatLog.size();i++) {
+				Map maps = getChatLog.get(i);
+				String uuid = (String)maps.get("id");
+				map.put("qamode", uuid);
+				System.out.println("uuid 있을떄");
+			}
+		}
 		return "account.buyQA";
 	}
 	//----------------------------------------------------------------------------------------------------------------------------
@@ -219,7 +228,6 @@ public class BoardController {
 			for(int i=0; i<searchKeys.length; i++) {
 				li.add("%" + searchKeys[i] + "%");
 			}
-			System.out.println(li);
 			List<Map> list = boardrepo.getSearchListByList(li);
 			map.put("boardlist", list);
 			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
@@ -234,28 +242,26 @@ public class BoardController {
 	// 구현중
 	@PostMapping("/choespayment.do")
 	public String choespaymentHandle(@RequestParam Map param, @RequestParam String[] cardnum) {
-		System.out.println(param);
 		String[] cardnumber = new String[cardnum.length];
 		for(int i = 0; i<cardnum.length;i++) {
 			cardnumber[i]=cardnum[i];
 		}
 		param.put("cardnum", cardnumber);
-		System.out.println(param);
 		return "/index.do";
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------
 	// 쪽지구현
-	@PostMapping("/qa/buyqa.do")
+/*	@PostMapping("/qa/buyqa.do")
 	public String buyqaPostHandle(@RequestParam Map map, HttpSession session) {
 	
 		Map data = (Map)session.getAttribute("user");
 		String sender = (String)data.get("ID");  
 		map.put("sender", sender);
-		int r = mrepo.addMsg(map);
+		System.out.println("고유키"+UUID.randomUUID());
 		
-		return "/WEB-INF/views/board/qaresult.jsp";
-	}
+		return "account.buyQA";
+	}*/
 	
 	
 }

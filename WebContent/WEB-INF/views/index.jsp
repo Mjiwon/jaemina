@@ -63,60 +63,7 @@
 				</div>
 			</c:forEach>
 		</div>
-
-		<%-- <div id="row_1" class="row">
-			<div class="col-lg-3">
-				<img class="rounded-circle"
-					src="${pageContext.servletContext.contextPath }/images/home_images/web.svg"
-					alt="Generic placeholder image" width="140" height="140">
-				<h5>디자인</h5>
-				
-				<p>
-					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=2" role="button">View
-						details &raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-
-			<div class="col-lg-3	">
-				<img class="rounded-circle"
-					src="${pageContext.servletContext.contextPath }/images/home_images/ux.svg"
-					alt="Generic placeholder image" width="140" height="140">
-				<h5>IT·프로그래밍</h5>
-				<p>
-					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1" role="button">View
-						details &raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-
-			<div class="col-lg-3">
-				<img class="rounded-circle"
-					src="${pageContext.servletContext.contextPath }/images/home_images/motion.svg"
-					alt="Generic placeholder image" width="140" height="140">
-				<h5>레슨</h5>
-				<p>
-					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=5" role="button">View
-						details &raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-
-			<div class="col-lg-3">
-				<img class="rounded-circle"
-					src="${pageContext.servletContext.contextPath }/images/home_images/mobile-ui.svg"
-					alt="Generic placeholder image" width="140" height="140">
-				<h5>마케팅</h5>
-				<p>
-					<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=3" role="button">View
-						details &raquo;</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-		</div> --%>
-		<!-- /.row -->
-
-		<!-- Portfolio Section -->
+		
 		<h3>마케팅 카테고리</h3>
 		<div class="row">
 			<div class="col-lg-4 col-sm-6 portfolio-item">

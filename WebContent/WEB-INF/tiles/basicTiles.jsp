@@ -20,19 +20,14 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-<title>재미나 - 관리자</title>
+<title>재능을 나누다 - 재미나</title>
 </head>
 <body>
-	<div class="container">
+	<div>
 		<tiles:insertAttribute name="nav" />
-		<div class="bd-example-container bd-example-container-fluid">
-			<div class="bd-example-container-header">
-				<tiles:insertAttribute name="center" />
-			</div>
-			<div class="bd-example-container-sidebar">
-				<tiles:insertAttribute name="rigth" />
-			</div>
-		</div>
+	</div>
+	<div>
+		<tiles:insertAttribute name="center" />
 	</div>
 
 </body>

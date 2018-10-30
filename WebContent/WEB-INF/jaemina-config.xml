@@ -57,12 +57,18 @@
 	
 	<websocket:handlers>
 		<websocket:mapping handler="alarmSocketController" path="/waiting.do"/>
-		<websocket:mapping handler="qaSocket" path="/boardQA.do"/>
+		<websocket:mapping handler="boardQASocketController" path="/boardqa.do"/>
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
 	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+	
+	<mongo:mongo-client host="54.180.26.126" port="43126" />
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoClient" ref="mongoClient" />	
+		<constructor-arg name="databaseName" value="jaemina" />
+	</bean>
 	
 </beans>

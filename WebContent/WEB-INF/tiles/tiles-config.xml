@@ -6,31 +6,40 @@
 		<put-attribute name="center" value="/WEB-INF/views/index.jsp"/>
 	</definition>
 	
-	<definition name="account.boardlist" template="/WEB-INF/tiles/boardTiles.jsp">
+	<definition name="account.boardlist" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/board/boardlist.jsp"/>
 	</definition>
 	
-	<definition name="account.boardDetail" template="/WEB-INF/tiles/boardTiles.jsp">
+	<definition name="account.boardDetail" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/board/detail.jsp"/>
 	</definition>
 	
-	<definition name="account.boardWrite" template="/WEB-INF/tiles/boardTiles.jsp">
+	<definition name="account.boardWrite" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/board/write.jsp"/>
 	</definition>
 	
-	<definition name="account.buyQA" template="/WEB-INF/tiles/qaTiles.jsp">
+	<!-- QA 타일즈  -->
+	<definition name="account.buyQA" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/board/buyqa.jsp"/>
-		<put-attribute name="rigth" value="/WEB-INF/views/board/chatlist.jsp" />
 	</definition>
 	
-	<definition name="account.sellerHomme" template="/WEB-INF/tiles/sellerTiles.jsp">
+	<definition name="account.sellerHomme" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
-		<put-attribute name="center" value="/WEB-INF/views/board/write.jsp"/>
+		<put-attribute name="center" value="/WEB-INF/views/account/seller/sellerHome.jsp"/>
 	</definition>
 	
+	<definition name="account.sellerhistory" template="/WEB-INF/tiles/basicTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/account/mypage/history/sellHistory.jsp"/>
+	</definition>
+
+	<definition name="account.modifiend" template="/WEB-INF/tiles/basicTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/account/mypage/modified/modifiedindex.jsp"/>
+	</definition>
 	
 </tiles-definitions>
