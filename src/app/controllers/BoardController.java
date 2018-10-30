@@ -195,6 +195,11 @@ public class BoardController {
 	@Autowired
 	QAMessageRepository mrepo;
 	
+	@GetMapping("/qalist.do")
+	public String buyqaHandle() {
+		return "account.qaList";
+	}
+	
 	@GetMapping("/qa/buyqa.do")
 	public String buyqaHandle(@RequestParam Map param, Map map, HttpSession session) {
 		map.put("writer", (String)param.get("writer"));

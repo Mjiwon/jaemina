@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- <div style="margin-top: 10%;"> -->
+<div style="margin-top: 20%;">
 	<h2>문의하기</h2>
 	<%--<div class="row">
 		 	<div class="col-md-2 order-md-2 mb-2">
@@ -13,7 +13,7 @@
 			</c:forEach>
 		</div>
 	</div> --%>
-		<div>
+		<div class="col-md-4 order-md-2 mb-4">
 			<div class="input-group">
 				<div class="input-group">
 					<img
@@ -32,7 +32,7 @@
 					aria-describedby="basic-addon1" id="inputs">
 			</div>
 		</div>
-<!-- 	</div> -->
+	</div>
 <!-- </div>
  -->
 <script>

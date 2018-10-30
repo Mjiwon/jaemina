@@ -22,9 +22,15 @@
 	</definition>
 	
 	<!-- QA 타일즈  -->
-	<definition name="account.buyQA" template="/WEB-INF/tiles/basicTiles.jsp">
+	<definition name="account.buyQA" template="/WEB-INF/tiles/chatTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/board/buyqa.jsp"/>
+		<put-attribute name="rigth" value="/WEB-INF/views/board/chatlist.jsp" />
+	</definition>
+	
+	<definition name="account.qaList" template="/WEB-INF/tiles/basicTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/board/chatlist.jsp"/>
 	</definition>
 	
 	<definition name="account.sellerHomme" template="/WEB-INF/tiles/basicTiles.jsp">

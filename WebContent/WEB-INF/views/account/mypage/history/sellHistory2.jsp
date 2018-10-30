@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<c:set var="path" value="${pageContext.servletContext.contextPath}" />
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
@@ -18,18 +16,27 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<title>재능을 나누다 - 재미나</title>
+<title>${user.ID }의 재미나</title>
 </head>
-<body >
-	<div>
-		<tiles:insertAttribute name="nav" />
-	</div>
-	<div style="margin-top: 3%;" class="album py-5 bg-light">
-		<tiles:insertAttribute name="center" />
-	</div>
+<body>
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">판매관리</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">구매관리</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">메세지</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="chageuser.do">계정설정</a>
+  </li>
+</ul>
+
+아이디:${user.ID }</br/>
+이메일:${user.EMAIL }<br/>
+계좌번호:${user.BANK }<br/>
 
 </body>
 </html>

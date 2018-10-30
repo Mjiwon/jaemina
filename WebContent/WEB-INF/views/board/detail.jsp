@@ -8,7 +8,7 @@
 
 <body class="bg-light">
 
-	<div class="container" style="margin-top: 5%;">
+	<div class="container">
 		<div class="py-5 text-center">
 			<img class="d-block mx-auto mb-4"
 				src="../../assets/brand/bootstrap-solid.svg" alt="" width="72"

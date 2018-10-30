@@ -572,7 +572,7 @@ public class AccountController {
 
    @RequestMapping("/modified.do")
    public String modifiedHandle() {
-      return "/WEB-INF/views/account/mypage/modified/modifiedindex.jsp";
+      return "account.modifiend";
    }
 
 }
