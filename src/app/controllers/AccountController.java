@@ -156,7 +156,7 @@ public class AccountController {
       String json = gson.toJson(map);
       return json;
    }
-   // 밑에 두개 회원 탈퇴
+   // 밑에 두개 회원 탈퇴!
    @RequestMapping("/deleteGo.do")
    public String deleteGoHandle(WebRequest wr, Map map) {
 	   String id = (String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
