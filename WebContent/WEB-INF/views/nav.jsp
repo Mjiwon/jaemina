@@ -82,7 +82,7 @@
 								<a class="dropdown-item"
 									href="${pageContext.servletContext.contextPath }/serviceqa.do">고객센터</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">로그아웃</a>
+								<a class="dropdown-item" href="javascript:goLogout();">로그아웃</a>
 							</div></li>
 					</ul>
 				</c:otherwise>
@@ -91,6 +91,16 @@
 	</div>
 </nav>
 <script>
+
+	var goLogout = function() {
+		if(window.confirm("정말 로그아웃 하시겠습니까?")) {
+			window.alert("로그아웃 되었습니다.");
+			location.href= "${pageContext.servletContext.contextPath }/logout.do";
+		}else {
+			return;
+		}
+	}
+
 	var ws = new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/waiting.do");
 	
 	ws.onmessage = function(got){

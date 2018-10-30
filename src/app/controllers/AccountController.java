@@ -304,6 +304,14 @@ public class AccountController {
          return "redirect:/login.do";
       }
    }
+   
+   @RequestMapping("logout.do")
+   public String logoutHandle(HttpSession session, WebRequest wr) {
+	  wr.removeAttribute("auth", WebRequest.SCOPE_SESSION);
+	  wr.removeAttribute("user", WebRequest.SCOPE_SESSION);
+	  wr.removeAttribute("loginId", WebRequest.SCOPE_SESSION);
+	  return "redirect:index.do";
+   }
    // ----------------------------------------------------------------------------------------------------------------------------
 
    @Autowired
