@@ -20,6 +20,10 @@ public class AccountRepository {
 		return template.insert("account.addUser", map);
 	}
 	
+	public int deleteUser(String id) {
+		return template.delete("account.deleteUser", id);
+	}
+	
 	public Map getAccountById(String id) {
 		return template.selectOne("account.getAccountById", id);
 	}

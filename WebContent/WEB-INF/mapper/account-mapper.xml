@@ -64,6 +64,10 @@
 	<update id="changeuser" parameterType="java.util.HashMap">
 		update account set pass =#{pass} where id=#{id}
 	</update>
+	
+	<delete id="deleteUser" parameterType="java.lang.String">
+		delete from account where id=#{id}
+	</delete>
 
 </mapper> 
 
