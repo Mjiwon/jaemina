@@ -155,6 +155,34 @@ public class AccountController {
       String json = gson.toJson(map);
       return json;
    }
+   
+   @RequestMapping("/deleteGo.do")
+   public String deleteGoHandle(WebRequest wr, Map map) {
+	   String id = (String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
+	   Map idd = accountRepository.getAccountById(id);
+	   map.put("userId", idd);
+	   return "/WEB-INF/views/deleteUser.jsp";
+   }
+   
+   @RequestMapping("/deleteuser.do")
+   public String deleteUserHandle(@RequestParam Map param, WebRequest wr) {
+	   String id = (String)param.get("getId");
+	   String pass = (String)param.get("getPass");
+	   Map map = new HashMap<>();
+	   map.put("id", id);
+	   map.put("pass", pass);
+	   System.out.println(map);
+	   Map mapp = accountRepository.getAccount(map);
+	   System.out.println(mapp);
+	   if(mapp != null) {
+		   accountRepository.deleteUser(id);
+		   wr.setAttribute("deleteYes", true, WebRequest.SCOPE_REQUEST);
+		   return "WEB-INF/views/deleteUser.jsp";
+	   }else {
+		   wr.setAttribute("deleteErr", true, WebRequest.SCOPE_REQUEST);
+		   return "WEB-INF/views/deleteUser.jsp";
+	   }
+   }
 
    // 아이디 찾기
    @GetMapping("/find_user.do")
