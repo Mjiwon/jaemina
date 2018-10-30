@@ -13,9 +13,9 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel=""
-	href="${pageContext.servletContext.contextPath }/css/admin.css">
+	href="${path}/css/admin/*.css">
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
@@ -24,10 +24,14 @@
 <title>재미나 - 관리자</title>
 </head>
 <body>
-	<div class="container">
+
+	<nav>
 		<tiles:insertAttribute name="nav" />
+	</nav>
+
+	<div class="container-fluid" style="margin-top: 5%;">
 		<div class="row">
-			<div class="col">
+			<div class="col-2" style="margin-left: 1%;" >
 				<tiles:insertAttribute name="left" />
 			</div>
 			<div class="col">
@@ -35,6 +39,8 @@
 			</div>
 		</div>
 	</div>
+		
+	
 
 </body>
 </html>

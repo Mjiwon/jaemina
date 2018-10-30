@@ -36,7 +36,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <title>재미나-비밀번호 변경</title>
-<
+
 </head>
 <body>
 	<form action="${pageContext.servletContext.contextPath }/chageuser.do" method="post">
