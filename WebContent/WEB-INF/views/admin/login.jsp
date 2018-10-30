@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath }/css/signin.css">
+	href="${path}/css/signin.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
@@ -20,13 +21,13 @@
 </head>
 <body class="text-center">
 	
-	<form action="${pageContext.servletContext.contextPath }/admin/login.do" class="form-signin" method="post">
+	<form action="${path}/admin/login.do" class="form-signin" method="post">
 		<h1 class="h3 mb-3 font-weight-normal">재미나</h1>
 		<label for="inputId" class="sr-only">아이디</label> <input
-			type="text" id="inputId" class="form-control" name="getId"
+			type="text" id="inputId" class="form-control" name="id"
 			placeholder="아이디" required autofocus> <label
 			for="inputPassword" class="sr-only">비밀번호</label> <input
-			type="password" id="inputPassword" class="form-control" name="getPass"
+			type="password" id="inputPassword" class="form-control" name="pass"
 			placeholder="비밀번호" required>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">로 그 인</button>
 		<c:if test="${!empty err }">

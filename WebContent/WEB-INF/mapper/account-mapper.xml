@@ -2,6 +2,10 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="account">
 
+	<select id="getAccountList" resultType="java.util.HashMap">
+		select * from account
+	</select>
+	
 	<select id="Myinfo" parameterType="java.lang.String"
 		resultType="java.util.HashMap">
 		select * from account where id=#{id}

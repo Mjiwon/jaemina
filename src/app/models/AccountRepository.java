@@ -1,5 +1,6 @@
 package app.models;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,6 +12,10 @@ public class AccountRepository {
 
 	@Autowired
 	SqlSessionTemplate template;
+	
+	public List<Map> getAccountList(){
+		return template.selectList("account.getAccountList");
+	}
 	
 	public Map getAccount(Map map) {
 		return template.selectOne("account.getAccount", map);

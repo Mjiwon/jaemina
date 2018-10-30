@@ -35,17 +35,29 @@
 						</li>
 						<li class="nav-item">
 							<button type="button" class="btn btn-secondary">
-								<a href="${pageContext.servletContext.contextPath }/login.do"
-									style="color: white;">로그인</a>
+								<a style="color: white;" id="login">로그인</a>
 							</button>
 						</li>
 						<li class="nav-item">
 							<button type="button" class="btn btn-primary">
-								<a href="${pageContext.servletContext.contextPath }/join.do"
-									style="color: white;">회원가입</a>
+								<a style="color: white;" id="join">회원가입</a>
 							</button>
 						</li>
 					</ul>
+					
+				</c:when>
+				
+				
+				<c:when test="${!empty adminmode}">
+					<ul class="navbar-nav ml-auto">
+						
+						<li class="nav-item">
+							<button type="button" class="btn btn-primary">
+								<a href="${pageContext.servletContext.contextPath }/admin/index.do" style="color: white;" >관리자페이지</a>
+							</button>
+						</li>
+					</ul>
+					
 				</c:when>
 				<c:otherwise>
 					<ul class="navbar-nav ml-auto">
@@ -91,7 +103,9 @@
 	</div>
 </nav>
 <script>
-
+	$("#login").on("click", function() {
+		window.open("${pageContext.servletContext.contextPath }/login.do", "f", "width=500, height=500, left=700, top=200");
+	});
 	var goLogout = function() {
 		if(window.confirm("정말 로그아웃 하시겠습니까?")) {
 			window.alert("로그아웃 되었습니다.");
@@ -100,7 +114,10 @@
 			return;
 		}
 	}
-
+	
+	$("#join").on("click", function() {
+		window.open("${pageContext.servletContext.contextPath }/join.do", "f", "width=500, height=700, left=700, top=200");
+	});
 	var ws = new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/waiting.do");
 	
 	ws.onmessage = function(got){
