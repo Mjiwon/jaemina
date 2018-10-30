@@ -305,6 +305,7 @@ public class AccountController {
       }
    }
    
+   //로그아웃
    @RequestMapping("logout.do")
    public String logoutHandle(HttpSession session, WebRequest wr) {
 	  wr.removeAttribute("auth", WebRequest.SCOPE_SESSION);
