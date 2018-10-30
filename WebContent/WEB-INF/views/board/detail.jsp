@@ -8,7 +8,7 @@
 
 <body class="bg-light">
 
-	<div class="container">
+	<div class="container" style="margin-top: 5%;">
 		<div class="py-5 text-center">
 			<img class="d-block mx-auto mb-4"
 				src="../../assets/brand/bootstrap-solid.svg" alt="" width="72"
@@ -25,14 +25,39 @@
 
 				<form class="card p-2">
 					<div class="card" style="width: 18rem;">
-						<img class="card-img-top" src="${pageContext.servletContext.contextPath }${writer.IMGPATH}" alt="Card image cap" 	>
+						<img class="card-img-top"
+							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
+							alt="Card image cap" style=" height: 8cm;">
 						<div class="card-body">
 							<h5 class="card-title">${writer.WRITER }</h5>
 							<p>판매자 : ${writer.ID }
 							<p>학력 : ${writer.ACADEMY }</p>
 							<p>경력 : ${writer.CAREER }</p>
 							<p>소개 : ${writer.INTRODUCE }</p>
-							<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}" class="btn btn-primary">판매자에게 문의하기</a>
+							<c:choose>
+								<c:when test="${writer.ID == user.ID }">
+									<a
+										href="${pageContext.servletContext.contextPath }/board/modifyDetail.do?no=${detail.NO}" ><button
+											type="submit">수정</button></a>
+									<a href="javascript:goDelete(${detail.NO });"><button type="submit">삭제</button></a>
+									<script>
+										var goDelete = function(no) {
+											if (window.confirm("정말삭제하시겠습니까?") == true) {
+												window.alert("삭제되었습니다.");
+												location.href = "${pageContext.servletContext.contextPath }/board/deleteDetail.do?no="+ no;
+											} else {
+												return;
+											}
+										}
+									</script>
+								</c:when>
+								<c:otherwise>
+									<a
+										href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}"
+										class="btn btn-primary">판매자에게 문의하기</a>
+
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</form>
@@ -67,8 +92,8 @@
 						<label for="username">금액</label>
 						<div class="input-group">
 							<input type="text" class="form-control" id="username"
-								value="<fmt:formatNumber>${detail.PRICE }</fmt:formatNumber>원" readonly="readonly"
-								style="background-color: white;">
+								value="<fmt:formatNumber>${detail.PRICE }</fmt:formatNumber>원"
+								readonly="readonly" style="background-color: white;">
 							<div class="invalid-feedback" style="width: 100%;">Your
 								username is required.</div>
 						</div>
@@ -93,4 +118,3 @@
 			<p class="mb-1">&copy; 2018-2019 재미나</p>
 		</footer>
 	</div>
-

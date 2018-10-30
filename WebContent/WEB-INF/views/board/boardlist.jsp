@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 	<h1>판매글 리스트</h1>
-	<div class="album py-5 bg-light">
+	<div class="album py-5 bg-light" >
 		<div class="container">
 			<div class="row">
 				<c:forEach var="l" items="${boardlist }">

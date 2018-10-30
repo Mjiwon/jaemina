@@ -421,12 +421,10 @@ public class AccountController {
 
       if (param.get("imgpath") != null) {
          int i = accountRepository.addSeller2(param);
-         System.out.println("나오니 널이아니니??");
       } else {
          int i = accountRepository.addSeller1(param);
-         System.out.println("나오니??");
       }
-      return "/WEB-INF/views/account/seller/sellerHome.jsp";
+      return "account.sellerHomme";
    }
 
    @Autowired
@@ -441,7 +439,7 @@ public class AccountController {
       Map Seller = SellerRepository.getSeller(id);
       session.setAttribute("Seller", Seller);
 
-      return "/WEB-INF/views/account/seller/sellerHome.jsp";
+      return "account.sellerHomme";
    }
 
    @GetMapping("/update_seller.do")
@@ -483,7 +481,7 @@ public class AccountController {
       }
       Map Seller = SellerRepository.getSeller(id);
       session.setAttribute("Seller", Seller);
-      return "/WEB-INF/views/account/seller/sellerHome.jsp";
+      return "account.sellerHomme";
    }
    // ----------------------------------------------------------------------------------------------------------------------------
    // 판매자 블러그 올린글 확인
@@ -507,7 +505,7 @@ public class AccountController {
          // 판매자 정보 가지고 오기
          Map Seller = SellerRepository.getSeller(id);
          session.setAttribute("Seller", Seller);
-         return "/WEB-INF/views/account/seller/sellerHome.jsp";
+         return "account.sellerHomme";
       } else
          return "/addbank.do";
    }
@@ -516,7 +514,7 @@ public class AccountController {
    // 구현중
    @RequestMapping("/sellHistory.do")
    public String sellHistoryHendle() {
-      return "/WEB-INF/views/account/mypage/history/sellHistory.jsp";
+      return "account.sellerhistory";
    }
    // --------------------------------------------------------------------------------------
 
@@ -545,8 +543,9 @@ public class AccountController {
             user_new.put("pass", npass);
             int i = accountRepository.changeuser(user_new);
             System.out.println(i);
-            wr.setAttribute("chageok", 0, WebRequest.SCOPE_REQUEST);
-            return "/WEB-INF/views/account/mypage/modified/modifiedindex.jsp";
+
+            return "account.sellerhistory";
+
          } else
         	 wr.setAttribute("chageok", 1, WebRequest.SCOPE_REQUEST);
             return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
