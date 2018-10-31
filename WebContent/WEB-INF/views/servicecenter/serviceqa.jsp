@@ -29,13 +29,13 @@
 					문의 내용을 상세히 작성해서 보내주시면 최대한 빠른 시일내에 답변
 					드리겠습니다. 감사합니다!
 			</div>
-			<form action="${pageContext.servletContext.contextPath }"
+			<form action="${pageContext.servletContext.contextPath }/serviceqa.do"
 				method="post" enctype="multipart/form-data">
 				<div class="col">
 					<div class="mb-3">
 						<label>작성자</label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="writer" name="writer"
+							<input type="text" class="form-control" id="writer" name="sender"
 								value="${user.ID }" readonly>
 						</div>
 					</div>

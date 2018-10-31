@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminqa">
+	<insert id="addQA1" parameterType="java.util.HashMap">
+		insert into adminqa values(adminqa_seq.nextval, #{title}, #{sender}, sysdate, #{content}, 'admin', null, null,null)
+	</insert>
+	<insert id="addQA2" parameterType="java.util.HashMap">
+		insert into adminqa values(adminqa_seq.nextval, #{title}, #{sender}, sysdate, #{content}, 'admin', null, #{imgpath}, null)
+	</insert>
+	
+	<select id="getadminQAinfo" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select * from adminqa where no=#{no} 
+	</select>
+	
+	<select id="getadminQAalllist" resultType="java.util.HashMap">
+		select * from adminqa
+	</select>
+	<select id="getadminQunreadllist" resultType="java.util.HashMap">
+		select * from adminqa where chkdate is null
+	</select>
+	
+	<update id="replyadminqa" parameterType="java.util.HashMap">
+		update adminqa set chkdate=sysdate, replycontent=#{replycontent} where no=#{no} and sender=#{sender}
+	</update>
+
+</mapper>

@@ -5,14 +5,39 @@
 	<definition name="admin.human" template="/WEB-INF/tiles/adminTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/admin/nav.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/admin/left.jsp" />
-		<put-attribute name="center" value="/WEB-INF/views/admin/human.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/admin/human/human.jsp" />
 	</definition>
 
 	<definition name="admin.human.account" template="/WEB-INF/tiles/adminTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/admin/nav.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/admin/left.jsp" />
-		<put-attribute name="center" value="/WEB-INF/views/admin/human_account.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/admin/human/human_account.jsp" />
 	</definition>
+	
+	<definition name="admin.board" template="/WEB-INF/tiles/adminTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/admin/nav.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/admin/left.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/admin/board/board.jsp" />
+	</definition>
+	
+	<definition name="admin.permitsellerlist" template="/WEB-INF/tiles/adminTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/admin/nav.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/admin/left.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/admin/seller/permitsellerlist.jsp" />
+	</definition>
+	
+	<definition name="admin.adminqa" template="/WEB-INF/tiles/adminTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/admin/nav.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/admin/left.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/admin/QA/adminqa.jsp" />
+	</definition>
+	
+	<definition name="admin.adminqa.reply" template="/WEB-INF/tiles/adminTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/admin/nav.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/admin/left.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/admin/QA/adminqareply.jsp" />
+	</definition>
+	
 	
 	
 
