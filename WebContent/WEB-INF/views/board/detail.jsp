@@ -38,8 +38,8 @@
 								<c:when test="${writer.ID == user.ID }">
 									<a
 										href="${pageContext.servletContext.contextPath }/board/modifyDetail.do?no=${detail.NO}" ><button
-											type="submit">수정</button></a>
-									<a href="javascript:goDelete(${detail.NO });"><button type="submit">삭제</button></a>
+											type="button">수정</button></a>
+									<a href="javascript:goDelete(${detail.NO });"><button type="button">삭제</button></a>
 									<script>
 										var goDelete = function(no) {
 											if (window.confirm("정말삭제하시겠습니까?") == true) {
