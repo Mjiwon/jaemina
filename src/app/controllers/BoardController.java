@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,9 +107,13 @@ public class BoardController {
 	
 	
 	@RequestMapping("/board/lists.do")
-	public String boardListHandle(@RequestParam int bigcate, Map map) {
-		map.put("boardlist", boardrepo.getCateBoard(bigcate));
-		
+	public String boardListHandle(@RequestParam int bigcate, Map map, WebRequest wr) {
+		if(wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION) != null) {
+			map.put("boardlist", boardrepo.getCateBoard((Integer)wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION)));
+		}else {
+			map.put("boardlist", boardrepo.getCateBoard(bigcate));
+			wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
+		}
 		return "account.boardlist";
 	}
 	
@@ -134,11 +139,7 @@ public class BoardController {
 		map.put("writer", writer);
 		map.put("cate", cate);
 		
-		if(sellerid.equals(id)) {
-			return "account.boardDetail";
-		} else {
-			return "account.boardDetail";
-		}
+		return "account.boardDetail";
 	}
 	
 	@RequestMapping("/board/modifyDetail.do")
@@ -168,21 +169,40 @@ public class BoardController {
 		int detailno = (int) wr.getAttribute("boardNum", WebRequest.SCOPE_SESSION);
 		param.put("no", detailno);
 		boardrepo.updateDetailBoard(param);
-		Map newDetail = boardrepo.getDetailBoard(detailno);
-		map.put("detail", newDetail);
+		Map detail = boardrepo.getDetailBoard(detailno);
+		
+		String sellerid = (String)detail.get("WRITER");
+		Map writer = sellerrepo.getSeller(sellerid);
+		String id = (String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
+		
+		String bigcate = ((BigDecimal)detail.get("BIGCATE")).toString();
+		String smallcate = ((BigDecimal)detail.get("SMALLCATE")).toString();
+		
+		Map cates = new HashMap<>();
+		cates.put("bigcate", bigcate);
+		cates.put("smallcate", smallcate);
+		
+		Map cate = boardrepo.getCate(cates);
+		
+		map.put("detail", detail);
+		map.put("writer", writer);
+		map.put("cate", cate);
+		
 		wr.removeAttribute("boardNum", WebRequest.SCOPE_SESSION);
-		return "/WEB-INF/views/board/detailWriter.jsp";
+		return "account.boardDetail";
 	}
 	
 	@RequestMapping("/board/deleteDetail.do")
 	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
-		int detailno = Integer.parseInt((String)param.get("no"));
-		boardrepo.deleteDetailBoard(detailno);
-		if(wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) == null) {
-			return "redirect:list.do";
-		}else {
+		boardrepo.deleteDetailBoard(Integer.parseInt((String)param.get("no")));
+		if(wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) != null) {
 			map.put("searchKey", wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION));
 			return "redirect:searchList.do";
+		}else if(wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION) != null) {
+			map.put("bigcate",(int) wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
+			return "redirect:lists.do";
+		}else {
+			return "redirect:list.do";
 		}
 	}
 	
@@ -248,6 +268,18 @@ public class BoardController {
 		}
 		param.put("cardnum", cardnumber);
 		return "/index.do";
+	}
+	
+	@RequestMapping("/addWishlist.do")
+	public String addWishlistHandle(@RequestParam String writer, WebRequest wr) {
+		String buyer = (String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
+		String seller = writer;
+		Map wish = new HashMap<>();
+		wish.put("buyer", buyer);
+		wish.put("seller", seller);
+		boardrepo.addWishlist(wish);
+		
+		return "redirect:index.do";
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------

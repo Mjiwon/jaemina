@@ -73,4 +73,18 @@ public class BoardRepository {
 		Integer i = template.selectOne("board.getSequenceVal");
 		return i;
 	}
+	
+	// 위시리스트 추가
+	public int addWishlist(Map map) {
+		return template.insert("board.addWishlist", map);
+	}
+	
+	// 위시리스트 가져오기
+	public Map getWishlist(String buyer) {
+		return template.selectOne("board.getWishlist", buyer);
+	}
+	
+	public List<Map> getBoardListBySeller(String writer) {
+		return template.selectList("board.getBoardListBySeller", writer);
+	}
 }

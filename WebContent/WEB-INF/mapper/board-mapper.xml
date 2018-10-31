@@ -7,6 +7,9 @@
 	<insert id="addBoard2" parameterType="java.util.HashMap">
 	 	insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, #{imgpath}, #{price}, #{writer}, sysdate, #{content},0,0)
 	</insert>
+	<insert id="addWishlist" parameterType="java.util.HashMap">
+		insert into wishlist values(wishlist_seq.nextval, #{buyer}, #{seller})
+	</insert>
 	<select id="getBoardList" resultType="java.util.HashMap">
 		select * from board order by no desc	
 	</select>
@@ -46,6 +49,14 @@
 	
 	<select id="getSequenceVal" resultType="java.lang.Integer">
 		select board_seq.nextval from dual
+	</select>
+	
+	<select id="getWishlist" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from wishlist where buyer=#{buyer}
+	</select>
+	
+	<select id="getBoardListBySeller" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from board where writer=#{writer}
 	</select>
 	
 	
