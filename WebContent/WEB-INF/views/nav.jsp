@@ -29,8 +29,7 @@
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item">
 							<button type="button" class="btn btn-light">
-								<a href="${pageContext.servletContext.contextPath }/login.do"
-									style="color: black;">판매시작</a>
+								<a style="color: black;" id="sellstart">판매시작</a>
 							</button>
 						</li>
 						<li class="nav-item">
@@ -100,6 +99,10 @@
 </nav>
 <script>
  
+	$("#sellstart").on("click", function() {
+		window.alert("로그인을 하셔야 이용하실 수 있습니다.");
+		window.open("${pageContext.servletContext.contextPath }/login.do", "f", "width=500, height=500, left=700, top=200");
+	});
 
 	$("#login").on("click", function() {
 		window.open("${pageContext.servletContext.contextPath }/login.do", "f", "width=500, height=500, left=700, top=200");

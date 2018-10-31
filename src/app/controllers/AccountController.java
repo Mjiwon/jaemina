@@ -519,44 +519,28 @@ public class AccountController {
    // --------------------------------------------------------------------------------------
 
    // 비밀번호 변경
-   @GetMapping("/chageuser.do")
-   public String ChageUserGetHandle() {
-      return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
+   @GetMapping("/changeUser.do")
+   public String ChangeUserGetHandle() {
+      return "/WEB-INF/views/account/mypage/modified/changeUser.jsp";
    }
 
-   @PostMapping("/chageuser.do")
-   public String ChageUserPostHandle(@RequestParam Map p, HttpSession session, WebRequest wr) {
+   @PostMapping("/changeUser.do")
+   public String ChangeUserPostHandle(@RequestParam Map p, HttpSession session, WebRequest wr) {
       Map suser = (Map) session.getAttribute("user");
       String sid = (String) suser.get("ID");
       String spass = (String) suser.get("PASS");
-      System.out.println(sid + spass);
-
-      String pass = (String) p.get("pass");
-      String npass = (String) p.get("npass");
-      String nppass = (String) p.get("nppass");
-
-      System.out.println(pass + npass + nppass);
-      if (spass.equals(pass)) {
-         if (npass.equals(nppass)) {
-            Map user_new = new HashMap();
-            user_new.put("id", sid);
-            user_new.put("pass", npass);
-            int i = accountRepository.changeuser(user_new);
-            System.out.println(i);
-
-            return "account.sellerhistory";
-
-         } else
-        	 wr.setAttribute("chageok", 1, WebRequest.SCOPE_REQUEST);
-            return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
+      String pass1 = (String) p.get("getPass1");
+      String pass2 = (String) p.get("getPass2");
+      if (spass.equals(pass1)) {
+    	  Map user_new = new HashMap();
+    	  user_new.put("id", sid);
+    	  user_new.put("pass", pass2);
+    	  accountRepository.changeuser(user_new);
+    	  wr.setAttribute("changePassYes", true, WebRequest.SCOPE_REQUEST);
+    	  return "/WEB-INF/views/account/mypage/modified/changeUser.jsp";
       } else {
-    	  if(npass.equals(nppass)) {
-    		  wr.setAttribute("chageok", 2, WebRequest.SCOPE_REQUEST);
-    		  return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
-    	  } else {
-    		  wr.setAttribute("chageok", 3, WebRequest.SCOPE_REQUEST);
-    		  return "/WEB-INF/views/account/mypage/modified/chage_user.jsp";
-    	  }
+    	  wr.setAttribute("changePassNo", true, WebRequest.SCOPE_REQUEST);
+    	  return "/WEB-INF/views/account/mypage/modified/changeUser.jsp";
       }
    }
 

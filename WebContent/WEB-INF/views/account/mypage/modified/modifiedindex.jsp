@@ -35,7 +35,7 @@
   <div class="col-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" >
       <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" >나의정보</a>
-      <a class="nav-link" id="v-pills-profile-tab" href="${pageContext.servletContext.contextPath }/chageuser.do" role="tab">비밀번호변경</a>
+      <a class="nav-link" id="changePass" href="javascript:changePass" role="tab">비밀번호변경</a>
       <a class="nav-link" id="deleteUser" href="javascript:deleteUser" role="tab">회원탈퇴</a>
     </div>
   </div>
@@ -76,6 +76,10 @@
 <script>
 	$("#deleteUser").on("click", function() {
 		window.open("${pageContext.servletContext.contextPath }/deleteGo.do", "f", "width=500, height=500, left=700, top=200");
+	});
+	
+	$("#changePass").on("click", function() {
+		window.open("${pageContext.servletContext.contextPath }/changeUser.do", "f", "width=500, height=500, left=700, top=200");
 	});
 		
 </script>
