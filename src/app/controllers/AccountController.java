@@ -49,7 +49,7 @@ public class AccountController {
    @Autowired
    JavaMailSender sender;
 
-   // Index
+   // Index!
    @RequestMapping("/index.do")
    public String indexHendler(WebRequest wr, Map map) {
       List<Map> bcatelist = boardrepo.getBigCate();
