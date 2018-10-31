@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ import app.service.SocketService;
 @Controller
 public class BoardQASocketController extends TextWebSocketHandler {
 	List<WebSocketSession> sockets;
+	
+	@Autowired
+	QAMessageRepository qamr;
 
 	@Autowired
 	SocketService socketService;
@@ -34,8 +38,8 @@ public class BoardQASocketController extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		try {
-			System.out.println("문의 소켓 연결");
 			sockets.add(session);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -49,8 +53,6 @@ public class BoardQASocketController extends TextWebSocketHandler {
 		sockets.remove(session);
 	}
 	
-	@Autowired
-	QAMessageRepository qamr;
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -70,31 +72,35 @@ public class BoardQASocketController extends TextWebSocketHandler {
 		for (int i = 0; i < sockets.size(); i++) {
 			try {
 				sockets.get(i).sendMessage(msg);
-				Map ms = (Map)socketService.list.get(i).getAttributes().get("user");
+				Map ms = (Map)sockets.get(i).getAttributes().get("user");
 				userList.add((String)ms.get("ID"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		List member = new ArrayList<>();
-		member.add(map.get("writer"));
-		member.add(map.get("sender"));
+	
 		
 		Map mongo = new HashMap();
-		mongo.put("id", map.get("mode"));
-		mongo.put("member", member);
+		
 		mongo.put("sender", map.get("sender"));
 		mongo.put("text", map.get("text"));
 		mongo.put("senddate", System.currentTimeMillis());
 		mongo.put("checkMember", userList);
+
 		
-		Map ret = qamr.insertOne(mongo);
-		if(ret==null) {
+		
+		System.out.println("소켓시"+mongo);
+		
+		System.out.println(map.get("qamode"));
+		
+		int ret = qamr.updatelog(mongo, (String)map.get("qamode"));
+		if(ret<0) {
 			System.out.println("채팅저장 실패");
 		}else {
 			System.out.println("채팅저장 성공");
-		}
+		}			
+		
 		/*String json = "{\"mode\":\"boardQA\"}";
 		socketService.sendOne(json, userList);*/
 

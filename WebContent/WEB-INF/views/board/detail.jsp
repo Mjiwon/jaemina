@@ -8,7 +8,7 @@
 
 <body class="bg-light">
 
-	<div class="container" style="margin-top: 5%;">
+	<div class="container">
 		<div class="py-5 text-center">
 			<img class="d-block mx-auto mb-4"
 				src="../../assets/brand/bootstrap-solid.svg" alt="" width="72"
@@ -24,7 +24,7 @@
 
 
 				<form class="card p-2">
-					<div class="card" style="width: 18rem;">
+					<div class="card" style="width: auto;">
 						<img class="card-img-top"
 							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
 							alt="Card image cap" style=" height: 8cm;">

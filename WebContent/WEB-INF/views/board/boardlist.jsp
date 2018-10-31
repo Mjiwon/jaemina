@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-	<h1>판매글 리스트</h1>
-	<div class="album py-5 bg-light" >
+	<h1 align="center" style="margin-bottom: 2%;">판매글 리스트</h1>
 		<div class="container">
 			<div class="row">
 				<c:forEach var="l" items="${boardlist }">
@@ -27,4 +26,3 @@
 				</c:forEach>
 			</div>
 		</div>
-	</div>
