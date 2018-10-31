@@ -27,7 +27,7 @@
 					<div class="card" style="width: 18rem;">
 						<img class="card-img-top"
 							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
-							alt="Card image cap" style=" height: 8cm;">
+							alt="Card image cap" style="height: 8cm;">
 						<div class="card-body">
 							<h5 class="card-title">${writer.WRITER }</h5>
 							<p>판매자 : ${writer.ID }
@@ -37,14 +37,16 @@
 							<c:choose>
 								<c:when test="${writer.ID == user.ID }">
 									<a
-										href="${pageContext.servletContext.contextPath }/board/modifyDetail.do?no=${detail.NO}" ><button
-											type="submit">수정</button></a>
-									<a href="javascript:goDelete(${detail.NO });"><button type="submit">삭제</button></a>
+										href="${pageContext.servletContext.contextPath }/board/modifyDetail.do?no=${detail.NO}"><button
+											type="button">수정</button></a>
+									<a href="javascript:goDelete(${detail.NO });"><button
+											type="button">삭제</button></a>
 									<script>
 										var goDelete = function(no) {
 											if (window.confirm("정말삭제하시겠습니까?") == true) {
 												window.alert("삭제되었습니다.");
-												location.href = "${pageContext.servletContext.contextPath }/board/deleteDetail.do?no="+ no;
+												location.href = "${pageContext.servletContext.contextPath }/board/deleteDetail.do?no="
+														+ no;
 											} else {
 												return;
 											}
@@ -54,8 +56,10 @@
 								<c:otherwise>
 									<a
 										href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}"
-										class="btn btn-primary">판매자에게 문의하기</a>
-
+										class="btn btn-primary" style="margin-bottom: 10px">판매자에게 문의하기</a>
+										<a
+											href="${pageContext.servletContext.contextPath }/addWishlist.do?writer=${detail.WRITER}"
+											class="btn btn-primary">관심 판매자로 등록</a>
 								</c:otherwise>
 							</c:choose>
 						</div>

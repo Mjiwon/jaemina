@@ -53,9 +53,10 @@
 							<p>학력 : ${writer.ACADEMY }</p>
 							<p>경력 : ${writer.CAREER }</p>
 							<p>소개 : ${writer.INTRODUCE }</p>
-							<a
-								href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}"
-								class="btn btn-primary">판매자에게 문의하기</a>
+							<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}"
+								class="btn btn-primary">판매자에게 문의하기</a> 
+							<a href="${pageContext.servletContext.contextPath }/addWishlist.do?writer=${detail.WRITER}"
+								class="btn btn-primary">관심 판매자로 추가</a>
 						</div>
 					</div>
 				</form>
