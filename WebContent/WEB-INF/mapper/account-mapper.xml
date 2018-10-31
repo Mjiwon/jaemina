@@ -72,6 +72,14 @@
 	<delete id="deleteUser" parameterType="java.lang.String">
 		delete from account where id=#{id}
 	</delete>
+	<!-- 관리자 판매자 승인대기 리스트 sql문 -->
+	<select id="getSellerpermitlist" resultType="java.util.HashMap">
+		select * from account where type=1 and bank is not null
+	</select>
+	<!-- 관리자 판매자 승인 sql문 -->
+	<update id="permitSeller" parameterType="java.lang.String">
+		update account set type=2 where id=#{id}
+	</update>
 
 </mapper> 
 

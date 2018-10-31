@@ -12,13 +12,13 @@
               <a class="nav-link" href="${path }/admin/account.do">회원관리</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">게시글관리</a>
+              <a class="nav-link" href="${path }/admin/board.do">게시글관리</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">판매자등록관리</a>
+              <a class="nav-link" href="${path }/admin/permitsellerlist.do">판매자등록관리</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">문의관리</a>
+              <a class="nav-link" href="${path }/admin/qa.do">문의관리</a>
             </li>
           </ul>
           <br/>

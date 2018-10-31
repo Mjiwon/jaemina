@@ -69,4 +69,12 @@ public class AccountRepository {
 	public int FindPass(Map data) {
 		return template.update("account.findpass",data);
 	}
+	
+	public List<Map> getSellerpermitlist(){
+		return template.selectList("account.getSellerpermitlist");
+	}
+	
+	public int permitSeller(String id) {
+		return template.update("account.permitSeller", id);
+	}
 }
