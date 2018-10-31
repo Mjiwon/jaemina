@@ -39,7 +39,12 @@
 	      	window.close();
       	</script>
       </c:if>
-      <c:if test="${!empty changePassNo }">
+      <c:if test="${!empty changePassNo1 }">
+      	<script>
+	      	window.alert("변경할 비밀번호가 기존 비밀번호와 일치합니다.");
+      	</script>
+      </c:if>
+      <c:if test="${!empty changePassNo2 }">
       	<script>
 	      	window.alert("기존 비밀번호가 틀렸습니다.");
       	</script>

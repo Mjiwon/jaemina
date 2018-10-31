@@ -528,18 +528,22 @@ public class AccountController {
    public String ChangeUserPostHandle(@RequestParam Map p, HttpSession session, WebRequest wr) {
       Map suser = (Map) session.getAttribute("user");
       String sid = (String) suser.get("ID");
-      String spass = (String) suser.get("PASS");
+      Map suserr = accountRepository.getAccountById(sid);
+      String spass = (String) suserr.get("PASS");
       String pass1 = (String) p.get("getPass1");
       String pass2 = (String) p.get("getPass2");
-      if (spass.equals(pass1)) {
+      if (spass.equals(pass1) & !pass1.equals(pass2)) {
     	  Map user_new = new HashMap();
     	  user_new.put("id", sid);
     	  user_new.put("pass", pass2);
     	  accountRepository.changeuser(user_new);
     	  wr.setAttribute("changePassYes", true, WebRequest.SCOPE_REQUEST);
     	  return "/WEB-INF/views/account/mypage/modified/changeUser.jsp";
+      } else if(spass.equals(pass1) & pass1.equals(pass2)){
+    	  wr.setAttribute("changePassNo1", true, WebRequest.SCOPE_REQUEST);
+    	  return "/WEB-INF/views/account/mypage/modified/changeUser.jsp";
       } else {
-    	  wr.setAttribute("changePassNo", true, WebRequest.SCOPE_REQUEST);
+    	  wr.setAttribute("changePassNo2", true, WebRequest.SCOPE_REQUEST);
     	  return "/WEB-INF/views/account/mypage/modified/changeUser.jsp";
       }
    }
