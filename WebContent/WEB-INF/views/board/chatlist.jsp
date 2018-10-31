@@ -4,7 +4,15 @@
 
 <div class="container">
 <h3>채팅목록</h3>
-	<c:forEach var="i" begin="1" end="5" step="1">
-		<a href="#" class="list-group-item list-group-item-warning">${i }</a>
-	</c:forEach>
+	<c:choose>
+		<c:when test="${!empty chatList }">
+			<c:forEach var="i" items="${chatList }">
+				<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}" class="list-group-item list-group-item-warning">${i.member }</a>
+			</c:forEach>		
+		</c:when>
+		<c:otherwise>
+			<input type="text" readonly class="list-group-item list-group-item-warning" value="메세지가 없습니다.">
+		</c:otherwise>
+	</c:choose>
+	
 </div>

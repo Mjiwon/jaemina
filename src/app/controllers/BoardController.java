@@ -166,6 +166,7 @@ public class BoardController {
 	@RequestMapping("/board/detailUpdate.do")
 	public String boardDetailUpdateHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = (int) wr.getAttribute("boardNum", WebRequest.SCOPE_SESSION);
+		
 		param.put("no", detailno);
 		boardrepo.updateDetailBoard(param);
 		Map newDetail = boardrepo.getDetailBoard(detailno);
@@ -178,49 +179,15 @@ public class BoardController {
 	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String)param.get("no"));
 		boardrepo.deleteDetailBoard(detailno);
+		System.out.println(detailno);
 		if(wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) == null) {
-			return "redirect:list.do";
+			return "redirect:list.do?no="+detailno;
 		}else {
 			map.put("searchKey", wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION));
-			return "redirect:searchList.do";
+			return "redirect:searchList.do?no="+detailno;
 		}
 	}
 	
-	
-	// 문의하기 기능 (WebSocket -> 로그인 안되어 있으면 쪽지)!
-	
-	@Autowired
-	SocketService socketService;
-	
-	@Autowired
-	QAMessageRepository mrepo;
-	
-	@GetMapping("/qalist.do")
-	public String buyqaHandle() {
-		return "account.qaList";
-	}
-	
-	@GetMapping("/qa/buyqa.do")
-	public String buyqaHandle(@RequestParam Map param, Map map, HttpSession session) {
-		map.put("writer", (String)param.get("writer"));
-		map.put("no", Integer.parseInt((String)param.get("no")));
-		Map user = (Map)session.getAttribute("user");
-		
-		List<Map> getChatLog = mrepo.getChatLog((String)param.get("writer"), (String)user.get("ID"));
-		if(getChatLog == null){
-			String uuid = UUID.randomUUID().toString().split("-")[0].toString();			
-			map.put("qamode", uuid);
-			System.out.println("uuid 없을떄");
-		}else {
-			for(int i = 0; i<getChatLog.size();i++) {
-				Map maps = getChatLog.get(i);
-				String uuid = (String)maps.get("id");
-				map.put("qamode", uuid);
-				System.out.println("uuid 있을떄");
-			}
-		}
-		return "account.buyQA";
-	}
 	//----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!
 	

@@ -24,7 +24,7 @@
 
 
 				<form class="card p-2">
-					<div class="card" style="width: 18rem;">
+					<div class="card" style="width: auto;">
 						<img class="card-img-top"
 							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
 							alt="Card image cap" style=" height: 8cm;">
