@@ -52,7 +52,7 @@
 	</select>
 	
 	<select id="getWishlist" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select * from wishlist where buyer=#{buyer}
+		select seller from wishlist where buyer=#{buyer}
 	</select>
 	
 	<select id="getBoardListBySeller" parameterType="java.lang.String" resultType="java.util.HashMap">

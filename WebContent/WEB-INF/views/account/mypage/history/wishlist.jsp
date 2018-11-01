@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -28,6 +29,9 @@
 			<div class="p-3">
 				<h4 class="font-italic">Archives</h4>
 				<ol class="list-unstyled mb-0">
+				<%-- <c:forEach var="l" items="${ }">
+					
+				</c:forEach> --%>
 					<li><a href="#">March 2014</a></li>
 					<li><a href="#">February 2014</a></li>
 					<li><a href="#">January 2014</a></li>

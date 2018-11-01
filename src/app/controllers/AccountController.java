@@ -50,16 +50,20 @@ public class AccountController {
    @RequestMapping("/index.do")
    public String indexHendler(WebRequest wr, Map map) {
       List<Map> bcatelist = boardrepo.getBigCate();
-      map.put("bigcate", bcatelist);
-      if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) == null) {
-         int boardCount = boardrepo.boardCount();
-         map.put("boardCount", boardCount);
-         return "account.index";
-      } else {
-         int boardCount = boardrepo.boardCount();
-         map.put("boardCount", boardCount);
-         return "account.index";
+      if(wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
+    	  List<Map> wishlist = boardrepo.getWishlist((String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
+    	  map.put("wishlist", wishlist);
+      }else {
+    	  wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
+    	  map.put("bigcate", bcatelist);
+    	  int boardCount = boardrepo.boardCount();
+    	  map.put("boardCount", boardCount);
       }
+	  wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
+	  map.put("bigcate", bcatelist);
+	  int boardCount = boardrepo.boardCount();
+	  map.put("boardCount", boardCount);
+      return "account.index";
    }
 
    // 회원가입
@@ -512,20 +516,6 @@ public class AccountController {
    @RequestMapping("/sellHistory.do")
    public String sellHistoryHendle() {
       return "account.sellerhistory";
-   }
-   
-   @RequestMapping("/wishlist.do")
-   public String wishlistGoHandle(WebRequest wr, Map map) {
-	   String id = (String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
-	   Map wish = boardrepo.getWishlist(id);
-	   System.out.println(wish);
-	   String seller = (String)wish.get("SELLER");
-	   System.out.println(seller);
-	   map.put("wishlist", boardrepo.getBoardListBySeller(seller));
-	   map.put("sellerid", seller);
-	   System.out.println(map);
-	   
-	   return "/WEB-INF/views/account/mypage/history/wishlist.jsp";
    }
    // --------------------------------------------------------------------------------------
 

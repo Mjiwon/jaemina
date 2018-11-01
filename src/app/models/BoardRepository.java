@@ -80,8 +80,8 @@ public class BoardRepository {
 	}
 	
 	// 위시리스트 가져오기
-	public Map getWishlist(String buyer) {
-		return template.selectOne("board.getWishlist", buyer);
+	public List<Map> getWishlist(String buyer) {
+		return template.selectList("board.getWishlist", buyer);
 	}
 	
 	public List<Map> getBoardListBySeller(String writer) {
