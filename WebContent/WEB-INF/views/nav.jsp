@@ -149,10 +149,21 @@
 						"f", "width=500, height=700, left=700, top=200");
 			});
 
-	var ws = new WebSocket("ws://" + location.host
-			+ "${pageContext.servletContext.contextPath}/waiting.do");
-
-	ws.onmessage = function(got) {
+	var ws = new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/waiting.do");
+	
+	ws.onmessage = function(got){
+		
+		var obj = JSON.parse(got.data);
+		switch(obj.mode){
+		case "boardQA":
+			boardQAHandle(obj);
+			break;
+		}
 		
 	};
+	
+	var boardQAHandle = function(evt){
+		var html = "<span class=\"badge badge-pill badge-primary\">new</span>";
+		$("#news").html(html);
+	}
 </script>
