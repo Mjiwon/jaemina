@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- Navigation -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: gray;">
@@ -92,10 +93,17 @@
 									class="dropdown-item dropdown-toggle" data-toggle="dropdown">
 									관심 판매자 목록 </a>
 								<div class="dropdown-menu">
-									<c:forEach var="l" items="${wishlist }">
-										<a class="dropdown-item"
-											href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}">${l.SELLER }</a>
-									</c:forEach>
+									<c:choose>
+										<c:when test="${!empty wishlist}">
+											<c:forEach var="l" items="${wishlist }">
+												<a class="dropdown-item"
+													href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}">${l.SELLER }</a>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<a class="dropdown-item">관심 등록한 판매자가 없습니다.</a>
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<a class="dropdown-item"
 									href="${pageContext.servletContext.contextPath }/myboard.do">나의
