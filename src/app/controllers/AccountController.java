@@ -61,7 +61,7 @@ public class AccountController {
     	  map.put("wishlist", wishlist);
     	  
     	  Map user=(Map)wr.getAttribute("user", WebRequest.SCOPE_SESSION);
-		   List<Map> c = oamr.getChatList((String)user.get("ID"));
+		 List<Map> c = oamr.getChatList((String)user.get("ID"));
 
 		   Map z = new HashMap<>();
 		   List log = new ArrayList<>();
@@ -78,7 +78,7 @@ public class AccountController {
 				   map.put("newss", true);
 			   }
 		   }
-		   
+    	  wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
       }
 	  wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
 	  map.put("bigcate", bcatelist);

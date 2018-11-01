@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
@@ -36,9 +37,11 @@
 							<p>소개 : ${writer.INTRODUCE }</p>
 							<c:choose>
 								<c:when test="${writer.ID == user.ID }">
-									<a href="${pageContext.servletContext.contextPath }/board/modifyDetail.do?no=${detail.NO}" ><button
+									<a
+										href="${pageContext.servletContext.contextPath }/board/modifyDetail.do?no=${detail.NO}"><button
 											type="button">수정</button></a>
-									<a href="javascript:goDelete(${detail.NO });"><button type="button">삭제</button></a>
+									<a href="javascript:goDelete(${detail.NO });"><button
+											type="button">삭제</button></a>
 									<script>
 										var goDelete = function(no) {
 											if (window.confirm("정말삭제하시겠습니까?") == true) {
@@ -54,10 +57,20 @@
 								<c:otherwise>
 									<a
 										href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}"
-										class="btn btn-primary" style="margin-bottom: 10px">판매자에게 문의하기</a>
-										<a
-											href="${pageContext.servletContext.contextPath }/addWishlist.do?writer=${detail.WRITER}"
-											class="btn btn-primary">관심 판매자로 등록</a>
+										class="btn btn-primary" style="margin-bottom: 10px">판매자에게
+										문의하기</a>
+									<c:choose>
+										<c:when test="${empty wishlistcheck}">
+											<a
+												href="${pageContext.servletContext.contextPath }/addWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+												class="btn btn-primary" id="addlike">관심 판매자로 등록</a>
+										</c:when>
+										<c:otherwise>
+											<a
+												href="${pageContext.servletContext.contextPath }/deleteWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+												class="btn btn-primary" id="deletelike">관심 판매자에서 제거</a>
+										</c:otherwise>
+									</c:choose>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -115,7 +128,7 @@
 				</form>
 			</div>
 		</div>
-				<div class="container">
+		<div class="container">
 			<label for="content">${user.ID }</label> <select id="star">
 				<option value="1">★☆☆☆☆</option>
 				<option value="2">★★☆☆☆</option>
@@ -125,28 +138,37 @@
 			</select>
 			<form name="commentInsertForm">
 				<div class="input-group">
-					<input type="hidden" name="bno" value="${detail.bno}"  />
-					 <input type="textarea " class="form-control" id="content" name="content"
-						placeholder="수정할 내용을 입력하세요."  min="10"> <span class="input-group-btn">
-						&nbsp;
+					<input type="hidden" name="bno" value="${detail.bno}" /> <input
+						type="textarea " class="form-control" id="content" name="content"
+						placeholder="수정할 내용을 입력하세요." min="10"> <span
+						class="input-group-btn"> &nbsp;
 						<button class="btn btn-default" type="button" name="replybtn"
 							id="replybtn">등록</button>
 					</span>
 				</div>
 			</form>
 		</div>
-		
-				<div class="container">
+
+		<div class="container">
 			<button class="btn btn-defaut" id="replylistbtn">댓글보기</button>
 			<div class="commentList"></div>
 		</div>
-		
+
 
 
 		<div id="reply"></div>
 
 
-		<script type="text/javascript">
+		<script type="text/javascript">	
+		
+		$("#addlike").on("click", function() {
+			window.alert("등록되었습니다.");
+		});
+		
+		$("#deletelike").on("click", function() {
+			window.alert("삭제되었습니다.");
+		});
+		
 		//댓글 삭제
 		var deleteReply =function() {
 				var param = {
@@ -256,11 +278,11 @@ $("#replybtn").on("click",function() {
 });
 
 		</script>
-		
+
 
 		<footer class="my-5 pt-5 text-muted text-center text-small">
 			<p class="mb-1">&copy; 2018-2019 재미나</p>
 		</footer>
 	</div>
-	
-	</body>
+
+</body>
