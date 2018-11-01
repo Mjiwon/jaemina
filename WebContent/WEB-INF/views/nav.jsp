@@ -42,17 +42,19 @@
 								<a style="color: white;" id="join">회원가입</a>
 							</button>
 						</li>
-					</ul>	
-				</c:when>	
+					</ul>
+				</c:when>
 				<c:when test="${!empty adminmode}">
 					<ul class="navbar-nav ml-auto">
-						
+
 						<li class="nav-item">
 							<button type="button" class="btn btn-primary">
-								<a href="${pageContext.servletContext.contextPath }/admin/index.do" style="color: white;" >관리자페이지</a>
+								<a
+									href="${pageContext.servletContext.contextPath }/admin/index.do"
+									style="color: white;">관리자페이지</a>
 							</button>
 						</li>
-					</ul>	
+					</ul>
 				</c:when>
 				<c:otherwise>
 					<ul class="navbar-nav ml-auto">
@@ -67,30 +69,35 @@
 							style="color: black;"><b>구매</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/qalist.do"
 							style="color: black;"><b>메세지</b></a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle btn-primary"
-							data-toggle="dropdown" href="#" role="button"
-							aria-haspopup="true" aria-expanded="false"
-							style="color: white; border-radius: 10px;">
-								<button type="button" class="btn btn-primary">
-									<b>${user.ID }</b>
-								</button>
-						</a>
-							<div class="dropdown-menu btn btn-ligh btn btn-primary"
-								style="background-color: white;">
+						<li class="nav-item dropdown">
+							<button type="button" class="btn btn-secondary dropdown-toggle"
+								data-toggle="dropdown">
+								<b>${user.ID }</b>
+							</button>
+							<div class="dropdown-menu dropright"
+								style="background-color: white; background-color: white; justify-content: center;">
 								<a class="dropdown-item"
 									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
 									style="color: green;">${user.ID }</b>의 재미나</a> <a
-									class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/myboard.do">나의 블로그</a>
+									class="dropdown-item dropdown-toggle" data-toggle="dropdown">
+									관심 판매자 목록 </a>
+								<div class="dropdown-menu">
+									<c:forEach var="l" items="${wishlist }">
+										<a class="dropdown-item"
+											href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}">${l.SELLER }</a>
+									</c:forEach>
+								</div>
 								<a class="dropdown-item"
+									href="${pageContext.servletContext.contextPath }/myboard.do">나의
+									블로그</a> <a class="dropdown-item"
 									href="${pageContext.servletContext.contextPath }/modified.do">계정설정</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item"
 									href="${pageContext.servletContext.contextPath }/serviceqa.do">고객센터</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="javascript:goLogout();">로그아웃</a>
-							</div></li>
+							</div>
+						</li>
 					</ul>
 				</c:otherwise>
 			</c:choose>
@@ -98,32 +105,44 @@
 	</div>
 </nav>
 <script>
- 
-	$("#sellstart").on("click", function() {
-		window.alert("로그인을 하셔야 이용하실 수 있습니다.");
-		window.open("${pageContext.servletContext.contextPath }/login.do", "f", "width=500, height=500, left=700, top=200");
-	});
+	$("#sellstart").on(
+			"click",
+			function() {
+				window.alert("로그인을 하셔야 이용하실 수 있습니다.");
+				window.open(
+						"${pageContext.servletContext.contextPath }/login.do",
+						"f", "width=500, height=500, left=700, top=200");
+			});
 
-	$("#login").on("click", function() {
-		window.open("${pageContext.servletContext.contextPath }/login.do", "f", "width=500, height=500, left=700, top=200");
-	});
+	$("#login").on(
+			"click",
+			function() {
+				window.open(
+						"${pageContext.servletContext.contextPath }/login.do",
+						"f", "width=500, height=500, left=700, top=200");
+			});
 
 	var goLogout = function() {
-		if(window.confirm("정말 로그아웃 하시겠습니까?")) {
+		if (window.confirm("정말 로그아웃 하시겠습니까?")) {
 			window.alert("로그아웃 되었습니다.");
-			location.href= "${pageContext.servletContext.contextPath }/logout.do";
-		}else {
+			location.href = "${pageContext.servletContext.contextPath }/logout.do";
+		} else {
 			return;
 		}
 	}
-	
-	$("#join").on("click", function() {
-		window.open("${pageContext.servletContext.contextPath }/join.do", "f", "width=500, height=700, left=700, top=200");
-	});
 
-	var ws = new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/waiting.do");
-	
-	ws.onmessage = function(got){
-		
+	$("#join").on(
+			"click",
+			function() {
+				window.open(
+						"${pageContext.servletContext.contextPath }/join.do",
+						"f", "width=500, height=700, left=700, top=200");
+			});
+
+	var ws = new WebSocket("ws://" + location.host
+			+ "${pageContext.servletContext.contextPath}/waiting.do");
+
+	ws.onmessage = function(got) {
+
 	};
 </script>

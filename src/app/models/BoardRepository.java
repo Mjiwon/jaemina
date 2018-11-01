@@ -91,5 +91,17 @@ public class BoardRepository {
 		public int deletereply(Map data) {
 			return template.delete("board.deletereply",data);
 		}
+	// 위시리스트 추가
+	public int addWishlist(Map map) {
+		return template.insert("board.addWishlist", map);
+	}
 	
+	// 위시리스트 가져오기
+	public List<Map> getWishlist(String buyer) {
+		return template.selectList("board.getWishlist", buyer);
+	}
+	
+	public List<Map> getBoardListBySeller(String writer) {
+		return template.selectList("board.getBoardListBySeller", writer);
+	}
 }

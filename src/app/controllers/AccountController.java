@@ -44,25 +44,26 @@ public class AccountController {
    AccountRepository accountRepository;
 
    @Autowired
-   BoardRepository boardRepository;
-
-   @Autowired
    JavaMailSender sender;
 
    // Index!
    @RequestMapping("/index.do")
    public String indexHendler(WebRequest wr, Map map) {
       List<Map> bcatelist = boardrepo.getBigCate();
-      map.put("bigcate", bcatelist);
-      if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) == null) {
-         int boardCount = boardRepository.boardCount();
-         map.put("boardCount", boardCount);
-         return "account.index";
-      } else {
-         int boardCount = boardRepository.boardCount();
-         map.put("boardCount", boardCount);
-         return "account.index";
+      if(wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
+    	  List<Map> wishlist = boardrepo.getWishlist((String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
+    	  map.put("wishlist", wishlist);
+      }else {
+    	  wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
+    	  map.put("bigcate", bcatelist);
+    	  int boardCount = boardrepo.boardCount();
+    	  map.put("boardCount", boardCount);
       }
+	  wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
+	  map.put("bigcate", bcatelist);
+	  int boardCount = boardrepo.boardCount();
+	  map.put("boardCount", boardCount);
+      return "account.index";
    }
 
    // 회원가입
