@@ -1,5 +1,6 @@
 package app.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,14 +34,35 @@ public class QAController {
 	@GetMapping("/qalist.do")
 	public String buyqaHandle(Map map , HttpSession session, @RequestParam Map param) {
 		Map user = (Map)session.getAttribute("user");
-		
-		List<Map> getChatList = mrepo.getChatList((String)user.get("ID"));
+		String id= (String)user.get("ID");
+		List<Map> getChatList = mrepo.getChatList((String)user.get("ID"));		
 		
 		if(getChatList!=null) {
+			Map checks = new HashMap();
+			Map z = new HashMap<>();
+			   List log = new ArrayList<>();
+			   for(int i = 0; i<getChatList.size();i++) {
+				   z = getChatList.get(i);
+				   log = (List)z.get("log");
+			   }
+			   
+			   List check = new ArrayList<>();
+			   for(int i = 0; i<log.size();i++) {
+				   Map b = (Map)log.get(i);
+				   check = (List)b.get("checkMember");
+				   if(check.contains((String)user.get("ID"))) {
+					  checks.put("noCheck", true); 
+				   }
+			   }
+			getChatList.add(checks);
+			System.out.println(getChatList + "확인해보겠ㅆ브니다!!!");
 			map.put("chatList", getChatList);
 			
-			System.out.println("리스트"+getChatList);
 		}
+		
+		System.out.println("dfdsfwefdsf 결과" + getChatList);
+		
+		
 		return "account.qaList";
 	}
 	
@@ -77,27 +99,16 @@ public class QAController {
 			mrepo.insertOne(log);
 			
 			map.put("qamode", room);
+			System.out.println("없을때"+room);
 		}else {
 			Map maps = getChatLog.get(0);
 			String room = (String)maps.get("room");
 			map.put("qamode", room);
 			map.put("no", no);
 			map.put("chatlog", maps.get("log"));
+			System.out.println("있으때" + room);
 		}
-		
-		/*
-		
-		Map user = (Map)session.getAttribute("user");
-		
-		
-		session.setAttribute("writer", writer);
-		
-		if(getChatLog.size()==0){
-			
-			map.put("qamode", room);
-			
-		}else {
-		}*/
+
 		return "redirect:/chatLog.do";
 	}
 	
@@ -111,27 +122,26 @@ public class QAController {
 		String writer = (String)param.get("writer");
 		
 		Map writers = sellerrepo.getSeller(writer);
-		
+
 		map.put("Seller", writers);
-		System.out.println("파라미터     "+param);
 		
 		List<Map> getChatLog = mrepo.getChatLog((String)param.get("writer"), (String)user.get("ID"));
 		Map maps = getChatLog.get(0);
 		
+		List m = (List)maps.get("log");
+		for(int i = 0; i<m.size();i++) {
+			Map ma = (Map)m.get(i);
+			ma.get("senddate");
+			ma.put("senddate", new SimpleDateFormat("yyyy-MM-dd HH:mm").format(ma.get("senddate")));
+		}
 		
-		
-		map.put("qamode", (String)param.get("qamode"));
+		map.put("mode", (String)param.get("qamode"));
 		map.put("chatlog", maps.get("log"));
+		map.put("member", maps.get("member"));
+		
 		
 		mrepo.updateCheckMember((String)param.get("qamode"),(String)user.get("ID"));
-		
-		/*String ids = (String)param.get("ids");
-		List<Map> getChatList =mrepo.getChatOneLog(ids);
-		map.put("chatlog", getChatList);
-		
-		
-		Map user = (Map)wr.getAttribute("user", WebRequest.SCOPE_SESSION);
-	*/
+	
 		return "account.buyQA";
 	}
 }

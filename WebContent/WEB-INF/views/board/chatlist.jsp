@@ -7,11 +7,15 @@
 	<c:choose>
 		<c:when test="${!empty chatList }">
 			<c:forEach var="i" items="${chatList }">
-				<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}" class="list-group-item list-group-item-warning">${i.member }</a>
+				<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}" class="list-group-item list-group-item-warning">${i.member }
+				<c:if test="${i.noCheck==true }">
+					<span class="badge badge-pill badge-primary">new</span>
+				</c:if>
+				</a>
 			</c:forEach>		
 		</c:when>
 		<c:otherwise>
-			<input type="text" readonly class="list-group-item list-group-item-warning" value="메세지가 없습니다.">
+			<span>메세지가 없습니다.</span>
 		</c:otherwise>
 	</c:choose>
 	

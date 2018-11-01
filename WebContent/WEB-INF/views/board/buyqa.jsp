@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+</style>
 <h2>문의하기</h2>
 <div>
 	<div class="input-group">
@@ -17,18 +19,29 @@
 		<c:forEach var="obj" items="${chatlog}">
 			<c:choose>
 				<c:when test="${obj.sender==user.ID}">
-					<div class="alert alert-secondary" role="alert"
-						style="padding: 3px; margin-bottom: 3px;">
-						${obj.sender} : <br/>${obj.text}<%--<small> <fmt:formatDate value="${obj.senddate }"/></small> --%>
-					</div>				
+					<div class="row" align="right">
+						<div class="col" style="right: 0px; bottom: 0px; vertical-align: bottom; margin-right: 1px;" >
+						
+							<small>${obj.senddate }</small>
+						</div>
+						<div class="alert alert-secondary col-md-5" style="text-align: left;">  
+							${obj.sender} : <br />${obj.text} 
+						</div>
+					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="alert alert-info" role="alert"
-						style="padding: 3px; margin-bottom: 3px;">
-						${obj.sender} : <br/>${obj.text}
+					<div class="row" align="left" role="alert"
+						style="padding: 3px; margin-bottom: 3px; width: 50%">
+						<div class="alert alert-info col-md-9" >  
+							${obj.sender} : <br />${obj.text} 
+						</div>
+						<div class="col" style="right: 0px; bottom: 0px; vertical-align: bottom; margin-left: 1px;" >
+						
+							<small>${obj.senddate }</small>
+						</div>
 					</div>
 				</c:otherwise>
-				
+
 			</c:choose>
 		</c:forEach>
 	</div>
@@ -48,8 +61,8 @@
 	qaws.onmessage = function(evt) {
 		console.log("채팅 데이터 " + evt.data);
 		var obj = JSON.parse(evt.data);
-		switch (obj.qamode) {
-		case "${qamode}":
+		switch (obj.mode) {
+		case "${mode}":
 			boardQAHandle(obj);
 			break;
 		}
@@ -57,15 +70,36 @@
 
 	var boardQAHandle = function(evt) {
 		console.log(evt)
+		var d = new Date();
 		var html ="";
 		if(evt.sender=="${user.ID}"){
-			html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\" >";
-			html += evt.sender + " : <br/>" + evt.text;
-			html += "</div>";			
-		}else{
-			html = "<div class=\"alert alert-info\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\" >";
-			html += evt.sender + " : <br/>" + evt.text;
+			html += "<div class=\"row\" align=\"right\">";
+			html += "<div class=\"col\" style=\"right: 0px; bottom: 0px; vertical-align: bottom; margin-right: 1px;\">";
+			html +=  "<small>"+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+"</small>";
 			html += "</div>";
+			html += "<div class=\"alert alert-secondary col-md-5\" style=\"text-align: left;\">";
+			html +=  evt.sender + " : <br/>" + evt.text;
+			html += "</div>";
+			html += "</div>";
+			
+			/* html += "<div align=\"right\">";
+			html += "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding: 3px; margin-bottom: 3px; width: 50%; text-align: left;\">";
+			html +=  evt.sender + " : <br/>" + evt.text;
+			html += "</div>";
+			html += "</div>"; */		
+		}else{
+			html += "<div class=\"row\" align=\"left\" role=\"alert\" style=\"padding: 3px; margin-bottom: 3px; width: 50%\">";
+			html += "<div class=\"alert alert-info col-md-9\">";
+			html +=  evt.sender + " : <br/>" + evt.text;	
+			html += "</div>";
+			html +=	"<div class=\"col\" style=\"right: 0px; bottom: 0px; vertical-align: bottom; margin-left: 1px;\">";
+			html +=  "<small>"+d.getFullYear()+"-"+(d.getMoth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+"</small>";
+			html += "</div>";
+			html += "</div>";
+			/* html += "<div class=\"alert alert-info\" align=\"left\" role=\"alert\" style=\"padding: 3px; margin-bottom: 3px; width: 50%\">";
+			html +=  evt.sender + " : <br/>" + evt.text;
+			html += "</div>";
+			 */
 		}
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop = document
@@ -75,7 +109,7 @@
 	document.getElementById("inputs").onchange = function() {
 		console.log("인풋 밸류 " + this.value);
 		var msg = {
-			"qamode" : "${qamode}",
+			"mode" : "${mode}",
 			"text" : this.value,
 			"writer" : "${Seller.ID }"
 		};

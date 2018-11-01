@@ -20,6 +20,9 @@ public class AlarmSocketController extends TextWebSocketHandler{
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		service.addSocket(session);
 		Map<String, Object> attrs = session.getAttributes();
+		
+		
+		
 	}
 	
 	@Override

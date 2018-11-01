@@ -2,6 +2,7 @@ package app.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import com.google.gson.Gson;
 
 import app.models.AccountRepository;
 import app.models.BoardRepository;
+import app.models.QAMessageRepository;
 import app.models.SellerRepository;
 
 @Controller
@@ -45,24 +47,44 @@ public class AccountController {
 
    @Autowired
    JavaMailSender sender;
+   
+   @Autowired
+   QAMessageRepository oamr;
 
    // Index!
    @RequestMapping("/index.do")
    public String indexHendler(WebRequest wr, Map map) {
+
       List<Map> bcatelist = boardrepo.getBigCate();
       if(wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
     	  List<Map> wishlist = boardrepo.getWishlist((String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
     	  map.put("wishlist", wishlist);
-      }else {
-    	  wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
-    	  map.put("bigcate", bcatelist);
-    	  int boardCount = boardrepo.boardCount();
-    	  map.put("boardCount", boardCount);
+    	  
+    	  Map user=(Map)wr.getAttribute("user", WebRequest.SCOPE_SESSION);
+		   List<Map> c = oamr.getChatList((String)user.get("ID"));
+
+		   Map z = new HashMap<>();
+		   List log = new ArrayList<>();
+		   for(int i = 0; i<c.size();i++) {
+			   z = c.get(i);
+			   log = (List)z.get("log");
+		   }
+		   
+		   List check = new ArrayList<>();
+		   for(int i = 0; i<log.size();i++) {
+			   Map b = (Map)log.get(i);
+			   check = (List)b.get("checkMember");
+			   if(check.contains((String)user.get("ID"))) {
+				   map.put("newss", true);
+			   }
+		   }
+		   
       }
 	  wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
 	  map.put("bigcate", bcatelist);
 	  int boardCount = boardrepo.boardCount();
 	  map.put("boardCount", boardCount);
+     
       return "account.index";
    }
 
@@ -305,6 +327,9 @@ public class AccountController {
       return "/WEB-INF/views/account/login.jsp";
    }
 
+   @Autowired
+   QAMessageRepository qamr;
+   
    @PostMapping("/login.do")
    public String loginPostHandler(WebRequest wr, Map map, HttpSession session) {
       // 아이디와 비번 가져오기
@@ -328,6 +353,7 @@ public class AccountController {
             wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
          }
          wr.setAttribute("loginYes", true, WebRequest.SCOPE_REQUEST);
+         
          return "/WEB-INF/views/account/login.jsp"; // 로그인 후 인덱스 페이지로 이동
       } else {
          wr.setAttribute("err", true, WebRequest.SCOPE_REQUEST); // 로그인 실패시
