@@ -50,59 +50,75 @@ public class BoardQASocketController extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("문의소켓 연결끝");
-		sockets.remove(session);
+		try {
+			sockets.remove(session);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		String got = message.getPayload();
-		Map user = (Map) session.getAttributes().get("user");
-	
-		Map map = gson.fromJson(got, Map.class);
-		map.put("sender", user.get("ID"));		
-		
-		System.out.println("받은 내용들 "+map);
-		
-		TextMessage msg = new TextMessage(gson.toJson(map));
-
-		System.out.println("messages" + msg);
-		
-		List<String> userList = new ArrayList<>();
-		for (int i = 0; i < sockets.size(); i++) {
-			try {
-				sockets.get(i).sendMessage(msg);
-				Map ms = (Map)sockets.get(i).getAttributes().get("user");
-				userList.add((String)ms.get("ID"));
-			} catch (Exception e) {
-				e.printStackTrace();
+		try {
+			
+			String got = message.getPayload();
+			Map user = (Map) session.getAttributes().get("user");
+			Map map = gson.fromJson(got, Map.class);
+			map.put("sender", user.get("ID"));		
+			
+			String room = (String)map.get("mode");
+			
+			List<Map> list = qamr.roomDate(room);
+			Map m = list.get(0);
+			
+			TextMessage msg = new TextMessage(gson.toJson(map));
+			
+			List<String> userList = new ArrayList<>();
+			for (int i = 0; i < sockets.size(); i++) {
+				try {
+					sockets.get(i).sendMessage(msg);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+			
+			Map mongo = new HashMap();
+			
+			mongo.put("sender", map.get("sender"));
+			mongo.put("text", map.get("text"));
+			mongo.put("senddate", System.currentTimeMillis());
+			mongo.put("checkMember", m.get("member"));
+			
+			
+			int ret = qamr.updatelog(mongo, (String)map.get("mode"));
+			if(ret<0) {
+				System.out.println("채팅저장 실패");
+			}else {
+				System.out.println("채팅저장 성공");
+			}
+			qamr.updateCheckMember(room,(String)user.get("ID"));
+			List log = (List)m.get("log");
+			
+			List checkMember = new ArrayList<>();
+			for(int i = 0; i<log.size(); i++) {
+				Map a = (Map)log.get(i);
+				checkMember = (List)a.get("checkMember");
+			}
+			
+			String target ="";
+			if(checkMember.size()>0) {
+				target =(String)checkMember.get(0);				
+			}
+			
+			String json = "{\"mode\":\"boardQA\"}";
+			socketService.sendOne(json, target);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-	
-		
-		Map mongo = new HashMap();
-		
-		mongo.put("sender", map.get("sender"));
-		mongo.put("text", map.get("text"));
-		mongo.put("senddate", System.currentTimeMillis());
-		mongo.put("checkMember", userList);
-
-		
-		
-		System.out.println("소켓시"+mongo);
-		
-		System.out.println(map.get("qamode"));
-		
-		int ret = qamr.updatelog(mongo, (String)map.get("qamode"));
-		if(ret<0) {
-			System.out.println("채팅저장 실패");
-		}else {
-			System.out.println("채팅저장 성공");
-		}			
-		
-		/*String json = "{\"mode\":\"boardQA\"}";
-		socketService.sendOne(json, userList);*/
 
 	}
 }

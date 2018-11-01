@@ -67,6 +67,16 @@
 							style="color: black;"><b>구매</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/qalist.do"
 							style="color: black;"><b>메세지</b></a></li>
+							<li class="nav-item">
+							<c:choose>
+								<c:when test="${!empty newss}">
+									<span class="badge badge-pill badge-primary">new</span>
+								</c:when>
+								<c:otherwise>
+									<span id="news"> </span>
+								</c:otherwise>
+							</c:choose>
+							</li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle btn-primary"
 							data-toggle="dropdown" href="#" role="button"
@@ -125,5 +135,17 @@
 	
 	ws.onmessage = function(got){
 		
+		var obj = JSON.parse(got.data);
+		switch(obj.mode){
+		case "boardQA":
+			boardQAHandle(obj);
+			break;
+		}
+		
 	};
+	
+	var boardQAHandle = function(evt){
+		var html = "<span class=\"badge badge-pill badge-primary\">new</span>";
+		$("#news").html(html);
+	}
 </script>
