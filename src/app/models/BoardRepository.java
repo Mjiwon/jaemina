@@ -73,4 +73,23 @@ public class BoardRepository {
 		Integer i = template.selectOne("board.getSequenceVal");
 		return i;
 	}
+	
+	//댓글
+		public int WriteReply(Map map){
+			return template.insert("board.WriteReply",map);
+		}
+		public List<Map> ReplyLIst(int bno){
+			
+			return template.selectList("board.ReplyList",bno);
+		}
+		public List<Map> onlyreply(Map map){
+			return template.selectList("board.onlyreply",map);
+		}
+		public int Modify_Reply(Map data) {
+			return template.update("board.modify_reply",data);
+		}
+		public int deletereply(Map data) {
+			return template.delete("board.deletereply",data);
+		}
+	
 }

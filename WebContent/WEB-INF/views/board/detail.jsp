@@ -113,8 +113,152 @@
 				</form>
 			</div>
 		</div>
+				<div class="container">
+			<label for="content">${user.ID }</label> <select id="star">
+				<option value="1">★☆☆☆☆</option>
+				<option value="2">★★☆☆☆</option>
+				<option value="3">★★★☆☆</option>
+				<option value="4">★★★★☆</option>
+				<option value="5">★★★★★</option>
+			</select>
+			<form name="commentInsertForm">
+				<div class="input-group">
+					<input type="hidden" name="bno" value="${detail.bno}"  />
+					 <input type="textarea " class="form-control" id="content" name="content"
+						placeholder="수정할 내용을 입력하세요."  min="10"> <span class="input-group-btn">
+						&nbsp;
+						<button class="btn btn-default" type="button" name="replybtn"
+							id="replybtn">등록</button>
+					</span>
+				</div>
+			</form>
+		</div>
+		
+				<div class="container">
+			<button class="btn btn-defaut" id="replylistbtn">댓글보기</button>
+			<div class="commentList"></div>
+		</div>
+		
+
+
+		<div id="reply"></div>
+
+
+		<script type="text/javascript">
+		//댓글 삭제
+		var deleteReply =function() {
+				var param = {
+								"writer" :"${user.ID}",
+								"bno" : ${detail.NO}
+				}
+				console.log("삭제"+param);
+				$.post("${pageContext.servletContext.contextPath }/ajax/deletereply.do",param).done(function(rst) {
+					var obj = rst;
+						if(obj==1){
+							window.alert("댓글 삭제의 성공했습니다")
+							ListReply();
+						 }else 
+							window.alert("댓글 삭제의 실패 하셨습니다 관리자에게 문의 해주세요");
+						 
+				});
+		};
+		
+		//댓글  수정
+		var modifyreply =function() {
+			window.open("${pageContext.servletContext.contextPath }/modifyreply.do?bno=${detail.NO}", "댓글수정", "width=700, height=200, left=700, top=200");
+			
+		};
+		
+		
+		
+		$("#replylistbtn").on("click",function() {
+				ListReply();
+		});
+
+			function ListReply(){
+				var param = {"bno" : "${detail.NO}"};
+				console.log(param);
+				$.post("${pageContext.servletContext.contextPath }/ajax/replylist.do",param).done(function(rst) {
+				var obj = rst;
+				var html = "";
+				if(obj.length>0){
+				for (var i = 0; i < obj.length; i++) {
+				console.log("누구누구있니?"+obj[i].WRITER);
+	            html += "<div><div><table class=\"table\"><h6><strong>"+obj[i].WRITER+"</strong><small>"+obj[i].STAR+"</small><small>"+obj[i].RDATE+"</small></h6>";
+	            html +=obj[i].CONTENT+"<br/><tr><td></td>";
+	            
+		         if(obj[i].WRITER==("${user.ID}")){
+        		html+="<button class=\"btn btn-defaut\" onclick=\"modifyreply();\" >"+"수정"+"</button>&nbsp;" ;
+        		html+="<button class=\"btn btn-defaut\" onclick=\"deleteReply();\" >"+"삭제"+"</button>";
+              } 
+	            html +="</tr></table></div></div>";
+				}
+				}else{
+				window.alert("등록된 댓글이 없습니다")
+				}
+			$("#reply").html(html);
+			});
+			}
+			
+
+				
+//--------------------------------------------------------------------
+
+
+//작성
+$("#replybtn").on("click",function() {
+	if( ${loginOk!=null}){
+	var content = $("#content").val();	
+	var vstar=$("#star").val();
+	var star;
+	switch (vstar) {
+	case "1":
+		star="★☆☆☆☆";	
+		break;
+	case "2":
+		star="★★☆☆☆";
+		break;s
+	case "3":
+		star="★★★☆☆";
+		break;
+	case "4":
+		star="★★★★☆";
+		break;
+	
+	case "5":
+		star="★★★★★";
+		break;
+	}
+	console.log(star);	
+	var param = {
+		"bno" : ${detail.NO},
+		"writer": "${user.ID}",
+		"content":content,
+		"star":star,
+		"star_num":vstar
+				}
+	$.post("${pageContext.servletContext.contextPath }/ajax/replyWrite.do",param).done(function(rst) {
+	var obj = rst;
+		if(obj==1){
+			$("#content").val("");
+			ListReply();
+		 }else 
+			window.alert("이미 댓글 등록하셨습니다 댓글 수정을 이용 해주세요");
+		 
+	});
+	}else
+		{
+		window.alert("로그인을 해주세요");
+		}
+
+});
+
+		</script>
+		
 
 		<footer class="my-5 pt-5 text-muted text-center text-small">
 			<p class="mb-1">&copy; 2018-2019 재미나</p>
 		</footer>
 	</div>
+	
+	</body>

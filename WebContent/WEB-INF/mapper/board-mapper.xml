@@ -47,6 +47,24 @@
 	<select id="getSequenceVal" resultType="java.lang.Integer">
 		select board_seq.nextval from dual
 	</select>
+	<!-- 댓글 -->
+	<insert id="WriteReply" parameterType="java.util.HashMap">
+	insert into reply values(reply_seq.nextval,#{bno},#{writer},#{content},to_char(sysdate,'yyyymmdd'),#{star},#{star_num})
+	</insert>
 	
+	<select id="ReplyList" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+	select * from reply where bno= #{bno} order by rno desc
+	</select>
 	
+ 	<select id="onlyreply" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from reply where bno=#{bno} and writer=#{writer}
+	</select>
+	
+	<update id="modify_reply" parameterType="java.util.HashMap">
+		update reply set content=#{content} , star=#{star} , star_num=#{star_num} where writer=#{writer} and bno=#{bno}
+	</update>
+	
+	<delete id="deletereply" parameterType="java.util.HashMap">
+		delete from reply where writer=#{writer} and bno=#{bno} 
+	</delete>
 </mapper>

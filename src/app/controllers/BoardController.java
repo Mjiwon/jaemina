@@ -133,6 +133,7 @@ public class BoardController {
 		map.put("detail", detail);
 		map.put("writer", writer);
 		map.put("cate", cate);
+		map.put("loginOk", id);
 		
 		if(sellerid.equals(id)) {
 			return "account.boardDetail";
@@ -234,6 +235,73 @@ public class BoardController {
 		
 		return "account.buyQA";
 	}*/
-	
+	// 댓글 입력
+		@RequestMapping(path = "/ajax/replyWrite.do", produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String ReplyWriteAjaxHandle(@RequestParam Map reply) {
+
+			System.out.println(reply);
+			String bno = (String) reply.get("bno");
+			int bno1 = Integer.parseInt(bno);
+
+			String writer = (String) reply.get("writer");
+
+			Map only = new HashMap();
+			only.put("bno", bno);
+			only.put("writer", writer);
+
+			List<Map> onlyreply = boardrepo.onlyreply(only);
+
+			if (onlyreply.size()==0) {
+				int i = boardrepo.WriteReply(reply);
+				return gson.toJson(i);
+			} else {
+				return gson.toJson(0);
+			}
+		}
+
+		// 댓글 리스트
+		@RequestMapping(path = "/ajax/replylist.do", produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String RepleAjaxHandle(@RequestParam Map data) {
+			String bno = (String) data.get("bno");
+			int bbno = Integer.parseInt(bno);
+			System.out.println("넣어줘" + bbno);
+			List<Map> replylist = boardrepo.ReplyLIst(bbno);
+			System.out.println(replylist);
+			return gson.toJson(replylist);
+		}
+		//댓글 수정
+		@RequestMapping(path = "/ajax/modifyreply.do", produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String RepleModifyAjaxHandle(@RequestParam Map data) {
+			System.out.println("들어와 친구");
+			String bbno=(String)data.get("bno");
+			int bno=Integer.parseInt(bbno);
+			data.put("bno", bno);
+			System.out.println("넣어줘" + data);
+			int update = boardrepo.Modify_Reply(data);
+			System.out.println(update);
+			return gson.toJson(update);
+		}
+		
+		@RequestMapping("/modifyreply.do")
+		public String modifyreply(@RequestParam String bno, Map map) {
+			System.out.println(bno);
+			map.put("bno", bno);
+			return "/WEB-INF/views/board/modifyreply.jsp";
+		}
+		//댓글 삭제
+		@RequestMapping(path = "/ajax/deletereply.do", produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String RepleDeleteAjaxHandle(@RequestParam Map data) {
+				
+			String bbno=(String)data.get("bno");
+				int bno=Integer.parseInt(bbno);
+				data.put("bno", bno);
+				int delete = boardrepo.deletereply(data);
+			System.out.println(delete);
+			return gson.toJson(delete);
+		}
 	
 }
