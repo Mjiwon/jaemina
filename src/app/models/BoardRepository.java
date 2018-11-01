@@ -104,4 +104,8 @@ public class BoardRepository {
 	public List<Map> getBoardListBySeller(String writer) {
 		return template.selectList("board.getBoardListBySeller", writer);
 	}
+	
+	public int deleteWishList(Map map) {
+		return template.delete("board.deleteWishList", map);
+	}
 }

@@ -79,4 +79,8 @@
 	<delete id="deletereply" parameterType="java.util.HashMap">
 		delete from reply where writer=#{writer} and bno=#{bno} 
 	</delete>
+	
+	<delete id="deleteWishList" parameterType="java.util.HashMap">
+		delete from wishlist where buyer=#{buyer} and seller=#{seller}
+	</delete>
 </mapper>

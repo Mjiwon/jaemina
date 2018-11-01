@@ -135,6 +135,9 @@ public class BoardController {
 		String sellerid = (String) detail.get("WRITER");
 		Map writer = sellerrepo.getSeller(sellerid);
 		String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
+		List<Map> wishlist = boardrepo.getWishlist(id);
+		wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
+		wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
 
 		String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
 		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
@@ -144,6 +147,13 @@ public class BoardController {
 		cates.put("smallcate", smallcate);
 
 		Map cate = boardrepo.getCate(cates);
+		for(Map<String, String> list: wishlist ) {
+			if(list.get("SELLER").equals(sellerid)) {
+				wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
+				break;
+			}else {
+			}
+		}
 
 		map.put("detail", detail);
 		map.put("writer", writer);
@@ -155,8 +165,6 @@ public class BoardController {
 
 	@RequestMapping("/sellerboardlist.do")
 	public String sellerBoardListHandle(@RequestParam String seller, WebRequest wr, Map map, HttpSession session) {
-		List<Map> wishlist = boardrepo.getWishlist((String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
-		map.put("wishlist", wishlist);
 		Map duser = accountrepo.Myinfo(seller);
 		String dbank = (String) duser.get("BANK");
 		List<Map> MyBoard = sellerrepo.getmyboard(seller);
@@ -269,15 +277,31 @@ public class BoardController {
 	}
 
 	@RequestMapping("/addWishlist.do")
-	public String addWishlistHandle(@RequestParam String writer, WebRequest wr) {
+	public String addWishListHandle(@RequestParam Map param, WebRequest wr, Map map) {
 		String buyer = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
-		String seller = writer;
+		String seller = (String) param.get("writer");
+		int no = Integer.parseInt((String)param.get("no"));
 		Map wish = new HashMap<>();
 		wish.put("buyer", buyer);
 		wish.put("seller", seller);
 		boardrepo.addWishlist(wish);
+		map.put("no", no);
 
-		return "redirect:index.do";
+		return "redirect:board/detail.do";
+	}
+	
+	@RequestMapping("/deleteWishlist.do")
+	public String deleteWishListHandle(@RequestParam Map param, WebRequest wr, Map map) {
+		String buyer = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
+		String seller = (String) param.get("writer");
+		int no = Integer.parseInt((String)param.get("no"));
+		Map wish = new HashMap<>();
+		wish.put("buyer", buyer);
+		wish.put("seller", seller);
+		boardrepo.deleteWishList(wish);
+		map.put("no", no);
+		
+		return "redirect:board/detail.do";
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------

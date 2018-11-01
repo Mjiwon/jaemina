@@ -52,7 +52,8 @@ public class AccountController {
       List<Map> bcatelist = boardrepo.getBigCate();
       if(wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
     	  List<Map> wishlist = boardrepo.getWishlist((String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
-    	  map.put("wishlist", wishlist);
+    	  wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
+    	  System.out.println(wishlist);
       }else {
     	  wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
     	  map.put("bigcate", bcatelist);
