@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,18 +113,15 @@ public class BoardController {
 	public String boardListHandle(Map map, WebRequest wr) {
 		map.put("boardlist", boardrepo.getBoardList());
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
+		wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
 		return "account.boardlist";
 	}
 
 	@RequestMapping("/board/lists.do")
 	public String boardListHandle(@RequestParam int bigcate, Map map, WebRequest wr) {
-		if (wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION) != null) {
-			map.put("boardlist",
-					boardrepo.getCateBoard((Integer) wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION)));
-		} else {
-			map.put("boardlist", boardrepo.getCateBoard(bigcate));
-			wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
-		}
+		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
+		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
+		map.put("boardlist", boardrepo.getCateBoard(bigcate));
 		return "account.boardlist";
 	}
 
@@ -142,6 +140,8 @@ public class BoardController {
 		String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
 		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
 
+		
+		
 		Map cates = new HashMap<>();
 		cates.put("bigcate", bigcate);
 		cates.put("smallcate", smallcate);
@@ -155,11 +155,13 @@ public class BoardController {
 			}
 		}
 
+		
 		map.put("detail", detail);
 		map.put("writer", writer);
 		map.put("cate", cate);
 		map.put("loginOk", id);
 
+		System.out.println("detail = " + Arrays.toString(wr.getAttributeNames(WebRequest.SCOPE_SESSION)));
 		return "account.boardDetail";
 	}
 
@@ -230,7 +232,7 @@ public class BoardController {
 	@RequestMapping("/board/deleteDetail.do")
 	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		boardrepo.deleteDetailBoard(Integer.parseInt((String) param.get("no")));
-		System.out.println(wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
+	
 		if (wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) != null) {
 			map.put("searchKey", wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION));
 			return "redirect:searchList.do";
