@@ -3,6 +3,7 @@ package app.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,37 +59,36 @@ public class AccountController {
    @RequestMapping("/index.do")
    public String indexHendler(WebRequest wr, Map map) {
 
-      List<Map> bcatelist = boardrepo.getBigCate();
-      if(wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
-    	  List<Map> wishlist = boardrepo.getWishlist((String)wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
-    	  map.put("wishlist", wishlist);
-    	  
-    	  Map user=(Map)wr.getAttribute("user", WebRequest.SCOPE_SESSION);
-		 List<Map> c = oamr.getChatList((String)user.get("ID"));
+		List<Map> bcatelist = boardrepo.getBigCate();
+		if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
+			List<Map> wishlist = boardrepo.getWishlist((String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
+			map.put("wishlist", wishlist);
 
-		   Map z = new HashMap<>();
-		   List log = new ArrayList<>();
-		   for(int i = 0; i<c.size();i++) {
-			   z = c.get(i);
-			   log = (List)z.get("log");
-		   }
-		   
-		   List check = new ArrayList<>();
-		   for(int i = 0; i<log.size();i++) {
-			   Map b = (Map)log.get(i);
-			   check = (List)b.get("checkMember");
-			   if(check.contains((String)user.get("ID"))) {
-				   map.put("newss", true);
-			   }
-		   }
-    	  wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
-      }
-	  wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
-	  map.put("bigcate", bcatelist);
-	  int boardCount = boardrepo.boardCount();
-	  map.put("boardCount", boardCount);
-     
-      return "account.index";
+			Map user = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
+			List<Map> c = oamr.getChatList((String) user.get("ID"));
+
+			Map z = new HashMap<>();
+			List log = new ArrayList<>();
+			for (int i = 0; i < c.size(); i++) {
+				z = c.get(i);
+				log = (List) z.get("log");
+			}
+
+			List check = new ArrayList<>();
+			for (int i = 0; i < log.size(); i++) {
+				Map b = (Map) log.get(i);
+				check = (List) b.get("checkMember");
+				if (check.contains((String) user.get("ID"))) {
+					map.put("newss", true);
+				}
+			}
+			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
+		}
+		map.put("bigcate", bcatelist);
+		int boardCount = boardrepo.boardCount();
+		map.put("boardCount", boardCount);
+
+		return "account.index";
    }
 
    // 회원가입

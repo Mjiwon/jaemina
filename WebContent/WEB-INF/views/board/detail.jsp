@@ -48,10 +48,11 @@
 												window.alert("삭제되었습니다.");
 												location.href = "${pageContext.servletContext.contextPath }/board/deleteDetail.do?no="
 														+ no;
+
 											} else {
 												return;
 											}
-										}
+										};
 									</script>
 								</c:when>
 								<c:otherwise>
@@ -128,6 +129,7 @@
 				</form>
 			</div>
 		</div>
+		<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 		<div class="container">
 			<label for="content">${user.ID }</label> <select id="star">
 				<option value="1">★☆☆☆☆</option>
@@ -157,8 +159,8 @@
 
 
 		<div id="reply"></div>
-
-
+		
+		
 		<script type="text/javascript">	
 		
 		$("#addlike").on("click", function() {
@@ -168,6 +170,7 @@
 		$("#deletelike").on("click", function() {
 			window.alert("삭제되었습니다.");
 		});
+		
 		
 		//댓글 삭제
 		var deleteReply =function() {
@@ -277,7 +280,7 @@ $("#replybtn").on("click",function() {
 
 });
 
-		</script>
+</script>
 
 
 		<footer class="my-5 pt-5 text-muted text-center text-small">
