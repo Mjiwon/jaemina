@@ -1,5 +1,6 @@
 package app.models;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -26,6 +27,14 @@ public class AdminRepository {
 	
 	public Map getAdminposition(int pid) {
 		return template.selectOne("admin.getAdminposition", pid);
+	}
+	
+	public List<Map> getAllDeparts() {
+		return template.selectList("admin.getAllDeparts");
+	}
+	
+	 public List<Map> getAllPositions() {
+		return template.selectList("admin.getAllPositions");
 	}
 	
 }

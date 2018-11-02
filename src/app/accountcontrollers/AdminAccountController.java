@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,6 +81,29 @@ public class AdminAccountController {
 		map.put("accountlist", accountrepo.getAccountList());
 		map.put("accountsize", accountrepo.getAccountList().size());
 		return "admin.human.account";
+	}
+	
+	//	인사부 회원가입
+	@GetMapping("/join.do")
+	public String addGetHandle(ModelMap map) {
+		
+		map.put("adp", adminrepo.getAllDeparts());
+		map.put("aps", adminrepo.getAllPositions());
+		
+		return "admin.join";
+	}
+	
+	@PostMapping("/join.do")
+	public String addPostHandle(@RequestParam Map param) {
+		
+		System.out.println(param);
+		int i = adminrepo.addAdmin(param);	
+		if (i == 1) {
+			return "/WEB-INF/views/admin/login.jsp";
+		} else {
+			return "admin.join";			
+		}
+		
 	}
 	
 	/*@PostMapping("/account.do")

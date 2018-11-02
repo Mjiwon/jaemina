@@ -38,7 +38,11 @@
 		<put-attribute name="center" value="/WEB-INF/views/admin/QA/adminqareply.jsp" />
 	</definition>
 	
-	
+	<definition name="admin.join" template="/WEB-INF/tiles/admin_join-Tiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/admin/nav.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/admin/left.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/admin/join.jsp" />
+	</definition>
 	
 
 </tiles-definitions>
