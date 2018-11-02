@@ -48,10 +48,11 @@
 												window.alert("삭제되었습니다.");
 												location.href = "${pageContext.servletContext.contextPath }/board/deleteDetail.do?no="
 														+ no;
+
 											} else {
 												return;
 											}
-										}
+										};
 									</script>
 								</c:when>
 								<c:otherwise>
@@ -174,7 +175,7 @@
 				var param = {
 								"writer" :"${user.ID}",
 								"bno" : ${detail.NO}
-				}
+				};
 				console.log("삭제"+param);
 				$.post("${pageContext.servletContext.contextPath }/ajax/deletereply.do",param).done(function(rst) {
 					var obj = rst;

@@ -230,6 +230,7 @@ public class BoardController {
 	@RequestMapping("/board/deleteDetail.do")
 	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		boardrepo.deleteDetailBoard(Integer.parseInt((String) param.get("no")));
+		System.out.println(wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
 		if (wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) != null) {
 			map.put("searchKey", wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION));
 			return "redirect:searchList.do";
