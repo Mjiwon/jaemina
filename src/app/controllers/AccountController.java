@@ -189,7 +189,7 @@ public class AccountController {
    }
    
    @RequestMapping("/deleteuser.do")
-   public String deleteUserHandle(@RequestParam Map param, WebRequest wr) {
+   public String deleteUserHandle(@RequestParam Map param, WebRequest wr, Map err) {
 	   String id = (String)param.get("getId");
 	   String pass = (String)param.get("getPass");
 	   Map map = new HashMap<>();
@@ -204,6 +204,8 @@ public class AccountController {
 		   return "WEB-INF/views/deleteUser.jsp";
 	   }else {
 		   wr.setAttribute("deleteErr", true, WebRequest.SCOPE_REQUEST);
+		   
+		   err.put("userId", accountRepository.getAccountById(id));
 		   return "WEB-INF/views/deleteUser.jsp";
 	   }
    }
