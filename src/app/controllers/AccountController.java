@@ -35,6 +35,9 @@ import app.models.SellerRepository;
 public class AccountController {
    Map<String, HttpSession> sessions;
 
+	@Autowired
+	Gson gson;
+   
    @Autowired
    BoardRepository boardrepo;
 
@@ -592,7 +595,43 @@ public class AccountController {
       return "account.modifiend";
    }
    //-------------------------------------------------------------------------------------------------------------------------------
-
-
+   	//차트
+   
+   @RequestMapping("/chart.do")
+   public String chart() {
+	   return "/WEB-INF/views/account/mypage/history/chart.jsp";
+   }
+   @RequestMapping(path = "/ajaxchart.do", produces = "application/json;charset=UTF-8")
+   @ResponseBody
+   public String ajaxchart(@RequestParam Map map) throws Exception{
+       System.out.println(map+"안녕하세요");
+       
+	   String date_type =(String)map.get("date_type");
+	   List<Map> dbdate = new ArrayList<>();
+	   if(date_type.equals("year")) {  
+		   System.out.println("year");
+		   dbdate = SellerRepository.yearproceeds(map);
+		   
+       }else if(date_type.equals("moon")) {
+    	   System.out.println("moon");
+    	   dbdate = SellerRepository.Moonproceeds(map);
+    	   
+       }else {
+    	   System.out.println("day");
+    	   dbdate = SellerRepository.dayproceeds(map);
+   		}
+	   
+	   
+       List<Object[]> data = new ArrayList<>();
+       data.add(new Object[] {"date", "PROCEED"});
+  
+       for(int i=0; i<dbdate.size(); i++) {
+    		   data.add(new Object[] {dbdate.get(i).get("D"), dbdate.get(i).get("SUM")});
+       }
+       String str = gson.toJson(data);
+       System.out.println(str);
+       
+       return  str;
+   }
 
 }

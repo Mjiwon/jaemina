@@ -102,6 +102,9 @@
 							</button>
 							<ul class="dropdown-menu dropright"
 								style="background-color: white; background-color: white; justify-content: center;">
+							<li>	<a class="dropdown-item"
+									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
+									style="color: green;">${user.ID }</b>의 재미나</a> 
 								<li><a class="dropdown-item"
 									href="${pageContext.servletContext.contextPath }/myboard.do">나의
 										블로그</a></li>

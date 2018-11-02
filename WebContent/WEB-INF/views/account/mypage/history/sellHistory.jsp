@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-10">
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link active" href="#">판매관리</a>
+								<li class="nav-item"><a class="nav-link active" href="${pageContext.servletContext.contextPath }/chart.do">판매관리</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">구매관리</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.servletContext.contextPath }/wishlist.do">내가 관심있는 판매자</a></li>
