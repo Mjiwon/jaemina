@@ -68,6 +68,10 @@ public class BoardRepository {
 		return template.selectList("board.getCateBoard",bigcate);
 	}
 	
+	public List<Map> getSmallCateBoard(Map map){
+		return template.selectList("board.getsmallcatelist",map);
+	}
+	
 	// 방번호 가져오기
 	public Integer getSequenceVal() {
 		Integer i = template.selectOne("board.getSequenceVal");
@@ -108,4 +112,6 @@ public class BoardRepository {
 	public int deleteWishList(Map map) {
 		return template.delete("board.deleteWishList", map);
 	}
+	
+	
 }

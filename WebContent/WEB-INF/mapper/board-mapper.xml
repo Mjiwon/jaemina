@@ -83,4 +83,8 @@
 	<delete id="deleteWishList" parameterType="java.util.HashMap">
 		delete from wishlist where buyer=#{buyer} and seller=#{seller}
 	</delete>
+	
+	<select id="getsmallcatelist" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from board join (select*from bigcate join smallcate on bigcate.NO = smallcate.BIGNO )a on board.bigcate = a.bigno and board.smallcate = a.smallno where board.bigcate = #{bigcate} and board.smallcate=#{smallcate}
+	</select>
 </mapper>

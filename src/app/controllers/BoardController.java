@@ -110,13 +110,21 @@ public class BoardController {
 	}
 
 	// 판매글 불러오기
-/*	@GetMapping("/board/list.do")
+	@GetMapping("/board/list.do")
 	public String boardListHandle(@RequestParam Map param, Map map, WebRequest wr) {
-		int bigcate = (int)param.get("bigcate");
-		int smallcate = (int)param.get("smallcate");
+		int bigcate = Integer.parseInt((String)param.get("bigcate"));
+		
+		List<Map> boardlist = boardrepo.getSmallCateBoard(param);
+		map.put("boardlist", boardlist);
+		
+		List<Map> bcatelist = boardrepo.getBigCate();
+		map.put("bigcates", bcatelist);
+		
+		List<Map> scatelist = boardrepo.getSmallCate(bigcate);
+		map.put("smallcates", scatelist);
 		
 		return "account.boardlist";
-	}*/
+	}
 	/*
 	@GetMapping("/board/list.do")
 	public String boardListHandle(Map map, WebRequest wr) {

@@ -15,7 +15,7 @@
 	<div class="col-2">
 		<ul class="list-group list-group-flush" style="text-align: center; margin-left: 2%;">
      		<c:forEach var="i" items="${smallcates}">
-				 <a class="list-group-item list-group-item-action disabled" id="v-pills-settings-tab" data-toggle="pill" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${i.NO}" role="tab" aria-controls="v-pills-settings" >${i.SMALLCATE }</a>     		
+				 <a class="list-group-item list-group-item-action " id="v-pills-settings-tab" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${i.BIGNO}&smallcate=${i.SMALLNO}" role="tab" aria-controls="v-pills-settings" >${i.SMALLCATE }</a>     		
      		</c:forEach>
 		</ul>
 	</div>
