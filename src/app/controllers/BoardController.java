@@ -102,26 +102,42 @@ public class BoardController {
 	// 웹에서 한글깨짐을 방지하기 위해서 아래 설정을 해준다.
 	@RequestMapping(path = "/ajax/cate.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String cateAjaxHandle(@RequestParam String bigno) {
-		int bno = Integer.parseInt(bigno);
+	public String cateAjaxHandle(@RequestParam Map bigno) {
+		
+		int bno = Integer.parseInt(((String)bigno.get("bigno")));
 		List<Map> scatelist = boardrepo.getSmallCate(bno);
 		return gson.toJson(scatelist);
 	}
 
 	// 판매글 불러오기
+/*	@GetMapping("/board/list.do")
+	public String boardListHandle(@RequestParam Map param, Map map, WebRequest wr) {
+		int bigcate = (int)param.get("bigcate");
+		int smallcate = (int)param.get("smallcate");
+		
+		return "account.boardlist";
+	}*/
+	/*
 	@GetMapping("/board/list.do")
 	public String boardListHandle(Map map, WebRequest wr) {
 		map.put("boardlist", boardrepo.getBoardList());
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 		wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
 		return "account.boardlist";
-	}
-
+	}*/
+	
+	
 	@RequestMapping("/board/lists.do")
 	public String boardListHandle(@RequestParam int bigcate, Map map, WebRequest wr) {
-		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
+		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
+
+		List<Map> bcatelist = boardrepo.getBigCate();
+		map.put("bigcates", bcatelist);
+		List<Map> scatelist = boardrepo.getSmallCate(bigcate);
+		map.put("smallcates", scatelist);
 		map.put("boardlist", boardrepo.getCateBoard(bigcate));
+
 		return "account.boardlist";
 	}
 

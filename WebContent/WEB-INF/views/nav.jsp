@@ -82,7 +82,7 @@
 							href="${pageContext.servletContext.contextPath }/addbank.do"
 							style="color: black;"><b>판매</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/board/list.do"
+							href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1"
 							style="color: black;"><b>구매</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled"
 							href="${pageContext.servletContext.contextPath }/qalist.do"
