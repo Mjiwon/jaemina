@@ -52,7 +52,7 @@ public class AdminAccountController {
 			int did = ((BigDecimal)admin.get("DID")).intValue();
 			session.setAttribute("admin", admin);
 			String id = (String)param.get("id");
-			// 부서 등록
+			// 부서 등록                                                                        
 			Map depart = adminrepo.getAdmindepart(did);
 			session.setAttribute("depart", (String)depart.get("DEPART"));
 			// 직급 등록

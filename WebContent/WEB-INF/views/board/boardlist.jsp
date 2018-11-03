@@ -3,9 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-	<h1 align="center" style="margin-bottom: 2%;">판매글 리스트</h1>
-		<div class="container">
-			<div class="row">
+<div align="center">
+	<ul class="nav justify-content-center">
+		<c:forEach var="i" items="${bigcates }">
+			<li class="nav-item" value="${i.NO }"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${i.NO}"><b>${i.BIGCATE }</b></a></li>
+		</c:forEach>
+	</ul>
+
+</div>
+<div class="row" style="margin-top: 2%;">
+	<div class="col-2">
+		<ul class="list-group list-group-flush" style="text-align: center; margin-left: 2%;">
+     		<c:forEach var="i" items="${smallcates}">
+				 <a class="list-group-item list-group-item-action disabled" id="v-pills-settings-tab" data-toggle="pill" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${i.NO}" role="tab" aria-controls="v-pills-settings" >${i.SMALLCATE }</a>     		
+     		</c:forEach>
+		</ul>
+	</div>
+	<div class="col-9">
+		<div class="row">
 				<c:forEach var="l" items="${boardlist }">
 					<div class="col-md-4">
 						<a
@@ -18,11 +33,12 @@
 									<p class="card-text">${l.TITLE }</p>
 									<p class="card-text" style="color: red;">
 										<b><fmt:formatNumber>${l.PRICE }</fmt:formatNumber>원</b>
-									</p>
+									</p> 
 								</div>
 							</div>
 						</a>
 					</div>
 				</c:forEach>
 			</div>
-		</div>
+	</div>
+</div>
