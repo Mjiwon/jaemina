@@ -113,7 +113,13 @@ public class BoardController {
 	@RequestMapping("/board/list.do")
 	public String boardListHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int bigcate = Integer.parseInt((String)param.get("bigcate"));
+		int smallcate = Integer.parseInt((String)param.get("smallcate"));
+		int currentPage = Integer.parseInt((String) param.get("currentPage"));
+		int startCount = (currentPage-1)*9+1;
+		int endCount = currentPage*9;
 		
+		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
+		wr.setAttribute("smallCate", smallcate, WebRequest.SCOPE_SESSION);
 		List<Map> boardlist = boardrepo.getSmallCateBoard(param);
 		map.put("boardlist", boardlist);
 		
@@ -122,6 +128,23 @@ public class BoardController {
 		
 		List<Map> scatelist = boardrepo.getSmallCate(bigcate);
 		map.put("smallcates", scatelist);
+		
+		int boardCount = boardrepo.getSmallCateBoard(param).size();
+		int totalPage = boardCount / 9;
+		if((boardCount % 9)>0) {
+			totalPage++;
+		}
+		Map mapp = new HashMap<>();
+		mapp.put("bigcate", bigcate);
+		mapp.put("smallcate", smallcate);
+		mapp.put("startCount", startCount);
+		mapp.put("endCount", endCount);
+		map.put("boardlist", boardrepo.getSmallCateListForPasing(mapp));
+		map.put("totalPage", totalPage);
+		map.put("currentPage", currentPage);
+		
+		
+		
 		
 		return "account.boardlist";
 	}
@@ -142,6 +165,7 @@ public class BoardController {
 		int startCount = (currentPage-1)*9+1;
 		int endCount = currentPage*9;
 		
+		wr.removeAttribute("smallCate", WebRequest.SCOPE_SESSION);
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
 
@@ -158,10 +182,9 @@ public class BoardController {
 		mapp.put("bigcate", bigcate);
 		mapp.put("startCount", startCount);
 		mapp.put("endCount", endCount);
-		System.out.println(mapp);
 		map.put("boardlist", boardrepo.getBigCateListForPasing(mapp));
 		map.put("totalPage", totalPage);
-		System.out.println(map);
+		map.put("currentPage", currentPage);
 
 		return "account.boardlist";
 	}
