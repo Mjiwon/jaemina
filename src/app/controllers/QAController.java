@@ -31,14 +31,11 @@ public class QAController {
 	@Autowired
 	QAMessageRepository mrepo;
 	
-	@GetMapping("/qalist.do")
+	/*@GetMapping("/qalist.do")
 	public String buyqaHandle(Map map , HttpSession session, @RequestParam Map param) {
 		Map user = (Map)session.getAttribute("user");
 		String id= (String)user.get("ID");
 		List<Map> getChatList = mrepo.getChatList((String)user.get("ID"));		
-		System.out.println(getChatList.size());
-		
-		System.out.println("noCheck 넣기 전"+getChatList);
 		
 		if(getChatList!=null) {
 
@@ -53,19 +50,17 @@ public class QAController {
 			   for(int i = 0; i<log.size();i++) {
 				   Map b = (Map)log.get(i);
 				   check = (List)b.get("checkMember");
-			   }
-			   if(check.contains((String)user.get("ID"))) {
-				   z.put("noCheck",true);
+				   if(check.contains((String)user.get("ID"))) {
+					   z.put("noCheck",true);
+				   }
 			   }
 			
 		}
 		map.put("chatList", getChatList);
-		System.out.println(getChatList.size());
-		System.out.println("checks" + getChatList);
 		return "account.qaList";
 	}
 	
-	
+	*/
 	
 	@GetMapping("/qa/buyqa.do")
 	public String buyqaHandle(@RequestParam Map param,@RequestParam String[] members, Map map, HttpSession session) {

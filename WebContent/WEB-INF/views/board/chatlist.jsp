@@ -4,8 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="container">
 <h3>채팅목록</h3>
-${fn:length(chatList) }
-
 	<c:choose>
 		<c:when test="${!empty chatList }">
 			<c:forEach var="i" items="${chatList }">
