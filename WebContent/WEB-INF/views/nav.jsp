@@ -82,7 +82,7 @@
 							href="${pageContext.servletContext.contextPath }/addbank.do"
 							style="color: black;"><b>판매</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1"
+							href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
 							style="color: black;"><b>구매</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled"
 							href="${pageContext.servletContext.contextPath }/qalist.do"
@@ -106,7 +106,7 @@
 									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
 									style="color: green;">${user.ID }</b>의 재미나</a> 
 								<li><a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/myboard.do">나의
+									href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=1">나의
 										블로그</a></li>
 								<li class="dropdown-submenu"><a
 									class="dropdown-item dropdown-toggle test"
@@ -116,7 +116,7 @@
 											<c:when test="${!empty wishlist}">
 												<c:forEach var="l" items="${wishlist }">
 													<li><a class="dropdown-item"
-														href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}">${l.SELLER }</a></li>
+														href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}&currentPage=1">${l.SELLER }</a></li>
 												</c:forEach>
 											</c:when>
 											<c:otherwise>

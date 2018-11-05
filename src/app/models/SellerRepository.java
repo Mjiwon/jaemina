@@ -32,6 +32,21 @@ public class SellerRepository {
 	public List<Map> getmyboard(String id){
 		return template.selectList("seller.get_myboard",id);
 	}
+	//----------------------------------
+	//��Ʈ
+	public List<Map> yearproceeds(Map data){ 
+		return template.selectList("seller.yearproceeds",data);
+	}
+	
+	public List<Map> Moonproceeds(Map data){ 
+		return template.selectList("seller.Moonproceeds",data);
+	}
+	public List<Map> dayproceeds(Map data){ 
+		return template.selectList("seller.dayproceeds",data);
+	}
+	
+	
+	
 
 
 }

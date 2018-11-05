@@ -26,12 +26,12 @@
 
 				<form class="card p-2">
 					<div class="card" style="width: auto;">
-						<img class="card-img-top"
+						<a href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${writer.ID }&currentPage=1"><img class="card-img-top"
 							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
-							alt="Card image cap" style="height: 8cm;">
+							alt="Card image cap" style="height: 8cm;"></a>
 						<div class="card-body">
 							<h5 class="card-title">${writer.WRITER }</h5>
-							<p>판매자 : ${writer.ID }
+							<p>판매자 : ${writer.ID }</p>
 							<p>학력 : ${writer.ACADEMY }</p>
 							<p>경력 : ${writer.CAREER }</p>
 							<p>소개 : ${writer.INTRODUCE }</p>

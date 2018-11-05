@@ -42,6 +42,7 @@ public class SocketService {
 				WebSocketSession ws = list.get(i);
 				Map info = (Map)ws.getAttributes().get("user");
 				String userid = (String)info.get("ID");
+				System.out.println(userid + "    " + target);
 				if(userid.equals(target)) {
 					ws.sendMessage(msg);
 					break;				

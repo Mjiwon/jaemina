@@ -1,17 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="container">
 <h3>채팅목록</h3>
+${fn:length(chatList) }
+
 	<c:choose>
 		<c:when test="${!empty chatList }">
 			<c:forEach var="i" items="${chatList }">
-				<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}" class="list-group-item list-group-item-warning">${i.member }</a>
+				<a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}&members=${i.member[0]}&members=${i.member[1]}" class="list-group-item list-group-item-warning">${i.member }
+				<c:if test="${i.noCheck==true }">
+					<span class="badge badge-pill badge-primary">new</span>
+				</c:if>
+				</a>
 			</c:forEach>		
 		</c:when>
 		<c:otherwise>
-			<input type="text" readonly class="list-group-item list-group-item-warning" value="메세지가 없습니다.">
+			<span>메세지가 없습니다.</span>
 		</c:otherwise>
 	</c:choose>
 	

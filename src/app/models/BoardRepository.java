@@ -6,7 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
- 
+
 @Repository
 public class BoardRepository {
 
@@ -68,7 +68,6 @@ public class BoardRepository {
 		return template.selectList("board.getCateBoard",bigcate);
 	}
 	
-
 	public List<Map> getBigCateListForPasing(Map map){
 		return template.selectList("board.getbigcatelistforpaging",map);
 	}
@@ -80,13 +79,12 @@ public class BoardRepository {
 	public List<Map> getSmallCateListForPasing(Map map){
 		return template.selectList("board.getsmallcatelistforpaging",map);
 	}
-
+	
 	// 방번호 가져오기
 	public Integer getSequenceVal() {
 		Integer i = template.selectOne("board.getSequenceVal");
 		return i;
 	}
-
 	
 	//댓글
 		public int WriteReply(Map map){
@@ -119,9 +117,12 @@ public class BoardRepository {
 		return template.selectList("board.getBoardListBySeller", writer);
 	}
 	
+	public List<Map> getBoardListBySellerForPasing(Map map) {
+		return template.selectList("board.getBoardListBySellerForPasing", map);
+	}
+	
 	public int deleteWishList(Map map) {
 		return template.delete("board.deleteWishList", map);
 	}
-	 
-
+	
 }
