@@ -117,6 +117,10 @@ public class BoardRepository {
 		return template.selectList("board.getBoardListBySeller", writer);
 	}
 	
+	public List<Map> getBoardListBySellerForPasing(Map map) {
+		return template.selectList("board.getBoardListBySellerForPasing", map);
+	}
+	
 	public int deleteWishList(Map map) {
 		return template.delete("board.deleteWishList", map);
 	}

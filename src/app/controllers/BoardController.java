@@ -229,10 +229,28 @@ public class BoardController {
 	}
 
 	@RequestMapping("/sellerboardlist.do")
-	public String sellerBoardListHandle(@RequestParam String seller, WebRequest wr, Map map, HttpSession session) {
+	public String sellerBoardListHandle(@RequestParam Map param, WebRequest wr, Map map, HttpSession session) {
+		wr.setAttribute("Sellerck", true, WebRequest.SCOPE_REQUEST);
+		String seller = (String) param.get("seller");
+		int currentPage = Integer.parseInt((String)param.get("currentPage"));
 		Map duser = accountrepo.Myinfo(seller);
 		String dbank = (String) duser.get("BANK");
 		List<Map> MyBoard = sellerrepo.getmyboard(seller);
+		int startCount = (currentPage - 1) * 9 + 1;
+		int endCount = currentPage * 9;
+		int boardCount = sellerrepo.getmyboard(seller).size();
+		int totalPage = boardCount / 9;
+		if ((boardCount % 9) > 0) {
+			totalPage++;
+		}
+		Map mapp = new HashMap<>();
+		mapp.put("writer", seller);
+		mapp.put("startCount", startCount);
+		mapp.put("endCount", endCount);
+		
+		map.put("MyBoard", boardrepo.getBoardListBySellerForPasing(mapp));
+		map.put("totalPage", totalPage);
+		map.put("currentPage", currentPage);
 		session.setAttribute("MyBoard", MyBoard);
 
 		// 판매자 정보 가지고 오기
