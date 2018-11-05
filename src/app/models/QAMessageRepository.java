@@ -22,7 +22,7 @@ public class QAMessageRepository {
 		Map ret = template.insert(map, "chatlog");
 		return ret;
 	}
-
+ 
 	public List<Map> getChatLog(String id1, String id2) {
 		Criteria c = Criteria.where("member").all(id1,id2);
 		List<Map> ret = template.find(new Query(c), Map.class, "chatlog");
@@ -57,5 +57,10 @@ public class QAMessageRepository {
 		UpdateResult rst = template.updateMulti(new Query(c), u, "chatlog");
 		return (int) rst.getModifiedCount();
 	}
+	
+	public List<Map> roomDate(String room){
+	      Criteria c = new Criteria().where("room").in(room);
+	      return template.find(new Query(c), Map.class, "chatlog");
+	   }
 
 }

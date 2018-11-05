@@ -56,7 +56,7 @@
 						alt="Generic placeholder image" width="100" height="140">
 					<h5>${big.BIGCATE }</h5>
 					<p>
-						<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${big.NO}" role="button">View
+						<a class="btn btn-secondary" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${big.NO}&currentPage=1" role="button">View
 							details &raquo;</a>
 					</p>
 				</div>

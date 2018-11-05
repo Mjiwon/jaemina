@@ -6,7 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+ 
 @Repository
 public class BoardRepository {
 
@@ -68,9 +68,60 @@ public class BoardRepository {
 		return template.selectList("board.getCateBoard",bigcate);
 	}
 	
+
+	public List<Map> getBigCateListForPasing(Map map){
+		return template.selectList("board.getbigcatelistforpaging",map);
+	}
+	
+	public List<Map> getSmallCateBoard(Map map){
+		return template.selectList("board.getsmallcatelist",map);
+	}
+	
+	public List<Map> getSmallCateListForPasing(Map map){
+		return template.selectList("board.getsmallcatelistforpaging",map);
+	}
+
 	// 방번호 가져오기
 	public Integer getSequenceVal() {
 		Integer i = template.selectOne("board.getSequenceVal");
 		return i;
 	}
+
+	
+	//댓글
+		public int WriteReply(Map map){
+			return template.insert("board.WriteReply",map);
+		}
+		public List<Map> ReplyLIst(int bno){
+			
+			return template.selectList("board.ReplyList",bno);
+		}
+		public List<Map> onlyreply(Map map){
+			return template.selectList("board.onlyreply",map);
+		}
+		public int Modify_Reply(Map data) {
+			return template.update("board.modify_reply",data);
+		}
+		public int deletereply(Map data) {
+			return template.delete("board.deletereply",data);
+		}
+	// 위시리스트 추가
+	public int addWishlist(Map map) {
+		return template.insert("board.addWishlist", map);
+	}
+	
+	// 위시리스트 가져오기
+	public List<Map> getWishlist(String buyer) {
+		return template.selectList("board.getWishlist", buyer);
+	}
+	
+	public List<Map> getBoardListBySeller(String writer) {
+		return template.selectList("board.getBoardListBySeller", writer);
+	}
+	
+	public int deleteWishList(Map map) {
+		return template.delete("board.deleteWishList", map);
+	}
+	 
+
 }

@@ -11,7 +11,7 @@
 	<select id="getadminQAinfo" parameterType="java.lang.Integer" resultType="java.util.HashMap">
 		select * from adminqa where no=#{no} 
 	</select>
-	
+	 
 	<select id="getadminQAalllist" resultType="java.util.HashMap">
 		select * from adminqa
 	</select>

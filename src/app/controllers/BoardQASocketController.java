@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 
 import app.models.QAMessageRepository;
 import app.service.SocketService;
-
+ 
 @Controller
 public class BoardQASocketController extends TextWebSocketHandler {
 	List<WebSocketSession> sockets;

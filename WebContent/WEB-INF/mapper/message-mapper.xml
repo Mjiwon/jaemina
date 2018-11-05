@@ -4,5 +4,5 @@
 	<insert id="addMsg" parameterType="java.util.HashMap">
 		insert into message values( msg_seq.nextval, #{sender}, sysdate, #{receiver}, null, null,#{content})
 	</insert>
-
+ 
 </mapper>

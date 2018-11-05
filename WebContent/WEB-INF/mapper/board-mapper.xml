@@ -48,5 +48,46 @@
 		select board_seq.nextval from dual
 	</select>
 	
+
+
+	<select id="ReplyList" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select * from reply where bno= #{bno} order by rno desc
+	</select>
+ 
+	<select id="getWishlist" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select seller from wishlist where buyer=#{buyer}
+	</select>
+
+	<select id="getBoardListBySeller" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from board where writer=#{writer}
+	</select>
 	
+ 	<select id="onlyreply" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from reply where bno=#{bno} and writer=#{writer}
+	</select>
+	
+	<update id="modify_reply" parameterType="java.util.HashMap">
+		update reply set content=#{content} , star=#{star} , star_num=#{star_num} where writer=#{writer} and bno=#{bno}
+	</update>
+	
+	<delete id="deletereply" parameterType="java.util.HashMap">
+		delete from reply where writer=#{writer} and bno=#{bno} 
+	</delete>
+	
+	<delete id="deleteWishList" parameterType="java.util.HashMap">
+		delete from wishlist where buyer=#{buyer} and seller=#{seller}
+	</delete>
+	
+	<select id="getsmallcatelist" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from board join (select*from bigcate join smallcate on bigcate.NO = smallcate.BIGNO )a on board.bigcate = a.bigno and board.smallcate = a.smallno where board.bigcate = #{bigcate} and board.smallcate=#{smallcate}
+	</select>
+	
+	<select id="getbigcatelistforpaging" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select a.*, rownum as rnum from(select * from board join bigcate on board.bigcate = bigcate.No where board.bigcate =#{bigcate} order by board.wrdate desc) a where rownum <![CDATA[<=]]> ${endCount } ) where rnum <![CDATA[>=]]> ${startCount }
+	</select>
+	
+	<select id="getsmallcatelistforpaging" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select a.*, rownum as rnum from(select * from board join (select*from bigcate join smallcate on bigcate.NO = smallcate.BIGNO )a on board.bigcate = a.bigno and board.smallcate = a.smallno where board.bigcate =#{bigcate} and board.smallcate=#{smallcate } order by board.wrdate desc ) a where rownum <![CDATA[<=]]> ${endCount } ) WHERE RNUM <![CDATA[>=]]> ${startCount }
+	</select>
+ 
 </mapper>
