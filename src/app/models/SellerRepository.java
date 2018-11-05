@@ -33,18 +33,15 @@ public class SellerRepository {
 		return template.selectList("seller.get_myboard",id);
 	}
 	//----------------------------------
-	//Â÷Æ®
+	//ï¿½ï¿½Æ®
 	public List<Map> yearproceeds(Map data){ 
-		System.out.println(data+"repository");
 		return template.selectList("seller.yearproceeds",data);
 	}
 	
 	public List<Map> Moonproceeds(Map data){ 
-		System.out.println(data+"repository");
 		return template.selectList("seller.Moonproceeds",data);
 	}
 	public List<Map> dayproceeds(Map data){ 
-		System.out.println(data+"repository");
 		return template.selectList("seller.dayproceeds",data);
 	}
 	

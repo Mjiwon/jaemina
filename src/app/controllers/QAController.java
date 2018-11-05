@@ -36,9 +36,12 @@ public class QAController {
 		Map user = (Map)session.getAttribute("user");
 		String id= (String)user.get("ID");
 		List<Map> getChatList = mrepo.getChatList((String)user.get("ID"));		
+		System.out.println(getChatList.size());
+		
+		System.out.println("noCheck 넣기 전"+getChatList);
 		
 		if(getChatList!=null) {
-			Map checks = new HashMap();
+
 			Map z = new HashMap<>();
 			   List log = new ArrayList<>();
 			   for(int i = 0; i<getChatList.size();i++) {
@@ -50,37 +53,36 @@ public class QAController {
 			   for(int i = 0; i<log.size();i++) {
 				   Map b = (Map)log.get(i);
 				   check = (List)b.get("checkMember");
-				   if(check.contains((String)user.get("ID"))) {
-					  checks.put("noCheck", true); 
-				   }
 			   }
-			getChatList.add(checks);
-			System.out.println(getChatList + "확인해보겠ㅆ브니다!!!");
-			map.put("chatList", getChatList);
+			   if(check.contains((String)user.get("ID"))) {
+				   z.put("noCheck",true);
+			   }
 			
 		}
-		
-		System.out.println("dfdsfwefdsf 결과" + getChatList);
-		
-		
+		map.put("chatList", getChatList);
+		System.out.println(getChatList.size());
+		System.out.println("checks" + getChatList);
 		return "account.qaList";
 	}
 	
 	
 	
 	@GetMapping("/qa/buyqa.do")
-	public String buyqaHandle(@RequestParam Map param, Map map, HttpSession session) {
+	public String buyqaHandle(@RequestParam Map param,@RequestParam String[] members, Map map, HttpSession session) {
 		int no = Integer.parseInt((String)param.get("no"));
 		String writer = (String)param.get("writer");
+		
 		map.put("no", no);
 		map.put("writer", (String)param.get("writer"));
+		map.put("members", members);
 		Map user = (Map)session.getAttribute("user");
 		String userid = (String)user.get("ID");
 		
 		Map writers = sellerrepo.getSeller((String)param.get("writer"));
 		map.put("Seller", writers);
 		
-		List<Map> getChatLog = mrepo.getChatLog((String)param.get("writer"), (String)user.get("ID"));
+		List<Map> getChatLog = mrepo.getChatLog(members[0], members[1]);
+		System.out.println("작성자 " + (String)param.get("writer") + " / 나 " + (String)user.get("ID") );
 		if(getChatLog.size()==0) {
 			String room = UUID.randomUUID().toString().split("-")[0].toString();	
 			
@@ -99,14 +101,14 @@ public class QAController {
 			mrepo.insertOne(log);
 			
 			map.put("qamode", room);
-			System.out.println("없을때"+room);
+			
 		}else {
 			Map maps = getChatLog.get(0);
 			String room = (String)maps.get("room");
+			System.out.println(room+"번호데스네");
 			map.put("qamode", room);
 			map.put("no", no);
 			map.put("chatlog", maps.get("log"));
-			System.out.println("있으때" + room);
 		}
 
 		return "redirect:/chatLog.do";
@@ -115,7 +117,7 @@ public class QAController {
 	
 	
 	@GetMapping("/chatLog.do")
-	public String buyqaHandle(@RequestParam Map param, Map map, WebRequest wr) {
+	public String buyqaHandle(@RequestParam Map param,@RequestParam String[] members, Map map, WebRequest wr) {
 		
 		Map user = (Map)wr.getAttribute("user", WebRequest.SCOPE_SESSION);
 		
@@ -125,8 +127,9 @@ public class QAController {
 
 		map.put("Seller", writers);
 		
-		List<Map> getChatLog = mrepo.getChatLog((String)param.get("writer"), (String)user.get("ID"));
+		List<Map> getChatLog = mrepo.getChatLog(members[0], members[1]);
 		Map maps = getChatLog.get(0);
+		
 		
 		List m = (List)maps.get("log");
 		for(int i = 0; i<m.size();i++) {
@@ -136,6 +139,7 @@ public class QAController {
 		}
 		
 		map.put("mode", (String)param.get("qamode"));
+		System.out.println("모드가 " + (String)param.get("qamode"));
 		map.put("chatlog", maps.get("log"));
 		map.put("member", maps.get("member"));
 		

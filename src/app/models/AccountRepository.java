@@ -43,12 +43,10 @@ public class AccountRepository {
 	}	
 	
 	public int addSeller1(Map map) {
-		System.out.println("여긴와야지요 이미지 등록");
 		return template.insert("account.addSeller1",map);
 	}
 	
 	public int addSeller2(Map map) {
-		System.out.println("여긴와야지요 이미지 안됨");
 		return template.insert("account.addSeller2",map);
 	}
 	public int changeuser(Map data) {

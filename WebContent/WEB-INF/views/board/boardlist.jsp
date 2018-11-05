@@ -19,7 +19,7 @@
      		</c:forEach>
 		</ul>
 	</div>
-	<div class="col-9">
+	<div class="col-8" style="margin-left: 5%;">
 		<div class="row">
 				<c:forEach var="l" items="${boardlist }">
 					<div class="col-md-4">
