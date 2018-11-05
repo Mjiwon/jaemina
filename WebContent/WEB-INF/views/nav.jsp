@@ -97,7 +97,7 @@
 							</c:choose></li>
 						<li class="nav-item dropdown">
 							<button type="button" class="btn btn-secondary dropdown-toggle"
-								data-toggle="dropdown">
+								data-toggle="dropdown" id="csbt">
 								<b>${user.ID }</b><span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu dropright"
@@ -173,6 +173,9 @@
 			e.stopPropagation();
 			e.preventDefault();
 		});
+	});
+	$("#csbt").on("click", function() {
+		$(".sub").hide();
 	});
 
 	$("#sellstart").on(

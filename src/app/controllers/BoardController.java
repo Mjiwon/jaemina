@@ -110,7 +110,7 @@ public class BoardController {
 	}
 
 	// 판매글 불러오기
-	@GetMapping("/board/list.do")
+	@RequestMapping("/board/list.do")
 	public String boardListHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int bigcate = Integer.parseInt((String)param.get("bigcate"));
 		
@@ -136,7 +136,12 @@ public class BoardController {
 	
 	
 	@RequestMapping("/board/lists.do")
-	public String boardListHandle(@RequestParam int bigcate, Map map, WebRequest wr) {
+	public String boardListsHandle(@RequestParam Map param, Map map, WebRequest wr) {
+		int bigcate = Integer.parseInt((String) param.get("bigcate"));
+		int currentPage = Integer.parseInt((String) param.get("currentPage"));
+		int startNum = (currentPage-1)*9+1;
+		int endNum = currentPage*9;
+		
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
 
@@ -144,7 +149,18 @@ public class BoardController {
 		map.put("bigcates", bcatelist);
 		List<Map> scatelist = boardrepo.getSmallCate(bigcate);
 		map.put("smallcates", scatelist);
-		map.put("boardlist", boardrepo.getCateBoard(bigcate));
+		int boardCount = boardrepo.getCateBoard(bigcate).size();
+		int totalPage = boardCount / 2;
+		if((boardCount % 2)>0) {
+			totalPage++;
+		}
+		Map mapp = new HashMap<>();
+		mapp.put("bigcates", bigcate);
+		mapp.put("startNum", startNum);
+		mapp.put("endNum", endNum);
+		map.put("boardlist", boardrepo.getBigCateListForPasing(mapp));
+		
+		map.put("totalPage", totalPage);
 
 		return "account.boardlist";
 	}
