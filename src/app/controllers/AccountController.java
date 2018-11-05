@@ -503,7 +503,7 @@ public class AccountController {
    // ----------------------------------------------------------------------------------------------------------------------------
    // 판매자 블러그 올린글 확인
 
-   // 판매자 블러그 올린글 확인
+   // 판매자 블러그 올린글 확인!
 
    @RequestMapping("/myboard.do")
    public String MyBoardHandle(HttpSession session) {
