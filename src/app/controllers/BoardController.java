@@ -139,8 +139,8 @@ public class BoardController {
 	public String boardListsHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int bigcate = Integer.parseInt((String) param.get("bigcate"));
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
-		int startNum = (currentPage-1)*9+1;
-		int endNum = currentPage*9;
+		int startCount = (currentPage-1)*9+1;
+		int endCount = currentPage*9;
 		
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
@@ -150,17 +150,18 @@ public class BoardController {
 		List<Map> scatelist = boardrepo.getSmallCate(bigcate);
 		map.put("smallcates", scatelist);
 		int boardCount = boardrepo.getCateBoard(bigcate).size();
-		int totalPage = boardCount / 2;
-		if((boardCount % 2)>0) {
+		int totalPage = boardCount / 9;
+		if((boardCount % 9)>0) {
 			totalPage++;
 		}
 		Map mapp = new HashMap<>();
-		mapp.put("bigcates", bigcate);
-		mapp.put("startNum", startNum);
-		mapp.put("endNum", endNum);
+		mapp.put("bigcate", bigcate);
+		mapp.put("startCount", startCount);
+		mapp.put("endCount", endCount);
+		System.out.println(mapp);
 		map.put("boardlist", boardrepo.getBigCateListForPasing(mapp));
-		
 		map.put("totalPage", totalPage);
+		System.out.println(map);
 
 		return "account.boardlist";
 	}

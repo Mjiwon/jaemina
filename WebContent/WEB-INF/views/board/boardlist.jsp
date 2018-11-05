@@ -52,12 +52,18 @@
 		<c:if test="${currentPage != 1 }">[첫 페이지][이전 페이지] | </c:if>
 		<c:forEach var="index" begin="${startNum }" end="${endNum }" varStatus="status">
 			<c:choose>
-				<c:when test="${index == currentPage }"><b>${index }</b></c:when>
-				<c:otherwise>${index }</c:otherwise>
+				<c:when test="${index == currentPage }"><a id="pagebtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${l.NO }&currentPage=${index}"><b>${index }</b></a></c:when>
+				<c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${l.NO }&currentPage=${index}">${index }</a></c:otherwise>
 			</c:choose>
 			<c:if test="${!status.last }"> | </c:if>
 		</c:forEach>
-		<c:if test="${currentPage != totalPage }"> | [다음 페이지] [마지막 페이지]</c:if>
+		<c:if test="${currentPage != totalPage }"> | <button type="button" id="nextbtn">[다음 페이지]</button>[마지막 페이지]</c:if>
 	</div>
 
 </div>
+
+<script>
+	$("#nextbtn").on("click", function(){
+		location.href = "${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${i.NO}&current";
+	});
+</script>
