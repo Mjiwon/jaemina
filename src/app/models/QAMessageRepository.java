@@ -1,7 +1,5 @@
 package app.models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,28 +26,20 @@ public class QAMessageRepository {
 	public List<Map> getChatLog(String id1, String id2) {
 		Criteria c = Criteria.where("member").all(id1,id2);
 		List<Map> ret = template.find(new Query(c), Map.class, "chatlog");
+		System.out.println("ret " +ret);
 		return ret;
-	}
-	
-	public List<Map> roomDate(String room){
-		Criteria c = new Criteria().where("room").in(room);
-		return template.find(new Query(c), Map.class, "chatlog");
 	}
 
 	public void updateCheckMember(String room, String id) {
 		Criteria c = new Criteria().where("room").in(room);
 
-		Update u = new Update().pull("log.$[].checkMember",id);
+		Update u = new Update().push("log.$[].checkMember",id);
 		UpdateResult rst = template.updateMulti(new Query(c), u, "chatlog");
-		
-		System.out.println(room + " " + id);
-		System.out.println("업뎃 갯수는 ?? "+rst.getModifiedCount());
 	}
 
 	public List<Map> getChatList(String id) {
 		Criteria c = Criteria.where("member").in(id);
 		List<Map> ret = template.find(new Query(c), Map.class, "chatlog");
-
 		return ret;
 	}
 
@@ -67,13 +57,5 @@ public class QAMessageRepository {
 		UpdateResult rst = template.updateMulti(new Query(c), u, "chatlog");
 		return (int) rst.getModifiedCount();
 	}
-	
-	public List<Map> getMember(String room){
-		Criteria c = Criteria.where("room").in(room);
-		List<Map> getMember = template.find(new Query(c), Map.class, "chatlog");
 
-		return getMember;
-	}
-	
-	
 }

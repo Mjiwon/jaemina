@@ -27,7 +27,7 @@
 	<div>
 		<tiles:insertAttribute name="nav" />
 	</div>
-	<div style="margin-top: 3%;" class="album py-5 ">
+	<div style="margin-top: 3%;" class="album py-5 bg-light">
 		<tiles:insertAttribute name="center" />
 	</div>
 

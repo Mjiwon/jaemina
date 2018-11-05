@@ -7,9 +7,6 @@
 	<insert id="addBoard2" parameterType="java.util.HashMap">
 	 	insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, #{imgpath}, #{price}, #{writer}, sysdate, #{content},0,0)
 	</insert>
-	<insert id="addWishlist" parameterType="java.util.HashMap">
-		insert into wishlist values(wishlist_seq.nextval, #{buyer}, #{seller})
-	</insert>
 	<select id="getBoardList" resultType="java.util.HashMap">
 		select * from board order by no desc	
 	</select>
@@ -50,41 +47,6 @@
 	<select id="getSequenceVal" resultType="java.lang.Integer">
 		select board_seq.nextval from dual
 	</select>
-	<!-- 댓글 -->
-	<insert id="WriteReply" parameterType="java.util.HashMap">
-	insert into reply values(reply_seq.nextval,#{bno},#{writer},#{content},to_char(sysdate,'yyyymmdd'),#{star},#{star_num})
-	</insert>
 	
-
-	<select id="ReplyList" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-	select * from reply where bno= #{bno} order by rno desc
-	</select>
-
-	<select id="getWishlist" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select seller from wishlist where buyer=#{buyer}
-	</select>
 	
-	<select id="getBoardListBySeller" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select * from board where writer=#{writer}
-	</select>
-	
- 	<select id="onlyreply" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from reply where bno=#{bno} and writer=#{writer}
-	</select>
-	
-	<update id="modify_reply" parameterType="java.util.HashMap">
-		update reply set content=#{content} , star=#{star} , star_num=#{star_num} where writer=#{writer} and bno=#{bno}
-	</update>
-	
-	<delete id="deletereply" parameterType="java.util.HashMap">
-		delete from reply where writer=#{writer} and bno=#{bno} 
-	</delete>
-	
-	<delete id="deleteWishList" parameterType="java.util.HashMap">
-		delete from wishlist where buyer=#{buyer} and seller=#{seller}
-	</delete>
-	
-	<select id="getsmallcatelist" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from board join (select*from bigcate join smallcate on bigcate.NO = smallcate.BIGNO )a on board.bigcate = a.bigno and board.smallcate = a.smallno where board.bigcate = #{bigcate} and board.smallcate=#{smallcate}
-	</select>
 </mapper>

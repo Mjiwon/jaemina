@@ -17,13 +17,6 @@
 		select * from admin_position where pid=#{pid}
 	</select>
 	
-	<select id="getAllDeparts" resultType="java.util.HashMap">
-		select * from admin_depart order by did asc
-	</select>
-	
-	<select id="getAllPositions" resultType="java.util.HashMap">
-		select * from admin_position order by pid asc
-	</select>
 	
 	
 </mapper>

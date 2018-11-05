@@ -2,8 +2,6 @@ package app.controllers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,16 +27,12 @@ import com.google.gson.Gson;
 
 import app.models.AccountRepository;
 import app.models.BoardRepository;
-import app.models.QAMessageRepository;
 import app.models.SellerRepository;
 
 @Controller
 public class AccountController {
    Map<String, HttpSession> sessions;
 
-	@Autowired
-	Gson gson;
-   
    @Autowired
    BoardRepository boardrepo;
 
@@ -50,45 +44,25 @@ public class AccountController {
    AccountRepository accountRepository;
 
    @Autowired
-   JavaMailSender sender;
-   
-   @Autowired
-   QAMessageRepository oamr;
+   BoardRepository boardRepository;
 
-   // Index!!!
+   @Autowired
+   JavaMailSender sender;
+
+   // Index!
    @RequestMapping("/index.do")
    public String indexHendler(WebRequest wr, Map map) {
-	   map.put("boardlist", boardrepo.getCateBoard(1));
-		List<Map> bcatelist = boardrepo.getBigCate();
-		if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
-			List<Map> wishlist = boardrepo.getWishlist((String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
-			map.put("wishlist", wishlist);
-
-			Map user = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
-			List<Map> c = oamr.getChatList((String) user.get("ID"));
-
-			Map z = new HashMap<>();
-			List log = new ArrayList<>();
-			for (int i = 0; i < c.size(); i++) {
-				z = c.get(i);
-				log = (List) z.get("log");
-			}
-
-			List check = new ArrayList<>();
-			for (int i = 0; i < log.size(); i++) {
-				Map b = (Map) log.get(i);
-				check = (List) b.get("checkMember");
-				if (check.contains((String) user.get("ID"))) {
-					map.put("newss", true);
-				}
-			}
-			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
-		}
-		map.put("bigcate", bcatelist);
-		int boardCount = boardrepo.boardCount();
-		map.put("boardCount", boardCount);
-
-		return "account.index";
+      List<Map> bcatelist = boardrepo.getBigCate();
+      map.put("bigcate", bcatelist);
+      if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) == null) {
+         int boardCount = boardRepository.boardCount();
+         map.put("boardCount", boardCount);
+         return "account.index";
+      } else {
+         int boardCount = boardRepository.boardCount();
+         map.put("boardCount", boardCount);
+         return "account.index";
+      }
    }
 
    // 회원가입
@@ -107,6 +81,7 @@ public class AccountController {
       msg.setSubject("재미나 이메일 인증번호");
       String text = "아래의 인증키를 입력해주세요\n";
       String confirm = UUID.randomUUID().toString().split("-")[0];
+      System.out.println(receiver);
       text += confirm;
       wr.setAttribute("confirmKey", confirm, WebRequest.SCOPE_SESSION);
       msg.setText(text);
@@ -115,9 +90,11 @@ public class AccountController {
 
       try {
          sender.send(msg);
+         System.out.println("SUCCESS!");
       } catch (Exception e) {
          // TODO: handle exception
          e.printStackTrace();
+         System.out.println("Fail!");
       }
       return text;
    }
@@ -133,10 +110,12 @@ public class AccountController {
       if (confirm.equals(confirm1)) {
          rst = "true";
          wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
+         System.out.println(rst);
          return rst;
       } else {
          rst = null;
          wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
+         System.out.println(rst);
          return rst;
       }
    }
@@ -187,22 +166,21 @@ public class AccountController {
    }
    
    @RequestMapping("/deleteuser.do")
-   public String deleteUserHandle(@RequestParam Map param, WebRequest wr, Map err) {
+   public String deleteUserHandle(@RequestParam Map param, WebRequest wr) {
 	   String id = (String)param.get("getId");
 	   String pass = (String)param.get("getPass");
 	   Map map = new HashMap<>();
 	   map.put("id", id);
 	   map.put("pass", pass);
+	   System.out.println(map);
 	   Map mapp = accountRepository.getAccount(map);
-	   
+	   System.out.println(mapp);
 	   if(mapp != null) {
 		   accountRepository.deleteUser(id);
 		   wr.setAttribute("deleteYes", true, WebRequest.SCOPE_REQUEST);
 		   return "WEB-INF/views/deleteUser.jsp";
 	   }else {
 		   wr.setAttribute("deleteErr", true, WebRequest.SCOPE_REQUEST);
-		   
-		   err.put("userId", accountRepository.getAccountById(id));
 		   return "WEB-INF/views/deleteUser.jsp";
 	   }
    }
@@ -218,8 +196,11 @@ public class AccountController {
 
       String receiver = (String) param.get("email");
 
+      System.out.println("이메일주소 보내요!!" + receiver);
+
       if (receiver != null) {
          Map fuser = accountRepository.FindUser(receiver);
+         System.out.println("파인드 유저" + fuser);
 
          String fid = (String) fuser.get("ID");
          map.put("id", fid);
@@ -229,18 +210,21 @@ public class AccountController {
          msg.setSubject("재미나 아이디 찾기");
          String text = "회원님의 아이디는\n";
 
+         System.out.println(receiver);
+
          text += fid;
 
          msg.setText(text);
          msg.setTo(receiver);
          msg.setFrom("amdin1@jamina.mockingu.com");
-
+         System.out.println(msg);
          try {
             sender.send(msg);
-            
+            System.out.println("SUCCESS!");
          } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
+            System.out.println("Fail!");
          }
          wr.setAttribute("findidYes", true, WebRequest.SCOPE_REQUEST);
          return "/WEB-INF/views/account/login.jsp";
@@ -264,6 +248,7 @@ public class AccountController {
       String id = (String) param.get("getId");
       String receiver = (String) param.get("email");
 
+      System.out.println(id + receiver);
       String npass = UUID.randomUUID().toString().split("-")[0];
 
       Map nuser = new HashMap();
@@ -283,7 +268,8 @@ public class AccountController {
             msg.setSubject("재미나 비밀번호 찾기");
             String text = "회원님의 비밀번호 는\n";
             String text2 = "\n로그인 하시고 비밀번경을 하세요";
-          
+            System.out.println("변경된 비밀번호" + dpass);
+            System.out.println(receiver);
             // ㅎㅇ
             text += dpass;
             text += text2;
@@ -293,11 +279,11 @@ public class AccountController {
             msg.setFrom("amdin1@jamina.mockingu.com");
             try {
                sender.send(msg);
-
+               System.out.println("SUCCESS!");
             } catch (Exception e) {
                // TODO: handle exception
                e.printStackTrace();
-
+               System.out.println("Fail!");
             }
          }
          wr.setAttribute("findpassYes", true, WebRequest.SCOPE_REQUEST);
@@ -318,9 +304,6 @@ public class AccountController {
       return "/WEB-INF/views/account/login.jsp";
    }
 
-   @Autowired
-   QAMessageRepository qamr;
-   
    @PostMapping("/login.do")
    public String loginPostHandler(WebRequest wr, Map map, HttpSession session) {
       // 아이디와 비번 가져오기
@@ -344,7 +327,6 @@ public class AccountController {
             wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
          }
          wr.setAttribute("loginYes", true, WebRequest.SCOPE_REQUEST);
-         
          return "/WEB-INF/views/account/login.jsp"; // 로그인 후 인덱스 페이지로 이동
       } else {
          wr.setAttribute("err", true, WebRequest.SCOPE_REQUEST); // 로그인 실패시
@@ -375,7 +357,7 @@ public class AccountController {
 
       // 이미 등록했으면 판매글 오리기로 이동
       Map dseller = (Map) accountRepository.Sellerinfo(sid);
-      
+      System.out.println("판매자 정보" + dseller);
       if (dbank == null) {
          return "/WEB-INF/views/account/seller/addbank.jsp";
       } else if (dseller == null) {
@@ -416,8 +398,9 @@ public class AccountController {
    public String addSellerHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, WebRequest wr)
          throws IOException {
       Map m = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
-      
+      System.out.println("유저 정보" + m);
       String id = (String) m.get("ID");
+      System.out.println("유저 아이디" + id);
 
       param.put("id", id);
 
@@ -487,7 +470,7 @@ public class AccountController {
       imgpath.transferTo(dst);
 
       String img = path + "/" + fileName;
-
+      System.out.println(img);
       p.put("imgpath", img);
 
       if (p.get("imgpath") != null) {
@@ -511,12 +494,12 @@ public class AccountController {
       String id = (String) suser.get("ID");
 
       Map duser = accountRepository.Myinfo(id);
-
+      System.out.println("회원정보다" + duser);
       String dbank = (String) duser.get("BANK");
 
       if (dbank != null) {
          List<Map> MyBoard = SellerRepository.getmyboard(id);
-
+         System.out.println(MyBoard);
          session.setAttribute("MyBoard", MyBoard);
 
          // 판매자 정보 가지고 오기
@@ -578,40 +561,6 @@ public class AccountController {
    @RequestMapping("/modified.do")
    public String modifiedHandle() {
       return "account.modifiend";
-   }
-   //-------------------------------------------------------------------------------------------------------------------------------
-   	//차트
-   
-   @RequestMapping("/chart.do")
-   public String chart() {
-	   return "/WEB-INF/views/account/mypage/history/chart.jsp";
-   }
-   @RequestMapping(path = "/ajaxchart.do", produces = "application/json;charset=UTF-8")
-   @ResponseBody
-   public String ajaxchart(@RequestParam Map map) throws Exception{
-       
-	   String date_type =(String)map.get("date_type");
-	   List<Map> dbdate = new ArrayList<>();
-	   if(date_type.equals("year")) {  
-		   dbdate = SellerRepository.yearproceeds(map);
-		   
-       }else if(date_type.equals("moon")) {
-    	   dbdate = SellerRepository.Moonproceeds(map);
-    	   
-       }else {
-    	   dbdate = SellerRepository.dayproceeds(map);
-   		}
-	   
-	   
-       List<Object[]> data = new ArrayList<>();
-       data.add(new Object[] {"date", "PROCEED"});
-  
-       for(int i=0; i<dbdate.size(); i++) {
-    		   data.add(new Object[] {dbdate.get(i).get("D"), dbdate.get(i).get("SUM")});
-       }
-       String str = gson.toJson(data);
-       
-       return  str;
    }
 
 }

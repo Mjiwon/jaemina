@@ -6,13 +6,6 @@
 		<put-attribute name="center" value="/WEB-INF/views/index.jsp"/>
 	</definition>
 	
-<!-- 	<definition name="account.boardlist" template="/WEB-INF/tiles/boardListTiles.jsp">
-		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
-		<put-attribute name="boardnav" value="/WEB-INF/views/board/boardnav.jsp" />
-		<put-attribute name="side" value="/WEB-INF/views/board/boardside.jsp"/>
-		<put-attribute name="center" value="/WEB-INF/views/board/boardlist.jsp"/>
-	</definition> -->
-
 	<definition name="account.boardlist" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/board/boardlist.jsp"/>
@@ -53,11 +46,6 @@
 	<definition name="account.modifiend" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/account/mypage/modified/modifiedindex.jsp"/>
-	</definition>
-	
-	<definition name="board.list" template="/WEB-INF/tiles/basicTiles.jsp">
-		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
-		<put-attribute name="center" value="/WEB-INF/views/board/boardlist2.jsp"/>
 	</definition>
 	
 </tiles-definitions>

@@ -24,14 +24,17 @@ public class ServiceCenterController {
 	
 	@PostMapping("/serviceqa.do")
 	public String serviceQAPostHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath) {
+		System.out.println("param : "+param+" / imgpath : "+imgpath);
 		if(imgpath == null) {
 			int r = adminqarepo.addadminQA1(param);
+			System.out.println("adminQA result : "+r);
 			return "";
 		}else {
 			Map data = param;
 			String path = imgpath.toString();
 			data.put("imgpath", path);
 			int r = adminqarepo.addadminQA2(data);
+			System.out.println("adminQA result : "+r);
 			return "";
 		}
 	}
