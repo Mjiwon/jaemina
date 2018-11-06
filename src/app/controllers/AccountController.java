@@ -472,83 +472,76 @@ public class AccountController {
 	}
 
 	@PostMapping("/update_seller.do")
-	public String UpdateSellerPostHandle(@RequestParam Map p, @RequestParam MultipartFile imgpath, HttpSession session)
-			throws IOException {
+	   public String UpdateSellerPostHandle(@RequestParam Map p, @RequestParam MultipartFile imgpath, HttpSession session)
+	         throws IOException {
 
-		session.removeAttribute("Seller");
-		Map user = (Map) session.getAttribute("user");
-		String id = (String) user.get("ID");
-		p.put("id", id);
+	      session.removeAttribute("Seller");
+	      Map user = (Map) session.getAttribute("user");
+	      String id = (String) user.get("ID");
+	      p.put("id", id);
 
-		String paramFileName = imgpath.getName();
-		String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
+	      String paramFileName = imgpath.getName();
+	      String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
 
-		String realpath = ctx.getRealPath("/storage/sellerProfile");
-		String path = "/storage/sellerProfile";
-		File dir = new File(realpath);
-		if (!dir.exists()) {
-			dir.mkdirs();
-		}
-		File dst = new File(dir, fileName);
+	      String realpath = ctx.getRealPath("/storage/sellerProfile");
+	      String path = "/storage/sellerProfile";
+	      File dir = new File(realpath);
+	      if (!dir.exists()) {
+	         dir.mkdirs();
+	      }
+	      File dst = new File(dir, fileName);
 
-		imgpath.transferTo(dst);
+	      imgpath.transferTo(dst);
 
-		String img = path + "/" + fileName;
+	      String img = path + "/" + fileName;
+	      System.out.println(img);
+	      p.put("imgpath", img);
 
-		p.put("imgpath", img);
+	      if (p.get("imgpath") != null) {
+	         int i = SellerRepository.updateSeller1(p);
 
-		if (p.get("imgpath") != null) {
-			int i = SellerRepository.updateSeller1(p);
-
-		} else {
-			int j = SellerRepository.updateSeller2(p);
-		}
-		Map Seller = SellerRepository.getSeller(id);
-		session.setAttribute("Seller", Seller);
-		return "account.sellerHomme";
-	}
+	      } else {
+	         int j = SellerRepository.updateSeller2(p);
+	      }
+	      Map Seller = SellerRepository.getSeller(id);
+	      session.setAttribute("Seller", Seller);
+	      return "/WEB-INF/views/account/seller/update_seller2.jsp";
+	   }
 	// ----------------------------------------------------------------------------------------------------------------------------
 	// 판매자 블러그 올린글 확인
 
 	// 판매자 블러그 올린글 확인!
 
-	@RequestMapping("/myboard.do")
-	public String MyBoardHandle(HttpSession session, @RequestParam int currentPage, Map map, WebRequest wr) {
-		wr.setAttribute("Myck", true, WebRequest.SCOPE_REQUEST);
-		Map suser = (Map) session.getAttribute("user");
+	   @RequestMapping("/myboard.do")
+	   public String MyBoardHandle(HttpSession session) {
+	      Map suser = (Map) session.getAttribute("user");
+	      String id = (String) suser.get("ID");
 
-		String id = (String) suser.get("ID");
-		
+	      Map duser = accountRepository.Myinfo(id);
+	      System.out.println("�쉶�썝�젙蹂대떎" + duser);
+	      String dbank = (String) duser.get("BANK");
 
-		Map duser = accountRepository.Myinfo(id);
+	      if (dbank != null) {
+	         List<Map> MyBoard = SellerRepository.getmyboard(id);
+	         System.out.println(MyBoard);
+	         session.setAttribute("MyBoard", MyBoard);
 
-		String dbank = (String) duser.get("BANK");
-
-		if (dbank != null) {
-			List<Map> MyBoard = SellerRepository.getmyboard(id);
-			int startCount = (currentPage - 1) * 9 + 1;
-			int endCount = currentPage * 9;
-			int boardCount = SellerRepository.getmyboard(id).size();
-			int totalPage = boardCount / 9;
-			if ((boardCount % 9) > 0) {
-				totalPage++;
-			}
-			Map mapp = new HashMap<>();
-			mapp.put("writer", id);
-			mapp.put("startCount", startCount);
-			mapp.put("endCount", endCount);
-			
-			map.put("MyBoard", boardrepo.getBoardListBySellerForPasing(mapp));
-			map.put("totalPage", totalPage);
-			map.put("currentPage", currentPage);
-
-			// 판매자 정보 가지고 오기
-			Map Seller = SellerRepository.getSeller(id);
-			session.setAttribute("Seller", Seller);
-			return "account.sellerHomme";
-		} else
-			return "/addbank.do";
-	}
+	         
+	         Map Seller = SellerRepository.getSeller(id);
+	            String SellerId=(String)Seller.get("ID");
+	         
+	        String boardcount= SellerRepository.myboardcount(SellerId);
+	        String wishcount=SellerRepository.Wishcount(SellerId);
+	        int staravg = SellerRepository.staravg(SellerId);
+	        staravg=staravg*20;
+	         Seller.put("boardcount", boardcount);
+	         Seller.put("wishcount",wishcount);
+	         Seller.put("staravg", staravg);
+	         session.setAttribute("Seller", Seller);
+	         return "/WEB-INF/views/account/seller/sellerHome.jsp";
+	      } else
+	         return "/addbank.do";
+	   }
 
 	// 회원 마이 페이지 이동
 	// 구현중

@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <c:if test="${!empty joinYes }">
-      	<script>
-	      	window.alert("회원가입에 성공하셨습니다."+"\n"+"이제부터 로그인이 가능합니다.");
-	      	opener.location.href="${pageContext.servletContext.contextPath }/index.do";
-	      	window.close();
-      	</script>
+	<script>
+		window.alert("회원가입에 성공하셨습니다." + "\n" + "이제부터 로그인이 가능합니다.");
+		opener.location.href = "${pageContext.servletContext.contextPath }/index.do";
+		window.close();
+	</script>
 </c:if>
 <html>
 <head>
@@ -32,74 +32,158 @@
 		<label for="inputId" class="sr-only">아이디</label> <input type="text"
 			id="inputId" class="form-control" name="getId" placeholder="아이디"
 			onkeyup="getid(this);" required autofocus> <small
-			id="checked"></small> <button type="button" id="useId" disabled="disabled">이 아이디 사용</button> 
-			<label for="inputPassword1" class="sr-only">비밀번호</label>
-		<input type="password" id="inputPassword1" class="form-control"
+			id="checked"></small>
+		<button type="button" id="useId" disabled="disabled">이 아이디 사용</button>
+		<label for="inputPassword1" class="sr-only">비밀번호</label> <input
+			type="password" id="inputPassword1" class="form-control"
 			name="getPass" placeholder="비밀번호" onkeyup="getpass2(this);" required
 			autofocus> <label for="inputPassword2" class="sr-only">
 			비밀번호재입력</label> <input type="password" id="inputPassword2"
 			class="form-control" name="getPass1" placeholder="비밀번호 재입력"
 			onkeyup="getpass2(this);" required autofocus> <small
-			id="checked2"></small> <button type="button" id="usePass" disabled="disabled">이 비밀번호 사용</button> 
-			<label for="inputEmail" class="sr-only">이메일</label>
-		<input type="email" id="inputEmail" class="form-control"
-			name="getEmail" placeholder="이메일" onkeyup="getemail(this);" required
-			autofocus> <small id="checked3"></small>
-		<button type="button" id="emailauth" disabled="disabled">인증번호 전송</button> <small id="checked5"> </small>
-		<label for="inputId" class="sr-only">인증번호</label> <input type="text"
-			id="confirm" class="form-control" name="confirm" placeholder="인증번호"
-			disabled="disabled" required autofocus>
+			id="checked2"></small>
+		<button type="button" id="usePass" disabled="disabled">이 비밀번호
+			사용</button>
+		<label for="inputEmail" class="sr-only">이메일</label> <input
+			type="email" id="inputEmail" class="form-control" name="getEmail"
+			placeholder="이메일" onkeyup="getemail(this);" required autofocus>
+		<small id="checked3"></small>
+		<button type="button" id="emailauth" disabled="disabled">인증번호
+			전송</button>
+		<small id="checked5"> </small> <label for="inputId" class="sr-only">인증번호</label>
+		<input type="text" id="confirm" class="form-control" name="confirm"
+			placeholder="인증번호" disabled="disabled" required autofocus>
 		<button type="button" id="confirmok" disabled="disabled">인증하기</button>
-		<small id="checked4"></small>
-		<button class="btn btn-lg btn-primary btn-block" type="submit" id="btnsubmit" disabled="disabled">회원가입</button>
+		<small id="checked4"></small><br/><br/>
+<button type="button" id="agree" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" disabled="disabled">이용약관 내용 동의</button><br/><br/>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">재미나 약관동의</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+</textarea>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnfalse">동의 하지 않음</button>
+        <button type="button" class="btn btn-primary" id="btntrue"data-dismiss="modal" >동의</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+
+
+		<button class="btn btn-lg btn-primary btn-block" type="submit"
+			id="btnsubmit" disabled="disabled">회원가입</button>
 		<p class="mt-5 mb-3 text-muted">&copy; 2018 Jaemina CORP</p>
+
+
+
+
+
 	</form>
 	<script type="text/javascript">
+	$("#btnfalse").on("click", function() {
+		window.alert("동의하셔야지만 회원가입이 가능합니다")
+	$("#btnsubmit").prop(
+				"disabled", true)
+				
+	});
+	
+	$("#btntrue").on("click", function() {
+	$("#btnsubmit").prop(     
+			"disabled", false);
+	});
+
+	
+	
 		$("#useId").on("click", function() {
 			$("#inputId").prop("readonly", true);
 			$("#useId").prop("disabled", true);
 		});
-		
+
 		$("#usePass").on("click", function() {
 			$("#inputPassword1").prop("readonly", true);
 			$("#inputPassword2").prop("readonly", true);
 			$("#usePass").prop("disabled", true);
 		});
-		$("#emailauth").on("click", function() {
-			var param = 
-				{"email":$("#inputEmail").val()};
-			$("#confirm").prop("disabled", false);
-			$("#confirmok").prop("disabled", false);
-			$.post("${pageContext.servletContext.contextPath}/mail.do", param).done(function(rst) {
-				document.getElementById("checked5").innerHTML = "전송";
-				document.getElementById("checked5").style.color = "green";
-				document.getElementById("checked4").innerHTML = "";
-			});
-		});
-		$("#confirmok").on("click", function() {
-			var param = 
-				{"confirmkey":$("#confirm").val()};
-			$.post("${pageContext.servletContext.contextPath}/emailauth.do", param).done(function(rst) {
-				console.log(rst);
-				if(rst.includes("true") == true) {
-					document.getElementById("checked4").innerHTML = "인증완료";
-					document.getElementById("checked4").style.color = "green";
-					$("#inputEmail").prop("readonly", true);
-					$("#emailauth").prop("disabled", true);	
-					$("#confirm").prop("disabled", true);
-					$("#confirmok").prop("disabled", true);
-					$("#btnsubmit").prop("disabled", false);
-				}else {
-					document.getElementById("checked4").innerHTML = "인증실패";
-					document.getElementById("checked4").style.color = "red";
-					$("#confirm").prop("disabled", true);
-					$("#confirmok").prop("disabled", true);
-					document.getElementById("emailauth").innerHTML = "재전송";
-					document.getElementById("checked5").innerHTML = "";
-				}
-			});
-		});
-		
+		$("#emailauth")
+				.on(
+						"click",
+						function() {
+							var param = {
+								"email" : $("#inputEmail").val()
+							};
+							$("#confirm").prop("disabled", false);
+							$("#confirmok").prop("disabled", false);
+							$
+									.post(
+											"${pageContext.servletContext.contextPath}/mail.do",
+											param)
+									.done(
+											function(rst) {
+												document
+														.getElementById("checked5").innerHTML = "전송";
+												document
+														.getElementById("checked5").style.color = "green";
+												document
+														.getElementById("checked4").innerHTML = "";
+											});
+						});
+		$("#confirmok")
+				.on(
+						"click",
+						function() {
+							var param = {
+								"confirmkey" : $("#confirm").val()
+							};
+							$
+									.post(
+											"${pageContext.servletContext.contextPath}/emailauth.do",
+											param)
+									.done(
+											function(rst) {
+												console.log(rst);
+												if (rst.includes("true") == true) {
+													document.getElementById("checked4").innerHTML = "인증완료";
+													document.getElementById("checked4").style.color = "green";
+													$("#inputEmail").prop(
+															"readonly", true);
+													$("#emailauth").prop(
+															"disabled", true);
+													$("#confirm").prop(
+															"disabled", true);
+													$("#confirmok").prop(
+															"disabled", true);
+													$("#agree").prop(
+															"disabled", false);
+													$("#btnsubmit").prop(
+															"disabled", true);
+											
+												} else {
+													document
+															.getElementById("checked4").innerHTML = "인증실패";
+													document
+															.getElementById("checked4").style.color = "red";
+													$("#confirm").prop(
+															"disabled", true);
+													$("#confirmok").prop(
+															"disabled", true);
+													document
+															.getElementById("emailauth").innerHTML = "재전송";
+													document
+															.getElementById("checked5").innerHTML = "";
+												}
+											});
+						});
+
 		var r = new RegExp(/^[a-z]{1,1}\w{3,11}$/);
 		var getid = function(target) {
 			if (r.test(target.value) == true) {
@@ -144,7 +228,7 @@
 			} else {
 				document.getElementById("checked2").innerHTML = "4~12자 사이로 설정해주세요.";
 				document.getElementById("checked2").style.color = "red"
-					$("#usePass").prop("disabled", true);
+				$("#usePass").prop("disabled", true);
 			}
 		};
 

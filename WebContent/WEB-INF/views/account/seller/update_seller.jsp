@@ -1,69 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE HTML>
 
-<!doctype html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
+<title>Read Only by HTML5 UP</title>
+<meta charset="utf-8" />
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>재능을 나누다 - 재미나</title>
-
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets/css/main.css" />
 </head>
-
-<body class="bg-light">
-
-	<div class="container">
-		<div class="py-5 text-center">
-			<h2>${user.ID }님의판매 정보 수정</h2>
-		</div>
-		<div class="row">
-			<!-- 판매내용 작성 -->
-			<div class="col-md-8 order-md-1">
-				<form
-					action="${pageContext.servletContext.contextPath }/update_seller.do"
-					method="post" enctype="multipart/form-data">
-					<div class="mb-3">
-						<label>학력</label>
-						<div class="input-group">
-							<input type="text" class="form-control" name="academy">
-						</div>
+<body class="is-preload">
+	<!-- Four -->
+	<section id="four">
+		<div class="container">
+			<h4>판매자 정보 수정</h4>
+			<h3 style="color: #4acaa8;">판매자 정보 수정</h3>
+			<form
+				action="${pageContext.servletContext.contextPath }/update_seller.do"
+				method="post" enctype="multipart/form-data">
+				<div class="row gtr-uniform">
+					<div class="col-6 col-12-xsmall">
+						<input type="text" min="10" name="academy" id="name" placeholder="학력" />
 					</div>
-
-					<div class="mb-3">
-						<label>경력</label>
-						<div class="input-group">
-							<input type="text" class="form-control" id="title" name="career">
-						</div>
-						</div>
-						<div>
-						 프로필 이미지 : <input type="file"name="imgpath"> <br>
-						</div>
-					<div class="mb-3">
-						<label for="address2">자기소개</label>
-						<textarea rows="20" cols="20" class="form-control" name="introduce"></textarea>
+					<div class="col-6 col-12-xsmall">
+						<input type="text" min="10" name="career" id="career" placeholder="경력" />
 					</div>
-
-					<hr class="mb-4">
-					<button class="btn btn-primary btn-lg btn-block" type="submit">게시글
-						올리기</button>
-				</form>
-			</div>
+					<div class="col-12"><input type="text"min="10" name="licence" id="licence" placeholder="기술/경력" /></div>
+					<div class="col-12"> 
+					프로필 이미지 : <input type="file" name="imgpath"> <br>
+					</div>
+					<div class="col-12"><input type="text"min="10" name="oneline" id="oneline" placeholder="한줄소개" /></div>
+					<div class="col-12">
+						<textarea name="introduce" min="10" id="introduce" placeholder="소개"
+							rows="6"></textarea>
+					</div>
+					<div class="col-12">
+						<ul class="actions">
+							<li><input type="submit" class="primary"
+								value="수정완료" onclick="modify();"/></li>
+						</ul>
+					</div>
+				</div>
+			</form>
 		</div>
+	</section>
 
 	</div>
+	
+	
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
 </body>
 </html>

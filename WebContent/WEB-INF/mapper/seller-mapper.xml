@@ -6,13 +6,16 @@
 		account_profile values(#{id},#{academy},#{career},#{imgpath},#{introuce}) 
 		</insert> -->
 	<update id="updateSeller1" parameterType="java.util.HashMap">
-		update account_profile set career = #{career} , academy=#{academy} ,
-		imgpath=#{imgpath}, introduce=#{introduce}
+		update account_profile
+		set career = #{career} , academy=#{academy} ,
+		imgpath=#{imgpath},
+		introduce=#{introduce}
 		where id=#{id}
 	</update>
 
 	<update id="updateSeller2" parameterType="java.util.HashMap">
-		update account_profile set career = #{career} , academy=#{academy} ,
+		update account_profile
+		set career = #{career} , academy=#{academy} ,
 		introduce=#{introduce}
 		where id=#{id}
 	</update>
@@ -25,19 +28,45 @@
 		resultType="java.util.HashMap">
 		select * from board where writer=#{id}
 	</select>
-	
-<select id="dayproceeds"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
-select to_char(pdate,'YY-MM-DD')as d,seller,sum(proceed) as sum from proceeds where pdate &gt;=#{date1} and #{date2}&gt; pdate  
-and seller=#{seller} group by to_char(pdate,'YY-MM-DD'),seller order by d asc  
-</select>
 
-<select id="Moonproceeds"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
-select to_char(pdate,'YY-MM')as d,seller,sum(proceed) as sum from proceeds where pdate &gt;=#{date1} and #{date2}&gt; pdate  
-and seller=#{seller} group by to_char(pdate,'YY-MM'),seller order by d asc  
-</select>
+	<select id="dayproceeds" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		select to_char(pdate,'YY-MM-DD')as d,seller,sum(proceed) as sum from
+		proceeds where pdate &gt;=#{date1} and #{date2}&gt; pdate
+		and seller=#{seller} group by to_char(pdate,'YY-MM-DD'),seller order by d
+		asc
+	</select>
 
-<select id="yearproceeds"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
-select to_char(pdate,'YY')as d,seller,sum(proceed) as sum from proceeds where pdate &gt;=#{date1} and #{date2}&gt; pdate  
-and seller=#{seller} group by to_char(pdate,'YY'),seller order by d asc  
-</select>
+	<select id="Moonproceeds" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		select to_char(pdate,'YY-MM')as d,seller,sum(proceed) as sum from proceeds
+		where pdate &gt;=#{date1} and #{date2}&gt; pdate
+		and seller=#{seller} group by to_char(pdate,'YY-MM'),seller order by d
+		asc
+	</select>
+
+	<select id="yearproceeds" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		select to_char(pdate,'YY')as d,seller,sum(proceed) as sum from proceeds
+		where pdate &gt;=#{date1} and #{date2}&gt; pdate
+		and seller=#{seller} group by to_char(pdate,'YY'),seller order by d asc
+	</select>
+
+
+	<!-- 블로그 평가 불러오기 -->
+	<select id="myboardcount" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select count(*) as boardcount from board where writer=#{SellerId}
+	</select>
+
+	<select id="wishcount" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select count(*) as wishcount from wishlist where seller=#{SellerId}
+	</select>
+
+	<select id="staravg" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select avg(star_num) as staravg from reply join board on reply.bno=board.no
+		where board.writer=#{SellerId}
+	</select>
 </mapper>

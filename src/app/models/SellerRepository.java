@@ -46,6 +46,19 @@ public class SellerRepository {
 	}
 	
 	
+	public String myboardcount(String SellerId) {
+		return template.selectOne("seller.myboardcount", SellerId);
+		
+	}
+	public String Wishcount(String SellerId) {
+		return template.selectOne("seller.wishcount", SellerId);
+	}
+	public int staravg(String SellerId) {
+		System.out.println(SellerId+"여기오잖아");
+		return template.selectOne("seller.staravg", SellerId);
+	}
+	
+	
 	
 
 
