@@ -210,6 +210,7 @@
 				$("#useId").prop("disabled", true);
 			}
 		};
+		  
 
 		var r1 = new RegExp(/^[a-z0-9]\w{3,11}$/);
 		var getpass2 = function(p) {
