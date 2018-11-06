@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
@@ -26,9 +26,12 @@
 
 				<form class="card p-2">
 					<div class="card" style="width: auto;">
-						<a href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${writer.ID }&currentPage=1">
-						<img class="card-img-top" src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
-							alt="Card image cap" style="height: 8cm;"></a>
+						<a
+							href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${writer.ID }&currentPage=1">
+							<img class="card-img-top"
+							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
+							alt="Card image cap" style="height: 8cm;">
+						</a>
 						<div class="card-body">
 							<h5 class="card-title">${writer.WRITER }</h5>
 							<p>판매자 : ${writer.ID }</p>
@@ -76,16 +79,17 @@
 							</c:choose>
 						</div>
 					</div>
-					<input hidden="" name="postno" value="${detail.NO }"/><br/>
-					<input hidden="" name="seller" value="${detail.WRITER }"/><br/>
-					<input hidden="" name="price" value="${detail.PRICE}"/><br/>
-					<input hidden="" name="buyer" value="${user.ID}"/><br/>				
+					<input hidden="" name="postno" value="${detail.NO }" /><br /> <input
+						hidden="" name="seller" value="${detail.WRITER }" /><br /> <input
+						hidden="" name="price" value="${detail.PRICE}" /><br /> <input
+						hidden="" name="buyer" value="${user.ID}" /><br />
 				</form>
 			</div>
 			<div class="col-md-8 order-md-1">
 				<h4 class="mb-3">카테고리 : ${cate.BIGCATE} | ${cate.SMALLCATE}</h4>
 				<form class="needs-validation"
-					action="${pageContext.servletContext.contextPath }/buyBefore.do" method="post" novalidate>
+					action="${pageContext.servletContext.contextPath }/buyBefore.do"
+					method="post" novalidate>
 					<div class="mb-3">
 						<label for="username">작성 날짜</label>
 						<div class="input-group" style="">
@@ -127,11 +131,49 @@
 							address.</div>
 					</div>
 
+					<c:if test="${!empty detail.ADDR }">
+						<div id="map" style="width: 100%; height: 350px;"></div>
+
+						<script type="text/javascript"
+							src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e052486c871660466bd9c17d3ee084a7&libraries=services"></script>
+						<script>
+							var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
+    						mapOption = {
+        						center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        						level: 3 // 지도의 확대 레벨
+    						};  
+
+							// 지도를 생성합니다    
+							var map = new daum.maps.Map(mapContainer, mapOption); 
+
+							// 주소-좌표 변환 객체를 생성합니다
+							var geocoder = new daum.maps.services.Geocoder();
+
+							// 주소로 좌표를 검색합니다
+							geocoder.addressSearch("${detail.ADDR}", function(result, status) {
+							
+							    // 정상적으로 검색이 완료됐으면 
+							     if (status === daum.maps.services.Status.OK) {
+
+							        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+							
+							        // 결과값으로 받은 위치를 마커로 표시합니다
+							        var marker = new daum.maps.Marker({
+							            map: map,
+							            position: coords
+							        });
+							        map.setCenter(coords);
+							     } 
+							});
+						</script>
+					</c:if>
+					
 					<hr class="mb-4">
-					<input hidden="" name="postno" value="${detail.NO }"/><br/>
-					<input hidden="" name="seller" value="${detail.WRITER }"/><br/>
-					<input hidden="" name="price" value="${detail.PRICE}"/><br/>
-					<input hidden="" name="buyer" value="${user.ID}"/><br/>
+					<input hidden="" name="postno" value="${detail.NO }" /><br /> <input
+						hidden="" name="seller" value="${detail.WRITER }" /><br /> <input
+						hidden="" name="price" value="${detail.PRICE}" /><br /> <input
+						hidden="" name="buyer" value="${user.ID}" /><br />
+
 					<button class="btn btn-primary btn-lg btn-block" type="submit">구매하기</button>
 				</form>
 			</div>
@@ -290,9 +332,8 @@ $("#replybtn").on("click",function() {
 </script>
 
 
-		<footer class="my-5 pt-5 text-muted text-center text-small">
-			<p class="mb-1">&copy; 2018-2019 재미나</p>
-		</footer>
-	</div>
-
+						<footer class="my-5 pt-5 text-muted text-center text-small">
+							<p class="mb-1">&copy; 2018-2019 재미나</p>
+						</footer>
+			</div>
 </body>

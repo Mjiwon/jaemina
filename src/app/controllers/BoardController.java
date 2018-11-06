@@ -79,6 +79,8 @@ public class BoardController {
 
 		String filename = map.get("writer") + "-" + no + "-" + map.get("title") + "-board" + ".jpg";
 		String path = ctx.getRealPath("\\storage\\board");
+		String addr = (String) map.get("addr");
+		System.out.println(addr);
 
 		File dir = new File(path);
 		if (!dir.exists()) {
@@ -88,14 +90,14 @@ public class BoardController {
 		imgpath.transferTo(dst);
 
 		String img = path + "\\" + filename;
-
-		if (imgpath == null) {
-			boardrepo.addBoard1(map);
-		} else {
-			map.put("imgpath", "\\storage\\board" + "\\" + filename);
+		map.put("imgpath", "\\storage\\board" + "\\" + filename);
+			
+		if(addr != null) {
 			boardrepo.addBoard2(map);
-
+		}else {
+			boardrepo.addBoard1(map);
 		}
+
 		return "redirect:/board/detail.do?no=" + no;
 	}
 
@@ -318,11 +320,15 @@ public class BoardController {
 		if (wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) != null) {
 			map.put("searchKey", wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION));
 			return "redirect:searchList.do";
-		} else if (wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION) != null) {
+		} else if (wr.getAttribute("smallCate", WebRequest.SCOPE_SESSION) != null) {
 			map.put("bigcate", (int) wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
-			return "redirect:lists.do";
-		} else {
+			map.put("smallcate", (int) wr.getAttribute("smallCate", WebRequest.SCOPE_SESSION));
+			map.put("currentPage", 1);
 			return "redirect:list.do";
+		} else {
+			map.put("bigcate", (int) wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
+			map.put("currentPage", 1);
+			return "redirect:lists.do";
 		}
 	}
 	
