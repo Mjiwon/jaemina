@@ -13,14 +13,32 @@ public class SellerRepository {
 	@Autowired
 	SqlSessionTemplate template;
 
+	/*public int addSeller(Map map) {
+
+		return template.insert("seller.addSeller", map);
+	}*/
+
+	
+	
 	public Map getSeller(String id) {
 		return template.selectOne("seller.getSeller", id);
 	}
 
-	public int addSeller(Map map) {
-
-		return template.insert("seller.addSeller", map);
+	public List<Map> dayproceeds(Map data){ 
+		return template.selectList("seller.dayproceeds",data);
 	}
+	
+	public List<Map> Moonproceeds(Map data){ 
+		return template.selectList("seller.Moonproceeds",data);
+	}
+	
+	//----------------------------------
+	//��Ʈ
+	public List<Map> yearproceeds(Map data){ 
+		return template.selectList("seller.yearproceeds",data);
+	}
+	
+	
 	
 	public int updateSeller1(Map map) {
 		return template.update("seller.updateSeller1",map);
@@ -29,23 +47,9 @@ public class SellerRepository {
 	public int updateSeller2(Map map) {
 		return template.update("seller.updateSeller2",map);
 	}
-	public List<Map> getmyboard(String id){
-		return template.selectList("seller.get_myboard",id);
-	}
-	//----------------------------------
-	//��Ʈ
-	public List<Map> yearproceeds(Map data){ 
-		return template.selectList("seller.yearproceeds",data);
-	}
-	
-	public List<Map> Moonproceeds(Map data){ 
-		return template.selectList("seller.Moonproceeds",data);
-	}
-	public List<Map> dayproceeds(Map data){ 
-		return template.selectList("seller.dayproceeds",data);
-	}
 	
 	
+
 	public String myboardcount(String SellerId) {
 		return template.selectOne("seller.myboardcount", SellerId);
 		
@@ -59,6 +63,7 @@ public class SellerRepository {
 	
 	
 	
+
 
 
 }
