@@ -76,13 +76,16 @@
 							</c:choose>
 						</div>
 					</div>
+					<input hidden="" name="postno" value="${detail.NO }"/><br/>
+					<input hidden="" name="seller" value="${detail.WRITER }"/><br/>
+					<input hidden="" name="price" value="${detail.PRICE}"/><br/>
+					<input hidden="" name="buyer" value="${user.ID}"/><br/>				
 				</form>
 			</div>
 			<div class="col-md-8 order-md-1">
 				<h4 class="mb-3">카테고리 : ${cate.BIGCATE} | ${cate.SMALLCATE}</h4>
 				<form class="needs-validation"
-					action="${pageContext.servletContext.contextPath }/buy.do"
-					novalidate>
+					action="${pageContext.servletContext.contextPath }/buyBefore.do" method="post" novalidate>
 					<div class="mb-3">
 						<label for="username">작성 날짜</label>
 						<div class="input-group" style="">
@@ -125,6 +128,10 @@
 					</div>
 
 					<hr class="mb-4">
+					<input hidden="" name="postno" value="${detail.NO }"/><br/>
+					<input hidden="" name="seller" value="${detail.WRITER }"/><br/>
+					<input hidden="" name="price" value="${detail.PRICE}"/><br/>
+					<input hidden="" name="buyer" value="${user.ID}"/><br/>
 					<button class="btn btn-primary btn-lg btn-block" type="submit">구매하기</button>
 				</form>
 			</div>

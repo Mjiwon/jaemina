@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 
 import app.models.AccountRepository;
 import app.models.BoardRepository;
+import app.models.BuyRepository;
 import app.models.QAMessageRepository;
 import app.models.SellerRepository;
 import app.service.SocketService;
@@ -224,7 +225,7 @@ public class BoardController {
 		map.put("writer", writer);
 		map.put("cate", cate);
 		map.put("loginOk", id);
-
+		System.out.println("deatail info : "+ map);
 		return "account.boardDetail";
 	}
 
@@ -449,6 +450,30 @@ public class BoardController {
 				int delete = boardrepo.deletereply(data);
 			return gson.toJson(delete);
 		}
+		
+		//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+		// 구매하기
+		@PostMapping("/buyBefore.do")
+		public String buyPostHandle(@RequestParam Map param, HttpSession session, Map map) {
+			System.out.println("param : "+param);
+			Map buyer = (Map)session.getAttribute("user");
+			param.put("buyeremail", (String)buyer.get("EMAIL"));
+			map.put("buy", param);
+			return "buy.before";
+		}
+		
+		@Autowired
+		BuyRepository buyrepo;
+		
+		@PostMapping("/ajax/buy.do")
+		@ResponseBody
+		public String buyHandle(@RequestParam Map param) {
+			int r = buyrepo.addBuy(param);
+			System.out.println("buy result : "+r);
+			String rst = "\"rst\":true";
+			return gson.toJson(rst);
+		}
+		//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 
 	/*
 	 * @PostMapping("/qa/buyqa.do") public String buyqaPostHandle(@RequestParam Map
