@@ -81,32 +81,21 @@
 						<li class="nav-item"><a class="nav-link disabled"
 							href="${pageContext.servletContext.contextPath }/addbank.do"
 							style="color: black;"><b>판매</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled"<<<<<<<
-								HEAD href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
-								style="color: black;"><b>구매</b>
-						</a></li>
+						<li class="nav-item">
+						<a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
+							style="color: black;"><b>구매</b> </a></li>
 						<li class="nav-item"><a class="nav-link disabled"
 							href="${pageContext.servletContext.contextPath }/qalist.do"
 							style="color: black;"><b>메세지</b></a></li>
 						<li class="nav-item"><c:choose>
-=======
-							href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1"
-							style="color: black;"><b>구매</b>
-								</a></li>
 
-						<li class="nav-item dropdown">
-							<button type="button" class="btn btn-link dropdown-toggle"
-								style="color: black;" data-toggle="dropdown">
-								<b>메세지</b>
-								<c:choose>
->>>>>>> refs/heads/jiwoni
 								<c:when test="${!empty newss}">
-										<span class="badge badge-pill badge-primary">new</span>
-									</c:when>
-									<c:otherwise>
-										<span id="news"> </span>
-									</c:otherwise>
-								</c:choose>
+									<span class="badge badge-pill badge-primary">new</span>
+								</c:when>
+								<c:otherwise>
+									<span id="news"> </span>
+								</c:otherwise>
+							</c:choose>
 							</button>
 							<ul class="dropdown-menu dropright">
 								<li><c:choose>
@@ -125,8 +114,7 @@
 											<span>메세지가 없습니다.</span>
 										</c:otherwise>
 									</c:choose></li>
-							</ul>
-						</li>
+							</ul></li>
 
 						<li class="nav-item dropdown">
 							<button type="button" class="btn btn-secondary dropdown-toggle"
