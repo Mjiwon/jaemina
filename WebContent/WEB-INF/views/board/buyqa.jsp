@@ -20,7 +20,7 @@
 		<div class="input-group">
 			<img
 				src="${pageContext.servletContext.contextPath }${Seller.IMGPATH}"
-				class="rounded-circle" height="75" width="75"> <input
+				class="rounded-circle" height="7w5" width="75"> <input
 				type="text" class="form-control" readonly
 				style="background-color: white;" value="${Seller.ID }">
 		</div>
