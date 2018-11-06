@@ -91,6 +91,8 @@ public class BoardQASocketController extends TextWebSocketHandler {
 			mongo.put("checkMember", m.get("member"));
 			
 			
+			qamr.updateCheckMember(room,(String)user.get("ID"));
+			
 			int ret = qamr.updatelog(mongo, (String)map.get("mode"));
 			if(ret<0) {
 				System.out.println("채팅저장 실패");
@@ -105,18 +107,35 @@ public class BoardQASocketController extends TextWebSocketHandler {
 				Map a = (Map)log.get(i);
 				checkMember = (List)a.get("checkMember");
 			}
-			
+					
+			List chatsocket = new ArrayList<>();
 			String target ="";
 			if(checkMember.size()>0) {
-				target =(String)checkMember.get(0);	
-				String json = "{\"mode\":\"boardQA\", \"room\":\""+room+"\"}";
-				socketService.sendOne(json, target);				
+				for(int i = 0; i<checkMember.size();i++) {
+					target =(String)checkMember.get(i);	
+					System.out.println(target + " . " + i);
+				}
+				
+				for(int i = 0 ; i < sockets.size();i++) {
+					System.out.println(sockets.get(i).getAttributes().get("loginId"));
+					chatsocket.add(sockets.get(i).getAttributes().get("loginId"));
+				}
+				
+				for(int i = 0; i<chatsocket.size();i++) {
+					if(!chatsocket.contains(target)) {
+						System.out.println("들어오냐?" + target);
+						String json = "{\"mode\":\"boardQA\", \"room\":\""+room+"\"}";
+						socketService.sendOne(json, target);	
+					}else {
+						qamr.updateCheckMember(room,(String)user.get("ID"));	
+					}
+				}
 			}
-						
+			qamr.updateCheckMember(room,(String)user.get("ID"));			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-
+		
 	}
 }
