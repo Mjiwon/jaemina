@@ -60,32 +60,32 @@ public class AccountController {
 	public String indexHendler(WebRequest wr, Map map) {
 		map.put("boardlist", boardrepo.getCateBoard(1));
 		List<Map> bcatelist = boardrepo.getBigCate();
-		
+
 		if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
 			List<Map> wishlist = boardrepo.getWishlist((String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
 			map.put("wishlist", wishlist);
 
 			Map user = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
-			String id =(String)user.get("ID");
-		
-			List<Map> getChatList = oamr.getChatList((String)user.get("ID"));		
-			
-			if(getChatList!=null) {
+			String id = (String) user.get("ID");
+
+			List<Map> getChatList = oamr.getChatList((String) user.get("ID"));
+
+			if (getChatList != null) {
 				Map z = new HashMap<>();
-				   List log = new ArrayList<>();
-				   for(int i = 0; i<getChatList.size();i++) {
-					   z = getChatList.get(i);
-					   log = (List)z.get("log");
-					   List check = new ArrayList<>();
-					   for(int j = 0; j<log.size();j++) {
-						   Map b = (Map)log.get(j);
-						   check = (List)b.get("checkMember");
-						   if(check.contains((String)user.get("ID"))) {
-							   z.put("noCheck",true);
-							   map.put("newss", true);
-						   }
-					   }
-				   }
+				List log = new ArrayList<>();
+				for (int i = 0; i < getChatList.size(); i++) {
+					z = getChatList.get(i);
+					log = (List) z.get("log");
+					List check = new ArrayList<>();
+					for (int j = 0; j < log.size(); j++) {
+						Map b = (Map) log.get(j);
+						check = (List) b.get("checkMember");
+						if (check.contains((String) user.get("ID"))) {
+							z.put("noCheck", true);
+							map.put("newss", true);
+						}
+					}
+				}
 			}
 			wr.setAttribute("chatList", getChatList, WebRequest.SCOPE_SESSION);
 			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
@@ -466,12 +466,12 @@ public class AccountController {
 		return "account.sellerHomme";
 	}
 
-	@GetMapping("/update_seller.do")
-	public String UpdateSellerGetHandle() {
-		return "/WEB-INF/views/account/seller/update_seller.jsp";
-	}
+	 @GetMapping("/update_seller.do")
+	   public String UpdateSellerGetHandle() {
+	      return "/WEB-INF/views/account/seller/update_seller.jsp";
+	   }
 
-	@PostMapping("/update_seller.do")
+	   @PostMapping("/update_seller.do")
 	   public String UpdateSellerPostHandle(@RequestParam Map p, @RequestParam MultipartFile imgpath, HttpSession session)
 	         throws IOException {
 
@@ -512,36 +512,48 @@ public class AccountController {
 
 	// 판매자 블러그 올린글 확인!
 
-	   @RequestMapping("/myboard.do")
-	   public String MyBoardHandle(HttpSession session) {
-	      Map suser = (Map) session.getAttribute("user");
-	      String id = (String) suser.get("ID");
+	@RequestMapping("/myboard.do")
+	public String MyBoardHandle(HttpSession session, @RequestParam int currentPage, Map map, WebRequest wr) {
+		wr.setAttribute("Myck", true, WebRequest.SCOPE_REQUEST);
 
-	      Map duser = accountRepository.Myinfo(id);
-	      System.out.println("�쉶�썝�젙蹂대떎" + duser);
-	      String dbank = (String) duser.get("BANK");
+		Map suser = (Map) session.getAttribute("user");
+		String id = (String) suser.get("ID");
 
-	      if (dbank != null) {
-	         List<Map> MyBoard = SellerRepository.getmyboard(id);
-	         System.out.println(MyBoard);
-	         session.setAttribute("MyBoard", MyBoard);
+		Map duser = accountRepository.Myinfo(id);
+		String dbank = (String) duser.get("BANK");
 
+		if (dbank != null) {
+			 int startCount = (currentPage - 1) * 9 + 1;
+	         int endCount = currentPage * 9;
+	         int boardCount = SellerRepository.getmyboard(id).size();
+	         int totalPage = boardCount / 9;
+	         if ((boardCount % 9) > 0) {
+	            totalPage++;
+	         }
+	         Map mapp = new HashMap<>();
+	         mapp.put("writer", id);
+	         mapp.put("startCount", startCount);
+	         mapp.put("endCount", endCount);
 	         
-	         Map Seller = SellerRepository.getSeller(id);
-	            String SellerId=(String)Seller.get("ID");
-	         
-	        String boardcount= SellerRepository.myboardcount(SellerId);
-	        String wishcount=SellerRepository.Wishcount(SellerId);
-	        int staravg = SellerRepository.staravg(SellerId);
-	        staravg=staravg*20;
-	         Seller.put("boardcount", boardcount);
-	         Seller.put("wishcount",wishcount);
-	         Seller.put("staravg", staravg);
-	         session.setAttribute("Seller", Seller);
-	         return "/WEB-INF/views/account/seller/sellerHome.jsp";
-	      } else
-	         return "/addbank.do";
-	   }
+	         map.put("MyBoard", boardrepo.getBoardListBySellerForPasing(mapp));
+	         map.put("totalPage", totalPage);
+	         map.put("currentPage", currentPage);
+
+			Map Seller = SellerRepository.getSeller(id);
+			String SellerId = (String) Seller.get("ID");
+
+			String boardcount = SellerRepository.myboardcount(SellerId);
+			String wishcount = SellerRepository.Wishcount(SellerId);
+			int staravg = SellerRepository.staravg(SellerId);
+			staravg = staravg * 20;
+			Seller.put("boardcount", boardcount);
+			Seller.put("wishcount", wishcount);
+			Seller.put("staravg", staravg);
+			session.setAttribute("Seller", Seller);
+			return "/WEB-INF/views/account/seller/sellerHome.jsp";
+		} else
+			return "/addbank.do";
+	}
 
 	// 회원 마이 페이지 이동
 	// 구현중

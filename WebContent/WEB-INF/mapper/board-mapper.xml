@@ -2,10 +2,10 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 	<insert id="addBoard1" parameterType="java.util.HashMap">
- 		insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, null, #{price}, #{writer}, sysdate, #{content},0,0)	
+ 		insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, null, #{price}, #{writer}, sysdate, #{content},0,0,null)	
 	</insert>
 	<insert id="addBoard2" parameterType="java.util.HashMap">
-	 	insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, #{imgpath}, #{price}, #{writer}, sysdate, #{content},0,0)
+	 	insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, #{imgpath}, #{price}, #{writer}, sysdate, #{content},0,0,null)
 	</insert>
 	<insert id="addWishlist" parameterType="java.util.HashMap">
 		insert into wishlist values(wishlist_seq.nextval, #{buyer}, #{seller})

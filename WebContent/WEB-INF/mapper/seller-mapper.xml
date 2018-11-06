@@ -9,15 +9,17 @@
 		update account_profile
 		set career = #{career} , academy=#{academy} ,
 		imgpath=#{imgpath},
-		introduce=#{introduce}
-		where id=#{id}
+		introduce=#{introduce},oneline=#{oneline},licence=#{licence}
+		where
+		id=#{id}
 	</update>
 
 	<update id="updateSeller2" parameterType="java.util.HashMap">
 		update account_profile
 		set career = #{career} , academy=#{academy} ,
-		introduce=#{introduce}
-		where id=#{id}
+		introduce=#{introduce},oneline=#{oneline},licence=#{licence}
+		where
+		id=#{id}
 	</update>
 
 	<select id="getSeller" parameterType="java.lang.String"
