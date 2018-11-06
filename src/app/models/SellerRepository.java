@@ -54,7 +54,6 @@ public class SellerRepository {
 		return template.selectOne("seller.wishcount", SellerId);
 	}
 	public int staravg(String SellerId) {
-		System.out.println(SellerId+"여기오잖아");
 		return template.selectOne("seller.staravg", SellerId);
 	}
 	
