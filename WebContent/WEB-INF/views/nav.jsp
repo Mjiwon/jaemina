@@ -247,21 +247,17 @@
 		var obj = JSON.parse(got.data);
 		switch (obj.mode) {
 		case "boardQA":
-			boardQAHandle(obj);
+			boardQAHandles(obj);
 			break;
 		}
 
 	};
 
-	var boardQAHandle = function(evt) {
+	var boardQAHandles = function(evt) {
 		var html = "<span class=\"badge badge-pill badge-primary\">new</span>";
 		$("#news").html(html);
-		console.log(evt.room);
-			console.log($(".listnew").length);
 		for(var i=0; i<$(".listnew").length; i++) {
-			
 			if(evt.room == $(".listnew").eq(i).attr("id")){
-			console.log("응?");
 				$(".listnew").eq(i).html(html);
 			}
 		}

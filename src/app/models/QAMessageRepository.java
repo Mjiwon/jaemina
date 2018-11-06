@@ -41,9 +41,6 @@ public class QAMessageRepository {
 
 		Update u = new Update().pull("log.$[].checkMember",id);
 		UpdateResult rst = template.updateMulti(new Query(c), u, "chatlog");
-		
-		System.out.println(room + " " + id);
-		System.out.println("업뎃 갯수는 ?? "+rst.getModifiedCount());
 	}
 
 	public List<Map> getChatList(String id) {

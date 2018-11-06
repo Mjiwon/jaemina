@@ -57,7 +57,7 @@
 								</c:when>
 								<c:otherwise>
 									<a
-										href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}"
+										href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
 										class="btn btn-primary" style="margin-bottom: 10px">판매자에게
 										문의하기</a>
 									<c:choose>

@@ -39,12 +39,10 @@ public class BoardQASocketController extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		try {
 			sockets.add(session);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		// Map<String, Object> attrs = session.getAttributes();
 	}
 
 	@Override
@@ -62,13 +60,14 @@ public class BoardQASocketController extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		try {
-			
 			String got = message.getPayload();
 			Map user = (Map) session.getAttributes().get("user");
 			Map map = gson.fromJson(got, Map.class);
 			map.put("sender", user.get("ID"));		
 			
 			String room = (String)map.get("mode");
+			
+			qamr.updateCheckMember(room,(String)user.get("ID"));
 			
 			List<Map> list = qamr.roomDate(room);
 			Map m = list.get(0);
@@ -98,7 +97,7 @@ public class BoardQASocketController extends TextWebSocketHandler {
 			}else {
 				System.out.println("채팅저장 성공");
 			}
-			qamr.updateCheckMember(room,(String)user.get("ID"));
+			
 			List log = (List)m.get("log");
 			
 			List checkMember = new ArrayList<>();
@@ -109,12 +108,11 @@ public class BoardQASocketController extends TextWebSocketHandler {
 			
 			String target ="";
 			if(checkMember.size()>0) {
-				target =(String)checkMember.get(0);				
+				target =(String)checkMember.get(0);	
+				String json = "{\"mode\":\"boardQA\", \"room\":\""+room+"\"}";
+				socketService.sendOne(json, target);				
 			}
-			
-			String json = "{\"mode\":\"boardQA\", \"room\":\""+room+"\"}";
-			socketService.sendOne(json, target);
-			
+						
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
