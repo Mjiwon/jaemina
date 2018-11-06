@@ -83,38 +83,42 @@
 							style="color: black;"><b>판매</b></a></li>
 						<li class="nav-item">
 						<a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
-							style="color: black;"><b>구매</b> </a></li>
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/qalist.do"
-							style="color: black;"><b>메세지</b></a></li>
-						<li class="nav-item"><c:choose>
+							style="color: black;"><b>구매</b></a></li>
 
+						<li class="nav-item dropdown">
+							<button type="button" class="btn btn-link dropdown-toggle"
+								style="color: black;" data-toggle="dropdown">
+								<b>메세지</b>
+							<c:choose>
 								<c:when test="${!empty newss}">
 									<span class="badge badge-pill badge-primary">new</span>
 								</c:when>
 								<c:otherwise>
 									<span id="news"> </span>
 								</c:otherwise>
-							</c:choose>
+								</c:choose>
 							</button>
 							<ul class="dropdown-menu dropright">
-								<li><c:choose>
-										<c:when test="${!empty chatList }">
-											<c:forEach var="i" items="${chatList }">
-												<a
-													href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}&members=${i.member[0]}&members=${i.member[1]}"
-													class="dropdown-item">${i.member }<span id="${i.room }"
-													class="listnew"></span> <c:if test="${i.noCheck==true }">
-														<span class="badge badge-pill badge-primary">new</span>
-													</c:if>
-												</a>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<span>메세지가 없습니다.</span>
-										</c:otherwise>
-									</c:choose></li>
-							</ul></li>
+								<li>
+								<c:choose>
+									<c:when test="${!empty chatList }">
+										<c:forEach var="i" items="${chatList }">
+											<a
+												href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}&members=${i.member[0]}&members=${i.member[1]}"
+												class="dropdown-item">${i.member }<span id="${i.room }" class="listnew"></span>
+												<c:if test="${i.noCheck==true }">
+													<span class="badge badge-pill badge-primary">new</span>
+												</c:if>
+											</a>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<span>메세지가 없습니다.</span>
+									</c:otherwise>
+								</c:choose>
+								</li>
+							</ul>
+						</li>
 
 						<li class="nav-item dropdown">
 							<button type="button" class="btn btn-secondary dropdown-toggle"
@@ -123,9 +127,10 @@
 							</button>
 							<ul class="dropdown-menu dropright"
 								style="background-color: white; background-color: white; justify-content: center;">
-								<li><a class="dropdown-item"
+								<li>	<a class="dropdown-item"
 									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
-										style="color: green;">${user.ID }</b>의 재미나</a>
+										style="color: green;">${user.ID }</b>의 재미나</a> 
+								
 								<li><a class="dropdown-item"
 									href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=1">나의
 										블로그</a></li>
@@ -252,14 +257,16 @@
 		var html = "<span class=\"badge badge-pill badge-primary\">new</span>";
 		$("#news").html(html);
 		console.log(evt.room);
-		console.log($(".listnew").length);
-		for (var i = 0; i < $(".listnew").length; i++) {
-
-			if (evt.room == $(".listnew").eq(i).attr("id")) {
-				console.log("응?");
+			console.log($(".listnew").length);
+		for(var i=0; i<$(".listnew").length; i++) {
+			
+			if(evt.room == $(".listnew").eq(i).attr("id")){
+			console.log("응?");
 				$(".listnew").eq(i).html(html);
 			}
 		}
-
+		
 	}
+
+
 </script>
