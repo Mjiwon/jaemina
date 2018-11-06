@@ -42,10 +42,6 @@ public class BoardRepository {
 		return template.selectList("board.getSearchListByList", li);
 	}
 	
-	public List<Map> getSearchListByString(String searchKey) {
-		return template.selectList("board.getSearchListByString", "%"+searchKey+"%");
-	}
-	
 	public int updateDetailBoard(Map data) {
 		return template.update("board.updateDetailBoard", data);
 	}

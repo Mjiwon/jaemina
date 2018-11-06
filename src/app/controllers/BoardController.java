@@ -339,19 +339,13 @@ public class BoardController {
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		String searchKey = (String) param.get("searchKey");
 		List<String> li = new ArrayList<>();
-		if (searchKey.indexOf(" ") != -1) {
-			String[] searchKeys = searchKey.split(" ");
-			for (int i = 0; i < searchKeys.length; i++) {
-				li.add("%" + searchKeys[i] + "%");
-			}
-			List<Map> list = boardrepo.getSearchListByList(li);
-			map.put("boardlist", list);
-			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
-		} else {
-			List<Map> list = boardrepo.getSearchListByString(searchKey);
-			map.put("boardlist", list);
-			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
+		String[] searchKeys = searchKey.split(" ");
+		for (int i = 0; i < searchKeys.length; i++) {
+			li.add("%" + searchKeys[i] + "%");
 		}
+		List<Map> list = boardrepo.getSearchListByList(li);
+		map.put("boardlist", list);
+		wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
 		return "account.boardlist";
 	}
 

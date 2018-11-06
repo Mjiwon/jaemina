@@ -34,10 +34,6 @@
 		select * from board where title like <foreach collection="list" item="searchKey" separator=" and title like ">#{searchKey}</foreach>
 		or content like <foreach collection="list" item="searchKey" separator=" and content like ">#{searchKey}</foreach>
 	</select>
-
-	<select id="getSearchListByString" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select * from board where title like #{searchKey} or content like #{searchKey}
-	</select>
 	
 	<delete id="deleteDetailBoard" parameterType="java.lang.Integer">
 		delete from board where no=#{no}
