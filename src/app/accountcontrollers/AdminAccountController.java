@@ -26,7 +26,7 @@ public class AdminAccountController {
 	@Autowired
 	AdminRepository adminrepo;
 	//--------------------------------------------------------------------------------------------------------------
-	// index
+	// index!
 	
 	@RequestMapping("/index.do")
 	public String adminIndexHandle(HttpSession session) {
