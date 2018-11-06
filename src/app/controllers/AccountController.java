@@ -36,34 +36,38 @@ import app.models.SellerRepository;
 public class AccountController {
 	Map<String, HttpSession> sessions;
 
+	
+	@Autowired
+	ServletContext ctx;
+	
 	@Autowired
 	Gson gson;
 
 	@Autowired
 	BoardRepository boardrepo;
 
+	@Autowired
+	AccountRepository accountRepository;
+	
+	@Autowired
+	JavaMailSender sender;
+	
+	@Autowired
+	QAMessageRepository oamr;
+
 	public AccountController() {
 		sessions = new HashMap<>();
 	}
 
-	@Autowired
-	AccountRepository accountRepository;
-
-	@Autowired
-	JavaMailSender sender;
-
-	@Autowired
-	QAMessageRepository oamr;
-
 	// Index!!!!
 	@RequestMapping("/index.do")
 	public String indexHendler(WebRequest wr, Map map) {
-		map.put("boardlist", boardrepo.getCateBoard(1));
+			map.put("boardlist", boardrepo.getCateBoard(1));
 		List<Map> bcatelist = boardrepo.getBigCate();
 		
 		if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
 			List<Map> wishlist = boardrepo.getWishlist((String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
-			map.put("wishlist", wishlist);
+				map.put("wishlist", wishlist);
 
 			Map user = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
 			String id =(String)user.get("ID");
@@ -90,9 +94,9 @@ public class AccountController {
 			wr.setAttribute("chatList", getChatList, WebRequest.SCOPE_SESSION);
 			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
 		}
-		map.put("bigcate", bcatelist);
+			map.put("bigcate", bcatelist);
 		int boardCount = boardrepo.boardCount();
-		map.put("boardCount", boardCount);
+			map.put("boardCount", boardCount);
 
 		return "account.index";
 	}
@@ -369,8 +373,7 @@ public class AccountController {
 	}
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	@Autowired
-	ServletContext ctx;
+	
 
 	// 판매자 계좌번호 등록
 	@GetMapping("/addbank.do")
@@ -391,28 +394,23 @@ public class AccountController {
 			return "redirect:/write.do";
 	}
 
+	
+	// 판매자 인증 AJAX
 	@PostMapping("/addbank.do")
-	public String AddBankPostHandle(@RequestParam Map p, HttpSession session) {
-		Map user = (Map) session.getAttribute("user");
-		String id = (String) user.get("ID");
-		p.put("id", id);
-		String banknumber = (String) p.get("bank");
-		String bankname = (String) p.get("bankname");
-		String regEx = "\\d{12}|(\\d{4}-\\d{5}-\\d{6})$";
-		if (banknumber.matches(regEx)) {
-			p.put("bank", bankname + "/" + banknumber);
-			int i = accountRepository.addbank(p);
-			if (i == 1) {
-				return "/WEB-INF/views/account/seller/success.jsp";
-			} else
-				return "/WEB-INF/views/account/seller/addbank.jsp";
-		} else {
-			return "/WEB-INF/views/account/seller/addbank.jsp";
+	@ResponseBody
+	public String addbankAjaxHandle(@RequestParam Map param) {
+		int r = accountRepository.addbank(param);
+		System.out.println("addbank result : "+r);
+		String rst = "";
+		if(r==1) {
+			rst = "\"rst\":true";
+		}else {
+			rst = "\"rst\":false";
 		}
+		return gson.toJson(rst);
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------
-
 	// 판매자 등록 컨트롤러
 	@GetMapping("/addseller.do")
 	public String addSellerGetHandle() {
