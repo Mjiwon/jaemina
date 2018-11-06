@@ -26,8 +26,8 @@
 
 				<form class="card p-2">
 					<div class="card" style="width: auto;">
-						<a href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${writer.ID }&currentPage=1"><img class="card-img-top"
-							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
+						<a href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${writer.ID }&currentPage=1">
+						<img class="card-img-top" src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
 							alt="Card image cap" style="height: 8cm;"></a>
 						<div class="card-body">
 							<h5 class="card-title">${writer.WRITER }</h5>

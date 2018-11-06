@@ -38,7 +38,7 @@
 					<div class="col-12">
 						<ul class="actions">
 							<li><input type="submit" class="primary"
-								value="수정완료" onclick="modify();"/></li>
+								value="수정완료"/></li>
 						</ul>
 					</div>
 				</div>

@@ -257,7 +257,7 @@ public class BoardController {
 		// 판매자 정보 가지고 오기
 		Map Seller = sellerrepo.getSeller(seller);
 		session.setAttribute("Seller", Seller);
-		return "account.sellerHomme";
+		return "/WEB-INF/views/account/seller/sellerHome.jsp";
 	}
 
 	@RequestMapping("/board/modifyDetail.do")
