@@ -13,20 +13,28 @@ public class AccountRepository {
 	@Autowired
 	SqlSessionTemplate template;
 	
+	
+	// insert
+	public int addUser(Map map) {
+		return template.insert("account.addUser", map);
+	}
+	
+	
+	// select
 	public List<Map> getAccountList(){
 		return template.selectList("account.getAccountList");
+	}
+	
+	public Map Myinfo(String data) {
+		return template.selectOne("account.Myinfo", data);
 	}
 	
 	public Map getAccount(Map map) {
 		return template.selectOne("account.getAccount", map);
 	}
 	
-	public int addUser(Map map) {
-		return template.insert("account.addUser", map);
-	}
-	
-	public int deleteUser(String id) {
-		return template.delete("account.deleteUser", id);
+	public Map FindUser(String email) {
+		return template.selectOne("account.finduser",email);
 	}
 	
 	public Map getAccountById(String id) {
@@ -37,42 +45,36 @@ public class AccountRepository {
 		return template.selectOne("account.getAccountByEmail", email);
 	}
 	
-	public int addbank(Map data) {
-		 
-		return template.update("account.addbank",data);
-	}	
-	
-	public int addSeller1(Map map) {
-		return template.insert("account.addSeller1",map);
+	public List<Map> getSellerpermitlist(){
+		return template.selectList("account.getSellerpermitlist");
 	}
 	
-	public int addSeller2(Map map) {
-		return template.insert("account.addSeller2",map);
+	
+	// update
+	public int FindPass(Map data) {
+		return template.update("account.findpass",data);
 	}
+	
 	public int changeuser(Map data) {
 		System.out.println("여긴와야지요");
 		return template.update("account.changeuser",data);
 	}
 	
-	public Map Myinfo(String data) {
-		return template.selectOne("account.Myinfo", data);
-	}
-	public Map Sellerinfo(String data) {
-		return template.selectOne("account.Sellerinfo", data);
-	}
-	
-	public Map FindUser(String email) {
-		return template.selectOne("account.finduser",email);
-	}
-	public int FindPass(Map data) {
-		return template.update("account.findpass",data);
-	}
-	
-	public List<Map> getSellerpermitlist(){
-		return template.selectList("account.getSellerpermitlist");
+	public int addbank(Map data) {
+		 
+		return template.update("account.addbank",data);
 	}
 	
 	public int permitSeller(String id) {
 		return template.update("account.permitSeller", id);
 	}
+	
+	// delete
+	
+	public int deleteUser(String id) {
+		return template.delete("account.deleteUser", id);
+	}
+	
+	
+	
 }

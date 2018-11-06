@@ -4,10 +4,12 @@
 	<insert id="addQA1" parameterType="java.util.HashMap">
 		insert into adminqa values(adminqa_seq.nextval, #{title}, #{sender}, sysdate, #{content}, 'admin', null, null,null)
 	</insert>
+	
 	<insert id="addQA2" parameterType="java.util.HashMap">
 		insert into adminqa values(adminqa_seq.nextval, #{title}, #{sender}, sysdate, #{content}, 'admin', null, #{imgpath}, null)
 	</insert>
 	
+	<!-- select -->
 	<select id="getadminQAinfo" parameterType="java.lang.Integer" resultType="java.util.HashMap">
 		select * from adminqa where no=#{no} 
 	</select>
@@ -15,10 +17,12 @@
 	<select id="getadminQAalllist" resultType="java.util.HashMap">
 		select * from adminqa
 	</select>
+	
 	<select id="getadminQunreadllist" resultType="java.util.HashMap">
 		select * from adminqa where chkdate is null
 	</select>
 	
+	<!-- update -->
 	<update id="replyadminqa" parameterType="java.util.HashMap">
 		update adminqa set chkdate=sysdate, replycontent=#{replycontent} where no=#{no} and sender=#{sender}
 	</update>

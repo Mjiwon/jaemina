@@ -2,6 +2,12 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="account">
 
+	<insert id="addUser" parameterType="java.util.HashMap">
+		insert into account values(acc_seq.nextval, #{id}, #{email}, #{pass}, null)
+	</insert>
+	
+	
+	<!-- select -->
 	<select id="getAccountList" resultType="java.util.HashMap">
 		select * from account
 	</select>
@@ -11,75 +17,56 @@
 		select * from account where id=#{id}
 	</select>
 
-	<select id="Sellerinfo" parameterType="java.lang.String"
-		resultType="java.util.HashMap">
-		Select * from account_profile where id=#{id}
-	</select>
 	<select id="getAccount" resultType="java.util.HashMap">
-		select * from account where
-		id=#{id} and pass=#{pass}
+		select * from account where id=#{id} and pass=#{pass}
 	</select>
 
-	<select id="finduser" parameterType="java.lang.String"
-		resultType="java.util.HashMap">
+	<select id="finduser" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from account where email=#{email}
 	</select>
 
+	<select id="getAccountById" resultType="java.util.HashMap">
+		select * from account where id=#{id}
+	</select>
+
+	<select id="getAccountByEmail" resultType="java.util.HashMap">
+		select * from account where email=#{email}
+	</select>
+	
+	<!-- 관리자 판매자 승인대기 리스트 sql문 -->
+	<select id="getSellerpermitlist" resultType="java.util.HashMap">
+		select * from account where type=1 and bank is not null
+	</select>
+	
+	
+	<!-- update -->
 	<update id="findpass" parameterType="java.util.HashMap">
 		update account set pass=#{pass} where id=#{id} and email=#{email}
 	</update>
 
-	<select id="getAccountById" resultType="java.util.HashMap">
-		select * from account
-		where id=#{id}
-	</select>
-
-	<select id="getAccountByEmail" resultType="java.util.HashMap">
-		select * from account
-		where email=#{email}
-	</select>
-
-	<insert id="addUser" parameterType="java.util.HashMap">
-		insert into account
-		values(acc_seq.nextval, #{id}, #{email}, #{pass}, null)
-	</insert>
-
-
-	<insert id="addSeller1" parameterType="java.util.HashMap">
-		insert into
-		account_profile
-		values(#{id},#{academy},#{career},#{imgpath},#{introuce})
-	</insert>
-
-	<insert id="addSeller2" parameterType="java.util.HashMap">
-		insert into
-		account_profile values(#{id},#{academy},#{career},null,#{introuce})
-	</insert>
+	<update id="changeuser" parameterType="java.util.HashMap">
+		update account set pass =#{pass} where id=#{id}
+	</update>
 
 	<update id="addbank" parameterType="java.util.HashMap">
 		update account set
 		bank=#{bank} where id=#{id}
 	</update>
-
-	<select id="getAllBoard" resultType="java.util.HashMap">
-		select * from board
-	</select>
-
-	<update id="changeuser" parameterType="java.util.HashMap">
-		update account set pass =#{pass} where id=#{id}
-	</update>
 	
-	<delete id="deleteUser" parameterType="java.lang.String">
-		delete from account where id=#{id}
-	</delete>
-	<!-- 관리자 판매자 승인대기 리스트 sql문 -->
-	<select id="getSellerpermitlist" resultType="java.util.HashMap">
-		select * from account where type=1 and bank is not null
-	</select>
 	<!-- 관리자 판매자 승인 sql문 -->
 	<update id="permitSeller" parameterType="java.lang.String">
 		update account set type=2 where id=#{id}
 	</update>
+	
+	
+	<!-- delete -->
+	<delete id="deleteUser" parameterType="java.lang.String">
+		delete from account where id=#{id}
+	</delete>
+	
+	
+	
+
 
 </mapper> 
 

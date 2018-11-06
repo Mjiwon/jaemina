@@ -14,6 +14,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,178 +30,67 @@ import com.google.gson.Gson;
 import app.models.AccountRepository;
 import app.models.BoardRepository;
 import app.models.BuyRepository;
+import app.models.CateRepository;
+import app.models.ProfileRepository;
 import app.models.QAMessageRepository;
 import app.models.SellerRepository;
+import app.models.WishlistRepository;
 import app.service.SocketService;
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
 
 	@Autowired
-	Gson gson;
-
+	ServletContext ctx;
+	
 	@Autowired
-	AccountRepository accountrepo;
+	Gson gson;
 
 	@Autowired
 	BoardRepository boardrepo;
 
 	@Autowired
+	AccountRepository accountrepo;
+	
+	@Autowired
+	JavaMailSender sender;
+	
+	@Autowired
+	QAMessageRepository oamr;
+
+	@Autowired
 	SellerRepository sellerrepo;
 	
 	@Autowired
-	SocketService socketService;
+	CateRepository caterepo;
+	
+	@Autowired
+	WishlistRepository wishrepo;
+	
+	@Autowired
+	ProfileRepository profilerepo;
 
 	@Autowired
 	QAMessageRepository mrepo;
 
-	@Autowired
-	ServletContext ctx;
+	
 
 	// 게시글
 	// 전체 게시글 갯수 불러오기
-
-	// 판매글로 이동
-	@GetMapping("/write.do")
-	public String writeGetHandle(Map map) {
-		List<Map> bcatelist = boardrepo.getBigCate();
-		map.put("bigcate", bcatelist);
-
-		return "account.boardWrite";
-	}
-
-	// 판매글 DB에 insert
-	@PostMapping("/write.do")
-	public String writePostHandle(@RequestParam Map map, @RequestParam MultipartFile imgpath, WebRequest wr)
-			throws IOException {
-		// 파일(이미지) 업로드
-		Integer no = boardrepo.getSequenceVal();
-		map.put("no", no);
-
-		String filename = map.get("writer") + "-" + no + "-" + map.get("title") + "-board" + ".jpg";
-		String path = ctx.getRealPath("\\storage\\board");
-
-		File dir = new File(path);
-		if (!dir.exists()) {
-			dir.mkdirs();
-		}
-		File dst = new File(dir, filename);
-		imgpath.transferTo(dst);
-
-		String img = path + "\\" + filename;
-
-		if (imgpath == null) {
-			boardrepo.addBoard1(map);
-		} else {
-			map.put("imgpath", "\\storage\\board" + "\\" + filename);
-			boardrepo.addBoard2(map);
-
-		}
-		return "redirect:/board/detail.do?no=" + no;
-	}
-
-	// 카테고리 분류의 AJAX
-	// 웹에서 한글깨짐을 방지하기 위해서 아래 설정을 해준다.
-	@RequestMapping(path = "/ajax/cate.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String cateAjaxHandle(@RequestParam Map bigno) {
-		
-		int bno = Integer.parseInt(((String)bigno.get("bigno")));
-		List<Map> scatelist = boardrepo.getSmallCate(bno);
-		return gson.toJson(scatelist);
-	}
-
-	// 판매글 불러오기
-	@RequestMapping("/board/list.do")
-	public String boardListHandle(@RequestParam Map param, Map map, WebRequest wr) {
-		int bigcate = Integer.parseInt((String)param.get("bigcate"));
-		int smallcate = Integer.parseInt((String)param.get("smallcate"));
-		int currentPage = Integer.parseInt((String) param.get("currentPage"));
-		int startCount = (currentPage-1)*9+1;
-		int endCount = currentPage*9;
-		
-		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
-		wr.setAttribute("smallCate", smallcate, WebRequest.SCOPE_SESSION);
-		List<Map> boardlist = boardrepo.getSmallCateBoard(param);
-		map.put("boardlist", boardlist);
-		
-		List<Map> bcatelist = boardrepo.getBigCate();
-		map.put("bigcates", bcatelist);
-		
-		List<Map> scatelist = boardrepo.getSmallCate(bigcate);
-		map.put("smallcates", scatelist);
-		
-		int boardCount = boardrepo.getSmallCateBoard(param).size();
-		int totalPage = boardCount / 9;
-		if((boardCount % 9)>0) {
-			totalPage++;
-		}
-		Map mapp = new HashMap<>();
-		mapp.put("bigcate", bigcate);
-		mapp.put("smallcate", smallcate);
-		mapp.put("startCount", startCount);
-		mapp.put("endCount", endCount);
-		map.put("boardlist", boardrepo.getSmallCateListForPasing(mapp));
-		map.put("totalPage", totalPage);
-		map.put("currentPage", currentPage);
-		
-		
-		
-		
-		return "account.boardlist";
-	}
-	/*
-	@GetMapping("/board/list.do")
-	public String boardListHandle(Map map, WebRequest wr) {
-		map.put("boardlist", boardrepo.getBoardList());
-		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
-		wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
-		return "account.boardlist";
-	}*/
 	
-	
-	@RequestMapping("/board/lists.do")
-	public String boardListsHandle(@RequestParam Map param, Map map, WebRequest wr) {
-		int bigcate = Integer.parseInt((String) param.get("bigcate"));
-		int currentPage = Integer.parseInt((String) param.get("currentPage"));
-		int startCount = (currentPage-1)*9+1;
-		int endCount = currentPage*9;
-		
-		wr.removeAttribute("smallCate", WebRequest.SCOPE_SESSION);
-		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
-		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
-
-		List<Map> bcatelist = boardrepo.getBigCate();
-		map.put("bigcates", bcatelist);
-		List<Map> scatelist = boardrepo.getSmallCate(bigcate);
-		map.put("smallcates", scatelist);
-		int boardCount = boardrepo.getCateBoard(bigcate).size();
-		int totalPage = boardCount / 9;
-		if((boardCount % 9)>0) {
-			totalPage++;
-		}
-		Map mapp = new HashMap<>();
-		mapp.put("bigcate", bigcate);
-		mapp.put("startCount", startCount);
-		mapp.put("endCount", endCount);
-		map.put("boardlist", boardrepo.getBigCateListForPasing(mapp));
-		map.put("totalPage", totalPage);
-		map.put("currentPage", currentPage);
-
-		return "account.boardlist";
-	}
 
 	// 상세페이지
-	@RequestMapping("/board/detail.do")
+	@RequestMapping("/detail.do")
 	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String) param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
 		String sellerid = (String) detail.get("WRITER");
 		Map writer = sellerrepo.getSeller(sellerid);
 		String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
-		List<Map> wishlist = boardrepo.getWishlist(id);
-		wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
-		wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
+		List<Map> wishlist = wishrepo.getWishlist(id);
+			wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
+			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
 
 		String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
 		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
@@ -208,10 +98,10 @@ public class BoardController {
 		
 		
 		Map cates = new HashMap<>();
-		cates.put("bigcate", bigcate);
-		cates.put("smallcate", smallcate);
+			cates.put("bigcate", bigcate);
+			cates.put("smallcate", smallcate);
 
-		Map cate = boardrepo.getCate(cates);
+		Map cate = caterepo.getCate(cates);
 		for(Map<String, String> list: wishlist ) {
 			if(list.get("SELLER").equals(sellerid)) {
 				wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
@@ -219,48 +109,18 @@ public class BoardController {
 			}else {
 			}
 		}
-
-		
-		map.put("detail", detail);
-		map.put("writer", writer);
-		map.put("cate", cate);
-		map.put("loginOk", id);
+	
+			map.put("detail", detail);
+			map.put("writer", writer);
+			map.put("cate", cate);
+			map.put("loginOk", id);
 		System.out.println("deatail info : "+ map);
 		return "account.boardDetail";
 	}
 
-	@RequestMapping("/sellerboardlist.do")
-	public String sellerBoardListHandle(@RequestParam Map param, WebRequest wr, Map map, HttpSession session) {
-		wr.setAttribute("Sellerck", true, WebRequest.SCOPE_REQUEST);
-		String seller = (String) param.get("seller");
-		int currentPage = Integer.parseInt((String)param.get("currentPage"));
-		Map duser = accountrepo.Myinfo(seller);
-		String dbank = (String) duser.get("BANK");
-		List<Map> MyBoard = sellerrepo.getmyboard(seller);
-		int startCount = (currentPage - 1) * 9 + 1;
-		int endCount = currentPage * 9;
-		int boardCount = sellerrepo.getmyboard(seller).size();
-		int totalPage = boardCount / 9;
-		if ((boardCount % 9) > 0) {
-			totalPage++;
-		}
-		Map mapp = new HashMap<>();
-		mapp.put("writer", seller);
-		mapp.put("startCount", startCount);
-		mapp.put("endCount", endCount);
-		
-		map.put("MyBoard", boardrepo.getBoardListBySellerForPasing(mapp));
-		map.put("totalPage", totalPage);
-		map.put("currentPage", currentPage);
-		session.setAttribute("MyBoard", MyBoard);
+	
 
-		// 판매자 정보 가지고 오기
-		Map Seller = sellerrepo.getSeller(seller);
-		session.setAttribute("Seller", Seller);
-		return "account.sellerHomme";
-	}
-
-	@RequestMapping("/board/modifyDetail.do")
+	@RequestMapping("/modifyDetail.do")
 	public String boardModifyHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String) param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
@@ -273,7 +133,7 @@ public class BoardController {
 		cates.put("bigcate", bigcate);
 		cates.put("smallcate", smallcate);
 
-		Map cate = boardrepo.getCate(cates);
+		Map cate = caterepo.getCate(cates);
 
 		map.put("detail", detail);
 		map.put("cate", cate);
@@ -282,11 +142,11 @@ public class BoardController {
 		return "/WEB-INF/views/board/detailModify.jsp";
 	}
 
-	@RequestMapping("/board/detailUpdate.do")
+	@RequestMapping("/detailUpdate.do")
 	public String boardDetailUpdateHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = (int) wr.getAttribute("boardNum", WebRequest.SCOPE_SESSION);
 		
-		param.put("no", detailno);
+			param.put("no", detailno);
 		boardrepo.updateDetailBoard(param);
 		Map detail = boardrepo.getDetailBoard(detailno);
 
@@ -298,28 +158,28 @@ public class BoardController {
 		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
 
 		Map cates = new HashMap<>();
-		cates.put("bigcate", bigcate);
-		cates.put("smallcate", smallcate);
+			cates.put("bigcate", bigcate);
+			cates.put("smallcate", smallcate);
 
-		Map cate = boardrepo.getCate(cates);
+		Map cate = caterepo.getCate(cates);
 
-		map.put("detail", detail);
-		map.put("writer", writer);
-		map.put("cate", cate);
+			map.put("detail", detail);
+			map.put("writer", writer);
+			map.put("cate", cate);
 
-		wr.removeAttribute("boardNum", WebRequest.SCOPE_SESSION);
+			wr.removeAttribute("boardNum", WebRequest.SCOPE_SESSION);
 		return "account.boardDetail";
 	}
 
-	@RequestMapping("/board/deleteDetail.do")
+	@RequestMapping("/deleteDetail.do")
 	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		boardrepo.deleteDetailBoard(Integer.parseInt((String) param.get("no")));
 	
 		if (wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) != null) {
-			map.put("searchKey", wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION));
+				map.put("searchKey", wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION));
 			return "redirect:searchList.do";
 		} else if (wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION) != null) {
-			map.put("bigcate", (int) wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
+				map.put("bigcate", (int) wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
 			return "redirect:lists.do";
 		} else {
 			return "redirect:list.do";
@@ -329,7 +189,7 @@ public class BoardController {
 	// ----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!
 
-	@RequestMapping("/board/searchList.do")
+	@RequestMapping("/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		String searchKey = (String) param.get("searchKey");
 		List<String> li = new ArrayList<>();
@@ -339,12 +199,12 @@ public class BoardController {
 				li.add("%" + searchKeys[i] + "%");
 			}
 			List<Map> list = boardrepo.getSearchListByList(li);
-			map.put("boardlist", list);
-			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
+				map.put("boardlist", list);
+				wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
 		} else {
 			List<Map> list = boardrepo.getSearchListByString(searchKey);
-			map.put("boardlist", list);
-			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
+				map.put("boardlist", list);
+				wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
 		}
 		return "account.boardlist";
 	}
@@ -361,128 +221,14 @@ public class BoardController {
 		return "/index.do";
 	}
 
-	@RequestMapping("/addWishlist.do")
-	public String addWishListHandle(@RequestParam Map param, WebRequest wr, Map map) {
-		String buyer = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
-		String seller = (String) param.get("writer");
-		int no = Integer.parseInt((String)param.get("no"));
-		Map wish = new HashMap<>();
-		wish.put("buyer", buyer);
-		wish.put("seller", seller);
-		boardrepo.addWishlist(wish);
-		map.put("no", no);
-
-		return "redirect:board/detail.do";
-	}
 	
-	@RequestMapping("/deleteWishlist.do")
-	public String deleteWishListHandle(@RequestParam Map param, WebRequest wr, Map map) {
-		String buyer = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
-		String seller = (String) param.get("writer");
-		int no = Integer.parseInt((String)param.get("no"));
-		Map wish = new HashMap<>();
-		wish.put("buyer", buyer);
-		wish.put("seller", seller);
-		boardrepo.deleteWishList(wish);
-		map.put("no", no);
-		
-		return "redirect:board/detail.do";
-	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	// 댓글 입력
-		@RequestMapping(path = "/ajax/replyWrite.do", produces = "application/json;charset=UTF-8")
-		@ResponseBody
-		public String ReplyWriteAjaxHandle(@RequestParam Map reply) {
-			String bno = (String) reply.get("bno");
-			int bno1 = Integer.parseInt(bno);
-
-			String writer = (String) reply.get("writer");
-
-			Map only = new HashMap();
-			only.put("bno", bno);
-			only.put("writer", writer);
-
-			List<Map> onlyreply = boardrepo.onlyreply(only);
-
-			if (onlyreply.size()==0) {
-				int i = boardrepo.WriteReply(reply);
-				return gson.toJson(i);
-			} else {
-				return gson.toJson(0);
-			}
-		}
-
-		// 댓글 리스트
-		@RequestMapping(path = "/ajax/replylist.do", produces = "application/json;charset=UTF-8")
-		@ResponseBody
-		public String RepleAjaxHandle(@RequestParam Map data) {
-			String bno = (String) data.get("bno");
-			int bbno = Integer.parseInt(bno);
-			List<Map> replylist = boardrepo.ReplyLIst(bbno);
-			return gson.toJson(replylist);
-		}
-		//댓글 수정
-		@RequestMapping(path = "/ajax/modifyreply.do", produces = "application/json;charset=UTF-8")
-		@ResponseBody
-		public String RepleModifyAjaxHandle(@RequestParam Map data) {
-			String bbno=(String)data.get("bno");
-			int bno=Integer.parseInt(bbno);
-			data.put("bno", bno);
-			int update = boardrepo.Modify_Reply(data);
-			return gson.toJson(update);
-		}
+	
 		
-		@RequestMapping("/modifyreply.do")
-		public String modifyreply(@RequestParam String bno, Map map) {
-			map.put("bno", bno);
-			return "/WEB-INF/views/board/modifyreply.jsp";
-		}
-		//댓글 삭제
-		@RequestMapping(path = "/ajax/deletereply.do", produces = "application/json;charset=UTF-8")
-		@ResponseBody
-		public String RepleDeleteAjaxHandle(@RequestParam Map data) {
-				
-			String bbno=(String)data.get("bno");
-				int bno=Integer.parseInt(bbno);
-				data.put("bno", bno);
-				int delete = boardrepo.deletereply(data);
-			return gson.toJson(delete);
-		}
 		
 		//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-		// 구매하기
-		@PostMapping("/buyBefore.do")
-		public String buyPostHandle(@RequestParam Map param, HttpSession session, Map map) {
-			System.out.println("param : "+param);
-			Map buyer = (Map)session.getAttribute("user");
-			param.put("buyeremail", (String)buyer.get("EMAIL"));
-			map.put("buy", param);
-			return "buy.before";
-		}
-		
-		@Autowired
-		BuyRepository buyrepo;
-		
-		@PostMapping("/ajax/buy.do")
-		@ResponseBody
-		public String buyHandle(@RequestParam Map param) {
-			int r = buyrepo.addBuy(param);
-			System.out.println("buy result : "+r);
-			String rst = "\"rst\":true";
-			return gson.toJson(rst);
-		}
-		//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 
-	/*
-	 * @PostMapping("/qa/buyqa.do") public String buyqaPostHandle(@RequestParam Map
-	 * map, HttpSession session) {
-	 * 
-	 * Map data = (Map)session.getAttribute("user"); String sender =
-	 * (String)data.get("ID"); map.put("sender", sender);
-	 * System.out.println("고유키"+UUID.randomUUID());
-	 * 
-	 * return "account.buyQA"; }
-	 */
+	
 }
