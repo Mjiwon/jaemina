@@ -112,7 +112,7 @@ public class BoardQASocketController extends TextWebSocketHandler {
 				target =(String)checkMember.get(0);				
 			}
 			
-			String json = "{\"mode\":\"boardQA\"}";
+			String json = "{\"mode\":\"boardQA\", \"room\":\""+room+"\"}";
 			socketService.sendOne(json, target);
 			
 		}catch (Exception e) {

@@ -2,10 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<style>
+	.test{
+		width: 40%;
+		display: inline-block;
+		white-space: pre-line;
+		
+	}
 </style>
+
+<div >
+<div style="width: 60%; padding-left: 2%;">
 <h2>문의하기</h2>
-<div>
 	<div class="input-group">
 		<div class="input-group">
 			<img
@@ -19,24 +29,36 @@
 		<c:forEach var="obj" items="${chatlog}">
 			<c:choose>
 				<c:when test="${obj.sender==user.ID}">
-					<div class="row" align="right">
-						<div class="col" style="right: 0px; bottom: 0px; vertical-align: bottom; margin-right: 1px;" >
-						
+					<div class="" align="right">
+						<div class="col" style="right: 0px; bottom: 0px; vertical-align: bottom; margin-right: 1px;">
 							<small>${obj.senddate }</small>
-						</div>
-						<div class="alert alert-secondary col-md-5" style="text-align: left;">  
-							${obj.sender} : <br />${obj.text} 
+							<c:choose>
+								<c:when test="${fn:length(obj.text)>=30 }">
+									<span class="badge badge-secondary test" style="text-align: left; font-size: 4mm; margin: 1%;">${obj.sender} : <br />${obj.text }</span>
+							
+								</c:when>
+								<c:otherwise>
+									<span class="badge badge-info " style="text-align: left; font-size: 4mm; margin: 1%;">${obj.sender} : <br />${obj.text }</span>
+							
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="row" align="left" role="alert"
+					<div class="" align="left" role="alert"
 						style="padding: 3px; margin-bottom: 3px; width: 50%">
-						<div class="alert alert-info col-md-9" >  
-							${obj.sender} : <br />${obj.text} 
-						</div>
-						<div class="col" style="right: 0px; bottom: 0px; vertical-align: bottom; margin-left: 1px;" >
-						
+						<div class="col" style="right: 0px; bottom: 0px; vertical-align: bottom; margin-left: 1px;">
+							<c:choose>
+								<c:when test="${fn:length(obj.text)>=30 }">
+									<span class="badge badge-info test" style="text-align: left; font-size: 4mm; margin: 1%;">${obj.sender} : <br />${obj.text }</span>
+							
+								</c:when>
+								<c:otherwise>
+									<span class="badge badge-info" style="text-align: left; font-size: 4mm; margin: 1%;">${obj.sender} : <br />${obj.text }</span>
+							
+								</c:otherwise>
+							</c:choose>
 							<small>${obj.senddate }</small>
 						</div>
 					</div>
@@ -53,8 +75,11 @@
 			aria-describedby="basic-addon1" id="inputs">
 	</div>
 </div>
-
+</div>
 <script>
+	document.getElementById("chatView").scrollTop = document
+			.getElementById("chatView").scrollHeight;
+
 	var qaws = new WebSocket("ws://" + location.host
 			+ "${pageContext.servletContext.contextPath}/boardqa.do");
 
@@ -69,43 +94,33 @@
 	};
 
 	var boardQAHandle = function(evt) {
-		console.log(evt)
+		console.log(evt);
+		console.log(evt.text + " / "+evt.text.length + " / " +evt.text.length>=30);
 		var d = new Date();
-		var html ="";
-		if(evt.sender=="${user.ID}"){
-			html += "<div class=\"row\" align=\"right\">";
-			html += "<div class=\"col\" style=\"right: 0px; bottom: 0px; vertical-align: bottom; margin-right: 1px;\">";
-			html +=  "<small>"+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+"</small>";
-			html += "</div>";
-			html += "<div class=\"alert alert-secondary col-md-5\" style=\"text-align: left;\">";
-			html +=  evt.sender + " : <br/>" + evt.text;
-			html += "</div>";
-			html += "</div>";
-			
-			/* html += "<div align=\"right\">";
-			html += "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding: 3px; margin-bottom: 3px; width: 50%; text-align: left;\">";
-			html +=  evt.sender + " : <br/>" + evt.text;
-			html += "</div>";
-			html += "</div>"; */		
-		}else{
-			html += "<div class=\"row\" align=\"left\" role=\"alert\" style=\"padding: 3px; margin-bottom: 3px; width: 50%\">";
-			html += "<div class=\"alert alert-info col-md-9\">";
-			html +=  evt.sender + " : <br/>" + evt.text;	
-			html += "</div>";
-			html +=	"<div class=\"col\" style=\"right: 0px; bottom: 0px; vertical-align: bottom; margin-left: 1px;\">";
-			html +=  "<small>"+d.getFullYear()+"-"+(d.getMoth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+"</small>";
-			html += "</div>";
-			html += "</div>";
+		var html = "";
+		if (evt.sender == "${user.ID}") {
+				html += "<div align=\"right\">";
+				html += "<div class=\"col\" style=\"right: 0px; bottom: 0px; vertical-align: bottom; margin-right: 1px;\">";
+				html += "<small>" + d.getFullYear() + "-" + (d.getMonth() + 1)
+						+ "-" + d.getDate() + " " + d.getHours() + ":"
+						+ d.getMinutes() + "</small>";
+				
+			if(evt.text.length>=30){
+				html += "<span class=\"badge badge-secondary test\" style=\"text-align: left; font-size: 4mm; margin: 1%;\">"+evt.sender + " : <br/>" + evt.text+"</span>";				
+			}else{
+				html +="<span class=\"badge badge-secondary\" style=\"text-align: left; font-size: 4mm; margin: 1%;\">"+evt.sender + " : <br/>" + evt.text+"</span>";
+			}
 			/* html += "<div class=\"alert alert-info\" align=\"left\" role=\"alert\" style=\"padding: 3px; margin-bottom: 3px; width: 50%\">";
 			html +=  evt.sender + " : <br/>" + evt.text;
 			html += "</div>";
 			 */
+			html += "</div>";
 		}
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop = document
 				.getElementById("chatView").scrollHeight;
 	};
-	
+
 	document.getElementById("inputs").onchange = function() {
 		console.log("인풋 밸류 " + this.value);
 		var msg = {
