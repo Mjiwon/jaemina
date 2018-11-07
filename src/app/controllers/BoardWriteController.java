@@ -69,38 +69,44 @@ public class BoardWriteController {
 
 	
 	
-	// 판매글쓰기로 이동
-	@GetMapping("/write.do")
-	public String writeGetHandle(Map map) {
-		List<Map> bcatelist = caterepo.getBigCate();
+	// 판매글로 이동
+		@GetMapping("/write.do")
+		public String writeGetHandle(Map map) {
+			List<Map> bcatelist = caterepo.getBigCate();
 			map.put("bigcate", bcatelist);
 
-		return "account.boardWrite";
-	}
-
-	// 판매글 DB에 insert
-	@PostMapping("/write.do")
-	public String writePostHandle(@RequestParam Map map, @RequestParam MultipartFile imgpath, WebRequest wr)
-			throws IOException {
-		// 파일(이미지) 업로드
-		Integer no = boardrepo.getSequenceVal();
-			map.put("no", no);
-		System.out.println("no : "+no);
-		String filename = map.get("writer") + "-" + no + "-" + map.get("title") + "-board" + ".jpg";
-		String path = ctx.getRealPath("\\storage\\board");
-
-		File dir = new File(path);
-		if (!dir.exists()) {
-			dir.mkdirs();
+			return "account.boardWrite";
 		}
-		File dst = new File(dir, filename);
-		imgpath.transferTo(dst);
 
-		String img = path + "\\" + filename;
-					
-			map.put("imgpath", "/storage/board/" + filename);
-		boardrepo.addBoard2(map);
+		// 판매글 DB에 insert
+		@PostMapping("/write.do")
+		public String writePostHandle(@RequestParam Map map, @RequestParam MultipartFile imgpath, WebRequest wr)
+				throws IOException {
+			// 파일(이미지) 업로드
+			Integer no = boardrepo.getSequenceVal();
+			map.put("no", no);
 
-		return "redirect:/board/detail.do?no=" + no;
-	}
+			String filename = map.get("writer") + "-" + no + "-" + map.get("title") + "-board" + ".jpg";
+			String path = ctx.getRealPath("\\storage\\board");
+			String addr = (String) map.get("addr");
+			System.out.println(addr);
+
+			File dir = new File(path);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			File dst = new File(dir, filename);
+			imgpath.transferTo(dst);
+
+			String img = path + "\\" + filename;
+			map.put("imgpath", "\\storage\\board" + "\\" + filename);
+				
+			if(addr != null) {
+				boardrepo.addBoard2(map);
+			}else {
+				boardrepo.addBoard1(map);
+			}
+
+			return "redirect:/board/detail.do?no=" + no;
+		}
 }

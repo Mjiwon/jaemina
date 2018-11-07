@@ -38,7 +38,6 @@ public class BoardRepository {
 		return template.selectList("board.get_myboard",id);
 	}
 	
-
 	// 카테고리에 맞는 ㄱㅔ시글 불러오기
 	public List<Map> getCateBoard(int bigcate){
 		return template.selectList("board.getCateBoard",bigcate);
@@ -92,7 +91,7 @@ public class BoardRepository {
 	}
 	
 	
-
+	
 	public int updateDetailBoard(Map data) {
 		return template.update("board.updateDetailBoard", data);
 	}

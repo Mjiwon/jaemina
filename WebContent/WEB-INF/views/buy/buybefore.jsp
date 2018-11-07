@@ -68,13 +68,10 @@
 		        msg += '카드 승인번호 : ' + rsp.apply_num;
 		        paydbinsert();
 		        console.log("결제 성공");
-		        
-		        // 결제 성공페이지로 보내기
 		    } else {
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		        console.log("결제 실패");
-		        // 결제 실패 페이지로 보내기
 		    }
 		    alert(msg);
 		});

@@ -50,20 +50,6 @@ public class SellerRepository {
 	
 	
 
-	public String myboardcount(String SellerId) {
-		return template.selectOne("seller.myboardcount", SellerId);
-		
-	}
-	public String Wishcount(String SellerId) {
-		return template.selectOne("seller.wishcount", SellerId);
-	}
-	public int staravg(String SellerId) {
-		return template.selectOne("seller.staravg", SellerId);
-	}
-	
-	
-	
-
 
 
 }

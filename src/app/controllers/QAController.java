@@ -100,6 +100,7 @@ public class QAController {
 		}else {
 			Map maps = getChatLog.get(0);
 			String room = (String)maps.get("room");
+			System.out.println(room+"번호데스네");
 			map.put("qamode", room);
 			map.put("no", no);
 			map.put("chatlog", maps.get("log"));

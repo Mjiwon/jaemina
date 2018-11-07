@@ -66,7 +66,8 @@
 
 						<li class="nav-item">
 							<button type="button" class="btn btn-primary">
-								<a href="${pageContext.servletContext.contextPath }/admin/index.do"
+								<a
+									href="${pageContext.servletContext.contextPath }/admin/index.do"
 									style="color: white;">관리자페이지</a>
 							</button>
 						</li>
@@ -78,8 +79,8 @@
 							href="${pageContext.servletContext.contextPath }/write.do"
 							style="color: black;"><b>판매글올리기</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/addseller.do"
-							style="color: black;"><b>판매자인증</b></a></li>
+							href="${pageContext.servletContext.contextPath }/addbank.do"
+							style="color: black;"><b>판매</b></a></li>
 						<li class="nav-item">
 						<a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
 							style="color: black;"><b>구매</b></a></li>

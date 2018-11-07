@@ -63,7 +63,7 @@ public class BoardListController {
 
 	
 	// 판매글 불러오기
-	@RequestMapping("/board/list.do")
+	@RequestMapping("/list.do")
 	public String boardListHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int bigcate = Integer.parseInt((String)param.get("bigcate"));
 		int smallcate = Integer.parseInt((String)param.get("smallcate"));
@@ -100,7 +100,7 @@ public class BoardListController {
 	}
 		
 		
-	@RequestMapping("/board/lists.do")
+	@RequestMapping("/lists.do")
 	public String boardListsHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int bigcate = Integer.parseInt((String) param.get("bigcate"));
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
