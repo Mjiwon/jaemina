@@ -164,7 +164,7 @@
                   <c:if test="${!status.last }"> | </c:if>
                </c:forEach>
                <c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
-               <c:if test="${currentPage != totalPage }"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
+               <c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
             </c:if>
             <c:if test="${!empty Sellerck }">
                <c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
@@ -178,7 +178,7 @@
                   <c:if test="${!status.last }"> | </c:if>
                </c:forEach>
                <c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
-               <c:if test="${currentPage != totalPage }"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
+               <c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
             </c:if>
 			</div>
 		</section>
