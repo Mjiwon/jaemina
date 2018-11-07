@@ -6,4 +6,8 @@
 		insert into pay values(pay_seq.nextval, #{postno}, #{seller}, #{price}, #{buyer}, sysdate, 1 , 1)
 	</insert>
 	
+	<select id="allPayCount" resultType="java.lang.Integer">
+		select count(*) from pay
+	</select>
+	
 </mapper>
