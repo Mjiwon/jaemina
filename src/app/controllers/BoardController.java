@@ -43,7 +43,7 @@ public class BoardController {
 
 	@Autowired
 	ServletContext ctx;
-	
+
 	@Autowired
 	Gson gson;
 
@@ -52,33 +52,30 @@ public class BoardController {
 
 	@Autowired
 	AccountRepository accountrepo;
-	
+
 	@Autowired
 	JavaMailSender sender;
-	
+
 	@Autowired
 	QAMessageRepository oamr;
 
 	@Autowired
 	SellerRepository sellerrepo;
-	
+
 	@Autowired
 	CateRepository caterepo;
-	
+
 	@Autowired
 	WishlistRepository wishrepo;
-	
+
 	@Autowired
 	ProfileRepository profilerepo;
 
 	@Autowired
 	QAMessageRepository mrepo;
 
-	
-
 	// 게시글
 	// 전체 게시글 갯수 불러오기
-	
 
 	// 상세페이지
 	@RequestMapping("/detail.do")
@@ -89,36 +86,32 @@ public class BoardController {
 		Map writer = sellerrepo.getSeller(sellerid);
 		String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
 		List<Map> wishlist = wishrepo.getWishlist(id);
-			wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
-			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
+		wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
+		wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
 
 		String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
 		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
 
-		
-		
 		Map cates = new HashMap<>();
-			cates.put("bigcate", bigcate);
-			cates.put("smallcate", smallcate);
+		cates.put("bigcate", bigcate);
+		cates.put("smallcate", smallcate);
 
 		Map cate = caterepo.getCate(cates);
-		for(Map<String, String> list: wishlist ) {
-			if(list.get("SELLER").equals(sellerid)) {
+		for (Map<String, String> list : wishlist) {
+			if (list.get("SELLER").equals(sellerid)) {
 				wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
 				break;
-			}else {
+			} else {
 			}
 		}
-	
-			map.put("detail", detail);
-			map.put("writer", writer);
-			map.put("cate", cate);
-			map.put("loginOk", id);
-		System.out.println("deatail info : "+ map);
+
+		map.put("detail", detail);
+		map.put("writer", writer);
+		map.put("cate", cate);
+		map.put("loginOk", id);
+		System.out.println("deatail info : " + map);
 		return "account.boardDetail";
 	}
-
-	
 
 	@RequestMapping("/modifyDetail.do")
 	public String boardModifyHandle(@RequestParam Map param, Map map, WebRequest wr) {
@@ -143,17 +136,18 @@ public class BoardController {
 	}
 
 	@RequestMapping("/detailUpdate.do")
-	public String boardDetailUpdateHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, Map map, WebRequest wr) throws IOException {
+	public String boardDetailUpdateHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, Map map,
+			WebRequest wr) throws IOException {
 		int detailno = (int) wr.getAttribute("boardNum", WebRequest.SCOPE_SESSION);
 		Map detail1 = boardrepo.getDetailBoard(detailno);
 		param.put("no", detailno);
-		if(imgpath.getOriginalFilename().equals("")) {
-			if(param.get("addr").equals("")) {
+		if (imgpath.getOriginalFilename().equals("")) {
+			if (param.get("addr").equals("")) {
 				boardrepo.updateDetailBoard1(param);
-			}else {
+			} else {
 				boardrepo.updateDetailBoard3(param);
 			}
-		}else {
+		} else {
 			String filename = param.get("writer") + "-" + detailno + "-" + detail1.get("TITLE") + "-board" + ".jpg";
 			String path = ctx.getRealPath("\\storage\\board");
 			File dir = new File(path);
@@ -165,9 +159,9 @@ public class BoardController {
 
 			String img = path + "\\" + filename;
 			param.put("imgpath", "\\storage\\board" + "\\" + filename);
-			if(param.get("addr").equals("")) {
+			if (param.get("addr").equals("")) {
 				boardrepo.updateDetailBoard2(param);
-			}else {
+			} else {
 				boardrepo.updateDetailBoard4(param);
 			}
 		}
@@ -180,23 +174,23 @@ public class BoardController {
 		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
 
 		Map cates = new HashMap<>();
-			cates.put("bigcate", bigcate);
-			cates.put("smallcate", smallcate);
+		cates.put("bigcate", bigcate);
+		cates.put("smallcate", smallcate);
 
 		Map cate = caterepo.getCate(cates);
 
-			map.put("detail", detail);
-			map.put("writer", writer);
-			map.put("cate", cate);
+		map.put("detail", detail);
+		map.put("writer", writer);
+		map.put("cate", cate);
 
-			wr.removeAttribute("boardNum", WebRequest.SCOPE_SESSION);
+		wr.removeAttribute("boardNum", WebRequest.SCOPE_SESSION);
 		return "account.boardDetail";
 	}
 
 	@RequestMapping("/deleteDetail.do")
 	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		boardrepo.deleteDetailBoard(Integer.parseInt((String) param.get("no")));
-	
+
 		if (wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) != null) {
 			map.put("searchKey", wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION));
 			return "redirect:searchList.do";
@@ -211,21 +205,41 @@ public class BoardController {
 			return "redirect:lists.do";
 		}
 	}
-	
+
 	// ----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!
 
 	@RequestMapping("/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
+		int currentPage = Integer.parseInt((String) param.get("currentPage"));
+		System.out.println(currentPage);
+		int startCount = (currentPage - 1) * 9 + 1;
+		int endCount = currentPage * 9;
+
 		String searchKey = (String) param.get("searchKey");
 		List<String> li = new ArrayList<>();
 		String[] searchKeys = searchKey.split(" ");
 		for (int i = 0; i < searchKeys.length; i++) {
 			li.add("%" + searchKeys[i] + "%");
 		}
-		List<Map> list = boardrepo.getSearchListByList(li);
-		map.put("boardlist", list);
+		int boardCount = boardrepo.getSearchListByList(li).size();
+		
+		Map mapp = new HashMap<>();
+		mapp.put("startCount", startCount);
+		mapp.put("endCount", endCount);
+		mapp.put("list", li);
+		List<Map> list2 = boardrepo.getSearchListByMap(mapp);
+		map.put("boardlist", list2);
+		int totalPage = boardCount / 9;
+		if ((boardCount % 9) > 0) {
+			totalPage++;
+		}
+		map.put("totalPage", totalPage);
+		map.put("currentPage", currentPage);
+
 		wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
+
+
 		return "account.boardlist";
 	}
 
@@ -241,14 +255,8 @@ public class BoardController {
 		return "/index.do";
 	}
 
-	
-
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	
-		
-		
-		//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+	// ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 
-	
 }

@@ -43,13 +43,12 @@ public class BoardRepository {
 		return template.selectList("board.getCateBoard",bigcate);
 	}
 	
-	
-	public List<Map> getSearchListByString(String searchKey) {
-		return template.selectList("board.getSearchListByString", "%"+searchKey+"%");
-	}
-	
 	public List<Map> getSearchListByList(List<String> li) {
 		return template.selectList("board.getSearchListByList", li);
+	}
+	
+	public List<Map> getSearchListByMap(Map map) {
+		return template.selectList("board.getSearchListByMap", map);
 	}
 	
 	
