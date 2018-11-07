@@ -41,11 +41,11 @@
 		border3-bg:			#eaeaea,
 
 		accent1: (
-			bg:				#4acaa8,
+			bg:				#ea1d5d,
 			fg-bold:		#ffffff,
-			fg:				mix(#4acaa8, #ffffff, 25%),
-			fg-light:		mix(#4acaa8, #ffffff, 40%)
-		),
+			fg:				mix(#ea1d5d, #ffffff, 25%),
+			fg-light:		mix(#ea1d5d , #ffffff, 40%)
+		)
 
 		accent2: (
 			bg:				#989898,
@@ -55,10 +55,10 @@
 		),
 
 		header: (
-			bg:				#4acaa8,
+			bg:				#ea1d5d,
 			fg-bold:		#ffffff,
-			fg:				mix(#4acaa8, #ffffff, 25%),
-			fg-light:		mix(#4acaa8, #ffffff, 40%),
-			border:			mix(#4acaa8, #ffffff, 90%)
+			fg:				mix(#ea1d5d, #ffffff, 25%),
+			fg-light:		mix(#ea1d5d, #ffffff, 40%),
+			border:			mix(#ea1d5d, #ffffff, 90%)
 		)
 	);

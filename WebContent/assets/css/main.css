@@ -117,7 +117,7 @@ input, select, textarea {
 
 		a:hover {
 			border-bottom-color: transparent;
-			color: #4acaa8 !important;
+			color: ea1d5d !important;
 		}
 
 	strong, b {
@@ -1790,7 +1790,7 @@ input, select, textarea {
 	}
 
 	header.major h2 {
-		color: #4acaa8;
+		color: #ea1d5d;
 		font-size: 3.5em;
 	}
 
@@ -1853,7 +1853,7 @@ input, select, textarea {
 		input[type="email"]:focus,
 		select:focus,
 		textarea:focus {
-			border-color: #4acaa8;
+			border-color: #ea1d5d;
 		}
 
 	select {
@@ -1953,7 +1953,7 @@ input, select, textarea {
 
 		input[type="checkbox"]:focus + label:before,
 		input[type="radio"]:focus + label:before {
-			border-color: #4acaa8;
+			border-color: #ea1d5d;
 		}
 
 	input[type="checkbox"] + label:before {
@@ -2382,7 +2382,7 @@ input, select, textarea {
 			}
 
 			ul.feature-icons li:before {
-				background: #4acaa8;
+				background: #ea1d5d;
 				border-radius: 100%;
 				color: #ffffff;
 				display: block;
@@ -2598,7 +2598,7 @@ input, select, textarea {
 		input[type="reset"].primary,
 		input[type="button"].primary,
 		.button.primary {
-			background-color: #4acaa8;
+			background-color: #ea1d5d;
 			color: #ffffff !important;
 		}
 
@@ -2680,8 +2680,8 @@ input, select, textarea {
 		-webkit-justify-content: space-between;
 		-ms-justify-content: space-between;
 		justify-content: space-between;
-		background: #4acaa8;
-		color: #d2f2e9;
+		background: #ea1d5d;
+		color: #ea1d5d;
 		height: 100%;
 		overflow-y: auto;
 		position: fixed;
@@ -2704,7 +2704,7 @@ input, select, textarea {
 		}
 
 		#header a {
-			color: #d2f2e9;
+			color: #ea1d5d;
 		}
 
 			#header a:hover {
@@ -2731,7 +2731,7 @@ input, select, textarea {
 			}
 
 			#header > header p {
-				color: #d2f2e9;
+				color: #ea1d5d;
 				font-style: italic;
 				margin: 1em 0 0 0;
 			}
@@ -2788,7 +2788,7 @@ input, select, textarea {
 
 						#header > nav ul li a.active {
 							background: #fff;
-							color: #4acaa8 !important;
+							color: #ea1d5d !important;
 						}
 
 					#header > nav ul li:first-child {

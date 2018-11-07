@@ -28,7 +28,7 @@
 
       	<script>
 	      	window.alert("정보수정 완료");
-	      	opener.location.href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=1";
+	      	opener.location.href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=1";
 	      	window.close();
       	</script>
 </body>

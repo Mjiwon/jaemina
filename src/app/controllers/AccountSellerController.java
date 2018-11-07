@@ -2,6 +2,8 @@ package app.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -61,44 +63,7 @@ public class AccountSellerController {
 	ProfileRepository profilerepo;
 
 	// ----------------------------------------------------------------------------------------------------------------------------
-		// 판매자 등록 컨트롤러
-		@GetMapping("/addseller.do")
-		public String addSellerGetHandle() {
-			return "/WEB-INF/views/account/seller/addseller.jsp";
-		}
-
-		@PostMapping("/addseller.do")
-		public String addSellerHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, WebRequest wr)
-				throws IOException {
-			Map m = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
-
-			String id = (String) m.get("ID");
-
-			param.put("id", id);
-
-			String paramFileName = imgpath.getName();
-			String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
-			String realpath = ctx.getRealPath("/storage/sellerProfile");
-			String path = "/storage/sellerProfile";
-
-			File dir = new File(realpath);
-			if (!dir.exists()) {
-				dir.mkdirs();
-			}
-			File dst = new File(dir, fileName);
-			imgpath.transferTo(dst);
-
-			String img = path + "\\" + fileName;
-			param.put("imgpath", img);
-
-			if (param.get("imgpath") != null) {
-				int i = profilerepo.addSeller2(param);
-			} else {
-				int i = profilerepo.addSeller1(param);
-			}
-			return "account.sellerHomme";
-		}
-		
+	
 		// 판매자 정보
 		// 판매자 정보 페이지로 이동
 		@RequestMapping("/sellerpr.do")
@@ -108,8 +73,48 @@ public class AccountSellerController {
 			Map Seller = sellerrepo.getSeller(id);
 			session.setAttribute("Seller", Seller);
 
-			return "account.sellerHomme";
+			return "WEB-INF/views/account/seller/sellerHome.jsp";
 		}
+		
+		
+		
+		//재미로그
+		@RequestMapping("/jaemilog.do")
+		public String MyBoardHandle(HttpSession session, @RequestParam int currentPage, Map map, WebRequest wr) {
+			wr.setAttribute("Myck", true, WebRequest.SCOPE_REQUEST);
+			Map suser = (Map) session.getAttribute("user");
+			String id = (String) suser.get("ID");
+			Map duser = sellerrepo.getSeller(id);
+
+			if (duser != null) {
+				List<Map> MyBoard = boardrepo.getmyboard(id);
+				int startCount = (currentPage - 1) * 9 + 1;
+				int endCount = currentPage * 9;
+				int boardCount = boardrepo.getmyboard(id).size();
+				int totalPage = boardCount / 9;
+				if ((boardCount % 9) > 0) {
+					totalPage++;
+				}
+				Map mapp = new HashMap<>();
+				mapp.put("writer", id);
+				mapp.put("startCount", startCount);
+				mapp.put("endCount", endCount);
+				
+				map.put("MyBoard", boardrepo.getBoardListBySellerForPasing(mapp));
+				map.put("totalPage", totalPage);
+				map.put("currentPage", currentPage);
+
+				// 판매자 정보 가지고 오기
+				Map Seller = sellerrepo.getSeller(id);
+				session.setAttribute("Seller", Seller);
+				return "WEB-INF/views/account/seller/sellerHome.jsp";
+			} else
+				return "redirce:addseller.do";
+		}
+		
+		
+		
+		
 
 		@GetMapping("/update_seller.do")
 		public String UpdateSellerGetHandle() {
@@ -150,8 +155,7 @@ public class AccountSellerController {
 			}
 			Map Seller = sellerrepo.getSeller(id);
 				session.setAttribute("Seller", Seller);
-			return "account.sellerHomme";
+			return "/WEB-INF/views/account/seller/update_seller2.jsp";
 		}
-		
 	
 }

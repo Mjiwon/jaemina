@@ -1,5 +1,7 @@
 package app.controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -56,41 +60,63 @@ public class AccountProfileController {
 	@Autowired
 	ProfileRepository profilerepo;
 	
-	// 판매자 계좌번호 등록
-	@GetMapping("/addbank.do")
+	// 판매자 등록
+	@GetMapping("/addseller.do")
 	public String AddBankGetHandle(HttpSession session) {
 		Map suser = (Map) session.getAttribute("user");
 		String sid = (String) suser.get("ID");
 		Map duser = (Map) accountrepo.Myinfo(sid);
-		String dbank = (String) duser.get("BANK");
-
 		// 이미 등록했으면 판매글 오리기로 이동
 		Map dseller = (Map) profilerepo.Sellerinfo(sid);
-
-		if (dbank == null) {
-			return "/WEB-INF/views/account/seller/addbank.jsp";
-		} else if (dseller == null) {
+		if (dseller == null) {
 			return "/WEB-INF/views/account/seller/addseller.jsp";
 		} else
 			return "redirect:/write.do";
 	}
-	
-	// 판매자 인증 AJAX
-	@PostMapping("/addbank.do")
-	@ResponseBody
-	public String addbankAjaxHandle(@RequestParam Map param) {
-		int r = accountrepo.addbank(param);
-		System.out.println("addbank result : "+r);
-		String rst = "";
-		if(r==1) {
-			rst = "\"rst\":true";
-		}else {
-			rst = "\"rst\":false";
+
+	@PostMapping("/addseller.do")
+	public String addSellerHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, WebRequest wr)
+			throws IOException {
+		Map m = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
+		String id = (String) m.get("ID");
+		param.put("id", id);
+		
+		String banknumber = (String) param.get("bank");
+		String bankname = (String) param.get("bankname");
+		String regEx = "\\d{12}|(\\d{4}-\\d{5}-\\d{6})$";
+		if (banknumber.matches(regEx)) {
+			param.put("bank", bankname + "/" + banknumber);
+			param.remove("bankname");
+			
+		String paramFileName = imgpath.getName();
+		String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
+		String realpath = ctx.getRealPath("\\storage\\sellerProfile");
+		String path = "\\storage\\sellerProfile";
+
+		File dir = new File(realpath);
+		if (!dir.exists()) {
+			dir.mkdirs();
 		}
-		return gson.toJson(rst);
+		File dst = new File(dir, fileName);
+		imgpath.transferTo(dst);
+
+		String img = path + "\\" + fileName;
+		param.put("imgpath", img);
+
+		System.out.println("뭐나오냐"+param);
+		
+		
+		if (param.get("imgpath") != null) {
+			int i = profilerepo.addSeller1(param);
+		} else {
+			int i = profilerepo.addSeller2(param);
+		}
+		return "redirct:index.do";
+		
+	}else {
+		return "redirct:index.do";
 	}
 	
-	
-	
+	}
 	
 }

@@ -207,43 +207,6 @@ public class AccountController {
 
 	// 판매자 블러그 올린글 확인!
 
-	@RequestMapping("/myboard.do")
-	public String MyBoardHandle(HttpSession session, @RequestParam int currentPage, Map map, WebRequest wr) {
-		wr.setAttribute("Myck", true, WebRequest.SCOPE_REQUEST);
-		Map suser = (Map) session.getAttribute("user");
-
-		String id = (String) suser.get("ID");
-		
-
-		Map duser = accountrepo.Myinfo(id);
-
-		String dbank = (String) duser.get("BANK");
-
-		if (dbank != null) {
-			List<Map> MyBoard = boardrepo.getmyboard(id);
-			int startCount = (currentPage - 1) * 9 + 1;
-			int endCount = currentPage * 9;
-			int boardCount = boardrepo.getmyboard(id).size();
-			int totalPage = boardCount / 9;
-			if ((boardCount % 9) > 0) {
-				totalPage++;
-			}
-			Map mapp = new HashMap<>();
-			mapp.put("writer", id);
-			mapp.put("startCount", startCount);
-			mapp.put("endCount", endCount);
-			
-			map.put("MyBoard", boardrepo.getBoardListBySellerForPasing(mapp));
-			map.put("totalPage", totalPage);
-			map.put("currentPage", currentPage);
-
-			// 판매자 정보 가지고 오기
-			Map Seller = sellerrepo.getSeller(id);
-			session.setAttribute("Seller", Seller);
-			return "account.sellerHomme";
-		} else
-			return "/addbank.do";
-	}
 
 	// 회원 마이 페이지 이동
 	// 구현중

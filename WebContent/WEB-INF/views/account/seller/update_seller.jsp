@@ -14,7 +14,6 @@
 	<!-- Four -->
 	<section id="four">
 		<div class="container">
-			<h4>판매자 정보 수정</h4>
 			<h3 style="color: #4acaa8;">판매자 정보 수정</h3>
 			<form
 				action="${pageContext.servletContext.contextPath }/update_seller.do"

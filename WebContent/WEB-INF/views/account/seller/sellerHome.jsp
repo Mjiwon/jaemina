@@ -20,7 +20,7 @@
 -->
 <html>
 <head>
-<title>Read Only by HTML5 UP</title>
+<title>재미나</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -34,22 +34,22 @@
 <body class="is-preload">
 
 	<!-- Header -->
-	<section id="header">
+	<section id="header" style="background: #ea1d5d;">
 		<header>
 			<span class="image avatar"><img src="${pageContext.servletContext.contextPath }${Seller.IMGPATH}"/></span>
 			<h1 id="logo">
 				<a href="#">${Seller.ID }</a>
 			</h1>
-				<p>${Seller.ONELINE }</p>
+				<p style="color: white;">${Seller.ONELINE }</p>
 		</header>
-		<nav id="nav">
+		<nav id="nav" style="color: #ea1d5d">
 			<ul>
 				<li><a href="#one" class="active">소개</a></li>
 				<li><a href="#two">평가</a></li>
 				<li><a href="#three">포트폴리오</a></li>
 			</ul>
 		</nav>
-		<footer>
+		<footer style="background-color: #ea1d5d">
 			<ul class="icons">
 				<li><a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?writer=${Seller.ID}" class="icon fa-envelope">문의하기</a></li>
 			</ul>
@@ -62,27 +62,24 @@
 		<div id="main">
 			<!-- One -->
 			<section id="one">
-				<div>
-					<a href="${pageContext.servletContext.contextPath }/index.do">재미나11</a><br/>
-				</div>
 				<div class="image main" data-position="center">
 					<img src="images/banner.jpg" alt="" />
 				</div>
 				
 				<div class="container">
 					<header class="major">
-						<h3>정보</h3>
+						<h3 style="color: #ea1d5d">정보</h3>
 						
 					</header>
-					<div style="display: inline-block; margin-right: 200px;" >
+					<div style="display: inline-block; margin-right: 100px;" >
 						<h4>● 학력</h4>
 								<p>${Seller.ACADEMY}</p>
 					</div>
-					<div style="display: inline-block; margin-right: 200px;" >
+					<div style="display: inline-block; margin-right: 100px;" >
 						<h4>● 경력사항</h4>
 						<p>${Seller.CAREER }</p>
 					</div>
-					<div style="display: inline-block; margin-right: 200px;" >
+					<div style="display: inline-block; margin-right: 100px;" >
 					<c:if test="${Seller.LICENCE !=null}">
 						<h4>● 자격증</h4>
 						<p>${Seller.LICENCE }</p>
@@ -115,7 +112,7 @@
 		
 			<div class="container">
 				<header class="major">
-					<h3>평가</h3>
+					<h3  style="color: #ea1d5d">평가</h3>
 				</header>
 				<ul class="feature-icons">
 					<li class="fa-book">총 작업수 :${Seller.boardcount } 개</li>
@@ -130,7 +127,7 @@
 		<section id="three">
 			<div class="container">
 				<header class="major">
-					<h3>포트폴리오</h3>
+					<h3  style="color: #ea1d5d">포트폴리오</h3>
 				</header>
 	<div class="col-9">
 		<div class="row">
@@ -159,12 +156,12 @@
                <c:forEach var="index" begin="${startNum }" end="${endNum }" varStatus="status">
                   <c:choose>
                      <c:when test="${index == currentPage }"><b>${index }</b></c:when>
-                     <c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
+                     <c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
                   </c:choose>
                   <c:if test="${!status.last }"> | </c:if>
                </c:forEach>
                <c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
-               <c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
+               <c:if test="${currentPage != totalPage }"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
             </c:if>
             <c:if test="${!empty Sellerck }">
                <c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
@@ -178,7 +175,7 @@
                   <c:if test="${!status.last }"> | </c:if>
                </c:forEach>
                <c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
-               <c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
+               <c:if test="${currentPage != totalPage }"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
             </c:if>
 			</div>
 		</section>

@@ -79,7 +79,7 @@
 							href="${pageContext.servletContext.contextPath }/write.do"
 							style="color: black;"><b>판매글올리기</b></a></li>
 						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/addbank.do"
+							href="${pageContext.servletContext.contextPath }/addseller.do"
 							style="color: black;"><b>판매</b></a></li>
 						<li class="nav-item">
 						<a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
@@ -131,9 +131,13 @@
 									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
 										style="color: green;">${user.ID }</b>의 재미나</a> 
 								
-								<li><a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=1">나의
-										블로그</a></li>
+								<li><a class="dropdown-item" id="jamilog"
+									href="javascript:jamilog">나의 재미로그</a></li>
+										
+										
+					
+										
+										
 								<li class="dropdown-submenu"><a
 									class="dropdown-item dropdown-toggle test"
 									data-toggle="dropdown"> 관심 판매자 목록 <span class="caret"></span></a>
@@ -171,6 +175,18 @@
 	</div>
 </nav>
 <script>
+
+$("#jamilog")
+.on(
+		"click",
+		function() {
+			window
+					.open(
+							"${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=1",
+							"f",
+							"width=1000, height=700, left=700, top=200");
+		});
+
 	$("#deleteUser")
 			.on(
 					"click",
@@ -186,7 +202,7 @@
 			.on(
 					"click",
 					function() {
-						window
+						window 
 								.open(
 										"${pageContext.servletContext.contextPath }/changeUser.do",
 										"f",
