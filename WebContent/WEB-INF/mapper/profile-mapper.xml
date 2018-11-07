@@ -4,11 +4,11 @@
 	
 	<!-- insert -->
 	<insert id="addSeller1" parameterType="java.util.HashMap">
-		insert into account_profile values(#{id}, #{academy}, #{career}, #{imgpath}, #{introuce} )
+		insert into account_profile values(accountprofile_seq.nextval, #{id}, #{academy}, #{career}, #{imgpath}, #{introuce}, null, null )
 	</insert>
 	
 	<insert id="addSeller2" parameterType="java.util.HashMap">
-		insert into account_profile values(#{id}, #{academy}, #{career}, null, #{introuce})
+		insert into account_profile values(accountprofile_seq.nextval,#{id}, #{academy}, #{career}, null, #{introuce}, null, null)
 	</insert>
 	
 	

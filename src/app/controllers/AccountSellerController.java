@@ -68,7 +68,7 @@ public class AccountSellerController {
 		}
 
 		@PostMapping("/addseller.do")
-		public String addSellerHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, WebRequest wr)
+		public String addSellerHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, WebRequest wr, Map map)
 				throws IOException {
 			Map m = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
 
@@ -86,16 +86,20 @@ public class AccountSellerController {
 				dir.mkdirs();
 			}
 			File dst = new File(dir, fileName);
-			imgpath.transferTo(dst);
+				imgpath.transferTo(dst);
 
 			String img = path + "\\" + fileName;
-			param.put("imgpath", img);
+				param.put("imgpath", img);
 
 			if (param.get("imgpath") != null) {
-				int i = profilerepo.addSeller2(param);
-			} else {
 				int i = profilerepo.addSeller1(param);
+				System.out.println("addseller result : "+i);
+				
+			} else {
+				int i = profilerepo.addSeller2(param);
+				System.out.println("addseller result : "+i);
 			}
+				map.put("accountprofile",profilerepo.Sellerinfo(id));
 			return "account.sellerHomme";
 		}
 		

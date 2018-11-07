@@ -5,6 +5,7 @@
 <c:set var="currentPage">${currentPage }</c:set>
 <c:set var="totalPage">${totalPage }</c:set>
 <c:set var="pageBlock">10</c:set>
+<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
 
 <fmt:parseNumber var="currentBlock" integerOnly="true" value="${currentPage/pageBlock }"/>
 <fmt:parseNumber var="lastBlock" integerOnly="true" value="${totalPage/pageBlock }"/>
@@ -36,7 +37,7 @@
 	<!-- Header -->
 	<section id="header">
 		<header>
-			<span class="image avatar"><img src="${pageContext.servletContext.contextPath }${Seller.IMGPATH}"/></span>
+			<span class="image avatar"><img src="${path}${Seller.IMGPATH}"/></span>
 			<h1 id="logo">
 				<a href="#">${Seller.ID }</a>
 			</h1>
@@ -51,7 +52,7 @@
 		</nav>
 		<footer>
 			<ul class="icons">
-				<li><a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?writer=${Seller.ID}" class="icon fa-envelope">문의하기</a></li>
+				<li><a href="${path}/qa/buyqa.do?writer=${Seller.ID}" class="icon fa-envelope">문의하기</a></li>
 			</ul>
 		</footer>
 	</section>
@@ -63,7 +64,7 @@
 			<!-- One -->
 			<section id="one">
 				<div>
-					<a href="${pageContext.servletContext.contextPath }/index.do">재미나11</a><br/>
+					<a href="${path}/index.do">재미나11</a><br/>
 				</div>
 				<div class="image main" data-position="center">
 					<img src="images/banner.jpg" alt="" />
