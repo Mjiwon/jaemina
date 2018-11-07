@@ -39,6 +39,12 @@
 		or content like <foreach collection="list" item="searchKey" separator=" and content like ">#{searchKey}</foreach>
 	</select>
 	
+	<select id="getSearchListByMap" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select a.*, rownum as rnum from(select * from board where title like <foreach collection="list" item="searchKey" separator=" and title like ">#{searchKey}</foreach>
+		or content like <foreach collection="list" item="searchKey" separator=" and content like ">#{searchKey}</foreach>
+		order by wrdate desc) a where rownum <![CDATA[<=]]> ${endCount } ) where rnum <![CDATA[>=]]> ${startCount }
+	</select>
+	
 	
 	<select id="boardCount" resultType="java.lang.Integer">
 		select count(*) from board

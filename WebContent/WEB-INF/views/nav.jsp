@@ -26,7 +26,7 @@
 			href="${pageContext.servletContext.contextPath }/index.do">JAEMINA</a>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<form
-				action="${pageContext.servletContext.contextPath }/board/searchList.do"
+				action="${pageContext.servletContext.contextPath }/board/searchList.do?currentPage=1"
 				method="post">
 				<div class="row">
 					<div class="col">
