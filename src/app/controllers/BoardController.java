@@ -302,16 +302,12 @@ public class BoardController {
 	
 	// ----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!!!
-/*
+
 	@RequestMapping("/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		String searchKey = (String) param.get("searchKey");
 		List<String> li = new ArrayList<>();
-<<<<<<< HEAD
-		String[] searchKeys = searchKey.split(" ");
-		for (int i = 0; i < searchKeys.length; i++) {
-			li.add("%" + searchKeys[i] + "%");
-=======
+
 		if (searchKey.indexOf(" ") != -1) {
 			String[] searchKeys = searchKey.split(" ");
 			for (int i = 0; i < searchKeys.length; i++) {
@@ -324,13 +320,12 @@ public class BoardController {
 			List<Map> list = boardrepo.getSearchListByString(searchKey);
 				map.put("boardlist", list);
 				wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
->>>>>>> refs/remotes/origin/se0
 		}
 		List<Map> list = boardrepo.getSearchListByList(li);
-		map.put("boardlist", list);
-		wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
+			map.put("boardlist", list);
+			wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
 		return "account.boardlist";
-	}*/
+	}
 
 	// 구매 결정 컨트롤러
 	// 구현중
