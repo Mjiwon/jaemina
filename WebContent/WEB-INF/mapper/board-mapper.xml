@@ -75,8 +75,20 @@
 	
 	
 	<!-- update -->
-	<update id="updateDetailBoard" parameterType="java.util.HashMap">
+	<update id="updateDetailBoard1" parameterType="java.util.HashMap">
 		update board set price=#{price}, content=#{content} where no=#{no}
+	</update>
+	
+	<update id="updateDetailBoard2" parameterType="java.util.HashMap">
+		update board set imgpath=#{imgpath}, price=#{price}, content=#{content} where no=#{no}
+	</update>
+	
+	<update id="updateDetailBoard3" parameterType="java.util.HashMap">
+		update board set price=#{price}, addr=#{addr}, content=#{content} where no=#{no}
+	</update>
+	
+	<update id="updateDetailBoard4" parameterType="java.util.HashMap">
+		update board set imgpath=#{imgpath}, price=#{price}, addr=#{addr}, content=#{content} where no=#{no}
 	</update>
 	
 	

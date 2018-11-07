@@ -131,6 +131,9 @@
 							address.</div>
 					</div>
 
+					<div class="mb-3">
+						<label for="address2">주소 : ${detail.ADDR }</label>
+					</div>
 					<c:if test="${!empty detail.ADDR }">
 						<div id="map" style="width: 100%; height: 350px;"></div>
 

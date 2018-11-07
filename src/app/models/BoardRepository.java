@@ -92,8 +92,20 @@ public class BoardRepository {
 	
 	
 	
-	public int updateDetailBoard(Map data) {
-		return template.update("board.updateDetailBoard", data);
+	public int updateDetailBoard1(Map data) {
+		return template.update("board.updateDetailBoard1", data);
+	}
+	
+	public int updateDetailBoard2(Map data) {
+		return template.update("board.updateDetailBoard2", data);
+	}
+	
+	public int updateDetailBoard3(Map data) {
+		return template.update("board.updateDetailBoard3", data);
+	}
+	
+	public int updateDetailBoard4(Map data) {
+		return template.update("board.updateDetailBoard4", data);
 	}
 	
 	public int deleteDetailBoard(int no) {

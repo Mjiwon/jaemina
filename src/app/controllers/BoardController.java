@@ -139,17 +139,39 @@ public class BoardController {
 		map.put("cate", cate);
 
 		wr.setAttribute("boardNum", detailno, WebRequest.SCOPE_SESSION);
-		return "/WEB-INF/views/board/detailModify.jsp";
+		return "account.Modify";
 	}
 
 	@RequestMapping("/detailUpdate.do")
-	public String boardDetailUpdateHandle(@RequestParam Map param, Map map, WebRequest wr) {
+	public String boardDetailUpdateHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, Map map, WebRequest wr) throws IOException {
 		int detailno = (int) wr.getAttribute("boardNum", WebRequest.SCOPE_SESSION);
-		
-			param.put("no", detailno);
-		boardrepo.updateDetailBoard(param);
-		Map detail = boardrepo.getDetailBoard(detailno);
+		Map detail1 = boardrepo.getDetailBoard(detailno);
+		param.put("no", detailno);
+		if(imgpath.getOriginalFilename().equals("")) {
+			if(param.get("addr").equals("")) {
+				boardrepo.updateDetailBoard1(param);
+			}else {
+				boardrepo.updateDetailBoard3(param);
+			}
+		}else {
+			String filename = param.get("writer") + "-" + detailno + "-" + detail1.get("TITLE") + "-board" + ".jpg";
+			String path = ctx.getRealPath("\\storage\\board");
+			File dir = new File(path);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			File dst = new File(dir, filename);
+			imgpath.transferTo(dst);
 
+			String img = path + "\\" + filename;
+			param.put("imgpath", "\\storage\\board" + "\\" + filename);
+			if(param.get("addr").equals("")) {
+				boardrepo.updateDetailBoard2(param);
+			}else {
+				boardrepo.updateDetailBoard4(param);
+			}
+		}
+		Map detail = boardrepo.getDetailBoard(detailno);
 		String sellerid = (String) detail.get("WRITER");
 		Map writer = sellerrepo.getSeller(sellerid);
 		String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);

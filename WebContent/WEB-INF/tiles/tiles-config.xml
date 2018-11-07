@@ -28,6 +28,11 @@
 		<put-attribute name="center" value="/WEB-INF/views/board/write.jsp"/>
 	</definition>
 	
+	<definition name="account.Modify" template="/WEB-INF/tiles/basicTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/board/detailModify.jsp"/>
+	</definition>
+	
 	<!-- QA 타일즈  -->
 	<definition name="account.buyQA" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
