@@ -207,7 +207,7 @@ public class BoardController {
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------
-	// 검색 기능 완료!
+	// 검색 기능 완료!!
 
 	@RequestMapping("/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
