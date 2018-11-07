@@ -85,7 +85,7 @@ public class AccountSellerController {
 			Map suser = (Map) session.getAttribute("user");
 			String id = (String) suser.get("ID");
 			Map duser = sellerrepo.getSeller(id);
-
+			
 			if (duser != null) {
 				List<Map> MyBoard = boardrepo.getmyboard(id);
 				int startCount = (currentPage - 1) * 9 + 1;
@@ -105,8 +105,26 @@ public class AccountSellerController {
 				map.put("currentPage", currentPage);
 
 				// 판매자 정보 가지고 오기
+				
+				String myboardcount=sellerrepo.myboardcount(id);
+				if(myboardcount==null)
+					myboardcount="0";
+				
+				String wishcount =sellerrepo.wishcount(id);
+					if(wishcount==null)
+					wishcount="0";
+				String staravg =sellerrepo.staravg(id);
+				if(staravg==null)
+					staravg="0";
+				
+				
 				Map Seller = sellerrepo.getSeller(id);
 				session.setAttribute("Seller", Seller);
+				Seller.put("myboardcount", myboardcount);
+				Seller.put("wishcount",wishcount);
+				Seller.put("staravg", staravg);	
+				
+						
 				return "WEB-INF/views/account/seller/sellerHome.jsp";
 			} else
 				return "redirce:addseller.do";
