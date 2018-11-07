@@ -23,7 +23,7 @@
 	
 	
 	<update id="updateProfileBank" parameterType="java.util.HashMap">
-		update account_profile set bank=#{bank} where id={id}
+		update account_profile set bank=#{bank} where id=#{id}
 	</update>
 	
 	

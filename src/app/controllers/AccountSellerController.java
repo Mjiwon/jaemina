@@ -104,7 +104,7 @@ public class AccountSellerController {
 				System.out.println("profile update : "+r);
 			}
 				map.put("accountprofile",profilerepo.Sellerinfo(id));
-			return "account.sellerHomme";
+			return "/WEB-INF/views/account/seller/addbank.jsp";
 		}
 		
 		// 판매자 정보

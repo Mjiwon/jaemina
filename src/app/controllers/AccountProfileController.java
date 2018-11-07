@@ -84,14 +84,15 @@ public class AccountProfileController {
 		Map data = new HashMap();
 		data.put("id", (String)((Map)session.getAttribute("user")).get("ID"));
 		data.put("bank", bank);
+		System.out.println("addbank data : "+data);
 		int r = profilerepo.updateProfileBank(data);
 		if(r == 1) {
 			System.out.println("addbank result : "+r);
-			return "";
+			return "account.sellerHomme";
 		}else {
 			System.out.println("addbank result : "+r);
-			// profile 등록 페이지로 이동
-			return "/WEB-INF/views/account/seller/addseller.jsp";
+			// 은행 계좌 실패 알려줌
+			return "account.sellerHomme";
 		}
 	}
 	
