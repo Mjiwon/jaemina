@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
  <meta name="viewport" content="initial-scale=1.0">
  <meta charset="utf-8">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -22,8 +24,7 @@
 	<div class="row">
 		<!-- 판매내용 작성 -->
 		<div class="col-md-8 order-md-1" style="margin: auto;">
-			<form action="${pageContext.servletContext.contextPath }/write.do"
-				method="post" enctype="multipart/form-data">
+			<form action="${path}/write.do" method="post" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label>작성자</label>
 					<div class="input-group">
@@ -33,7 +34,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 mb-3">
-						<label>대분류</label> <select id="bigcate" name="bigcate"
+						<label>★대분류</label> <select id="bigcate" name="bigcate"
 							class="form-control">
 							<option>카테고리를 선택하세요</option>
 							<c:forEach var="big" items="${bigcate }">
@@ -42,7 +43,7 @@
 						</select>
 					</div>
 					<div class="col-md-6 mb-3">
-						<label>소분류</label> <select id="smallcate" name="smallcate"
+						<label>★소분류</label> <select id="smallcate" name="smallcate"
 							class="form-control">
 							<option>카테고리를 선택하세요</option>
 						</select>
@@ -72,32 +73,95 @@
 				</div>
 
 				<div class="mb-3">
-					<label>제목</label>
+					<label>★제목</label>
 					<div class="input-group">
 						<input type="text" class="form-control" id="title" name="title">
 					</div>
 				</div>
 
 				<div class="mb-3">
-					<label>Title이미지</label> <input type="file" class="form-control"
+					<label>★Title이미지</label> <input type="file" class="form-control"
 						id="img" name="imgpath">
 				</div>
 
 				<div class="mb-3">
-					<label>금액</label> <input type="number" class="form-control"
-						name="price">
+					<label>★금액</label> <input type="number" class="form-control"
+						name="price" id="price">
 
 				</div>
 
 				<div class="mb-3">
-					<label for="address2">상세내용</label>
-					<textarea rows="20" cols="20" class="form-control" name="content"></textarea>
+					<label for="address2">★상세내용</label>
+					<textarea rows="20" cols="20" class="form-control" name="content" id="content"></textarea>
 				</div>
 
 				<input type="text" id="addr" placeholder="주소" readonly="readonly" name="addr" style="width: 45%;"> <input
 					type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 				<div id="map"
 					style="width: 100%; height: 100%; margin-top: 10px;"></div>
+			
+			
+			
+				<!--  게시글 버튼 활성화 스크립트 -->			
+				<script type="text/javascript">
+					// 필수요소를 입력해야만 버튼이 활성화 되게 만들어 주기
+					// 필수요소 6가지
+					var abledbtn = [false, false, false, false, false, false];
+					// 새로고칭등으로 필수요소 초기화 하기 일단은 생략, 해보다가 필요하면 주석 제거
+					/* var abledbtn_init = function(){
+						for(var i=0; i<abledbtn;i++){
+							abledbtn[i]=false;
+						}
+					}; */
+					
+					// 게시글 작성 버튼을 활성화 하기 위한 함수
+					var validate = function(){
+						var cnt=0;
+						for(var i=0;i<abledbtn.length;i++){
+							if(abledbtn[i]==true){
+								cnt+=1;
+							}
+						}
+						if(cnt == 6){
+							$("#writebtn").prop("disabled",false);
+						}
+						console.log("abledbtn : "+abledbtn + " / size : "+abledbtn.length);
+					};
+					
+					
+					// 1.bigcate 선택시 요소 하나 true로 바꿔주기
+					$("#bigcate").on("change",function(){
+						abledbtn[0]=true;
+						validate();
+					});
+					
+					// 2.smallcate 선택시 true 바꿔주기
+					$("#smallcate").on("change",function(){
+						abledbtn[1]=true;
+						validate();
+					});
+					
+					// 3.title 입력시 true 바꿪기
+					$("#title").on("change",function(){
+						abledbtn[2]=true;
+						validate();
+					});
+					// 4. 이미지 선택시 true 바꾸기
+					$("#img").on("change",function(){
+						abledbtn[3]=true;
+						validate();
+					});
+					// 5. 금액 입력시 true 바꾸기
+					$("#price").on("change",function(){
+						abledbtn[4]=true;
+						validate();
+					});
+					// 6. 상세내용 입력시 true 바꾸기
+					$("#content").on("change",function(){
+						abledbtn[5]=true;
+						validate();
+					});
+				</script>
 
 				<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 				<script
@@ -232,8 +296,9 @@
 				</script>
 
 				<hr class="mb-4">
-				<button class="btn btn-primary btn-lg btn-block" type="submit">게시글	올리기</button>
+				<button class="btn btn-primary btn-lg btn-block" type="submit" id="writebtn" disabled="disabled">게시글	올리기</button>
 			</form>
+			
 		</div>
 	</div>
 

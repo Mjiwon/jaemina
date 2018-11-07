@@ -84,7 +84,7 @@ public class BoardWriteController {
 				throws IOException {
 			// 파일(이미지) 업로드
 			Integer no = boardrepo.getSequenceVal();
-			map.put("no", no);
+			map.put("no", no); // 뷰로 보낼 게시판 번호
 
 			String filename = map.get("writer") + "-" + no + "-" + map.get("title") + "-board" + ".jpg";
 			String path = ctx.getRealPath("\\storage\\board");
