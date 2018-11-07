@@ -15,4 +15,8 @@ public class BuyRepository {
 	public int addBuy(Map data) {
 		return template.insert("pay.addBuy", data);
 	}
+	
+	public int allPayCount() {
+		return template.selectOne("pay.allPayCount");
+	}
 }

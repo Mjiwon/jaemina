@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 
 import app.models.AccountRepository;
 import app.models.BoardRepository;
+import app.models.BuyRepository;
 import app.models.CateRepository;
 import app.models.ProfileRepository;
 import app.models.QAMessageRepository;
@@ -69,6 +70,9 @@ public class AccountController {
 	
 	@Autowired
 	ProfileRepository profilerepo;
+	
+	@Autowired
+	BuyRepository buyrepo;
 
 	public AccountController() {
 		sessions = new HashMap<>();
@@ -77,7 +81,7 @@ public class AccountController {
 	// Index!!!!
 	@RequestMapping("/index.do")
 	public String indexHendler(WebRequest wr, Map map) {
-			map.put("boardlist", boardrepo.getCateBoard(1));
+		map.put("boardlist", boardrepo.getCateBoard(1));
 		List<Map> bcatelist = caterepo.getBigCate();
 		
 		if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
@@ -112,6 +116,8 @@ public class AccountController {
 			map.put("bigcate", bcatelist);
 		int boardCount = boardrepo.boardCount();
 			map.put("boardCount", boardCount);
+		int payCount = buyrepo.allPayCount();
+			map.put("payCount", payCount);
 
 		return "account.index";
 	}

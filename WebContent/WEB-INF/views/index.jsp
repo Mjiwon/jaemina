@@ -17,7 +17,7 @@
 							</div>
 							<div class="col">
 								<u><b><font size="3">총 거래 건 수</font></b></u> <br /> <b><font
-									size="6">5건</font></b>
+									size="6">${payCount }건</font></b>
 							</div>
 							<div class="col">
 								<u><b><font size="3">의뢰인 평균 만족도</font></b></u> <br /> <b><font
