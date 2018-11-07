@@ -19,4 +19,8 @@ public class BuyRepository {
 	public int allPayCount() {
 		return template.selectOne("pay.allPayCount");
 	}
+	
+	public int allPercent() {
+		return template.selectOne("pay.allPercent");
+	}
 }

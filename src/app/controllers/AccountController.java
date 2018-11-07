@@ -118,6 +118,8 @@ public class AccountController {
 			map.put("boardCount", boardCount);
 		int payCount = buyrepo.allPayCount();
 			map.put("payCount", payCount);
+		int payPercent = buyrepo.allPercent();
+			map.put("payPercent", payPercent);
 
 		return "account.index";
 	}
