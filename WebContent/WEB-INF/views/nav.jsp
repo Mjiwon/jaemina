@@ -82,42 +82,40 @@
 						<li class="nav-item"><a class="nav-link disabled"
 							href="${pageContext.servletContext.contextPath }/addseller.do"
 							style="color: black;"><b>판매자 등록하기</b></a></li>
-						<li class="nav-item">
-						<a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
+						<li class="nav-item"><a class="nav-link disabled"
+							href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
 							style="color: black;"><b>구매</b></a></li>
 
 						<li class="nav-item dropdown">
 							<button type="button" class="btn btn-link dropdown-toggle"
 								style="color: black;" data-toggle="dropdown">
 								<b>메세지</b>
-							<c:choose>
-								<c:when test="${!empty newss}">
-									<span class="badge badge-pill badge-primary">new</span>
-								</c:when>
-								<c:otherwise>
-									<span id="news"> </span>
-								</c:otherwise>
+								<c:choose>
+									<c:when test="${!empty newss}">
+										<span class="badge badge-pill badge-primary">new</span>
+									</c:when>
+									<c:otherwise>
+										<span id="news"> </span>
+									</c:otherwise>
 								</c:choose>
 							</button>
 							<ul class="dropdown-menu dropright">
-								<li>
-								<c:choose>
-									<c:when test="${!empty chatList }">
-										<c:forEach var="i" items="${chatList }">
-											<a
-												href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}&members=${i.member[0]}&members=${i.member[1]}"
-												class="dropdown-item">${i.member }<span id="${i.room }" class="listnew"></span>
-												<c:if test="${i.noCheck==true }">
-													<span class="badge badge-pill badge-primary">new</span>
-												</c:if>
-											</a>
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<span>메세지가 없습니다.</span>
-									</c:otherwise>
-								</c:choose>
-								</li>
+								<li><c:choose>
+										<c:when test="${!empty chatList }">
+											<c:forEach var="i" items="${chatList }">
+												<a
+													href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}&members=${i.member[0]}&members=${i.member[1]}"
+													class="dropdown-item">${i.member }<span id="${i.room }"
+													class="listnew"></span> <c:if test="${i.noCheck==true }">
+														<span class="badge badge-pill badge-primary">new</span>
+													</c:if>
+												</a>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<span>메세지가 없습니다.</span>
+										</c:otherwise>
+									</c:choose></li>
 							</ul>
 						</li>
 
@@ -128,13 +126,13 @@
 							</button>
 							<ul class="dropdown-menu dropright"
 								style="background-color: white; background-color: white; justify-content: center;">
-								<li>	<a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
-										style="color: green;">${user.ID }</b>의 재미나</a> 
-								
 								<li><a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/myboard.do?currentPage=1">나의
-										블로그</a></li>
+									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
+										style="color: green;">${user.ID }</b>의 재미나</a>
+								<li><a class="dropdown-item" id="jamilog"
+									href="javascript:jamilog">나의 재미로그</a></li>
+
+
 								<li class="dropdown-submenu"><a
 									class="dropdown-item dropdown-toggle test"
 									data-toggle="dropdown"> 관심 판매자 목록 <span class="caret"></span></a>
@@ -142,8 +140,8 @@
 										<c:choose>
 											<c:when test="${!empty wishlist}">
 												<c:forEach var="l" items="${wishlist }">
-													<li><a class="dropdown-item"
-														href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}&currentPage=1">${l.SELLER }</a></li>
+													<li><a class="dropdown-item slog" id="${l.SELLER }">${l.SELLER }</a></li>
+
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
@@ -172,6 +170,30 @@
 	</div>
 </nav>
 <script>
+	$("#jamilog")
+			.on(
+					"click",
+					function() {
+						window
+								.open(
+										"${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=1",
+										"f",
+										"width=1000, height=700, left=700, top=200");
+					});
+
+	$(".slog").on(
+			"click",
+			function() {
+				console.log($(this).attr("id"));
+				/* ${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}&currentPage=1" */
+				window.open(
+
+				"${pageContext.servletContext.contextPath }/sellerboardlist.do?seller="
+						+ $(this).attr("id") + "&currentPage=1", "f",
+						"width=1000, height=700, left=700, top=200");
+
+			});
+
 	$("#deleteUser")
 			.on(
 					"click",
@@ -257,13 +279,11 @@
 	var boardQAHandles = function(evt) {
 		var html = "<span class=\"badge badge-pill badge-primary\">new</span>";
 		$("#news").html(html);
-		for(var i=0; i<$(".listnew").length; i++) {
-			if(evt.room == $(".listnew").eq(i).attr("id")){
+		for (var i = 0; i < $(".listnew").length; i++) {
+			if (evt.room == $(".listnew").eq(i).attr("id")) {
 				$(".listnew").eq(i).html(html);
 			}
 		}
-		
+
 	}
-
-
 </script>

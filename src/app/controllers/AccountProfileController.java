@@ -1,6 +1,7 @@
- package app.controllers;
+package app.controllers;
 
-import java.util.HashMap;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -56,49 +60,63 @@ public class AccountProfileController {
 	@Autowired
 	ProfileRepository profilerepo;
 	
-	// 판매자 계좌번호 등록
-	@GetMapping("/addbank.do")
+	// 판매자 등록
+	@GetMapping("/addseller.do")
 	public String AddBankGetHandle(HttpSession session) {
-		// ID 뽑기
-		String id = (String) ((Map)session.getAttribute("user")).get("ID");
-		
-		// account_profile's bank 뽑아오기
-		Map duser = (Map) profilerepo.Sellerinfo(id);
-		String dbank = (String) duser.get("BANK");
-
+		Map suser = (Map) session.getAttribute("user");
+		String sid = (String) suser.get("ID");
+		Map duser = (Map) accountrepo.Myinfo(sid);
 		// 이미 등록했으면 판매글 오리기로 이동
-		if (dbank == null) {
-			// bank 가 등록되지 않았으면 bank 등록페이지로 이동
-			return "/WEB-INF/views/account/seller/addbank.jsp";
+		Map dseller = (Map) profilerepo.Sellerinfo(sid);
+		if (dseller == null) {
+			return "/WEB-INF/views/account/seller/addseller.jsp";
+		} else
+			return "redirect:/write.do";
+	}
+
+	@PostMapping("/addseller.do")
+	public String addSellerHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, WebRequest wr)
+			throws IOException {
+		Map m = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
+		String id = (String) m.get("ID");
+		param.put("id", id);
+		
+		String banknumber = (String) param.get("bank");
+		String bankname = (String) param.get("bankname");
+		String regEx = "\\d{12}|(\\d{4}-\\d{5}-\\d{6})$";
+		if (banknumber.matches(regEx)) {
+			param.put("bank", bankname + "/" + banknumber);
+			param.remove("bankname");
+			
+		String paramFileName = imgpath.getName();
+		String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
+		String realpath = ctx.getRealPath("\\storage\\sellerProfile");
+		String path = "\\storage\\sellerProfile";
+
+		File dir = new File(realpath);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		File dst = new File(dir, fileName);
+		imgpath.transferTo(dst);
+
+		String img = path + "\\" + fileName;
+		param.put("imgpath", img);
+
+		System.out.println("뭐나오냐"+param);
+		
+		
+		if (param.get("imgpath") != null) {
+			int i = profilerepo.addSeller1(param);
 		} else {
-			// bank 가 등록되어 있으면 인덱스로 이동.
-			return "account.index";
+			int i = profilerepo.addSeller2(param);
 		}
+		return "redirect:/index.do";
+		
+	}else {
+		return "redirect:/index.do";
 	}
 	
-	@PostMapping("/addbank.do")
-	public String addBankPostHandle(@RequestParam Map param, HttpSession session) {
-		String bankname = (String)param.get("bankname");
-		String banknum = (String)param.get("bank");
-		String bank = bankname+banknum;
-		Map data = new HashMap();
-		data.put("id", (String)((Map)session.getAttribute("user")).get("ID"));
-		data.put("bank", bank);
-		System.out.println("addbank data : "+data);
-		int r = profilerepo.updateProfileBank(data);
-		if(r == 1) {
-			System.out.println("addbank result : "+r);
-			return "account.sellerHomme";
-		}else {
-			System.out.println("addbank result : "+r);
-			// 은행 계좌 실패 알려줌
-			return "account.sellerHomme";
-		}
 	}
-	
-	
-	
-	
-	
 	
 }

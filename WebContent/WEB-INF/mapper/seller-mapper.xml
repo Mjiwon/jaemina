@@ -10,16 +10,14 @@
 		set career = #{career} , academy=#{academy} ,
 		imgpath=#{imgpath},
 		introduce=#{introduce},oneline=#{oneline},licence=#{licence}
-		where
-		id=#{id}
+		where id=#{id}
 	</update>
 
 	<update id="updateSeller2" parameterType="java.util.HashMap">
 		update account_profile
 		set career = #{career} , academy=#{academy} ,
 		introduce=#{introduce},oneline=#{oneline},licence=#{licence}
-		where
-		id=#{id}
+		where id=#{id}
 	</update>
 
 	<select id="getSeller" parameterType="java.lang.String"
@@ -75,8 +73,8 @@
 	</select>
 
 	<select id="staravg" parameterType="java.lang.String"
-		resultType="java.lang.Integer">
-		select avg(star_num) as staravg from reply join board on
+		resultType="java.lang.String">
+		select round(avg(star_num)*20) as staravg from reply join board on
 		reply.bno=board.no
 		where board.writer=#{SellerId}
 	</select>

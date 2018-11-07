@@ -69,13 +69,28 @@ public class SellerController {
 			map.put("totalPage", totalPage);
 			map.put("currentPage", currentPage);
 			session.setAttribute("MyBoard", MyBoard);
-
+			
+			
+			
+			String myboardcount=sellerrepo.myboardcount(seller);
+			if(myboardcount==null)
+				myboardcount="0";
+			
+			String wishcount =sellerrepo.wishcount(seller);
+				if(wishcount==null)
+				wishcount="0";
+			String staravg =sellerrepo.staravg(seller);
+			if(staravg==null)
+				staravg="0";
 		// 판매자 정보 가지고 오기
-		Map Seller = sellerrepo.getSeller(seller);
+			Map Seller = sellerrepo.getSeller(seller);
 			session.setAttribute("Seller", Seller);
-		return "account.sellerHomme";
+			Seller.put("myboardcount", myboardcount);
+			Seller.put("wishcount",wishcount);
+			Seller.put("staravg", staravg);		
+			System.out.println(Seller);
+		return "WEB-INF/views/account/seller/sellerHome.jsp";
 	}
-	
 	
 	
 }
