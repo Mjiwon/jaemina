@@ -95,6 +95,7 @@ public class AccountSellerController {
 				if ((boardCount % 9) > 0) {
 					totalPage++;
 				}
+				 
 				Map mapp = new HashMap<>();
 				mapp.put("writer", id);
 				mapp.put("startCount", startCount);
