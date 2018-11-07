@@ -3,10 +3,10 @@
 <mapper namespace="board">
 
 	<insert id="addBoard1" parameterType="java.util.HashMap">
-	 	insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, #{imgpath}, #{price}, #{writer}, sysdate, #{content},0,0,null)
+	 	insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, #{imgpath}, #{price}, #{writer}, sysdate, null, #{content},0,0)
 	</insert>
 	<insert id="addBoard2" parameterType="java.util.HashMap">
-	 	insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, #{imgpath}, #{price}, #{writer}, sysdate, #{content},0,0, #{addr})
+	 	insert into board values(#{no}, #{bigcate}, #{smallcate}, #{title}, #{imgpath}, #{price}, #{writer}, sysdate, #{addr}, #{content},0,0)
 	</insert>
 	
 	
