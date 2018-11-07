@@ -2,6 +2,7 @@ package app.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -70,12 +71,15 @@ public class AccountSellerController {
 		@PostMapping("/addseller.do")
 		public String addSellerHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, WebRequest wr, Map map)
 				throws IOException {
+			// id 뽑아오기
 			Map m = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
-
 			String id = (String) m.get("ID");
-
+			
+			// acount_profile에 정보가 없으면 insert 해주고 있으면 기존의 정보를 update
+			
 			param.put("id", id);
 
+			Map profile_exist = new HashMap();
 			String paramFileName = imgpath.getName();
 			String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
 			String realpath = ctx.getRealPath("/storage/sellerProfile");
@@ -90,14 +94,14 @@ public class AccountSellerController {
 
 			String img = path + "\\" + fileName;
 				param.put("imgpath", img);
-
-			if (param.get("imgpath") != null) {
-				int i = profilerepo.addSeller1(param);
-				System.out.println("addseller result : "+i);
-				
-			} else {
-				int i = profilerepo.addSeller2(param);
-				System.out.println("addseller result : "+i);
+			
+			Map exist = profilerepo.Sellerinfo(id);
+			if(exist == null) {
+					int i = profilerepo.addSeller(param);
+					System.out.println("addseller result : "+i);
+			}else {
+				int r = profilerepo.updateProfile(param);
+				System.out.println("profile update : "+r);
 			}
 				map.put("accountprofile",profilerepo.Sellerinfo(id));
 			return "account.sellerHomme";

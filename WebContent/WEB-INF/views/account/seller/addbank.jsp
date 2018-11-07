@@ -75,12 +75,12 @@
 		<h2>계좌 등록</h2>
 	<form action="${pageContext.servletContext.contextPath}/addbank.do" method="post">
 		<select name="bankname">
-			<option>하나은행</option>
-			<option>농협은행</option>
-			<option>국민은행</option>
-			<option>신한은행</option>
-			<option>우리은행</option>
-			<option>국민은행</option>
+			<option>은행을 선택하세요</option>
+			<option value="하나">하나은행</option>
+			<option value="농협">농협은행</option>
+			<option value="국민">국민은행</option>
+			<option value="신한">신한은행</option>
+			<option value="우리">우리은행</option>
 		</select>
 				<label for="formGroupExampleInput">
 				계좌번호</label> <input
@@ -89,7 +89,7 @@
 					<small id="checkbank"></small><br />
 		<small>계좌번호 양식</small><br> 
 		<small>XX은행 /XXXX-XXXXX-XXXXXX(4자리-5자리-6자리)</small><br> <small>XX은행/ 12자리</small></br> 
-		<input type="submit" value="다음 단계로"  />
+		<button type="submit">계좌등록</button>
 	</form>
 	</div>
 	</div>

@@ -1,5 +1,6 @@
 package app.controllers;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
@@ -59,36 +59,43 @@ public class AccountProfileController {
 	// 판매자 계좌번호 등록
 	@GetMapping("/addbank.do")
 	public String AddBankGetHandle(HttpSession session) {
-		Map suser = (Map) session.getAttribute("user");
-		String sid = (String) suser.get("ID");
-		Map duser = (Map) accountrepo.Myinfo(sid);
+		// ID 뽑기
+		String id = (String) ((Map)session.getAttribute("user")).get("ID");
+		
+		// account_profile's bank 뽑아오기
+		Map duser = (Map) profilerepo.Sellerinfo(id);
 		String dbank = (String) duser.get("BANK");
 
 		// 이미 등록했으면 판매글 오리기로 이동
-		Map dseller = (Map) profilerepo.Sellerinfo(sid);
-
 		if (dbank == null) {
+			// bank 가 등록되지 않았으면 bank 등록페이지로 이동
 			return "/WEB-INF/views/account/seller/addbank.jsp";
-		} else if (dseller == null) {
-			return "/WEB-INF/views/account/seller/addseller.jsp";
-		} else
-			return "redirect:/write.do";
+		} else {
+			// bank 가 등록되어 있으면 인덱스로 이동.
+			return "account.index";
+		}
 	}
 	
-	// 판매자 인증 AJAX
 	@PostMapping("/addbank.do")
-	@ResponseBody
-	public String addbankAjaxHandle(@RequestParam Map param) {
-		int r = accountrepo.addbank(param);
-		System.out.println("addbank result : "+r);
-		String rst = "";
-		if(r==1) {
-			rst = "\"rst\":true";
+	public String addBankPostHandle(@RequestParam Map param, HttpSession session) {
+		String bankname = (String)param.get("bankname");
+		String banknum = (String)param.get("bank");
+		String bank = bankname+banknum;
+		Map data = new HashMap();
+		data.put("id", (String)((Map)session.getAttribute("user")).get("ID"));
+		data.put("bank", bank);
+		int r = profilerepo.updateProfileBank(data);
+		if(r == 1) {
+			System.out.println("addbank result : "+r);
+			return "";
 		}else {
-			rst = "\"rst\":false";
+			System.out.println("addbank result : "+r);
+			// profile 등록 페이지로 이동
+			return "/WEB-INF/views/account/seller/addseller.jsp";
 		}
-		return gson.toJson(rst);
 	}
+	
+	
 	
 	
 	

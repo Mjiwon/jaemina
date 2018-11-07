@@ -3,19 +3,29 @@
 <mapper namespace="profile">
 	
 	<!-- insert -->
-	<insert id="addSeller1" parameterType="java.util.HashMap">
-		insert into account_profile values(accountprofile_seq.nextval, #{id}, #{academy}, #{career}, #{imgpath}, #{introuce}, null, null )
+	<insert id="addSeller" parameterType="java.util.HashMap">
+		insert into account_profile values(accountprofile_seq.nextval, #{id}, #{academy}, #{career}, #{imgpath}, #{introuce}, null, null, null )
 	</insert>
-	
+	<!-- 
 	<insert id="addSeller2" parameterType="java.util.HashMap">
-		insert into account_profile values(accountprofile_seq.nextval,#{id}, #{academy}, #{career}, null, #{introuce}, null, null)
-	</insert>
+		insert into account_profile values(accountprofile_seq.nextval, #{id}, #{academy}, #{career}, null, #{introuce}, null, null, null)
+	</insert> -->
 	
 	
 	<!-- select -->
 	<select id="Sellerinfo" parameterType="java.lang.String" resultType="java.util.HashMap">
 		Select * from account_profile where id=#{id}
 	</select>
+	
+	<update id="updateProfile" parameterType="java.util.HashMap">
+		update account_profile set academy=#{academy}, career=#{career}, imgpath=#{imgpath}, introduce=#{introduce} where id=#{id}
+	</update>
+	
+	
+	<update id="updateProfileBank" parameterType="java.util.HashMap">
+		update account_profile set bank=#{bank} where id={id}
+	</update>
+	
 	
 	
 	

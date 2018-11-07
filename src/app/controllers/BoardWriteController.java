@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -71,11 +73,18 @@ public class BoardWriteController {
 	
 	// 판매글로 이동
 		@GetMapping("/write.do")
-		public String writeGetHandle(Map map) {
-			List<Map> bcatelist = caterepo.getBigCate();
-			map.put("bigcate", bcatelist);
-
-			return "account.boardWrite";
+		public String writeGetHandle(Map map, HttpSession session) {
+			// profile 정보 불러와서 판매자 등록을 했는지 여부 판단해서 안했으면 판매자 등록페이지로 보내주고 아니면 글쓰기로 보내기
+			String id = (String)((Map)session.getAttribute("user")).get("ID");
+			Map profile = profilerepo.Sellerinfo(id);
+			if(profile==null) {
+				return "/WEB-INF/views/account/seller/addseller.jsp";
+			}else {
+				List<Map> bcatelist = caterepo.getBigCate();
+				map.put("bigcate", bcatelist);
+				
+				return "account.boardWrite";
+			}
 		}
 
 		// 판매글 DB에 insert
