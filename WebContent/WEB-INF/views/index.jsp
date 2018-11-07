@@ -21,7 +21,7 @@
 							</div>
 							<div class="col">
 								<u><b><font size="3">의뢰인 평균 만족도</font></b></u> <br /> <b><font
-									size="6">98%</font></b>
+									size="6">${payPercent }%</font></b>
 							</div>
 
 						</div>
