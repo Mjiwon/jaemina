@@ -37,7 +37,7 @@ public class Filters extends HttpFilter {
 			case "/emailauth.do":
 			case "/joinid_check.do":
 			case "/joinemail_check.do":
-			case "/searchList.do":
+			case "/board/searchList.do":
 			case "/board/list.do":
 			case "/board/lists.do":
 			case "/waiting.do":

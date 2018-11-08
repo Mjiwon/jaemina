@@ -115,6 +115,7 @@ public class BoardListController {
 			map.put("bigcates", bcatelist);
 		List<Map> scatelist = caterepo.getSmallCate(bigcate);
 			map.put("smallcates", scatelist);
+			
 		int boardCount = boardrepo.getCateBoard(bigcate).size();
 		int totalPage = boardCount / 9;
 		if((boardCount % 9)>0) {

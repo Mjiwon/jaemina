@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,6 +80,21 @@ public class AccountController {
 	public String indexHendler(HttpSession session, WebRequest wr, Map map, HttpServletRequest req) {
 		map.put("boardlist", boardrepo.getCateBoard(1));
 		List<Map> bcatelist = caterepo.getBigCate();
+		
+		List rankCate =  boardrepo.getRankCate();
+		List rankBoard = new ArrayList<>();
+		List ranks = new ArrayList<>();
+		for( int i = 0 ; i<rankCate.size();i++) {
+			Map ca = (Map)rankCate.get(i);
+			int big = ((BigDecimal)ca.get("BIGCATE")).intValue();
+			rankBoard = boardrepo.getRankBoard(big);
+			for(int j = 0 ; j<rankBoard.size();j++) {
+				ranks.add(i,rankBoard.get(j));				
+			}
+		}
+		System.out.println(ranks + " = ");
+		map.put("rank", ranks);
+	
 		
 		if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
 			List<Map> wishlist = wishrepo.getWishlist((String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));

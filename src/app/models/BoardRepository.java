@@ -1,5 +1,6 @@
 ﻿package app.models;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,14 @@ public class BoardRepository {
 		return template.selectOne("board.getDetailBoard",no);
 	}
 	
+	
+	public int getDetailAvg(int no) {
+		Map st = template.selectOne("board.getDetailAvg",no);
+		return ((BigDecimal)st.get("S")).intValue();
+	}
+	
+	
+	
 	public List<Map> getmyboard(String id){
 		return template.selectList("board.get_myboard",id);
 	}
@@ -57,6 +66,14 @@ public class BoardRepository {
 		return template.selectOne("board.boardCount");
 	}
 	
+	public List<Map> getRankCate(){
+		return template.selectList("board.RankCate");
+	}
+	
+	public List<Map> getRankBoard(int bigcate){
+		
+		return template.selectList("board.RankBoard",bigcate);
+	}
 	
 	
 	// 방번호 가져오기

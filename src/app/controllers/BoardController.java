@@ -81,19 +81,24 @@ public class BoardController {
 	@RequestMapping("/detail.do")
 	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String) param.get("no"));
-		
+
 		// 게시물 클릭시 조회수 증가
 		boardrepo.addBoardsearchcount(detailno);
-		
+
 		Map detail = boardrepo.getDetailBoard(detailno);
+		int avg = boardrepo.getDetailAvg(detailno);
+
+		detail.put("avg", avg);
+		
+		System.out.println(detail);
 		String sellerid = (String) detail.get("WRITER");
 		Map writer = sellerrepo.getSeller(sellerid);
 		String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
-		if(id!=null) {
+		if (id != null) {
 			List<Map> wishlist = wishrepo.getWishlist(id);
 			wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
 			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
-			
+
 			for (Map<String, String> list : wishlist) {
 				if (list.get("SELLER").equals(sellerid)) {
 					wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
@@ -108,15 +113,15 @@ public class BoardController {
 		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
 
 		Map cates = new HashMap<>();
-			cates.put("bigcate", bigcate);
-			cates.put("smallcate", smallcate);
+		cates.put("bigcate", bigcate);
+		cates.put("smallcate", smallcate);
 
 		Map cate = caterepo.getCate(cates);
 
-			map.put("detail", detail);
-			map.put("writer", writer);
-			map.put("cate", cate);
-		
+		map.put("detail", detail);
+		map.put("writer", writer);
+		map.put("cate", cate);
+
 		return "account.boardDetail";
 	}
 
@@ -229,7 +234,7 @@ public class BoardController {
 			li.add("%" + searchKeys[i] + "%");
 		}
 		int boardCount = boardrepo.getSearchListByList(li).size();
-		
+
 		Map mapp = new HashMap<>();
 		mapp.put("startCount", startCount);
 		mapp.put("endCount", endCount);
@@ -246,6 +251,11 @@ public class BoardController {
 		wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
 		wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
 		wr.removeAttribute("smallCate", WebRequest.SCOPE_SESSION);
+
+		List<Map> bcatelist = caterepo.getBigCate();
+		map.put("bigcates", bcatelist);
+		List<Map> scatelist = caterepo.getSmallCate(1);
+		map.put("smallcates", scatelist);
 
 		return "account.boardlist";
 	}
