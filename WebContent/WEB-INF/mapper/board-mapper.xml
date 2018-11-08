@@ -35,8 +35,8 @@
 	</select>
 	
 	<select id="getSearchListByList" parameterType="java.util.List" resultType="java.util.HashMap">
-		select * from board where title like <foreach collection="list" item="searchKey" separator=" and title like ">#{searchKey}</foreach>
-		or content like <foreach collection="list" item="searchKey" separator=" and content like ">#{searchKey}</foreach>
+		select * from board where title like 
+		<foreach collection="list" item="searchKey" separator=" and title like ">#{searchKey}</foreach>	or content like <foreach collection="list" item="searchKey" separator=" and content like ">#{searchKey}</foreach>
 	</select>
 	
 	<select id="getSearchListByMap" parameterType="java.util.HashMap" resultType="java.util.HashMap">

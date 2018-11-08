@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
@@ -62,7 +63,7 @@ public class QAController {
 	
 	*/
 	
-	@GetMapping("/qa/buyqa.do")
+	@RequestMapping("/qa/buyqa.do")
 	public String buyqaHandle(@RequestParam Map param,@RequestParam String[] members, Map map, HttpSession session) {
 		int no = Integer.parseInt((String)param.get("no"));
 		String writer = (String)param.get("writer");
@@ -121,6 +122,8 @@ public class QAController {
 
 		map.put("Seller", writers);
 		
+		System.out.println(param+ " / " + members[0] + " / " +members[1]);
+
 		List<Map> getChatLog = mrepo.getChatLog(members[0], members[1]);
 		Map maps = getChatLog.get(0);
 		

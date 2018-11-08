@@ -84,10 +84,23 @@ public class BoardController {
 		Map detail = boardrepo.getDetailBoard(detailno);
 		String sellerid = (String) detail.get("WRITER");
 		Map writer = sellerrepo.getSeller(sellerid);
+		
 		String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
-		List<Map> wishlist = wishrepo.getWishlist(id);
-		wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
-		wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
+		if(id!=null) {
+			List<Map> wishlist = wishrepo.getWishlist(id);
+			
+			wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
+			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
+			for (Map<String, String> list : wishlist) {
+				if (list.get("SELLER").equals(sellerid)) {
+					wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
+					break;
+				} else {
+				}
+			}
+			map.put("loginOk", id);
+			
+		}
 
 		String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
 		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
@@ -97,18 +110,10 @@ public class BoardController {
 		cates.put("smallcate", smallcate);
 
 		Map cate = caterepo.getCate(cates);
-		for (Map<String, String> list : wishlist) {
-			if (list.get("SELLER").equals(sellerid)) {
-				wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
-				break;
-			} else {
-			}
-		}
 
 		map.put("detail", detail);
 		map.put("writer", writer);
 		map.put("cate", cate);
-		map.put("loginOk", id);
 		System.out.println("deatail info : " + map);
 		return "account.boardDetail";
 	}
@@ -227,7 +232,7 @@ public class BoardController {
 		Map mapp = new HashMap<>();
 		mapp.put("startCount", startCount);
 		mapp.put("endCount", endCount);
-		mapp.put("list", li);
+		mapp.put("list", li); 
 		List<Map> list2 = boardrepo.getSearchListByMap(mapp);
 		map.put("boardlist", list2);
 		int totalPage = boardCount / 9;
