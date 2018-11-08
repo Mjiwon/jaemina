@@ -19,6 +19,10 @@
 		select * from board where no=#{no}
 	</select>
 	
+	<!-- 게시글 평점들 -->
+	<select id="getDetailAvg" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select bno, avg(star_num)s from reply where bno = #{bno} group by bno order by bno
+	</select>
 	
 	<select id="get_myboard" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from board where writer=#{id}
@@ -106,6 +110,16 @@
 	<delete id="deleteDetailBoard" parameterType="java.lang.Integer">
 		delete from board where no=#{no}
 	</delete>
+	
+	
+	<!-- 등록게시물에 제일 많은 카테  -->
+	<select id="RankCate" resultType="java.util.HashMap">
+		select a.*, rownum as rnum from (select * from (select bigcate, count(*)cnt from board group by bigcate order by bigcate) order by cnt desc)a where rownum &lt;=3
+	</select>
+	
+	<select id="RankBoard" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select j.*, rownum as rnum from (select * from board join (select bno, avg(star_num)s from reply group by bno order by bno)b on board.no = b.bno where board.bigcate=#{bigcate} order by b.s desc)j where rownum &lt;=5
+	</select>
 	
 
 </mapper>
