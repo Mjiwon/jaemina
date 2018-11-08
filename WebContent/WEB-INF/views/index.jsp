@@ -28,7 +28,7 @@
 					</div>
 				</div>
 
-			<form action="${pageContext.servletContext.contextPath }/board/searchList.do" method="post">
+			<form action="${pageContext.servletContext.contextPath }/board/searchList.do?currentPage=1" method="post">
 				<div id="r" class="row">
 					<div class="col-lg-6">
 						<div class="input-group">

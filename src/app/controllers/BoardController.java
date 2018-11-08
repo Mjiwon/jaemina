@@ -212,7 +212,6 @@ public class BoardController {
 	@RequestMapping("/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
-		System.out.println(currentPage);
 		int startCount = (currentPage - 1) * 9 + 1;
 		int endCount = currentPage * 9;
 
@@ -238,7 +237,8 @@ public class BoardController {
 		map.put("currentPage", currentPage);
 
 		wr.setAttribute("searchLog", searchKey, WebRequest.SCOPE_SESSION);
-
+		wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
+		wr.removeAttribute("smallCate", WebRequest.SCOPE_SESSION);
 
 		return "account.boardlist";
 	}

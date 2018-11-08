@@ -63,7 +63,7 @@
 			<c:if test="${currentBlock != lastBlock }"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
 			<c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
 		</c:if>
-		<c:if test="${!empty bigCate && empty smallCate }">
+		<c:if test="${!empty bigCate && empty smallCate && empty searchLog}">
 			<c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
 			<c:if test="${currentBlock == 1 }"><a id="prevbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a></c:if>
 			

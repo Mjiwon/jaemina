@@ -70,7 +70,7 @@ public class BoardListController {
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
 		int startCount = (currentPage-1)*9+1;
 		int endCount = currentPage*9;
-			
+			wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 			wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
 			wr.setAttribute("smallCate", smallcate, WebRequest.SCOPE_SESSION);
 		List<Map> boardlist = boardrepo.getSmallCateBoard(param);
@@ -94,7 +94,7 @@ public class BoardListController {
 			mapp.put("endCount", endCount);
 			map.put("boardlist", boardrepo.getSmallCateListForPasing(mapp));
 			map.put("totalPage", totalPage);
-			map.put("currentPage", currentPage);					
+			map.put("currentPage", currentPage);	
 	
 		return "account.boardlist";
 	}
