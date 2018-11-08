@@ -12,4 +12,9 @@
 		<put-attribute name="center" value="/WEB-INF/views/account/mypage/history/managebuy.jsp"/>
 	</definition>
 	
+	<definition name="mypage.sellmanagement" template="/WEB-INF/tiles/indexTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/account/mypage/sellmanagement/sellmanagement.jsp"/>
+	</definition>
+	
 </tiles-definitions>
