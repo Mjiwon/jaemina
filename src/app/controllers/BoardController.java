@@ -81,20 +81,24 @@ public class BoardController {
 	@RequestMapping("/detail.do")
 	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String) param.get("no"));
+		
+		// 게시물 클릭시 조회수 증가
+		boardrepo.addBoardsearchcount(detailno);
+		
 		Map detail = boardrepo.getDetailBoard(detailno);
 		String sellerid = (String) detail.get("WRITER");
 		Map writer = sellerrepo.getSeller(sellerid);
 		String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
 		List<Map> wishlist = wishrepo.getWishlist(id);
-		wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
-		wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
+			wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
+			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
 
 		String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
 		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
 
 		Map cates = new HashMap<>();
-		cates.put("bigcate", bigcate);
-		cates.put("smallcate", smallcate);
+			cates.put("bigcate", bigcate);
+			cates.put("smallcate", smallcate);
 
 		Map cate = caterepo.getCate(cates);
 		for (Map<String, String> list : wishlist) {
@@ -105,11 +109,11 @@ public class BoardController {
 			}
 		}
 
-		map.put("detail", detail);
-		map.put("writer", writer);
-		map.put("cate", cate);
-		map.put("loginOk", id);
-		System.out.println("deatail info : " + map);
+			map.put("detail", detail);
+			map.put("writer", writer);
+			map.put("cate", cate);
+			map.put("loginOk", id);
+		
 		return "account.boardDetail";
 	}
 

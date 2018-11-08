@@ -107,6 +107,10 @@ public class BoardRepository {
 		return template.update("board.updateDetailBoard4", data);
 	}
 	
+	public int addBoardsearchcount(int no) {
+		return template.update("board.addBoardsearchcount", no);
+	}
+	
 	public int deleteDetailBoard(int no) {
 		return template.delete("board.deleteDetailBoard", no);
 	}

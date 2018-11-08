@@ -127,11 +127,12 @@ public class AccountController {
 				Map myinfo = accountrepo.Myinfo(cookies[i].getValue());
 				String id = (String)myinfo.get("ID");
 				String pass = (String)myinfo.get("PASS");
-					session.setAttribute("logId", id);
-					session.setAttribute("pass", pass);
+				
+					session.setAttribute("loginId", id);
 					session.setAttribute("user", myinfo);
 					session.setAttribute("auth", true);
-					session.setAttribute("sellerinfo", (Map)profilerepo.Sellerinfo(id));						
+					session.setAttribute("sellerinfo", (Map)profilerepo.Sellerinfo(id));
+					
 			}
 		}
 		
