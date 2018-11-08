@@ -1,29 +1,27 @@
 package app.controllers;
 
-import java.io.File;
-import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -80,7 +78,7 @@ public class AccountController {
 
 	// Index!!!!
 	@RequestMapping("/index.do")
-	public String indexHendler(WebRequest wr, Map map) {
+	public String indexHendler(HttpSession session, WebRequest wr, Map map, HttpServletRequest req) {
 		map.put("boardlist", boardrepo.getCateBoard(1));
 		List<Map> bcatelist = caterepo.getBigCate();
 		
@@ -121,9 +119,97 @@ public class AccountController {
 		int payPercent = buyrepo.allPercent();
 			map.put("payPercent", payPercent);
 
+			
+		// loginCooke가 설정 되었을 경우 세션에  세팅 해주기
+		Cookie[] cookies = req.getCookies();
+		for(int i=0;i<cookies.length;i++) {
+			if(cookies[i].getName().equals("loginauth")) {
+				Map myinfo = accountrepo.Myinfo(cookies[i].getValue());
+				String id = (String)myinfo.get("ID");
+				String pass = (String)myinfo.get("PASS");
+					session.setAttribute("logId", id);
+					session.setAttribute("pass", pass);
+					session.setAttribute("user", myinfo);
+					session.setAttribute("auth", true);
+					session.setAttribute("sellerinfo", (Map)profilerepo.Sellerinfo(id));						
+			}
+		}
+		
+		
 		return "account.index";
 	}
 
+	// Login
+		@GetMapping("/login.do")
+		public String loginGetHandler() {
+			return "/WEB-INF/views/account/login.jsp";
+		}
+
+		@Autowired
+		QAMessageRepository qamr;
+
+		@PostMapping("/login.do")
+		public String loginPostHandler(@RequestParam Map param, WebRequest wr, Map map, HttpSession session, HttpServletResponse response) {
+			// 아이디와 비번 가져오기
+			String id = wr.getParameter("getId");
+			String pass = wr.getParameter("getPass");
+			// 로그인하기
+			map.put("id", id);
+			map.put("pass", pass);
+			Map mapp = accountrepo.getAccount(map);
+			
+			// login유지 쿠키 생성
+			if(param.get("loginauth")!=null) {
+				
+			
+				Cookie loginCookie = new Cookie("loginauth", id);
+				loginCookie.setMaxAge(60*60*24*7);
+				// login response
+				response.addCookie(loginCookie);
+				
+			}else {
+				Cookie loginCookie = new Cookie("loginCookie", id);
+				loginCookie.setMaxAge(60*60*12);
+			}
+			if (mapp != null) { // 로그인이 되었을 경우
+				if (sessions.containsKey(id)) {
+					sessions.remove("user"); // 기존 로그인 사용자 없애기
+					sessions.remove("auth"); //
+					sessions.remove("loginId");
+					sessions.remove("sellerinfo");
+					wr.setAttribute("auth", true, WebRequest.SCOPE_SESSION); // 새로 로그인
+					wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
+					wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
+					//seller 정보 가져오기
+					Map sellerinfo=profilerepo.Sellerinfo(id);
+					wr.setAttribute("sellerinfo", sellerinfo, WebRequest.SCOPE_SESSION);
+				} else {
+					wr.setAttribute("auth", true, WebRequest.SCOPE_SESSION);
+					wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
+					wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
+					//판매자 정보 가져오기
+					Map sellerinfo=profilerepo.Sellerinfo(id);
+					wr.setAttribute("sellerinfo", sellerinfo, WebRequest.SCOPE_SESSION);
+				}
+				wr.setAttribute("loginYes", true, WebRequest.SCOPE_REQUEST);
+
+				return "/WEB-INF/views/account/login.jsp"; // 로그인 후 인덱스 페이지로 이동
+			} else {
+				wr.setAttribute("err", true, WebRequest.SCOPE_REQUEST); // 로그인 실패시
+				return "/WEB-INF/views/account/login.jsp";
+			}
+			
+		}
+
+		// 로그아웃
+		@RequestMapping("logout.do")
+		public String logoutHandle(HttpSession session, WebRequest wr) {
+			wr.removeAttribute("auth", WebRequest.SCOPE_SESSION);
+			wr.removeAttribute("user", WebRequest.SCOPE_SESSION);
+			wr.removeAttribute("loginId", WebRequest.SCOPE_SESSION);
+			wr.removeAttribute("sellerinfo",WebRequest.SCOPE_SESSION);
+			return "redirect:index.do";
+		}
 	
 
 	// 밑에 두개 회원 탈퇴!
@@ -158,62 +244,7 @@ public class AccountController {
 
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	// Login
-	@GetMapping("/login.do")
-	public String loginGetHandler() {
-		return "/WEB-INF/views/account/login.jsp";
-	}
-
-	@Autowired
-	QAMessageRepository qamr;
-
-	@PostMapping("/login.do")
-	public String loginPostHandler(WebRequest wr, Map map, HttpSession session) {
-		// 아이디와 비번 가져오기
-		String id = wr.getParameter("getId");
-		String pass = wr.getParameter("getPass");
-		// 로그인하기
-		map.put("id", id);
-		map.put("pass", pass);
-		Map mapp = accountrepo.getAccount(map);
-		if (mapp != null) { // 로그인이 되었을 경우
-			if (sessions.containsKey(id)) {
-				sessions.remove("user"); // 기존 로그인 사용자 없애기
-				sessions.remove("auth"); //
-				sessions.remove("loginId");
-				sessions.remove("sellerinfo");
-				wr.setAttribute("auth", true, WebRequest.SCOPE_SESSION); // 새로 로그인
-				wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
-				wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
-				//seller 정보 가져오기
-				Map sellerinfo=profilerepo.Sellerinfo(id);
-				wr.setAttribute("sellerinfo", sellerinfo, WebRequest.SCOPE_SESSION);
-			} else {
-				wr.setAttribute("auth", true, WebRequest.SCOPE_SESSION);
-				wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
-				wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
-				//판매자 정보 가져오기
-				Map sellerinfo=profilerepo.Sellerinfo(id);
-				wr.setAttribute("sellerinfo", sellerinfo, WebRequest.SCOPE_SESSION);
-			}
-			wr.setAttribute("loginYes", true, WebRequest.SCOPE_REQUEST);
-
-			return "/WEB-INF/views/account/login.jsp"; // 로그인 후 인덱스 페이지로 이동
-		} else {
-			wr.setAttribute("err", true, WebRequest.SCOPE_REQUEST); // 로그인 실패시
-			return "/WEB-INF/views/account/login.jsp";
-		}
-	}
-
-	// 로그아웃
-	@RequestMapping("logout.do")
-	public String logoutHandle(HttpSession session, WebRequest wr) {
-		wr.removeAttribute("auth", WebRequest.SCOPE_SESSION);
-		wr.removeAttribute("user", WebRequest.SCOPE_SESSION);
-		wr.removeAttribute("loginId", WebRequest.SCOPE_SESSION);
-		wr.removeAttribute("sellerinfo",WebRequest.SCOPE_SESSION);
-		return "redirect:index.do";
-	}
+	
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 

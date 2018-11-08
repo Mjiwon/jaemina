@@ -12,8 +12,7 @@
 		select * from account
 	</select>
 	
-	<select id="Myinfo" parameterType="java.lang.String"
-		resultType="java.util.HashMap">
+	<select id="Myinfo" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from account where id=#{id}
 	</select>
 

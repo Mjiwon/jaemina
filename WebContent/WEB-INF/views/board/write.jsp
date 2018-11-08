@@ -124,42 +124,58 @@
 						}
 						if(cnt == 6){
 							$("#writebtn").prop("disabled",false);
+						}else{
+							$("#writebtn").prop("disabled",true);
 						}
-						console.log("abledbtn : "+abledbtn + " / size : "+abledbtn.length);
+						//console.log("abledbtn : "+abledbtn + " / size : "+abledbtn.length);
 					};
 					
 					
 					// 1.bigcate 선택시 요소 하나 true로 바꿔주기
 					$("#bigcate").on("change",function(){
 						abledbtn[0]=true;
-						validate();
-					});
-					
-					// 2.smallcate 선택시 true 바꿔주기
-					$("#smallcate").on("change",function(){
 						abledbtn[1]=true;
 						validate();
 					});
-					
-					// 3.title 입력시 true 바꿪기
-					$("#title").on("change",function(){
-						abledbtn[2]=true;
-						validate();
+						
+					// 2.title 입력시 true 바꿪기
+					$("#title").on("keyup",function(){
+						//console.log("title : "+$("#title").val());
+						if($("#title").val()==null || $("#title").val().length == 0){
+							//console.log("title:"+$("#title").val().length);
+							abledbtn[2]=false;
+						}else{
+							abledbtn[2]=true;
+						}
+							validate();							
 					});
-					// 4. 이미지 선택시 true 바꾸기
+					// 3. 이미지 선택시 true 바꾸기
 					$("#img").on("change",function(){
-						abledbtn[3]=true;
+						console.log($("#img").val());
+						if($("#img").val().length!=0){
+							
+							abledbtn[3]=true;
+						}else{
+							abledbtn[3]=false;
+						}
 						validate();
 					});
-					// 5. 금액 입력시 true 바꾸기
-					$("#price").on("change",function(){
-						abledbtn[4]=true;
-						validate();
+					// 4. 금액 입력시 true 바꾸기
+					$("#price").on("keyup",function(){
+						if($("#price").val().length!=0 && $("#price").val() != 0){
+							abledbtn[4]=true;
+						}else{
+							abledbtn[4]=false;
+						}
+							validate();
 					});
-					// 6. 상세내용 입력시 true 바꾸기
-					$("#content").on("change",function(){
-						abledbtn[5]=true;
-						validate();
+					// 5. 상세내용 입력시 true 바꾸기
+					$("#content").on("keyup",function(){
+						if($("#content").val().length!=0){							abledbtn[5]=true;
+						}else{
+							abledbtn[5]=false;							
+						}
+						validate();							
 					});
 				</script>
 

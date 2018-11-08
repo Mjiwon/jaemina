@@ -21,7 +21,7 @@
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet"
    href="${pageContext.servletContext.contextPath }/css/signin.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script
    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
@@ -38,6 +38,7 @@
          for="inputPassword" class="sr-only">비밀번호</label> <input
          type="password" id="inputPassword" class="form-control" name="getPass"
          placeholder="비밀번호" required>
+      <input type="checkbox" name="loginauth">로그인 상태 유지
       <button class="btn btn-lg btn-primary btn-block" type="submit">로 그 인</button>
       <c:if test="${!empty err }">
          <div class="alert alert-danger" role="alert">
