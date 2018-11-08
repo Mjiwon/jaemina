@@ -93,7 +93,6 @@ public class AccountProfileController {
 		String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
 		String realpath = ctx.getRealPath("\\storage\\sellerProfile");
 		String path = "\\storage\\sellerProfile";
-		 
 
 		File dir = new File(realpath);
 		if (!dir.exists()) {
@@ -117,7 +116,7 @@ public class AccountProfileController {
 			Map sellerinfo=profilerepo.Sellerinfo(id);
 			wr.setAttribute("sellerinfo", sellerinfo,WebRequest.SCOPE_SESSION);
 		}
-		return "redirect:/jaemilog.do";
+		return "redirect:/write.do";
 		
 	}else {
 		return "redirect:/index.do";
