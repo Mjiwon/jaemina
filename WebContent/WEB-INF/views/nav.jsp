@@ -174,12 +174,16 @@
 			.on(
 					"click",
 					function() {
+						if(${sellerinfo!=null}){
 						window
 								.open(
 										"${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=1",
 										"f",
 										"width=1000, height=700, left=700, top=200");
-					});
+						}
+						else
+							window.alert("판매자 등록 후 이용 가능합니다")
+						});
 
 	$(".slog").on(
 			"click",

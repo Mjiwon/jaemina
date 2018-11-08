@@ -108,8 +108,12 @@ public class AccountProfileController {
 		
 		if (param.get("imgpath") != null) {
 			int i = profilerepo.addSeller1(param);
+			Map sellerinfo=profilerepo.Sellerinfo(id);
+			wr.setAttribute("sellerinfo", sellerinfo,WebRequest.SCOPE_SESSION);
 		} else {
 			int i = profilerepo.addSeller2(param);
+			Map sellerinfo=profilerepo.Sellerinfo(id);
+			wr.setAttribute("sellerinfo", sellerinfo,WebRequest.SCOPE_SESSION);
 		}
 		return "redirect:/index.do";
 		

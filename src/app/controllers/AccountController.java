@@ -181,13 +181,20 @@ public class AccountController {
 				sessions.remove("user"); // 기존 로그인 사용자 없애기
 				sessions.remove("auth"); //
 				sessions.remove("loginId");
+				sessions.remove("sellerinfo");
 				wr.setAttribute("auth", true, WebRequest.SCOPE_SESSION); // 새로 로그인
 				wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
 				wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
+				//seller 정보 가져오기
+				Map sellerinfo=profilerepo.Sellerinfo(id);
+				wr.setAttribute("sellerinfo", sellerinfo, WebRequest.SCOPE_SESSION);
 			} else {
 				wr.setAttribute("auth", true, WebRequest.SCOPE_SESSION);
 				wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
 				wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
+				//판매자 정보 가져오기
+				Map sellerinfo=profilerepo.Sellerinfo(id);
+				wr.setAttribute("sellerinfo", sellerinfo, WebRequest.SCOPE_SESSION);
 			}
 			wr.setAttribute("loginYes", true, WebRequest.SCOPE_REQUEST);
 
@@ -204,6 +211,7 @@ public class AccountController {
 		wr.removeAttribute("auth", WebRequest.SCOPE_SESSION);
 		wr.removeAttribute("user", WebRequest.SCOPE_SESSION);
 		wr.removeAttribute("loginId", WebRequest.SCOPE_SESSION);
+		wr.removeAttribute("sellerinfo",WebRequest.SCOPE_SESSION);
 		return "redirect:index.do";
 	}
 	// ----------------------------------------------------------------------------------------------------------------------------
