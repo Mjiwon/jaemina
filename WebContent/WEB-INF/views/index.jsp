@@ -321,36 +321,40 @@
 
 		<h4>카테고리별 전문가 랭킹</h4>
 
-		<div class="row">
+<%-- 		<div class="row" style="width: auto;">
 
 			<c:forEach var="r" items="${rank }" varStatus="status">
 
-				<div class="col">
-	
+				<div class="col list-group">
+
 					<c:if test="${r.BIGCATE == bigcate.get(status.index).NO }">
+
+						<a href="#" class="list-group-item list-group-item-action active">
+							${r.TITLE } (${r.WRITER })</a>
+						
 						<label>${bigcate.get(status.index).BIGCATE }</label>
 
-					<table class="table" style="width: auto;">
+						<table class="table">
 
-						<tbody>
+							<tbody>
 
-							<tr>
+								<tr>
 
-								<th scope="row">${status.count }위</th>
+									<th scope="row">${status.count }위</th>
 
-								<td >${r.TITLE }</td>
+									<td>${r.TITLE }</td>
 
-								<td><A href="#">${r.WRITER }</A></td>
+									<td><A href="#">${r.WRITER }</A></td>
 
-							</tr>
+								</tr>
 
-						</tbody>
+							</tbody>
 
-					</table>
-					</c:if> 
+						</table>
+					</c:if>
 				</div>
 
-			</c:forEach>
+			</c:forEach> --%>
 
 
 		</div>
