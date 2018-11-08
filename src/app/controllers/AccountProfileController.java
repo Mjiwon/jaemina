@@ -77,6 +77,7 @@ public class AccountProfileController {
 	@PostMapping("/addseller.do")
 	public String addSellerHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, WebRequest wr)
 			throws IOException {
+		System.out.println(param+"들어올떄");
 		Map m = (Map) wr.getAttribute("user", WebRequest.SCOPE_SESSION);
 		String id = (String) m.get("ID");
 		param.put("id", id);
@@ -115,7 +116,7 @@ public class AccountProfileController {
 			Map sellerinfo=profilerepo.Sellerinfo(id);
 			wr.setAttribute("sellerinfo", sellerinfo,WebRequest.SCOPE_SESSION);
 		}
-		return "redirect:/index.do";
+		return "redirect:/jaemilog.do";
 		
 	}else {
 		return "redirect:/index.do";
