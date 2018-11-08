@@ -90,7 +90,7 @@ public class AccountController {
 			String id =(String)user.get("ID");
 		
 			List<Map> getChatList = oamr.getChatList((String)user.get("ID"));		
-			
+			System.out.println(getChatList.size() + "채팅갯수");
 			if(getChatList!=null) {
 				Map z = new HashMap<>();
 				   List log = new ArrayList<>();

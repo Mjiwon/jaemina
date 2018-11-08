@@ -32,4 +32,16 @@ id="WebApp_ID" version="4.0">
 		<servlet-name>springDispatcherServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+		<filter-name>a</filter-name>
+		<filter-class>app.filters.Filters</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>a</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	
 </web-app>
