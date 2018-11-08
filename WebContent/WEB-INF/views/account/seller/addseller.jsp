@@ -12,6 +12,27 @@
 <noscript>
 	<link rel="stylesheet" href="ass/css/noscript.css" />
 </noscript>
+
+<style>
+input::placeholder {
+	color: red;
+	font-style: italic;
+	font-weight: bold;
+}
+
+textarea::placeholder {
+	color: red;
+	font-style: italic;
+	font-weight: bold;
+}
+
+input[type="submit"]:disabled {
+	background: black;
+}
+</style>
+
+
+
 </head>
 <body class="is-preload">
 
@@ -144,18 +165,20 @@
 					method="post" enctype="multipart/form-data">
 					<div class="fields">
 						<div class="field half">
-							<input type="text" name="academy" placeholder="학력" lder="Name"
-								style="color: black;">
+							<input type="text" name="academy" id="academy" placeholder="학력"
+								lder="Name" style="color: black;" onkeyup="check();">
 						</div>
 						<div class="field half">
-							<input type="text" name="licence" placeholder="자격증" />
+							<input type="text" name="licence" id="licence" placeholder="자격증"
+								onkeyup="check();" />
 						</div>
 						<div class="field">
-							<input type="text" name="career" placeholder="경력" />
-							프로필 이미지 :<input type="file"name="imgpath"/>
+							<input type="text" name="career" id="career" placeholder="경력"
+								onkeyup="check();" /> 프로필 이미지 :<input type="file"
+								name="imgpath" />
 						</div>
 						<div class="field">
-							<select name="bankname">
+							<select name="bankname" style="font-weight: bold; color: red;">
 								<option>하나은행</option>
 								<option>농협은행</option>
 								<option>국민은행</option>
@@ -163,8 +186,9 @@
 								<option>우리은행</option>
 								<option>국민은행</option>
 							</select> 
-							<input type="text" name="bank" placeholder="- 제외한 12자리"
-								onkeyup="bankcheck(this)" /> 
+							<input type="text" name="bank" id="bank"
+								placeholder="- 제외한 12자리" onkeyup="bankcheck(this)"
+								onchange="check();" /> 
 								<small id="checkbank"></small>
 						</div>
 						<script type="text/javascript">
@@ -183,11 +207,13 @@
 
 
 						<div class="field">
-							<textarea name="introduce" placeholder="소개" rows="6"></textarea>
+							<textarea name="introduce" placeholder="소개" id="introduce"
+								rows="6" onkeyup="check();"></textarea>
 						</div>
 					</div>
-					<ul class="actions special">
-						<li><input type="submit" value="판매자 등록" /></li>
+					<ul>
+						<li><input type="submit" value="작성중" id="sellercommit"
+							disabled="disabled"  onclick="success();"/></li>
 					</ul>
 				</form>
 			</div>
@@ -198,6 +224,33 @@
 	<footer id="footer"> since.JAEMINA </footer>
 
 	<!-- Scripts -->
+	<script type="text/javascript">
+		var check = function() {
+			if ($("#academy").val() != "") {
+				if ($("#licence").val() != "") {
+					if ($("#career").val() != "") {
+							if ($("#introduce").val() != ""){
+								$("#sellercommit").prop("disabled", false);
+								$("#sellercommit").val("판매자 등록하기");
+							}else{$("#sellercommit").prop("disabled",true);
+							$("#sellercommit").val("작성중");}
+						}else{$("#sellercommit").prop("disabled",true);
+						$("#sellercommit").val("작성중");}
+					}else {$("#sellercommit").prop("disabled",true);
+					$("#sellercommit").val("작성중");}
+				}else {$("#sellercommit").prop("disabled",true);
+				$("#sellercommit").val("작성중");}
+			}
+		
+		var success = function() {
+				window.alert("판매자 등록 완료")
+			};	
+		
+	</script>
+
+
+
+
 	<script src="ass/js/jquery.min.js"></script>
 	<script src="ass/js/jquery.poptrox.min.js"></script>
 	<script src="ass/js/jquery.scrolly.min.js"></script>
