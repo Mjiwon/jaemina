@@ -97,7 +97,7 @@ public class AccountProfileController {
 		File dir = new File(realpath);
 		if (!dir.exists()) {
 			dir.mkdirs();
-		}
+		} 
 		File dst = new File(dir, fileName);
 		imgpath.transferTo(dst);
 
