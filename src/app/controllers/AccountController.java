@@ -122,17 +122,20 @@ public class AccountController {
 			
 		// loginCooke가 설정 되었을 경우 세션에  세팅 해주기
 		Cookie[] cookies = req.getCookies();
-		for(int i=0;i<cookies.length;i++) {
-			if(cookies[i].getName().equals("loginauth")) {
-				Map myinfo = accountrepo.Myinfo(cookies[i].getValue());
-				String id = (String)myinfo.get("ID");
-				String pass = (String)myinfo.get("PASS");
-				
+		if(cookies!=null) {
+			for(int i=0;i<cookies.length;i++) {
+				if(cookies[i].getName().equals("loginauth")) {
+					Map myinfo = accountrepo.Myinfo(cookies[i].getValue());
+					String id = (String)myinfo.get("ID");
+					String pass = (String)myinfo.get("PASS");
+					
 					session.setAttribute("loginId", id);
 					session.setAttribute("user", myinfo);
 					session.setAttribute("auth", true);
 					session.setAttribute("sellerinfo", (Map)profilerepo.Sellerinfo(id));
 					
+				}
+			
 			}
 		}
 		
@@ -204,11 +207,22 @@ public class AccountController {
 
 		// 로그아웃
 		@RequestMapping("logout.do")
-		public String logoutHandle(HttpSession session, WebRequest wr) {
+		public String logoutHandle(HttpSession session, WebRequest wr, HttpServletRequest req,HttpServletResponse resp) {
 			wr.removeAttribute("auth", WebRequest.SCOPE_SESSION);
 			wr.removeAttribute("user", WebRequest.SCOPE_SESSION);
 			wr.removeAttribute("loginId", WebRequest.SCOPE_SESSION);
 			wr.removeAttribute("sellerinfo",WebRequest.SCOPE_SESSION);
+			Cookie[] cookies = req.getCookies();
+			if(cookies!=null) {
+				for(int i=0;i<cookies.length;i++) {
+					if(cookies[i].getName().equals("loginauth")) {
+						cookies[i].setMaxAge(0);
+						resp.addCookie(cookies[i]);
+						
+					}
+				
+				}
+			}
 			return "redirect:index.do";
 		}
 	
