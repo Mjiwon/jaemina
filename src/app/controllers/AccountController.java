@@ -79,7 +79,7 @@ public class AccountController {
 	@RequestMapping("/index.do")
 	public String indexHendler(HttpSession session, WebRequest wr, Map map, HttpServletRequest req) {
 		List<Map> boardlist = boardrepo.getCateBoard(1);
-			//map.put("boardlist", );
+			map.put("boardlist", boardlist);
 		List<Map> bcatelist = caterepo.getBigCate();
 		
 		List rankCate =  boardrepo.getRankCate();
@@ -240,10 +240,8 @@ public class AccountController {
 				for(int i=0;i<cookies.length;i++) {
 					if(cookies[i].getName().equals("loginauth")) {
 						cookies[i].setMaxAge(0);
-						resp.addCookie(cookies[i]);
-						
+						resp.addCookie(cookies[i]);	
 					}
-				
 				}
 			}
 			return "redirect:index.do";
