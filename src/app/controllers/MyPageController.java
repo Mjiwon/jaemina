@@ -91,15 +91,15 @@ public class MyPageController {
 		System.out.println("mysellList : "+mybuyList);
 		// view로 판매내역을 전달해 주기
 		if (mybuyList != null) {
-			map.put("sellList", mybuyList);
-			map.put("sellListCnt", mybuyList.size());
+			map.put("buyList", mybuyList);
+			map.put("buyListCnt", mybuyList.size());
 		}
 		// board에 타이틀 가져오기
 		List<Map> myboardlist = boardrepo.getmyboard(buyer);
 		return "mypage.managebuy";
 	}
 	
-	// 판매상태 변경
+	// 구매상태 변경
 		@GetMapping("/buychangestate.do")
 		public String buychangestateGetHandle(@RequestParam Map param, Map map) {
 			// param 확인
