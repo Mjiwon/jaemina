@@ -50,9 +50,9 @@
 		<put-attribute name="center" value="/WEB-INF/views/account/seller/sellerHome.jsp"/>
 	</definition>
 	
-	<definition name="account.sellerhistory" template="/WEB-INF/tiles/basicTiles.jsp">
+	<definition name="account.history" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
-		<put-attribute name="center" value="/WEB-INF/views/account/mypage/history/sellHistory.jsp"/>
+		<put-attribute name="center" value="/WEB-INF/views/account/mypage/history/history.jsp"/>
 	</definition>
 
 	<definition name="account.modifiend" template="/WEB-INF/tiles/basicTiles.jsp">
@@ -65,9 +65,6 @@
 		<put-attribute name="center" value="/WEB-INF/views/board/boardlist2.jsp"/>
 	</definition>
 	
-	<definition name="buy.before" template="/WEB-INF/tiles/basicTiles.jsp">
-		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
-		<put-attribute name="center" value="/WEB-INF/views/buy/buybefore.jsp"/>
-	</definition>
+	
 	
 </tiles-definitions>

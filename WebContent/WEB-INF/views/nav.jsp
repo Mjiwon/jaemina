@@ -127,7 +127,7 @@
 							<ul class="dropdown-menu dropright"
 								style="background-color: white; background-color: white; justify-content: center;">
 								<li><a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
+									href="${pageContext.servletContext.contextPath }/history.do"><b
 										style="color: green;">${user.ID }</b>의 재미나</a>
 								<li><a class="dropdown-item" id="jamilog"
 									href="javascript:jamilog">나의 재미로그</a></li>
