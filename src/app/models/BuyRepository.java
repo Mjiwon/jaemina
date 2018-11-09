@@ -20,7 +20,7 @@ public class BuyRepository {
 		return template.selectOne("pay.allPayCount");
 	}
 	
-	public Map allPercent() {
+	public int allPercent() {
 		return template.selectOne("pay.allPercent");
 	}
 }

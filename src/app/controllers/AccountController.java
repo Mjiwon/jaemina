@@ -78,12 +78,12 @@ public class AccountController {
 	// Index!!!!
 	@RequestMapping("/index.do")
 	public String indexHendler(HttpSession session, WebRequest wr, Map map, HttpServletRequest req) {
-		List<Map> boardlist = boardrepo.getCateBoard(1);
-			//map.put("boardlist", );
+		map.put("boardlist", boardrepo.getCateBoard(1));
 		List<Map> bcatelist = caterepo.getBigCate();
 		
 		
 		List rankCate =  boardrepo.getRankCate();
+		
 		List rankBoard = new ArrayList<>();
 		Map c1 = (Map)rankCate.get(0);
 		Map c2 = (Map)rankCate.get(1);
@@ -131,16 +131,7 @@ public class AccountController {
 			map.put("boardCount", boardCount);
 		int payCount = buyrepo.allPayCount();
 			map.put("payCount", payCount);
-		int payPercent =0;
-		
-		if(buyrepo.allPercent()==null) {
-			payPercent=0;
-		}else {
-			Map allPercent = buyrepo.allPercent();
-			System.out.println(allPercent);
-			payPercent =10;
-		}
-			//int payPercent = buyrepo.allPercent();
+		int payPercent = buyrepo.allPercent();
 			map.put("payPercent", payPercent);
 
 			
@@ -162,6 +153,7 @@ public class AccountController {
 			
 			}
 		}
+		
 		
 		return "account.index";
 	}
