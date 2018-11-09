@@ -47,7 +47,7 @@ public class BuyController {
 	@Autowired
 	BuyRepository buyrepo;
 	//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-	// 구매하기
+	/*// 구매하기
 	@PostMapping("/buyBefore.do")
 	public String buyPostHandle(@RequestParam Map param, HttpSession session, Map map) {
 		System.out.println("param : "+param);
@@ -55,7 +55,7 @@ public class BuyController {
 			param.put("buyeremail", (String)buyer.get("EMAIL"));
 			map.put("buy", param);
 		return "buy.before";
-	}
+	}*/
 			
 			
 			

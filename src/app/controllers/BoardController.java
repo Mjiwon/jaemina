@@ -80,6 +80,7 @@ public class BoardController {
 	// 상세페이지
 	@RequestMapping("/detail.do")
 	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
+		
 		int detailno = Integer.parseInt((String) param.get("no"));
 
 		// 게시물 클릭시 조회수 증가
@@ -117,7 +118,7 @@ public class BoardController {
 		cates.put("smallcate", smallcate);
 
 		Map cate = caterepo.getCate(cates);
-
+		
 		map.put("detail", detail);
 		map.put("writer", writer);
 		map.put("cate", cate);

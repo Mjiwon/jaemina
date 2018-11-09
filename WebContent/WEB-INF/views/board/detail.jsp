@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
 
 <title>${detail.TITLE }</title>
 
@@ -16,10 +17,10 @@
 				height="72">
 				
 				<c:forEach begin="1" end="${detail.avg }" step="1">
-					<img src="${pageContext.servletContext.contextPath }/images/star1.png" width="25" height="25">
+					<img src="${path }/images/star1.png" width="25" height="25">
 				</c:forEach>
 				<c:forEach begin="1" end="${5-detail.avg }" step="1">
-					<img src="${pageContext.servletContext.contextPath }/images/star2.png" width="25" height="25">
+					<img src="${path}/images/star2.png" width="25" height="25">
 				</c:forEach>
 				 [평점 : ${detail.avg }점]
 			<h2>제목 : ${detail.TITLE }</h2>
@@ -35,11 +36,12 @@
 				<form class="card p-2">
 					<div class="card" style="width: auto;">
 						<a
-							href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${writer.ID }&currentPage=1">
+							href="${path }/sellerboardlist.do?seller=${writer.ID }&currentPage=1">
 							<img class="card-img-top"
-							src="${pageContext.servletContext.contextPath }${writer.IMGPATH}"
+							src="${path }${writer.IMGPATH}"
 							alt="Card image cap" style="height: 8cm;">
 						</a>
+						<a onclick="paging();" class="replygaing" id="${l }"></a>
 						<div class="card-body">
 							<h5 class="card-title">${writer.WRITER }</h5>
 							<p>판매자 : ${writer.ID }</p>
@@ -49,10 +51,11 @@
 							<c:choose>
 								<c:when test="${writer.ID == user.ID }">
 									<a
-										href="${pageContext.servletContext.contextPath }/board/modifyDetail.do?no=${detail.NO}"><button
+										href="${path }/board/modifyDetail.do?no=${detail.NO}"><button
 											type="button">수정</button></a>
 									<a href="javascript:goDelete(${detail.NO });"><button
 											type="button">삭제</button></a>
+			
 									<script>
 										var goDelete = function(no) {
 											if (window.confirm("정말삭제하시겠습니까?") == true) {
@@ -64,22 +67,23 @@
 												return;
 											}
 										};
+										
 									</script>
 								</c:when>
 								<c:otherwise>
 									<a
-										href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
+										href="${path }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
 										class="btn btn-primary" style="margin-bottom: 10px">판매자에게
 										문의하기</a>
 									<c:choose>
 										<c:when test="${empty wishlistcheck}">
 											<a
-												href="${pageContext.servletContext.contextPath }/addWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+												href="${path }/addWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
 												class="btn btn-primary" id="addlike">관심 판매자로 등록</a>
 										</c:when>
 										<c:otherwise>
 											<a
-												href="${pageContext.servletContext.contextPath }/deleteWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+												href="${path }/deleteWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
 												class="btn btn-primary" id="deletelike">관심 판매자에서 제거</a>
 										</c:otherwise>
 									</c:choose>
@@ -87,17 +91,12 @@
 							</c:choose>
 						</div>
 					</div>
-					<input hidden="" name="postno" value="${detail.NO }" /><br /> <input
-						hidden="" name="seller" value="${detail.WRITER }" /><br /> <input
-						hidden="" name="price" value="${detail.PRICE}" /><br /> <input
-						hidden="" name="buyer" value="${user.ID}" /><br />
+				
 				</form>
 			</div>
 			<div class="col-md-8 order-md-1">
 				<h4 class="mb-3">카테고리 : ${cate.BIGCATE} | ${cate.SMALLCATE}</h4>
-				<form class="needs-validation"
-					action="${pageContext.servletContext.contextPath }/buyBefore.do"
-					method="post" novalidate>
+				<form class="needs-validation" novalidate>
 					<div class="mb-3">
 						<label for="username">작성 날짜</label>
 						<div class="input-group" style="">
@@ -188,13 +187,80 @@
 					</c:if>
 					
 					<hr class="mb-4">
-					<input hidden="" name="postno" value="${detail.NO }" /><br /> <input
-						hidden="" name="seller" value="${detail.WRITER }" /><br /> <input
-						hidden="" name="price" value="${detail.PRICE}" /><br /> <input
-						hidden="" name="buyer" value="${user.ID}" /><br />
-
-					<button class="btn btn-primary btn-lg btn-block" type="submit">구매하기</button>
+						<input hidden="" id="postno" name="postno" value="${detail.NO }" /><br /> <input
+						hidden="" id="seller" name="seller" value="${detail.WRITER }" /><br /> <input
+						hidden="" id="price" name="price" value="${detail.PRICE}" /><br /> <input
+						hidden="" id="buyer" name="buyer" value="${user.ID}" /><br/>
+					<button class="btn btn-primary btn-lg btn-block" type="button" id="buybtn">구매하기</button>
 				</form>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+				<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+				<script type="text/javascript">
+					// 결제후 paydb insert
+					var paydbinsert = function(){
+						var postno = $("#postno").val();
+						var seller = $("#seller").val();
+						var price = $("#price").val();
+						var buyer = $("#buyer").val();
+					// ajax param 설정
+						var param = {
+							"postno":postno,
+							"seller":seller,
+							"price":price,
+							"buyer":buyer
+						};
+					// ajax post 보내기
+						$.post("${path}/ajax/buy.do",param,function(rst){
+							var obj = JSON.parse(rst);
+							console.log('obj : '+obj);
+						});
+				
+					};
+			
+					//아임포트 라이브러리 파일이 로드되면 window.IMP 변수에 접근이 가능합니다.
+					$("#buybtn").on("click",function(){
+						
+						var IMP = window.IMP; // 생략가능
+						IMP.init('imp81506411'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			
+						IMP.request_pay({
+				    		pg : 'inicis', // version 1.1.0부터 지원.
+				    		pay_method : 'card',
+				    		merchant_uid : 'merchant_' + new Date().getTime(),
+				    		name : $("#seller").val()+'-'+$("#postno"),
+				    		amount : $("#price").val(),
+				  			//  buyer_email : 'iamport@siot.do',
+				    		buyer_name : $("#buyer").val(),
+				   			// buyer_email : $("#buyeremail").val(),
+				    		//buyer_addr : '서울특별시 강남구 삼성동',
+				    		//buyer_postcode : '123-456',
+				    		m_redirect_url : '127.0.0.1:8080/jaemina/views/board/detail.jsp'
+						}, function(rsp) {
+				    
+							if ( rsp.success ) {
+				        		var msg = '결제가 완료되었습니다.';
+				        		msg += '고유ID : ' + rsp.imp_uid;
+				        		//msg += '상점 거래ID : ' + rsp.merchant_uid;
+				        		msg += '결제 금액 : ' + rsp.paid_amount;
+				        		msg += '카드 승인번호 : ' + rsp.apply_num;
+				        		paydbinsert();
+				        		console.log("결제 성공");
+				        		$("#buybtn").prop("disabled",true);
+				    		} else {
+				        		var msg = '결제에 실패하였습니다.';
+				        		msg += '에러내용 : ' + rsp.error_msg;
+				        		console.log("결제 실패");
+				    		}
+				    		alert(msg);
+						});
+					});
+	
+	
+	
+	
+	
+	
+	</script>
 			</div>
 		</div>
 		<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
