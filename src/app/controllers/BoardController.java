@@ -87,9 +87,11 @@ public class BoardController {
 		boardrepo.addBoardsearchcount(detailno);
 
 		Map detail = boardrepo.getDetailBoard(detailno);
-		int avg = boardrepo.getDetailAvg(detailno);
+		Integer avg = boardrepo.getDetailAvg(detailno);
+		System.out.println(avg);
 
-		detail.put("avg", avg);
+		detail.put("avg", avg);			
+		
 		
 		System.out.println(detail);
 		String sellerid = (String) detail.get("WRITER");

@@ -36,9 +36,13 @@ public class BoardRepository {
 	}
 	
 	
-	public int getDetailAvg(int no) {
+	public Integer getDetailAvg(int no) {
 		Map st = template.selectOne("board.getDetailAvg",no);
-		return ((BigDecimal)st.get("S")).intValue();
+		if(st!=null) {
+			return (Integer)st.get("S");			
+		}else {
+			return 0;
+		}
 	}
 	
 	
