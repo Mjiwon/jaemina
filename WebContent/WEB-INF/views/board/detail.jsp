@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-md-4 order-md-2 mb-4">
 				<h4 class="d-flex justify-content-between align-items-center mb-3">
-					<span class="text-muted">판매자 정보</span>
+					<span class="text-muted">판매자 정보</span> 
 				</h4>
 
 
@@ -67,20 +67,34 @@
 									</script>
 								</c:when>
 								<c:otherwise>
-									<a
-										href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
-										class="btn btn-primary" style="margin-bottom: 10px">판매자에게
-										문의하기</a>
 									<c:choose>
-										<c:when test="${empty wishlistcheck}">
-											<a
-												href="${pageContext.servletContext.contextPath }/addWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
-												class="btn btn-primary" id="addlike">관심 판매자로 등록</a>
+										<c:when test="${empty user }">
+											<a  class="btn btn-primary notLog" style="margin-bottom: 10px; color: white;">판매자에게 문의하기</a>
 										</c:when>
 										<c:otherwise>
 											<a
-												href="${pageContext.servletContext.contextPath }/deleteWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
-												class="btn btn-primary" id="deletelike">관심 판매자에서 제거</a>
+												href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
+												class="btn btn-primary" style="margin-bottom: 10px;">판매자에게
+												문의하기</a>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${empty user }">
+											<a class="btn btn-primary notLog" style="color: white;">관심 판매자로	등록</a>
+										</c:when>
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${empty wishlistcheck}">
+													<a
+														href="${pageContext.servletContext.contextPath }/addWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+														class="btn btn-primary" id="addlike">관심 판매자로 등록</a>
+												</c:when>
+												<c:otherwise>
+													<a
+														href="${pageContext.servletContext.contextPath }/deleteWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+														class="btn btn-primary" id="deletelike">관심 판매자에서 제거</a>
+												</c:otherwise>
+											</c:choose>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -230,6 +244,10 @@
 		
 		
 		<script type="text/javascript">	
+		
+		$(".notLog").on("click",function(){
+			window.alert("로그인 후 이용해주세요.");
+		});
 		
 		$("#addlike").on("click", function() {
 			window.alert("등록되었습니다.");
