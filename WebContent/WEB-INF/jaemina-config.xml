@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:websocket="http://www.springframework.org/schema/websocket"
-	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-2.0.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+      http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-2.0.xsd">
 
-	<context:component-scan base-package="app" />
+   <context:component-scan base-package="app" />
 
-	<bean id="tilesViewResolver"
-		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" /> 
-	
-	<bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-		<property name="definitions" value="/WEB-INF/tiles/*.xml"></property>
-	</bean>
+   <bean id="tilesViewResolver"
+      class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" /> 
+   
+   <bean id="tilesConfigurer"
+      class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+      <property name="definitions" value="/WEB-INF/tiles/*.xml"></property>
+   </bean>
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
+   <bean id="viewResolver"
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
 
-	<!-- multipart resolever add(id를 꼭 multipartResolver로 설정 -->
-	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
-	
-	<bean id="ds"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url"
-			value="jdbc:oracle:thin:@52.78.234.247:1521:xe" />
-		<property name="username" value="jaemina" />
-		<property name="password" value="oracle" />
-	</bean>
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="ds" />
-		<property name="mapperLocations"
-			value="/WEB-INF/mapper/*.xml" />
-	</bean>
-	<bean id="sqlTemplate"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg name="sqlSessionFactory"
-			ref="sqlSessionFactory" />
-	</bean>
+   <!-- multipart resolever add(id를 꼭 multipartResolver로 설정 -->
+   <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
+   
+   <bean id="ds"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName"
+         value="oracle.jdbc.driver.OracleDriver" />
+      <property name="url"
+         value="jdbc:oracle:thin:@54.180.26.126:1521:xe" />
+      <property name="username" value="jaemina" />
+      <property name="password" value="oracle" />
+   </bean>
+   <bean id="sqlSessionFactory"
+      class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="ds" />
+      <property name="mapperLocations"
+         value="/WEB-INF/mapper/*.xml" />
+   </bean>
+   <bean id="sqlTemplate"
+      class="org.mybatis.spring.SqlSessionTemplate">
+      <constructor-arg name="sqlSessionFactory"
+         ref="sqlSessionFactory" />
+   </bean>
 
-	<bean id="gson" class="com.google.gson.Gson" />
+   <bean id="gson" class="com.google.gson.Gson" />
 
-	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="13.125.245.183"/>
-		<property name="port" value="25"/>
-		<property name="protocol" value="smtp"/>
-		<property name="defaultEncoding" value="UTF-8"/>
-	</bean>
-	
-	<websocket:handlers>
-		<websocket:mapping handler="alarmSocketController" path="/waiting.do"/>
-		<websocket:mapping handler="boardQASocketController" path="/boardqa.do"/>
-		<websocket:handshake-interceptors>
-			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-		</websocket:handshake-interceptors>
-	</websocket:handlers>
-	
-	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-	
-	<mongo:mongo-client host="52.78.234.247" port="59376" />
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg name="mongoClient" ref="mongoClient" />	
-		<constructor-arg name="databaseName" value="jaemina" />
-	</bean>
-	
+   <bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="13.125.245.183"/>
+      <property name="port" value="25"/>
+      <property name="protocol" value="smtp"/>
+      <property name="defaultEncoding" value="UTF-8"/>
+   </bean>
+   
+   <websocket:handlers>
+      <websocket:mapping handler="alarmSocketController" path="/waiting.do"/>
+      <websocket:mapping handler="boardQASocketController" path="/boardqa.do"/>
+      <websocket:handshake-interceptors>
+         <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+      </websocket:handshake-interceptors>
+   </websocket:handlers>
+   
+   <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+   
+   <mongo:mongo-client host="54.180.26.126" port="43126" />
+   <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+      <constructor-arg name="mongoClient" ref="mongoClient" />   
+      <constructor-arg name="databaseName" value="jaemina" />
+   </bean>
+   
 </beans>

@@ -38,7 +38,7 @@ import app.models.WishlistRepository;
 import app.service.SocketService;
 
 @Controller
-@RequestMapping("/board")
+
 public class BoardController {
 
 	@Autowired
@@ -214,10 +214,12 @@ public class BoardController {
 			map.put("smallcate", (int) wr.getAttribute("smallCate", WebRequest.SCOPE_SESSION));
 			map.put("currentPage", 1);
 			return "redirect:list.do";
-		} else {
+		} else if(wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION) == null){
+			return "redirect:index.do";
+		}else {
 			map.put("bigcate", (int) wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
 			map.put("currentPage", 1);
-			return "redirect:lists.do";
+			return "redirect:/index.do";
 		}
 	}
 

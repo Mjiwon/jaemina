@@ -48,7 +48,7 @@
 							<p>소개 : ${writer.INTRODUCE }</p>
 							<c:choose>
 								<c:when test="${writer.ID == user.ID }">
-									<a href="${path }/board/modifyDetail.do?no=${detail.NO}"><button
+									<a href="${path }/modifyDetail.do?no=${detail.NO}"><button
 											type="button">수정</button></a>
 									<a href="javascript:goDelete(${detail.NO });"><button
 											type="button">삭제</button></a>
@@ -57,9 +57,8 @@
 										var goDelete = function(no) {
 											if (window.confirm("정말삭제하시겠습니까?") == true) {
 												window.alert("삭제되었습니다.");
-												location.href = "${pageContext.servletContext.contextPath }/board/deleteDetail.do?no="
+												location.href = "${pageContext.servletContext.contextPath }/deleteDetail.do?no="
 														+ no;
-
 											} else {
 												return;
 											}

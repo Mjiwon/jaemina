@@ -25,7 +25,6 @@ import app.models.WishlistRepository;
 import app.service.SocketService;
 
 @Controller
-@RequestMapping("/board")
 public class BoardListController {
 
 	@Autowired

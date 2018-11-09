@@ -10,7 +10,7 @@
 		select count(*) from pay
 	</select>
 	
-	<select id="allPercent" resultType="java.lang.Integer">
+	<select id="allPercent" resultType="java.util.HashMap">
 		select round(avg(c.s))*20 from pay join (select bno, avg(star_num)s from reply group by bno order by bno)c on pay.postno = c.bno
 	</select>
 	

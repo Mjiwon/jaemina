@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
 <c:if test="${chageok==0}">
 	<script type="text/javascript">
 		window.alert("비밀번호가 변경되었습니다.");
@@ -23,10 +24,10 @@
 	style="background-color: gray;">
 	<div class="container">
 		<a class="navbar-brand"
-			href="${pageContext.servletContext.contextPath }/index.do">JAEMINA</a>
+			href="${path}/index.do">JAEMINA</a>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<form
-				action="${pageContext.servletContext.contextPath }/board/searchList.do?currentPage=1"
+				action="${path}/searchList.do?currentPage=1"
 				method="post">
 				<div class="row">
 					<div class="col">
@@ -64,11 +65,9 @@
 				</c:when>
 				<c:when test="${!empty adminmode}">
 					<ul class="navbar-nav ml-auto">
-
 						<li class="nav-item">
 							<button type="button" class="btn btn-primary">
-								<a
-									href="${pageContext.servletContext.contextPath }/admin/index.do"
+								<a href="${path}/admin/index.do"
 									style="color: white;">관리자페이지</a>
 							</button>
 						</li>
@@ -76,14 +75,17 @@
 				</c:when>
 				<c:otherwise>
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/write.do"
+					<c:choose>
+						<c:when test="${sellerinfo != null }"><li class="nav-item"><a class="nav-link disabled" href="${path }/write.do"
 							style="color: black;"><b>판매글올리기</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/addseller.do"
+						</c:when>
+						<c:otherwise>
+						<li class="nav-item"><a class="nav-link disabled" href="${path}/addseller.do"
 							style="color: black;"><b>판매자 등록하기</b></a></li>
+						</c:otherwise>
+					</c:choose>
 						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
+							href="${path}/lists.do?bigcate=1&currentPage=1"
 							style="color: black;"><b>구매</b></a></li>
 
 						<li class="nav-item dropdown">

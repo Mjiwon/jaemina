@@ -80,6 +80,7 @@ public class BoardWriteController {
 			if(profile==null) {
 				return "/WEB-INF/views/account/seller/addseller.jsp";
 			}else {
+				// 빅카테고리 쏴주기
 				List<Map> bcatelist = caterepo.getBigCate();
 				map.put("bigcate", bcatelist);
 				
@@ -116,6 +117,6 @@ public class BoardWriteController {
 				boardrepo.addBoard1(map);
 			}
 
-			return "redirect:/board/detail.do?no=" + no;
+			return "redirect:/detail.do?no=" + no;
 		}
 }

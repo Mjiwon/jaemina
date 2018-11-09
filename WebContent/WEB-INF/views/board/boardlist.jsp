@@ -15,7 +15,7 @@
 <div align="center">
 	<ul class="nav justify-content-center">
 		<c:forEach var="i" items="${bigcates }">
-			<li class="nav-item" value="${i.NO }"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${i.NO}&currentPage=1"><b>${i.BIGCATE }</b></a></li>
+			<li class="nav-item" value="${i.NO }"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/lists.do?bigcate=${i.NO}&currentPage=1"><b>${i.BIGCATE }</b></a></li>
 		</c:forEach>
 	</ul>
 
@@ -24,7 +24,7 @@
 	<div class="col-2">
 		<ul class="list-group list-group-flush" style="text-align: center; margin-left: 2%;">
      		<c:forEach var="i" items="${smallcates}">
-				 <a class="list-group-item list-group-item-action " id="v-pills-settings-tab" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${i.BIGNO}&smallcate=${i.SMALLNO}&currentPage=1" role="tab" aria-controls="v-pills-settings" >${i.SMALLCATE }</a>     		
+				 <a class="list-group-item list-group-item-action " id="v-pills-settings-tab" href="${pageContext.servletContext.contextPath }/list.do?bigcate=${i.BIGNO}&smallcate=${i.SMALLNO}&currentPage=1" role="tab" aria-controls="v-pills-settings" >${i.SMALLCATE }</a>     		
      		</c:forEach>
 		</ul>
 	</div>
@@ -33,7 +33,7 @@
 				<c:forEach var="l" items="${boardlist }">
 					<div class="col-md-4">
 						<a
-							href="${pageContext.servletContext.contextPath }/board/detail.do?no=${l.NO}">
+							href="${pageContext.servletContext.contextPath }/detail.do?no=${l.NO}">
 							<div class="card mb-4 shadow-sm">
 								<img class="card-img-top"
 									src="${pageContext.servletContext.contextPath }${l.IMGPATH}"
@@ -50,45 +50,45 @@
 				</c:forEach>
 			</div>
 		<c:if test="${!empty searchLog }">
-			<c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
-			<c:if test="${currentBlock == 1 }"><a id="prevbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a></c:if>
+			<c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/searchList.do?searchKey=${searchLog }&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
+			<c:if test="${currentBlock == 1 }"><a id="prevbtn" href="${pageContext.servletContext.contextPath }/searchList.do?searchKey=${searchLog }&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a></c:if>
 			
 			<c:forEach var="index" begin="${startNum }" end="${endNum }" varStatus="status">
 				<c:choose>
 					<c:when test="${index == currentPage }"><b>${index }</b></c:when>
-					<c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
+					<c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/searchList.do?searchKey=${searchLog }&currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
 				</c:choose>
 				<c:if test="${!status.last }"> | </c:if>
 			</c:forEach>
-			<c:if test="${currentBlock != lastBlock }"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
-			<c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
+			<c:if test="${currentBlock != lastBlock }"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/searchList.do?searchKey=${searchLog }&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
+			<c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/searchList.do?searchKey=${searchLog }&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
 		</c:if>
 		<c:if test="${!empty bigCate && empty smallCate && empty searchLog}">
-			<c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
-			<c:if test="${currentBlock == 1 }"><a id="prevbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a></c:if>
+			<c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/lists.do?bigcate=${bigCate }&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
+			<c:if test="${currentBlock == 1 }"><a id="prevbtn" href="${pageContext.servletContext.contextPath }/lists.do?bigcate=${bigCate }&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a></c:if>
 			
 			<c:forEach var="index" begin="${startNum }" end="${endNum }" varStatus="status">
 				<c:choose>
 					<c:when test="${index == currentPage }"><b>${index }</b></c:when>
-					<c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
+					<c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/lists.do?bigcate=${bigCate }&currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
 				</c:choose>
 				<c:if test="${!status.last }"> | </c:if>
 			</c:forEach>
-			<c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
-			<c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
+			<c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/lists.do?bigcate=${bigCate }&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
+			<c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/lists.do?bigcate=${bigCate }&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
 		</c:if>
 		<c:if test="${!empty smallCate }">
-			<c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
-			<c:if test="${currentBlock == 1 }"><a id="prevbtn" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a></c:if>
+			<c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
+			<c:if test="${currentBlock == 1 }"><a id="prevbtn" href="${pageContext.servletContext.contextPath }/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a></c:if>
 			<c:forEach var="index" begin="${startNum }" end="${endNum }" varStatus="status">
 				<c:choose>
 					<c:when test="${index == currentPage }"><b>${index }</b></c:when>
-					<c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
+					<c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
 				</c:choose>
 				<c:if test="${!status.last }"> | </c:if>
 			</c:forEach>
-			<c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
-			<c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
+			<c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
+			<c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
 		</c:if>
 	</div>
 

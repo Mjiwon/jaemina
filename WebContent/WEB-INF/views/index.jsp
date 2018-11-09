@@ -50,7 +50,7 @@
 
 
 			<form
-				action="${pageContext.servletContext.contextPath }/board/searchList.do?currentPage=1"
+				action="${pageContext.servletContext.contextPath }/searchList.do?currentPage=1"
 				method="post">
 
 				<div id="r" class="row">
