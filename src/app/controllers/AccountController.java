@@ -78,7 +78,8 @@ public class AccountController {
 	// Index!!!!
 	@RequestMapping("/index.do")
 	public String indexHendler(HttpSession session, WebRequest wr, Map map, HttpServletRequest req) {
-		map.put("boardlist", boardrepo.getCateBoard(1));
+		List<Map> boardlist = boardrepo.getCateBoard(1);
+			//map.put("boardlist", );
 		List<Map> bcatelist = caterepo.getBigCate();
 		
 		List rankCate =  boardrepo.getRankCate();
@@ -130,7 +131,16 @@ public class AccountController {
 			map.put("boardCount", boardCount);
 		int payCount = buyrepo.allPayCount();
 			map.put("payCount", payCount);
-		int payPercent = buyrepo.allPercent();
+		int payPercent =0;
+		
+		if(buyrepo.allPercent()==null) {
+			payPercent=0;
+		}else {
+			Map allPercent = buyrepo.allPercent();
+			System.out.println(allPercent);
+			payPercent =10;
+		}
+			//int payPercent = buyrepo.allPercent();
 			map.put("payPercent", payPercent);
 
 			
@@ -152,7 +162,6 @@ public class AccountController {
 			
 			}
 		}
-		
 		
 		return "account.index";
 	}
@@ -323,9 +332,9 @@ public class AccountController {
 
 	// 회원 마이 페이지 이동
 	// 구현중
-	@RequestMapping("/sellHistory.do")
-	public String sellHistoryHendle() {
-		return "account.sellerhistory";
+	@RequestMapping("/history.do")
+	public String historyHendle() {
+		return "account.history";
 	}
 	// --------------------------------------------------------------------------------------
 	// 비밀번호 변경

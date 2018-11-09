@@ -30,7 +30,7 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url"
-			value="jdbc:oracle:thin:@54.180.26.126:1521:xe" />
+			value="jdbc:oracle:thin:@52.78.234.247:1521:xe" />
 		<property name="username" value="jaemina" />
 		<property name="password" value="oracle" />
 	</bean>
@@ -49,7 +49,7 @@
 	<bean id="gson" class="com.google.gson.Gson" />
 
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="54.180.26.126"/>
+		<property name="host" value="13.125.245.183"/>
 		<property name="port" value="25"/>
 		<property name="protocol" value="smtp"/>
 		<property name="defaultEncoding" value="UTF-8"/>
@@ -65,7 +65,7 @@
 	
 	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 	
-	<mongo:mongo-client host="54.180.26.126" port="43126" />
+	<mongo:mongo-client host="52.78.234.247" port="59376" />
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoClient" ref="mongoClient" />	
 		<constructor-arg name="databaseName" value="jaemina" />
