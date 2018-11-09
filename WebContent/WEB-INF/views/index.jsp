@@ -313,52 +313,46 @@
 
 	</div>
 
-	<!-- /.row -->
 
 	<div align="center" style="border: 1px gray solid;">
 
 		<br />
 
 		<h4>카테고리별 전문가 랭킹</h4>
+		<div class="row">
+			<div class="col">
+				<label>${rank1[0].BIGCATE_STR }</label>
+				<c:forEach var="r" items="${rank1 }" varStatus="stau">
+					<div class="row justify-content-md-center">
+						<div class="col col-lg-2">${stau.count }위</div>
+						<div class="col-md-auto">${r.TITLE }</div>
+						<div class="col col-lg-2">${r.WRITER }</div>
+					</div>
+				</c:forEach>
 
-<%-- 		<div class="row" style="width: auto;">
-
-			<c:forEach var="r" items="${rank }" varStatus="status">
-
-				<div class="col list-group">
-
-					<c:if test="${r.BIGCATE == bigcate.get(status.index).NO }">
-
-						<a href="#" class="list-group-item list-group-item-action active">
-							${r.TITLE } (${r.WRITER })</a>
-						
-						<label>${bigcate.get(status.index).BIGCATE }</label>
-
-						<table class="table">
-
-							<tbody>
-
-								<tr>
-
-									<th scope="row">${status.count }위</th>
-
-									<td>${r.TITLE }</td>
-
-									<td><A href="#">${r.WRITER }</A></td>
-
-								</tr>
-
-							</tbody>
-
-						</table>
-					</c:if>
+			</div>
+			<div class="col">
+				<label>${rank2[0].BIGCATE_STR }</label>
+				<c:forEach var="r" items="${rank2 }" varStatus="stau">
+					<div class="row justify-content-md-center">
+						<div class="col col-lg-2">${stau.count }위</div>
+						<div class="col-md-auto">${r.TITLE }</div>
+						<div class="col col-lg-2">${r.WRITER }</div>
+					</div>
+				</c:forEach>
+			</div>
+			<div class="col">
+				<label>${rank3[0].BIGCATE_STR }</label>
+				<div class="row justify-content-md-center">
+					<c:forEach var="r" items="${rank3 }" varStatus="stau">
+						<div class="col col-lg-2">${stau.count }위</div>
+						<div class="col-md-auto">${r.TITLE }</div>
+						<div class="col col-lg-2">${r.WRITER }</div>
 				</div>
-
-			</c:forEach> --%>
-
-
+				</c:forEach>
+			</div>
 		</div>
-
 	</div>
 
 </div>
+

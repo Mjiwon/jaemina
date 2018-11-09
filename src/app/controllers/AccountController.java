@@ -81,20 +81,20 @@ public class AccountController {
 		map.put("boardlist", boardrepo.getCateBoard(1));
 		List<Map> bcatelist = caterepo.getBigCate();
 		
+		
 		List rankCate =  boardrepo.getRankCate();
 		List rankBoard = new ArrayList<>();
-		List ranks = new ArrayList<>();
-		for( int i = 0 ; i<rankCate.size();i++) {
-			Map ca = (Map)rankCate.get(i);
-			int big = ((BigDecimal)ca.get("BIGCATE")).intValue();
-			rankBoard = boardrepo.getRankBoard(big);
-			for(int j = 0 ; j<rankBoard.size();j++) {
-				ranks.add(i,rankBoard.get(j));				
-			}
-		}
-		System.out.println(ranks + " = ");
-		map.put("rank", ranks);
-	
+		Map c1 = (Map)rankCate.get(0);
+		Map c2 = (Map)rankCate.get(1);
+		Map c3 = (Map)rankCate.get(2);
+		
+		List li1 = boardrepo.getRankBoard(((BigDecimal)c1.get("BIGCATE")).intValue());
+		List li2 = boardrepo.getRankBoard(((BigDecimal)c2.get("BIGCATE")).intValue());
+		List li3 = boardrepo.getRankBoard(((BigDecimal)c3.get("BIGCATE")).intValue());
+
+		map.put("rank1", li1);
+		map.put("rank2", li2);
+		map.put("rank3", li3);
 		
 		if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
 			List<Map> wishlist = wishrepo.getWishlist((String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
+<c:set var="path" value="${pageContext.servletContext.contextPath }" />
 
 <title>${detail.TITLE }</title>
 
@@ -15,14 +15,14 @@
 			<img class="d-block mx-auto mb-4"
 				src="../../assets/brand/bootstrap-solid.svg" alt="" width="72"
 				height="72">
-				
-				<c:forEach begin="1" end="${detail.avg }" step="1">
-					<img src="${path }/images/star1.png" width="25" height="25">
-				</c:forEach>
-				<c:forEach begin="1" end="${5-detail.avg }" step="1">
-					<img src="${path}/images/star2.png" width="25" height="25">
-				</c:forEach>
-				 [평점 : ${detail.avg }점]
+
+			<c:forEach begin="1" end="${detail.avg }" step="1">
+				<img src="${path }/images/star1.png" width="25" height="25">
+			</c:forEach>
+			<c:forEach begin="1" end="${5-detail.avg }" step="1">
+				<img src="${path}/images/star2.png" width="25" height="25">
+			</c:forEach>
+			[평점 : ${detail.avg }점]
 			<h2>제목 : ${detail.TITLE }</h2>
 		</div>
 
@@ -37,11 +37,9 @@
 					<div class="card" style="width: auto;">
 						<a
 							href="${path }/sellerboardlist.do?seller=${writer.ID }&currentPage=1">
-							<img class="card-img-top"
-							src="${path }${writer.IMGPATH}"
+							<img class="card-img-top" src="${path }${writer.IMGPATH}"
 							alt="Card image cap" style="height: 8cm;">
-						</a>
-						<a onclick="paging();" class="replygaing" id="${l }"></a>
+						</a> <a onclick="paging();" class="replygaing" id="${l }"></a>
 						<div class="card-body">
 							<h5 class="card-title">${writer.WRITER }</h5>
 							<p>판매자 : ${writer.ID }</p>
@@ -50,12 +48,11 @@
 							<p>소개 : ${writer.INTRODUCE }</p>
 							<c:choose>
 								<c:when test="${writer.ID == user.ID }">
-									<a
-										href="${path }/board/modifyDetail.do?no=${detail.NO}"><button
+									<a href="${path }/board/modifyDetail.do?no=${detail.NO}"><button
 											type="button">수정</button></a>
 									<a href="javascript:goDelete(${detail.NO });"><button
 											type="button">삭제</button></a>
-			
+
 									<script>
 										var goDelete = function(no) {
 											if (window.confirm("정말삭제하시겠습니까?") == true) {
@@ -71,27 +68,43 @@
 									</script>
 								</c:when>
 								<c:otherwise>
-									<a
-										href="${path }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
-										class="btn btn-primary" style="margin-bottom: 10px">판매자에게
-										문의하기</a>
 									<c:choose>
-										<c:when test="${empty wishlistcheck}">
-											<a
-												href="${path }/addWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
-												class="btn btn-primary" id="addlike">관심 판매자로 등록</a>
+										<c:when test="${empty user }">
+											<a class="btn btn-primary notLog"
+												style="margin-bottom: 10px; color: white;">판매자에게 문의하기</a>
 										</c:when>
 										<c:otherwise>
 											<a
-												href="${path }/deleteWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
-												class="btn btn-primary" id="deletelike">관심 판매자에서 제거</a>
+												href="${path }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
+												class="btn btn-primary" style="margin-bottom: 10px">판매자에게
+												문의하기</a>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${empty user }">
+											<a class="btn btn-primary notLog" style="color: white;">관심
+												판매자로 등록</a>
+										</c:when>
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${empty wishlistcheck}">
+													<a
+														href="${pageContext.servletContext.contextPath }/addWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+														class="btn btn-primary" id="addlike">관심 판매자로 등록</a>
+												</c:when>
+												<c:otherwise>
+													<a
+														href="${pageContext.servletContext.contextPath }/deleteWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+														class="btn btn-primary" id="deletelike">관심 판매자에서 제거</a>
+												</c:otherwise>
+											</c:choose>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
 							</c:choose>
 						</div>
 					</div>
-				
+
 				</form>
 			</div>
 			<div class="col-md-8 order-md-1">
@@ -185,16 +198,20 @@
 							});
 						</script>
 					</c:if>
-					
+
 					<hr class="mb-4">
-						<input hidden="" id="postno" name="postno" value="${detail.NO }" /><br /> <input
-						hidden="" id="seller" name="seller" value="${detail.WRITER }" /><br /> <input
-						hidden="" id="price" name="price" value="${detail.PRICE}" /><br /> <input
-						hidden="" id="buyer" name="buyer" value="${user.ID}" /><br/>
-					<button class="btn btn-primary btn-lg btn-block" type="button" id="buybtn">구매하기</button>
+					<input hidden="" id="postno" name="postno" value="${detail.NO }" /><br />
+					<input hidden="" id="seller" name="seller"
+						value="${detail.WRITER }" /><br /> <input hidden="" id="price"
+						name="price" value="${detail.PRICE}" /><br /> <input hidden=""
+						id="buyer" name="buyer" value="${user.ID}" /><br />
+					<button class="btn btn-primary btn-lg btn-block" type="button"
+						id="buybtn">구매하기</button>
 				</form>
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-				<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+				<script
+					src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+				<script type="text/javascript"
+					src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 				<script type="text/javascript">
 					// 결제후 paydb insert
 					var paydbinsert = function(){
@@ -293,9 +310,13 @@
 
 
 		<div id="reply"></div>
-		
-		
+
+
 		<script type="text/javascript">	
+		
+		$(".notLog").on("click",function(){
+			window.alert("로그인 후 이용해주세요.");
+		});
 		
 		$("#addlike").on("click", function() {
 			window.alert("등록되었습니다.");
@@ -417,8 +438,8 @@ $("#replybtn").on("click",function() {
 </script>
 
 
-						<footer class="my-5 pt-5 text-muted text-center text-small">
-							<p class="mb-1">&copy; 2018-2019 재미나</p>
-						</footer>
-			</div>
+		<footer class="my-5 pt-5 text-muted text-center text-small">
+			<p class="mb-1">&copy; 2018-2019 재미나</p>
+		</footer>
+	</div>
 </body>
