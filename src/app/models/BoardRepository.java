@@ -25,6 +25,9 @@ public class BoardRepository {
 		return template.insert("board.addBoard2",data);
 	}
 	
+	public List<Map> getBuyerList(int postno){
+		return template.selectList("board.getBuyerList", postno);
+	}
 	
 	
 	public List<Map> getBoardList(){
@@ -39,7 +42,7 @@ public class BoardRepository {
 	public Integer getDetailAvg(int no) {
 		Map st = template.selectOne("board.getDetailAvg",no);
 		if(st!=null) {
-			return (Integer)st.get("S");			
+			return ((BigDecimal)st.get("S")).intValue();			
 		}else {
 			return 0;
 		}

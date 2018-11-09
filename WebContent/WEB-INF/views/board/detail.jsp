@@ -13,7 +13,7 @@
 	<div class="container">
 		<div class="py-5 text-center">
 			<img class="d-block mx-auto mb-4"
-				src="../../assets/brand/bootstrap-solid.svg" alt="" width="72"
+				src="${path }${detail.IMGPATH}" alt="" width="72"
 				height="72">
 
 			<c:forEach begin="1" end="${detail.avg }" step="1">
@@ -236,7 +236,7 @@
 			
 					//아임포트 라이브러리 파일이 로드되면 window.IMP 변수에 접근이 가능합니다.
 					$("#buybtn").on("click",function(){
-						
+						if( ${loginOk!=null}){
 						var IMP = window.IMP; // 생략가능
 						IMP.init('imp81506411'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 			
@@ -270,7 +270,11 @@
 				    		}
 				    		alert(msg);
 						});
+						}else{
+							window.alert("로그인을 해주세요");
+						}
 					});
+					
 	
 	
 	
@@ -390,44 +394,50 @@
 //작성
 $("#replybtn").on("click",function() {
 	if( ${loginOk!=null}){
-	var content = $("#content").val();	
-	var vstar=$("#star").val();
-	var star;
-	switch (vstar) {
-	case "1":
-		star="★☆☆☆☆";	
-		break;
-	case "2":
-		star="★★☆☆☆";
-		break;s
-	case "3":
-		star="★★★☆☆";
-		break;
-	case "4":
-		star="★★★★☆";
-		break;
-	
-	case "5":
-		star="★★★★★";
-		break;
-	}
-	console.log(star);	
-	var param = {
-		"bno" : ${detail.NO},
-		"writer": "${user.ID}",
-		"content":content,
-		"star":star,
-		"star_num":vstar
-				}
-	$.post("${pageContext.servletContext.contextPath }/ajax/replyWrite.do",param).done(function(rst) {
-	var obj = rst;
-		if(obj==1){
-			$("#content").val("");
-			ListReply();
-		 }else 
-			window.alert("이미 댓글 등록하셨습니다 댓글 수정을 이용 해주세요");
-		 
-	});
+		if(${isBuyer==true}){
+			var content = $("#content").val();	
+			var vstar=$("#star").val();
+			var star;
+			switch (vstar) {
+			case "1":
+				star="★☆☆☆☆";	
+				break;
+			case "2":
+				star="★★☆☆☆";
+				break;s
+			case "3":
+				star="★★★☆☆";
+				break;
+			case "4":
+				star="★★★★☆";
+				break;
+			
+			case "5":
+				star="★★★★★";
+				break;
+			}
+			console.log(star);	
+			var param = {
+				"bno" : ${detail.NO},
+				"writer": "${user.ID}",
+				"content":content,
+				"star":star,
+				"star_num":vstar
+						}
+			$.post("${pageContext.servletContext.contextPath }/ajax/replyWrite.do",param).done(function(rst) {
+			var obj = rst;
+				if(obj==1){
+					$("#content").val("");
+					window.alert("댓글이 등록되었습니다.");
+					ListReply();
+				 }else 
+					window.alert("이미 댓글 등록하셨습니다 댓글 수정을 이용 해주세요");
+				 
+			});	
+		}else{
+			document.getElementById("content").value = "";
+			window.alert("구매자만 댓글등록 가능합니다.");
+		}
 	}else
 		{
 		window.alert("로그인을 해주세요");

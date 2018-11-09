@@ -4,7 +4,8 @@
 
 	<!-- <insert id="addSeller" parameterType="java.util.HashMap"> insert into 
 		account_profile values(#{id},#{academy},#{career},#{imgpath},#{introuce}) 
-		</insert> -->
+	</insert> -->
+	
 	<update id="updateSeller1" parameterType="java.util.HashMap">
 		update account_profile
 		set career = #{career} , academy=#{academy} ,

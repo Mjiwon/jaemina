@@ -21,13 +21,17 @@
 	
 	<!-- 게시글 평점들 -->
 	<select id="getDetailAvg" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-		select bno, avg(star_num)s from reply where bno = #{bno} group by bno order by bno
+		select bno, round(avg(star_num))s from reply where bno = #{bno} group by bno order by bno
 	</select>
 	
 	<select id="get_myboard" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from board where writer=#{id}
 	</select>
 	<!-- 못찾음 -->
+	<select id="getBuyerList" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		select buyer from pay where postno=#{postno}
+	</select>
+	
 	<select id="getAllBoard" resultType="java.util.HashMap">
 		select * from board
 	</select>

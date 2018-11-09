@@ -3,7 +3,7 @@
 <mapper namespace="account">
 
 	<insert id="addUser" parameterType="java.util.HashMap">
-		insert into account values(account_seq.nextval, #{id}, #{email}, #{pass}, null)
+		insert into account values(acc_seq.nextval, #{id}, #{email}, #{pass})
 	</insert>
 	
 	
