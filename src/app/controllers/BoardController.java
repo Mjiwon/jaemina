@@ -124,6 +124,17 @@ public class BoardController {
 		map.put("detail", detail);
 		map.put("writer", writer);
 		map.put("cate", cate);
+		
+		// 구매자 목록 추가 
+		
+		List<Map> buyerList = boardrepo.getBuyerList(detailno);
+		for (int i = 0; i < buyerList.size(); i++) {
+			if(buyerList.get(i).get("BUYER").equals(id)) {
+				map.put("isBuyer", true);
+			}else {
+				map.put("isBuyer", false);
+			}
+		}
 
 		return "account.boardDetail";
 	}

@@ -85,8 +85,10 @@ public class AccountJoinController {
 			msg.setFrom("amdin@jamina.mockingu.com");
 
 			try {
+				System.out.println("성공");
 				sender.send(msg);
 			} catch (Exception e) {
+				System.out.println("실패");
 				// TODO: handle exception
 				e.printStackTrace();
 			}
@@ -115,16 +117,24 @@ public class AccountJoinController {
 		@PostMapping("/join.do")
 		public String joinPostHandler(WebRequest wr, Map map) {
 			String id = wr.getParameter("getId");
-			String pass = wr.getParameter("getPass1");
-			String pass1 = wr.getParameter("getPass2");
+			String pass = wr.getParameter("getPass");
+			String confirmPass = wr.getParameter("getPass1");
 			String email = wr.getParameter("getEmail");
-			map.put("id", id);
-			map.put("pass", pass);
-			map.put("email", email);
-			accountrepo.addUser(map);
-
-			wr.setAttribute("joinYes", true, WebRequest.SCOPE_REQUEST);
-			return "/WEB-INF/views/account/join.jsp";
+			
+			if (pass.equals(confirmPass)) {
+				map.put("id", id);
+				map.put("pass", pass);
+				map.put("email", email);
+				accountrepo.addUser(map);
+				
+				System.out.println(map);
+				
+				wr.setAttribute("joinYes", true, WebRequest.SCOPE_REQUEST);
+				return "/WEB-INF/views/account/join.jsp";
+			}else {
+				return "/WEB-INF/views/account/join.jsp";  //맵핑 다시 잡아야됌
+			}
+			
 		}
 
 		@RequestMapping("/joinid_check.do")
