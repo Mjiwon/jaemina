@@ -17,7 +17,7 @@
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/board/boardlist.jsp"/>
 	</definition>
-	
+
 	<definition name="account.boardDetail" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/board/detail.jsp"/>
@@ -64,6 +64,13 @@
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/board/boardlist2.jsp"/>
 	</definition>
+	
+	<!-- 에러 페이지 -->
+	<definition name="err.index" template="/WEB-INF/tiles/basicTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/err.jsp"/>
+	</definition>
+	
 	
 	
 	

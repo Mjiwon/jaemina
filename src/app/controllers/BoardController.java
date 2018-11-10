@@ -38,6 +38,7 @@ import app.models.WishlistRepository;
 import app.service.SocketService;
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
 
 	@Autowired
@@ -77,68 +78,71 @@ public class BoardController {
 	// 전체 게시글 갯수 불러오기
 
 	// 상세페이지
-	@RequestMapping("/board/detail.do")
+	@RequestMapping("/detail.do")
 	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
-		
-		int detailno = Integer.parseInt((String) param.get("no"));
-
-		// 게시물 클릭시 조회수 증가
-		boardrepo.addBoardsearchcount(detailno);
-
-		Map detail = boardrepo.getDetailBoard(detailno);
-		Integer avg = boardrepo.getDetailAvg(detailno);
-		System.out.println(avg);
-
-		detail.put("avg", avg);			
-		
-		
-		System.out.println(detail);
-		String sellerid = (String) detail.get("WRITER");
-		Map writer = sellerrepo.getSeller(sellerid);
-		String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
-		if (id != null) {
-			List<Map> wishlist = wishrepo.getWishlist(id);
-			wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
-			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
-
-			for (Map<String, String> list : wishlist) {
-				if (list.get("SELLER").equals(sellerid)) {
-					wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
-					break;
-				} else {
+		try {
+			int detailno = Integer.parseInt((String) param.get("no"));
+	
+			// 게시물 클릭시 조회수 증가
+			boardrepo.addBoardsearchcount(detailno);
+	
+			Map detail = boardrepo.getDetailBoard(detailno);
+			Integer avg = boardrepo.getDetailAvg(detailno);
+			System.out.println(avg);
+	
+			detail.put("avg", avg);			
+			
+			
+			System.out.println(detail);
+			String sellerid = (String) detail.get("WRITER");
+			Map writer = sellerrepo.getSeller(sellerid);
+			String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
+			if (id != null) {
+				List<Map> wishlist = wishrepo.getWishlist(id);
+				wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
+				wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
+	
+				for (Map<String, String> list : wishlist) {
+					if (list.get("SELLER").equals(sellerid)) {
+						wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
+						break;
+					} else {
+					}
+				}
+				map.put("loginOk", id);
+			}
+	
+			String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
+			String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
+	
+			Map cates = new HashMap<>();
+			cates.put("bigcate", bigcate);
+			cates.put("smallcate", smallcate);
+	
+			Map cate = caterepo.getCate(cates);
+			
+			map.put("detail", detail);
+			map.put("writer", writer);
+			map.put("cate", cate);
+			
+			// 구매자 목록 추가 
+			
+			List<Map> buyerList = boardrepo.getBuyerList(detailno);
+			for (int i = 0; i < buyerList.size(); i++) {
+				if(buyerList.get(i).get("BUYER").equals(id)) {
+					map.put("isBuyer", true);
+				}else {
+					map.put("isBuyer", false);
 				}
 			}
-			map.put("loginOk", id);
+	
+			return "account.boardDetail";
+		}catch(java.lang.NullPointerException e) {
+			return"err.index";
 		}
-
-		String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
-		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
-
-		Map cates = new HashMap<>();
-		cates.put("bigcate", bigcate);
-		cates.put("smallcate", smallcate);
-
-		Map cate = caterepo.getCate(cates);
-		
-		map.put("detail", detail);
-		map.put("writer", writer);
-		map.put("cate", cate);
-		
-		// 구매자 목록 추가 
-		
-		List<Map> buyerList = boardrepo.getBuyerList(detailno);
-		for (int i = 0; i < buyerList.size(); i++) {
-			if(buyerList.get(i).get("BUYER").equals(id)) {
-				map.put("isBuyer", true);
-			}else {
-				map.put("isBuyer", false);
-			}
-		}
-
-		return "account.boardDetail";
 	}
 
-	@RequestMapping("/board/modifyDetail.do")
+	@RequestMapping("/modifyDetail.do")
 	public String boardModifyHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String) param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
@@ -160,7 +164,7 @@ public class BoardController {
 		return "account.Modify";
 	}
 
-	@RequestMapping("/board/detailUpdate.do")
+	@RequestMapping("/detailUpdate.do")
 	public String boardDetailUpdateHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, Map map,
 			WebRequest wr) throws IOException {
 		int detailno = (int) wr.getAttribute("boardNum", WebRequest.SCOPE_SESSION);
@@ -212,8 +216,9 @@ public class BoardController {
 		return "account.boardDetail";
 	}
 
-	@RequestMapping("/board/deleteDetail.do")
+	@RequestMapping("/deleteDetail.do")
 	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
+				
 		boardrepo.deleteDetailBoard(Integer.parseInt((String) param.get("no")));
 
 		if (wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) != null) {
@@ -236,7 +241,7 @@ public class BoardController {
 	// ----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!!
 
-	@RequestMapping("/board/searchList.do")
+	@RequestMapping("/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
 		int startCount = (currentPage - 1) * 9 + 1;
@@ -277,7 +282,7 @@ public class BoardController {
 
 	// 구매 결정 컨트롤러
 	// 구현중
-	@PostMapping("/board/choespayment.do")
+	@PostMapping("/choespayment.do")
 	public String choespaymentHandle(@RequestParam Map param, @RequestParam String[] cardnum) {
 		String[] cardnumber = new String[cardnum.length];
 		for (int i = 0; i < cardnum.length; i++) {
