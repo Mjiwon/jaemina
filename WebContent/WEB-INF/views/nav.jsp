@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
 <c:if test="${chageok==0}">
 	<script type="text/javascript">
 		window.alert("비밀번호가 변경되었습니다.");
@@ -76,14 +77,22 @@
 				</c:when>
 				<c:otherwise>
 					<ul class="navbar-nav ml-auto">
+					<c:choose>
+						<c:when test="${!empty sellerinfo }">
+						<li class="nav-item">
+						<a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/write.do"
+							style="color: black;"><b>판매글올리기</b></a>
+						</li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item">
+							<a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/addseller.do"
+							style="color: black;"><b>판매자 등록하기</b></a>
+							</li>
+						</c:otherwise>
+					</c:choose>
 						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/write.do"
-							style="color: black;"><b>판매글올리기</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/addseller.do"
-							style="color: black;"><b>판매자 등록하기</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
+							href="${pageContext.servletContext.contextPath }/lists.do?bigcate=1&currentPage=1"
 							style="color: black;"><b>구매</b></a></li>
 
 						<li class="nav-item dropdown">

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath }"/>
-<%-- <fmt:formatNumber></fmt:formatNumber ---%>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <br/>
 <br/>
@@ -19,7 +19,7 @@
 	  		<p class="card-title"></p>
 	  		<div class="card-body">
 	  		<p class="card-buydate">${buy.BUYDATE }</p>
-	    	<h6 class="card-price"><fmt:formatNumber>${sell.PRICE }</fmt:formatNumber></h6>
+	    	<h6 class="card-price"><fmt:formatNumber>${sell.PRICE }</fmt:formatNumber>원</h6>
 	    	<c:choose>
 	    		<c:when test="${buy.BUYING ==  1}">
 	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->구매접수</p>

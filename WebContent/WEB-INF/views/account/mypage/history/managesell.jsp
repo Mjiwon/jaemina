@@ -19,15 +19,14 @@
 
 판매관리<br/>
 건수 : ${sellListCnt}<br/>
-<div>
-		
+<div>	
 	<c:forEach var="sell" items="${sellList }">
 		<div class="card" style="width: 20rem;">
 	  		<img class="card-img-top" src="..." alt="Card image cap">
 	  		<p class="card-title"></p>
 	  		<div class="card-body">
 	  		<p class="card-buydate">${sell.BUYDATE }</p>
-	    	<h6 class="card-price"><fmt:formatNumber>${sell.PRICE }</fmt:formatNumber></h6>
+	    	<h6 class="card-price"><fmt:formatNumber>${sell.PRICE }</fmt:formatNumber>원</h6>
 	    	<c:choose>
 	    		<c:when test="${sell.SELLING ==  1}">
 	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->판매접수</p>
@@ -45,7 +44,7 @@
 	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->판매완료</p>
 	    		</c:when>
 	    		<c:when test="${sell.SELLING ==  4}">
-	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->환불신청</p>
+	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->환불접수</p>
 	    			<p class="card-selling">
 	    			<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}" class="btn btn-primary">판매상태변경</a>
 	    		</p>
@@ -70,7 +69,5 @@
 	    		</script>
 	  </div>
 	</div>
-
-
 	</c:forEach>
 </div>

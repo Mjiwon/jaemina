@@ -89,6 +89,8 @@ public class MyPageController {
 		// 구매자 의 구매 내역을 뽑아오기
 		List<Map> mybuyList = payrepo.getMysellList(buyer);
 		System.out.println("mysellList : "+mybuyList);
+		// 판매자가 판매 접수를 했을 시 구매중으로 변경
+		// 1. mapper -> 2.repository -> 3.controller 에 추가
 		// view로 판매내역을 전달해 주기
 		if (mybuyList != null) {
 			map.put("buyList", mybuyList);
