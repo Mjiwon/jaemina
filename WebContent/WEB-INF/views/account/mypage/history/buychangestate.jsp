@@ -11,12 +11,8 @@
     	<input hidden="" name="postno" value="${mybuy.POSTNO }"/>
     	<select name="buying">
     		<option>구매상태변경을 선택하세요</option>
-    		<option value="2">구매중</option>
     		<option value="3">구매완료</option>
     		<option value="4">환불신청</option>
-    		<option value="5">환불완료</option>
-    		<option value="6">취소신청</option>
-    		<option value="7">취소완료</option>
     	</select>
     	<button type="submit">변경</button>
     </form>

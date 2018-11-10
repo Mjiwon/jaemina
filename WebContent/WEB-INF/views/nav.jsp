@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
 <c:if test="${chageok==0}">
 	<script type="text/javascript">
 		window.alert("비밀번호가 변경되었습니다.");
@@ -23,10 +24,10 @@
 	style="background-color: gray;">
 	<div class="container">
 		<a class="navbar-brand"
-			href="${pageContext.servletContext.contextPath }/index.do">JAEMINA</a>
+			href="${path}/index.do">JAEMINA</a>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<form
-				action="${pageContext.servletContext.contextPath }/board/searchList.do?currentPage=1"
+				action="${path}/searchList.do?currentPage=1"
 				method="post">
 				<div class="row">
 					<div class="col">
@@ -64,26 +65,31 @@
 				</c:when>
 				<c:when test="${!empty adminmode}">
 					<ul class="navbar-nav ml-auto">
-
 						<li class="nav-item">
 							<button type="button" class="btn btn-primary">
-								<a
-									href="${pageContext.servletContext.contextPath }/admin/index.do"
-									style="color: white;">관리자페이지</a>
+								<a href="${path}/admin/index.do" style="color: white;">관리자페이지</a>
 							</button>
 						</li>
 					</ul>
 				</c:when>
 				<c:otherwise>
 					<ul class="navbar-nav ml-auto">
+					<c:choose>
+						<c:when test="${!empty sellerinfo }">
+						<li class="nav-item">
+						<a class="nav-link disabled" href="${path}/write.do"
+							style="color: black;"><b>판매글올리기</b></a>
+						</li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item">
+							<a class="nav-link disabled" href="${path}/addseller.do"
+							style="color: black;"><b>판매자 등록하기</b></a>
+							</li>
+						</c:otherwise>
+					</c:choose>
 						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/write.do"
-							style="color: black;"><b>판매글올리기</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/addseller.do"
-							style="color: black;"><b>판매자 등록하기</b></a></li>
-						<li class="nav-item"><a class="nav-link disabled"
-							href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"
+							href="${path}/lists.do?bigcate=1&currentPage=1"
 							style="color: black;"><b>구매</b></a></li>
 
 						<li class="nav-item dropdown">
@@ -104,7 +110,7 @@
 										<c:when test="${!empty chatList }">
 											<c:forEach var="i" items="${chatList }">
 												<a
-													href="${pageContext.servletContext.contextPath }/qa/buyqa.do?no=${i.no }&writer=${i.writer}&members=${i.member[0]}&members=${i.member[1]}"
+													href="${path}/qa/buyqa.do?no=${i.no }&writer=${i.writer}&members=${i.member[0]}&members=${i.member[1]}"
 													class="dropdown-item">${i.member }<span id="${i.room }"
 													class="listnew"></span> <c:if test="${i.noCheck==true }">
 														<span class="badge badge-pill badge-primary">new</span>
@@ -127,7 +133,7 @@
 							<ul class="dropdown-menu dropright"
 								style="background-color: white; background-color: white; justify-content: center;">
 								<li><a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/history.do"><b
+									href="${path}/history.do"><b
 										style="color: green;">${user.ID }</b>의 재미나</a>
 								<li><a class="dropdown-item" id="jamilog"
 									href="javascript:jamilog">나의 재미로그</a></li>
@@ -158,7 +164,7 @@
 										<li><a class="dropdown-item" id="deleteUser"
 											href="javascript:deleteUser">회원 탈퇴</a></li>
 									</ul> <a class="dropdown-item"
-									href="${pageContext.servletContext.contextPath }/serviceqa.do">고객센터</a>
+									href="${path}/serviceqa.do">고객센터</a>
 									<div class="dropdown-divider"></div> <a class="dropdown-item"
 									href="javascript:goLogout();">로그아웃</a></li>
 							</ul>

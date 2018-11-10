@@ -12,10 +12,8 @@
 		</div>
 		<div class="col-10">
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link active" href="${path}/mypage/managesell.do">판매관리</a> <!-- chart.do -->
-				</li>
-				<li class="nav-item"><a class="nav-link" href="${path }/mypage/managebuy.do">구매관리</a></li><!-- chart.do -->
-				</li>
+				<li class="nav-item"><a class="nav-link active" href="${path}/mypage/managesell.do">판매관리</a> <!-- chart.do --></li>
+				<li class="nav-item"><a class="nav-link" href="${path }/mypage/managebuy.do">구매관리</a></li><!-- chart.do --></li>
 				<li class="nav-item"><a class="nav-link" href="${path }/receiveqa.do">고객센터 문의내역</a> </li>
 			</ul>
 		</div>

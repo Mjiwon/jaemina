@@ -31,8 +31,8 @@ public class PayRepository {
 		return template.selectList("pay.getMybuyList", buyer);
 	}
 	
-	public Map getMybuyno(int postno) {
-		return template.selectOne("pay.getMybuyno", postno);
+	public Map getMybuyno(Map data) {
+		return template.selectOne("pay.getMybuyno", data);
 	}
 	
 	public int updateBuying(Map data) {

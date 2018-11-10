@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import app.models.AccountRepository;
 import app.models.BoardRepository;
 import app.models.BuyRepository;
+import app.models.PayRepository;
 import app.models.QAMessageRepository;
 import app.models.SellerRepository;
 import app.service.SocketService;
@@ -46,6 +47,8 @@ public class BuyController {
 	
 	@Autowired
 	BuyRepository buyrepo;
+	
+	
 	//―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 	/*// 구매하기
 	@PostMapping("/buyBefore.do")
@@ -64,6 +67,7 @@ public class BuyController {
 	public String buyHandle(@RequestParam Map param) {
 		int r = buyrepo.addBuy(param);
 		System.out.println("buy result : "+r);
+		// 구매시 구매상태를 구매중으로 바꾸고 판매는 판매자가 접수를 받아야만 판매중이되기
 		String rst = "\"rst\":true";
 		return gson.toJson(rst);
 	}

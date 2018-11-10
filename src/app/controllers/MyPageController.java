@@ -87,8 +87,10 @@ public class MyPageController {
 		// 구매자 의 아이디 뽑기
 		String buyer = (String)session.getAttribute("loginId");
 		// 구매자 의 구매 내역을 뽑아오기
-		List<Map> mybuyList = payrepo.getMysellList(buyer);
-		System.out.println("mysellList : "+mybuyList);
+		List<Map> mybuyList = payrepo.getMybuyList(buyer);
+		System.out.println("mybuyList : "+mybuyList);
+		// 판매자가 판매 접수를 했을 시 구매중으로 변경
+		// 1. mapper -> 2.repository -> 3.controller 에 추가
 		// view로 판매내역을 전달해 주기
 		if (mybuyList != null) {
 			map.put("buyList", mybuyList);
@@ -101,14 +103,22 @@ public class MyPageController {
 	
 	// 구매상태 변경
 		@GetMapping("/buychangestate.do")
-		public String buychangestateGetHandle(@RequestParam Map param, Map map) {
+		public String buychangestateGetHandle(@RequestParam Map param, Map map, HttpSession session) {
 			// param 확인
 			System.out.println("param : "+param);
-			// postno 뽑아오기
+			// postno , no뽑아오기
 			int postno = Integer.parseInt((String)param.get("postno"));
-			// 판매 정보 뽑아오기
-			Map mybuy = payrepo.getMybuyno(postno);
-				// 뷰에 판매정보 뿌리기
+			int no = Integer.parseInt((String)param.get("no"));
+			// 구매자 아이디 뽑기
+			String buyer = (String)session.getAttribute("loginId");
+			// 구매 정보 뽑아오기
+			Map data = new HashMap();
+				data.put("postno", postno);
+				data.put("buyer", buyer);
+				data.put("no", no);
+			Map mybuy = payrepo.getMybuyno(data);
+			System.out.println("mybuy: "+mybuy);
+			// 뷰에 판매정보 뿌리기
 				map.put("mybuy", mybuy);
 			return "mypage.buychangestate";
 		}
