@@ -116,6 +116,6 @@ public class BoardWriteController {
 				boardrepo.addBoard1(map);
 			}
 
-			return "redirect:/board/detail.do?no=" + no;
+			return "redirect:board/detail.do?no=" + no;
 		}
 }

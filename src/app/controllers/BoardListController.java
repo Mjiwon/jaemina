@@ -25,7 +25,6 @@ import app.models.WishlistRepository;
 import app.service.SocketService;
 
 @Controller
-@RequestMapping("/board")
 public class BoardListController {
 
 	@Autowired
@@ -63,7 +62,7 @@ public class BoardListController {
 
 	
 	// 판매글 불러오기
-	@RequestMapping("/list.do")
+	@RequestMapping("/board/list.do")
 	public String boardListHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int bigcate = Integer.parseInt((String)param.get("bigcate"));
 		int smallcate = Integer.parseInt((String)param.get("smallcate"));
@@ -100,7 +99,7 @@ public class BoardListController {
 	}
 		
 		
-	@RequestMapping("/lists.do")
+	@RequestMapping("/board/lists.do")
 	public String boardListsHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int bigcate = Integer.parseInt((String) param.get("bigcate"));
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));

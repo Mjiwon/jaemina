@@ -89,7 +89,7 @@
 						</c:otherwise>
 					</c:choose>
 						<li class="nav-item"><a class="nav-link disabled"
-							href="${path}/lists.do?bigcate=1&currentPage=1"
+							href="${path}/board/lists.do?bigcate=1&currentPage=1"
 							style="color: black;"><b>구매</b></a></li>
 
 						<li class="nav-item dropdown">

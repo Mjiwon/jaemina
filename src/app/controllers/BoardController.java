@@ -38,7 +38,6 @@ import app.models.WishlistRepository;
 import app.service.SocketService;
 
 @Controller
-@RequestMapping("/board")
 public class BoardController {
 
 	@Autowired
@@ -78,7 +77,7 @@ public class BoardController {
 	// 전체 게시글 갯수 불러오기
 
 	// 상세페이지
-	@RequestMapping("/detail.do")
+	@RequestMapping("/board/detail.do")
 	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		
 		int detailno = Integer.parseInt((String) param.get("no"));
@@ -139,7 +138,7 @@ public class BoardController {
 		return "account.boardDetail";
 	}
 
-	@RequestMapping("/modifyDetail.do")
+	@RequestMapping("/board/modifyDetail.do")
 	public String boardModifyHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int detailno = Integer.parseInt((String) param.get("no"));
 		Map detail = boardrepo.getDetailBoard(detailno);
@@ -161,7 +160,7 @@ public class BoardController {
 		return "account.Modify";
 	}
 
-	@RequestMapping("/detailUpdate.do")
+	@RequestMapping("/board/detailUpdate.do")
 	public String boardDetailUpdateHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath, Map map,
 			WebRequest wr) throws IOException {
 		int detailno = (int) wr.getAttribute("boardNum", WebRequest.SCOPE_SESSION);
@@ -213,7 +212,7 @@ public class BoardController {
 		return "account.boardDetail";
 	}
 
-	@RequestMapping("/deleteDetail.do")
+	@RequestMapping("/board/deleteDetail.do")
 	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		boardrepo.deleteDetailBoard(Integer.parseInt((String) param.get("no")));
 
@@ -225,7 +224,9 @@ public class BoardController {
 			map.put("smallcate", (int) wr.getAttribute("smallCate", WebRequest.SCOPE_SESSION));
 			map.put("currentPage", 1);
 			return "redirect:list.do";
-		} else {
+		} else if(wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION) == null){
+			return "/index.do";
+		}else {
 			map.put("bigcate", (int) wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
 			map.put("currentPage", 1);
 			return "redirect:lists.do";
@@ -235,7 +236,7 @@ public class BoardController {
 	// ----------------------------------------------------------------------------------------------------------------------------
 	// 검색 기능 완료!!
 
-	@RequestMapping("/searchList.do")
+	@RequestMapping("/board/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
 		int startCount = (currentPage - 1) * 9 + 1;
@@ -276,7 +277,7 @@ public class BoardController {
 
 	// 구매 결정 컨트롤러
 	// 구현중
-	@PostMapping("/choespayment.do")
+	@PostMapping("/board/choespayment.do")
 	public String choespaymentHandle(@RequestParam Map param, @RequestParam String[] cardnum) {
 		String[] cardnumber = new String[cardnum.length];
 		for (int i = 0; i < cardnum.length; i++) {
