@@ -25,4 +25,8 @@ public class CateRepository {
 			return template.selectOne("cate.getCate",cates);
 		}
 		
+		public List<Map> getSmallcateAllList(){
+			return template.selectList("cate.getSmallcateAllList");
+		}
+		
 }
