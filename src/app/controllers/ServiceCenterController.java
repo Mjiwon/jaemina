@@ -22,7 +22,7 @@ public class ServiceCenterController {
 	
 	@GetMapping("/serviceqa.do")
 	public String serviceQaHandle() {
-		return "/WEB-INF/views/servicecenter/serviceqa.jsp";
+		return "account.serviceqa";
 	}
 	
 	@PostMapping("/serviceqa.do")
@@ -35,7 +35,7 @@ public class ServiceCenterController {
 			String path = imgpath.toString();
 			data.put("imgpath", path);
 			int r = adminqarepo.addadminQA2(data);
-			return "";
+			return "mypage.receiveqa";
 		}
 	}
 	
@@ -46,6 +46,6 @@ public class ServiceCenterController {
 		List<Map> receiveList = adminqarepo.getReceiveQA(id);
 		map.put("receive", receiveList);
 		System.out.println(receiveList);
-		return "account.receiveqa";
+		return "mypage.receiveqa";
 	}
 }

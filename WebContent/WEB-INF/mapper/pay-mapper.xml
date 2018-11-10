@@ -3,7 +3,9 @@
 <mapper namespace="pay">
 	<!--  판매 -->
 	<select id="getMysellList" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select * from pay where seller=#{seller}
+		<!-- select * from pay where seller=#{seller} -->
+		
+		select board.title, pay.* from board join pay on board.no  = pay.postno where seller = #{seller}
 	</select>
 	
 	<select id="getMysellno" parameterType="java.lang.Integer" resultType="java.util.HashMap">

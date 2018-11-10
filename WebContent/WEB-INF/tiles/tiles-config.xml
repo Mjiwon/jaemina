@@ -66,9 +66,9 @@
 	</definition>
 	
 	<!-- 고객센터 문의 타일즈 -->
-	<definition name="account.receiveqa" template="/WEB-INF/tiles/basicTiles.jsp">
+	<definition name="account.serviceqa" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
-		<put-attribute name="center" value="/WEB-INF/views/account/mypage/receiveqa.jsp"/>
+		<put-attribute name="center" value="/WEB-INF/views/servicecenter/serviceqa.jsp"/>
 	</definition>
 	
 </tiles-definitions>

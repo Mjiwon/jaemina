@@ -39,7 +39,7 @@ public class SocketService {
 		TextMessage msg = new TextMessage(txt);
 		for(int i=0;i<list.size();i++) {
 			try {
-				WebSocketSession ws = list.get(i);
+				WebSocketSession ws = list.get (i);
 				Map info = (Map)ws.getAttributes().get("user");
 				String userid = (String)info.get("ID");
 				System.out.println(userid + "    " + target);
