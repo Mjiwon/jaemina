@@ -21,8 +21,8 @@
 		select * from pay where buyer=#{buyer}
 	</select>
 	
-	<select id="getMybuyno" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-		select * from pay where postno=#{postno}
+	<select id="getMybuyno" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from pay where postno=#{postno} and no=#{no} and buyer=#{buyer}
 	</select>
 	
 	<!-- 구매상태 변경 -->

@@ -14,8 +14,7 @@
 			<ul class="nav">
 				<li class="nav-item"><a class="nav-link active" href="${path}/mypage/managesell.do">판매관리</a> <!-- chart.do -->
 				</li>
-				<li class="nav-item"><a class="nav-link" href="${path }/mypage/managebuy.do">구매관리</a></li><!-- chart.do -->
-				
+				<li class="nav-item"><a class="nav-link active" href="${path }/mypage/managebuy.do">구매관리</a></li><!-- chart.do -->
 				</li>
 			</ul>
 		</div>

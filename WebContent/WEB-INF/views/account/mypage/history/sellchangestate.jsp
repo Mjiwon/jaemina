@@ -15,8 +15,6 @@
     		<option value="3">판매완료</option>
     		<option value="4">환불접수</option>
     		<option value="5">환불완료</option>
-    		<option value="6">취소접수</option>
-    		<option value="7">취소완료</option>
     	</select>
     	<button type="submit">변경</button>
     </form>

@@ -11,26 +11,19 @@
 구매관리<br/>
 구매관리 리스트<br/>
 건수 : ${buyListCnt }<br/>
-<div>
-		
+<div>	
 	<c:forEach var="buy" items="${buyList }">
 		<div class="card" style="width: 20rem;">
 	  		<img class="card-img-top" src="..." alt="Card image cap">
 	  		<p class="card-title"></p>
 	  		<div class="card-body">
 	  		<p class="card-buydate">${buy.BUYDATE }</p>
-	    	<h6 class="card-price"><fmt:formatNumber>${sell.PRICE }</fmt:formatNumber>원</h6>
+	    	<h6 class="card-price"><fmt:formatNumber>${buy.PRICE }</fmt:formatNumber>원</h6>
 	    	<c:choose>
-	    		<c:when test="${buy.BUYING ==  1}">
-	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->구매접수</p>
-	    			<p class="card-selling">
-	    			<a href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}" class="btn btn-primary">구매상태변경</a>
-	    		</p>
-	    		</c:when>
 	    		<c:when test="${buy.BUYING ==  2}">
 	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->구매중</p>
 	    			<p class="card-selling">
-	    			<a href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}" class="btn btn-primary">구매상태변경</a>
+	    			<a href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.NO}" class="btn btn-primary">취소/환불신청</a>
 	    		</p>
 	    		</c:when>
 	    		<c:when test="${buy.BUYING ==  3}">
@@ -39,7 +32,7 @@
 	    		<c:when test="${buy.BUYING ==  4}">
 	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->환불신청</p>
 	    			<p class="card-selling">
-	    			<a href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}" class="btn btn-primary">구매상태변경</a>
+	    			<a href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.NO}" class="btn btn-primary">환불취소</a>
 	    		</p>
 	    		</c:when>
 	    		<c:when test="${buy.BUYING ==  5}">
@@ -48,20 +41,13 @@
 	    		<c:when test="${buy.BUYING ==  6}">
 	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->취소신청</p>
 	    			<p class="card-selling">
-	    			<a href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}" class="btn btn-primary">구매상태변경</a>
-	    		</p>
 	    		</c:when>
 	    		<c:otherwise>
 	    			<p class="card-buying"><!-- 구매자의 환불신청이나 취소 신청시 -->취소완료</p>
 	    		</c:otherwise>	    		
 	    	</c:choose>
-	    		
-	    		
-	    		<script type="text/javascript">
-	    		
-	    		</script>
-	  </div>
-	</div>
+	  		</div>
+		</div>
 	</c:forEach>
 </div>
 
