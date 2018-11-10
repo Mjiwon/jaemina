@@ -9,7 +9,6 @@
 <title>${detail.TITLE }</title>
 
 <body class="bg-light">
-
 	<div class="container">
 		<div class="py-5 text-center">
 			<img class="d-block mx-auto mb-4"
