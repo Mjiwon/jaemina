@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath }"/>
-<%-- <fmt:formatNumber></fmt:formatNumber ---%>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <br/>
 <br/>
@@ -31,28 +31,26 @@
 	    		<c:when test="${sell.BUYING == 2}">
 		    		<c:choose>
 		    		<c:when test="${sell.SELLING ==  1}">
-			    			<p class="card-selling"><!-- 구매자의 환불신청이나 취소 신청시 -->판매접수</p>
+			    			<p class="card-selling"><!-- 구매자의 환불신청이나 취소 신청시 -->구매신청</p>
 			    			<p class="card-selling">
-			    			<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}" class="btn btn-primary">판매상태변경</a>
+			    			<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}& ${sell.SELLING}" class="btn btn-primary">구매접수</a>
 			    		</p>
 			    	</c:when>
 			    	<c:when test="${sell.SELLING ==  2}">
 			    			<p class="card-selling"><!-- 구매자의 환불신청이나 취소 신청시 -->판매중</p>
 			    			<p class="card-selling">
-			    			<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}" class="btn btn-primary">판매상태변경</a>
+			    			<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}& ${sell.SELLING}" class="btn btn-primary">판매완료</a>
 			    		</p>
 			    	</c:when>
 			    	<c:when test="${sell.SELLING ==  3}">
 			    			<p class="card-selling"><!-- 구매자의 환불신청이나 취소 신청시 -->판매완료</p>
 			    	</c:when>
-			    	<c:otherwise>
-			    	</c:otherwise>
 			    	</c:choose>
 	    		</c:when>
 				<c:otherwise>			    	
 			    	<p class="card-selling"><!-- 구매자의 환불신청이나 취소 신청시 -->환불접수</p>
 			    	<p class="card-selling">
-			    		<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}" class="btn btn-primary">판매상태변경</a>
+			    		<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}& refund=${sell.SELLING}" class="btn btn-primary">환불</a>
 			    	</p>		    
 			    </c:otherwise>
 	    	</c:choose>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import app.models.BoardRepository;
+import app.models.CateRepository;
 import app.models.PayRepository;
 
 @Controller
@@ -25,7 +26,78 @@ public class MyPageController {
 
 	@Autowired
 	BoardRepository boardrepo;
+	
+	@Autowired
+	CateRepository caterepo;
 
+	
+	
+	// 구매관리
+		@GetMapping("/managebuy.do")
+		public String managebuyGetHandle(HttpSession session, Map map) {
+			// 구매자 의 아이디 뽑기
+			String buyer = (String)session.getAttribute("loginId");
+			// 구매자 의 구매 내역과 board의 속성 가져오기(join)
+			List<Map> mybuyList = payrepo.getMybuyList(buyer);
+			System.out.println("mybuyList : "+mybuyList);
+			
+			// cate별 이름 가져오기
+			List<Map> bigcatelist = caterepo.getBigCate();
+			List<Map> smallcatelist = caterepo.getSmallcateAllList(); 
+			
+			// view로 판매내역을 전달해 주기
+			if (mybuyList != null) {
+				map.put("buyList", mybuyList);
+				map.put("buyListCnt", mybuyList.size());
+				map.put("bigcatelist", bigcatelist);
+				map.put("smallcatelist", smallcatelist);
+			}
+			
+			return "mypage.managebuy";
+		}
+		
+		// 구매상태 변경
+			@GetMapping("/buychangestate.do")
+			public String buychangestateGetHandle(@RequestParam Map param, Map map, HttpSession session) {
+				// param 확인
+				System.out.println("param : "+param);
+				// postno , no뽑아오기
+				int postno = Integer.parseInt((String)param.get("postno"));
+				int no = Integer.parseInt((String)param.get("no"));
+				// 구매자 아이디 뽑기
+				String buyer = (String)session.getAttribute("loginId");
+				// 구매 정보 뽑아오기
+				Map data = new HashMap();
+					data.put("postno", postno);
+					data.put("buyer", buyer);
+					data.put("no", no);
+				Map mybuy = payrepo.getMybuyno(data);
+				System.out.println("mybuy: "+mybuy);
+				// 뷰에 판매정보 뿌리기
+					map.put("mybuy", mybuy);
+				return "mypage.buychangestate";
+			}
+			
+			@PostMapping("/buychangestate.do")
+			public String buychangestatePostHandle(@RequestParam Map param, Map map) {
+				// param 확인
+				System.out.println("param : "+param);
+				
+				// param에서 필요한 데이터 추출 (no, selling)
+				int no = Integer.parseInt((String)param.get("no"));
+				int buying = Integer.parseInt((String)param.get("buying"));
+				
+				// 판매상태확인 변경
+				Map data = new HashMap();
+				data.put("no", no);
+				data.put("buying", buying);
+				int r = payrepo.updateBuying(data);
+				System.out.println("구매상태 변경 : "+r);
+				// 완료
+				return "account.history";
+			}
+			
+			
 	// 판매관리
 	@GetMapping("/managesell.do")
 	public String managesellGetHandle(HttpSession session, Map map) {
@@ -81,66 +153,7 @@ public class MyPageController {
 	}
 	
 
-	// 구매관리
-	@GetMapping("/managebuy.do")
-	public String managebuyGetHandle(HttpSession session, Map map) {
-		// 구매자 의 아이디 뽑기
-		String buyer = (String)session.getAttribute("loginId");
-		// 구매자 의 구매 내역을 뽑아오기
-		List<Map> mybuyList = payrepo.getMybuyList(buyer);
-		System.out.println("mybuyList : "+mybuyList);
-		// 판매자가 판매 접수를 했을 시 구매중으로 변경
-		// 1. mapper -> 2.repository -> 3.controller 에 추가
-		// view로 판매내역을 전달해 주기
-		if (mybuyList != null) {
-			map.put("buyList", mybuyList);
-			map.put("buyListCnt", mybuyList.size());
-		}
-		// board에 타이틀 가져오기
-		List<Map> myboardlist = boardrepo.getmyboard(buyer);
-		return "mypage.managebuy";
-	}
 	
-	// 구매상태 변경
-		@GetMapping("/buychangestate.do")
-		public String buychangestateGetHandle(@RequestParam Map param, Map map, HttpSession session) {
-			// param 확인
-			System.out.println("param : "+param);
-			// postno , no뽑아오기
-			int postno = Integer.parseInt((String)param.get("postno"));
-			int no = Integer.parseInt((String)param.get("no"));
-			// 구매자 아이디 뽑기
-			String buyer = (String)session.getAttribute("loginId");
-			// 구매 정보 뽑아오기
-			Map data = new HashMap();
-				data.put("postno", postno);
-				data.put("buyer", buyer);
-				data.put("no", no);
-			Map mybuy = payrepo.getMybuyno(data);
-			System.out.println("mybuy: "+mybuy);
-			// 뷰에 판매정보 뿌리기
-				map.put("mybuy", mybuy);
-			return "mypage.buychangestate";
-		}
-		
-		@PostMapping("/buychangestate.do")
-		public String buychangestatePostHandle(@RequestParam Map param, Map map) {
-			// param 확인
-			System.out.println("param : "+param);
-			
-			// param에서 필요한 데이터 추출 (no, selling)
-			int no = Integer.parseInt((String)param.get("no"));
-			int buying = Integer.parseInt((String)param.get("buying"));
-			
-			// 판매상태확인 변경
-			Map data = new HashMap();
-			data.put("no", no);
-			data.put("buying", buying);
-			int r = payrepo.updateBuying(data);
-			System.out.println("구매상태 변경 : "+r);
-			// 완료
-			return "account.history";
-		}
 
 	// 판매자 등록 인증시 1원 결제
 
