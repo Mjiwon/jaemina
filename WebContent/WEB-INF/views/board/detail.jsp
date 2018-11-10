@@ -314,6 +314,11 @@
 
 
 		<div id="reply"></div>
+		
+		<div class="container">
+			<button class="btn btn-defaut" id="replylistbtn1" hidden="hidden">댓글접기</button>
+			<div class="commentList"></div>
+		</div>
 
 
 		<script type="text/javascript">	
@@ -358,33 +363,46 @@
 		
 		
 		$("#replylistbtn").on("click",function() {
-				ListReply();
+			$("#replylistbtn").prop("hidden", true);
+			$("#replylistbtn1").prop("hidden", false);
+			ListReply();
 		});
 
-			function ListReply(){
-				var param = {"bno" : "${detail.NO}"};
-				console.log(param);
-				$.post("${pageContext.servletContext.contextPath }/ajax/replylist.do",param).done(function(rst) {
-				var obj = rst;
-				var html = "";
-				if(obj.length>0){
-				for (var i = 0; i < obj.length; i++) {
-				console.log("누구누구있니?"+obj[i].WRITER);
-	            html += "<div><div><table class=\"table\"><h6><strong>"+obj[i].WRITER+"</strong><small>"+obj[i].STAR+"</small><small>"+obj[i].RDATE+"</small></h6>";
-	            html +=obj[i].CONTENT+"<br/><tr><td></td>";
-	            
-		         if(obj[i].WRITER==("${user.ID}")){
-        		html+="<button class=\"btn btn-defaut\" onclick=\"modifyreply();\" >"+"수정"+"</button>&nbsp;" ;
-        		html+="<button class=\"btn btn-defaut\" onclick=\"deleteReply();\" >"+"삭제"+"</button>";
-              } 
-	            html +="</tr></table></div></div>";
-				}
-				}else{
-				window.alert("등록된 댓글이 없습니다")
-				}
-			$("#reply").html(html);
-			});
+		function ListReply(){
+			var param = {"bno" : "${detail.NO}"};
+			$.post("${pageContext.servletContext.contextPath }/ajax/replylist.do",param).done(function(rst) {
+			var obj = rst;
+			var html = "";
+			if(obj.length>0){
+			for (var i = 0; i < obj.length; i++) {
+			console.log("누구누구있니?"+obj[i].WRITER);
+            html += "<div><div><table class=\"table\"><h6><strong>"+obj[i].WRITER+"</strong><small>"+obj[i].STAR+"</small><small>"+obj[i].RDATE+"</small></h6>";
+            html +=obj[i].CONTENT+"<br/><tr><td></td>";
+            
+	         if(obj[i].WRITER==("${user.ID}")){
+       		html+="<button class=\"btn btn-defaut\" onclick=\"modifyreply();\" >"+"수정"+"</button>&nbsp;" ;
+       		html+="<button class=\"btn btn-defaut\" onclick=\"deleteReply();\" >"+"삭제"+"</button>";
+             } 
+            html +="</tr></table></div></div>";
 			}
+			}else{
+			window.alert("등록된 댓글이 없습니다")
+			}
+		$("#reply").html(html);
+		});
+		};
+
+		$("#replylistbtn1").on("click",function() {
+			$("#replylistbtn").prop("hidden", false);
+			$("#replylistbtn1").prop("hidden", true);
+			ListReply1();
+		});
+		
+		function ListReply1() {
+			var html = "";
+			$("#reply").html(html);
+		};
+		
 			
 
 				
