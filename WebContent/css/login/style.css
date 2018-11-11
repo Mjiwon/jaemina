@@ -349,6 +349,12 @@ label.check {
 	font-family: 'Poppins', sans-serif;
 }
 
+.w3ls-login button[type=submit] {
+	width: 100%;
+	background: transparent;
+	border: transparent
+}
+
 .w3ls-login button[type=submit] a {
 	display:inline-block;
 	text-decoration: none;
@@ -359,9 +365,9 @@ label.check {
     cursor: pointer;
     border: none;
     border-radius: 8px;
-    border: 2px solid #ea1d5d;
-    background: #ea1d5d;
-    color: #fff;
+    border: 2px solid #fff;
+    background: #fff;
+    color: #ea1d5d;
 	margin-top:1em;
     outline: none;
     transition: 0.5s all ease;
@@ -379,9 +385,8 @@ label.check {
     font-size: 1.1em;
     letter-spacing: 2px;
     cursor: pointer;
-    border: 2px solid #fff;
-    border-radius: 8px;
     border: 2px solid #ea1d5d;
+    border-radius: 8px;
     background: transparent;
     color: #fff;
 	margin-top:1em;
