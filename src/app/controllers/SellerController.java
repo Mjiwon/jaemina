@@ -53,11 +53,11 @@ public class SellerController {
 		Map duser = accountrepo.Myinfo(seller);
 		String dbank = (String) duser.get("BANK");
 		List<Map> MyBoard = boardrepo.getmyboard(seller);
-		int startCount = (currentPage - 1) * 9 + 1;
-		int endCount = currentPage * 9;
+		int startCount = (currentPage - 1) * 4 + 1;
+		int endCount = currentPage * 4;
 		int boardCount = boardrepo.getmyboard(seller).size();
-		int totalPage = boardCount / 9;
-		if ((boardCount % 9) > 0) {
+		int totalPage = boardCount / 4;
+		if ((boardCount % 4) > 0) {
 			totalPage++;
 		}
 			Map mapp = new HashMap<>();

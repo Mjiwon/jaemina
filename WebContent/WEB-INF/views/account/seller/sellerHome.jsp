@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="currentPage">${currentPage }</c:set>
 <c:set var="totalPage">${totalPage }</c:set>
-<c:set var="pageBlock">10</c:set>
+<c:set var="pageBlock">5</c:set>
 
 <fmt:parseNumber var="currentBlock" integerOnly="true" value="${currentPage/pageBlock }"/>
 <fmt:parseNumber var="lastBlock" integerOnly="true" value="${totalPage/pageBlock }"/>

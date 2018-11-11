@@ -318,11 +318,11 @@ public class AccountController {
 
 		if (dbank != null) {
 			List<Map> MyBoard = boardrepo.getmyboard(id);
-			int startCount = (currentPage - 1) * 9 + 1;
-			int endCount = currentPage * 9;
+			int startCount = (currentPage - 1) * 4 + 1;
+			int endCount = currentPage * 4;
 			int boardCount = boardrepo.getmyboard(id).size();
-			int totalPage = boardCount / 9;
-			if ((boardCount % 9) > 0) {
+			int totalPage = boardCount / 4;
+			if ((boardCount % 4) > 0) {
 				totalPage++;
 			}
 			Map mapp = new HashMap<>();

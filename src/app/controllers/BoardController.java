@@ -264,8 +264,8 @@ public class BoardController {
 	@RequestMapping("/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
-		int startCount = (currentPage - 1) * 9 + 1;
-		int endCount = currentPage * 9;
+		int startCount = (currentPage - 1) * 6 + 1;
+		int endCount = currentPage * 6;
 
 		String searchKey = (String) param.get("searchKey");
 		List<String> li = new ArrayList<>();
@@ -281,8 +281,8 @@ public class BoardController {
 		mapp.put("list", li);
 		List<Map> list2 = boardrepo.getSearchListByMap(mapp);
 		map.put("boardlist", list2);
-		int totalPage = boardCount / 9;
-		if ((boardCount % 9) > 0) {
+		int totalPage = boardCount / 6;
+		if ((boardCount % 6) > 0) {
 			totalPage++;
 		}
 		map.put("totalPage", totalPage);
