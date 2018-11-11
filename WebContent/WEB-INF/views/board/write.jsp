@@ -19,7 +19,6 @@
       }
  </style>
 <div class="container" style="margin-top: 5%;">
-
 		<h2 align="center">판매 글올리기</h2>
 	<div class="row">
 		<!-- 판매내용 작성 -->
