@@ -9,13 +9,13 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE HTML>
-<html>
+<html style="background-color: #66CC66;">
 <head>
 <title>에러 페이지</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="${path}/css/style.css"
+<link href="${path }/css/style.css"
 	rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
@@ -94,10 +94,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="logo">
 				<h1>
 					<a href="#"><img
-						src="${path}/images/logo.png" /></a>
+						src="${path}/images/images/logo.png" /></a>
 				</h1>
 				<span><img
-					src="${path}/images/signal.png" />페이지가
+					src="${path}/images/images/signal.png" />페이지가
 					삭제되었거나 존재하지 않는 페이지입니다.</span>
 			</div>
 			<!-----end-logo--------->

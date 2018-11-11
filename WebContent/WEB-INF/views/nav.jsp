@@ -276,8 +276,8 @@
 
 
 			<ul class="navbar-nav ">
-				<li class="nav-item active"><a class="nav-link"
-					href="index.html">Home <span class="sr-only">(current)</span></a></li>
+				<!-- <li class="nav-item active"><a class="nav-link"
+					href="index.html">Home <span class="sr-only">(current)</span></a></li> -->
 				<c:forEach var="big"
 						items="${bigcate }" varStatus="ss">
 				<li class="nav-item dropdown drop_scroll">

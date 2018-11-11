@@ -95,7 +95,7 @@ public class BoardWriteController {
 			Integer no = boardrepo.getSequenceVal();
 			map.put("no", no); // 뷰로 보낼 게시판 번호
 
-			String filename = map.get("writer") + "-" + no + "-" + map.get("title") + "-board" + ".jpg";
+			String filename = map.get("writer") + "-" + no + "-board" + ".jpg";
 			String path = ctx.getRealPath("\\storage\\board");
 			String addr = (String) map.get("addr");
 			System.out.println(addr);
