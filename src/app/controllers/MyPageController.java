@@ -66,6 +66,22 @@ public class MyPageController {
 				int no = Integer.parseInt((String)param.get("no"));
 				// 구매자 아이디 뽑기
 				String buyer = (String)session.getAttribute("loginId");
+				
+				// 구매 상태 변경 param뽑기
+				int buying=1;
+				
+				if(Integer.parseInt((String)param.get("buying"))==3) {
+					buying=Integer.parseInt((String)param.get("buying")); // 환불신청
+				}else if(Integer.parseInt((String)param.get("buying"))==4) {
+					buying=Integer.parseInt((String)param.get("buying")); // 구매완료
+				}
+				System.out.println("buying : "+buying);
+				// 구매상태 변경하기
+				Map buychange = new HashMap();
+					buychange.put("no", no);
+					buychange.put("buying", buying);
+				int r = payrepo.updateBuying(buychange);
+				System.out.println("구매상태 변경 확인 : "+r);
 				// 구매 정보 뽑아오기
 				Map data = new HashMap();
 					data.put("postno", postno);
@@ -73,9 +89,9 @@ public class MyPageController {
 					data.put("no", no);
 				Map mybuy = payrepo.getMybuyno(data);
 				System.out.println("mybuy: "+mybuy);
-				// 뷰에 판매정보 뿌리기
+				// 뷰에 구매정보 뿌리기
 					map.put("mybuy", mybuy);
-				return "mypage.buychangestate";
+				return "redirect:managebuy.do";
 			}
 			
 			@PostMapping("/buychangestate.do")

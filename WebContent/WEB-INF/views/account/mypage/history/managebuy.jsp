@@ -20,20 +20,44 @@
 					<div class="card-body">
 						<p class="card-buydate">${buy.BUYDATE }</p>
 						<h6 class="card-price">
-							<fmt:formatNumber>${buy.PRICE }</fmt:formatNumber>
+							<fmt:formatNumber>${buy.QCSJ_C000000000500003 }</fmt:formatNumber>
 							원
 						</h6>
 						<c:choose>
+
 							<c:when test="${buy.BUYING ==  2}">
-								<p class="card-buying">
-									<!-- 구매자의 환불신청이나 취소 신청시 -->
-									구매중
-								</p>
-								<p class="card-selling">
-									<a
-										href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.NO}"
-										class="btn btn-primary">취소/환불신청</a>
-								</p>
+								<c:choose>
+
+									<c:when test="${buy.SELLING == 1 }">
+										<p class="card-buying">판매 상태 : 판매접수</p>
+										<p class="card-selling">구매상태 : 구매중</p>
+										<p class="card-selling">
+											<a
+												href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.QCSJ_C000000000500000}&buying=4"
+												class="btn btn-primary">환불신청</a>
+										</p>
+									</c:when>
+									<c:when test="${buy.SELLING == 2 }">
+										<p class="card-buying">판매 상태 : 판매중</p>
+										<p class="card-selling">구매상태 : 구매중</p>
+										<p class="card-selling">
+											<a
+												href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.QCSJ_C000000000500000}&buy=buying=4"
+												class="btn btn-primary">환불신청</a>
+										</p>
+									</c:when>
+									<c:when test="${buy.SELLING == 3 }">
+										<p class="card-buying">판매 상태 : 판매완료</p>
+										<p class="card-selling">구매상태 : 구매중</p>
+										<p class="card-selling">
+											<a
+												href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.QCSJ_C000000000500000}&buying=3"
+												class="btn btn-primary">구매완료</a>
+											<!-- <a href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.NO}" class="btn btn-primary">환불신청</a> -->
+										</p>
+									</c:when>
+
+								</c:choose>
 							</c:when>
 							<c:when test="${buy.BUYING ==  3}">
 								<p class="card-buying">
@@ -46,11 +70,7 @@
 									<!-- 구매자의 환불신청이나 취소 신청시 -->
 									환불신청
 								</p>
-								<p class="card-selling">
-									<a
-										href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.NO}"
-										class="btn btn-primary">환불취소</a>
-								</p>
+
 							</c:when>
 							<c:when test="${buy.BUYING ==  5}">
 								<p class="card-buying">
@@ -58,23 +78,12 @@
 									환불완료
 								</p>
 							</c:when>
-							<c:when test="${buy.BUYING ==  6}">
-								<p class="card-buying">
-									<!-- 구매자의 환불신청이나 취소 신청시 -->
-									취소신청
-								</p>
-								<p class="card-selling">
-							</c:when>
-							<c:otherwise>
-								<p class="card-buying">
-									<!-- 구매자의 환불신청이나 취소 신청시 -->
-									취소완료
-								</p>
-							</c:otherwise>
+
 						</c:choose>
 					</div>
 				</div>
 			</c:forEach>
+
 		</div>
 	</div>
 </div>
