@@ -75,24 +75,24 @@
 				<div class="mb-3">
 					<label>★제목</label>
 					<div class="input-group">
-						<input type="text" class="form-control" id="title" name="title">
+						<input type="text" class="form-control" id="title" name="title" required autofocus>
 					</div>
 				</div>
 
 				<div class="mb-3">
 					<label>★Title이미지</label> <input type="file" class="form-control"
-						id="img" name="imgpath">
+						id="img" name="imgpath" required autofocus>
 				</div>
 
 				<div class="mb-3">
 					<label>★금액</label> <input type="number" class="form-control"
-						name="price" id="price">
+						name="price" id="price" required autofocus>
 
 				</div>
 
 				<div class="mb-3">
 					<label for="address2">★상세내용</label>
-					<textarea rows="20" cols="20" class="form-control" name="content" id="content"></textarea>
+					<textarea rows="20" cols="20" class="form-control" name="content" id="content" required autofocus></textarea>
 				</div>
 
 				<input type="text" id="addr" placeholder="주소" readonly="readonly" name="addr" style="width: 45%;"> <input
@@ -102,82 +102,7 @@
 			
 			
 			
-				<!--  게시글 버튼 활성화 스크립트 -->			
-				<script type="text/javascript">
-					// 필수요소를 입력해야만 버튼이 활성화 되게 만들어 주기
-					// 필수요소 6가지
-					var abledbtn = [false, false, false, false, false, false];
-					// 새로고칭등으로 필수요소 초기화 하기 일단은 생략, 해보다가 필요하면 주석 제거
-					/* var abledbtn_init = function(){
-						for(var i=0; i<abledbtn;i++){
-							abledbtn[i]=false;
-						}
-					}; */
-					
-					// 게시글 작성 버튼을 활성화 하기 위한 함수
-					var validate = function(){
-						var cnt=0;
-						for(var i=0;i<abledbtn.length;i++){
-							if(abledbtn[i]==true){
-								cnt+=1;
-							}
-						}
-						if(cnt == 6){
-							$("#writebtn").prop("disabled",false);
-						}else{
-							$("#writebtn").prop("disabled",true);
-						}
-						//console.log("abledbtn : "+abledbtn + " / size : "+abledbtn.length);
-					};
-					
-					
-					// 1.bigcate 선택시 요소 하나 true로 바꿔주기
-					$("#bigcate").on("change",function(){
-						abledbtn[0]=true;
-						abledbtn[1]=true;
-						validate();
-					});
-						
-					// 2.title 입력시 true 바꿪기
-					$("#title").on("keyup",function(){
-						//console.log("title : "+$("#title").val());
-						if($("#title").val()==null || $("#title").val().length == 0){
-							//console.log("title:"+$("#title").val().length);
-							abledbtn[2]=false;
-						}else{
-							abledbtn[2]=true;
-						}
-							validate();							
-					});
-					// 3. 이미지 선택시 true 바꾸기
-					$("#img").on("change",function(){
-						console.log($("#img").val());
-						if($("#img").val().length!=0){
-							
-							abledbtn[3]=true;
-						}else{
-							abledbtn[3]=false;
-						}
-						validate();
-					});
-					// 4. 금액 입력시 true 바꾸기
-					$("#price").on("keyup",function(){
-						if($("#price").val().length!=0 && $("#price").val() != 0){
-							abledbtn[4]=true;
-						}else{
-							abledbtn[4]=false;
-						}
-							validate();
-					});
-					// 5. 상세내용 입력시 true 바꾸기
-					$("#content").on("keyup",function(){
-						if($("#content").val().length!=0){							abledbtn[5]=true;
-						}else{
-							abledbtn[5]=false;							
-						}
-						validate();							
-					});
-				</script>
+				
 
 				<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 				<script
@@ -312,7 +237,7 @@
 				</script>
 
 				<hr class="mb-4">
-				<button class="btn btn-primary btn-lg btn-block" type="submit" id="writebtn" disabled="disabled">게시글	올리기</button>
+				<button class="btn btn-primary btn-lg btn-block" type="submit" id="writebtn">게시글	올리기</button>
 			</form>
 			
 		</div>
