@@ -74,71 +74,66 @@
 									pattern="yy-MM-dd HH:mm" />
 							</div>
 							<div class="col col-lg-2">
-								<fmt:formatNumber>${sell.PRICE }</fmt:formatNumber>
+								<fmt:formatNumber>${sell.PRICE }</fmt:formatNumber>원
 							</div>
 							<c:choose>
+							
 								<c:when test="${sell.BUYING == 2}">
 									<c:choose>
 
 										<c:when test="${sell.SELLING ==  1}">
 											<!-- 구매자의 환불신청이나 취소 신청시 -->
 											<div class="col col-lg-2">
-												<p class="card-selling">판매접수</p>
+												<p class="card-buying">구매상태 : 구매중</p>
 											</div>
 											<div class="col col-lg-2">
-												<p class="card-selling">
-													<a
-														href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}"
-														class="btn btn-primary">판매상태변경</a>
+												<p class="card-selling">판매접수
+													<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}&no=${sell.NO}&selling=2" class="btn btn-primary">판매중</a>
 												</p>
 											</div>
 										</c:when>
 										<c:when test="${sell.SELLING ==  2}">
 											<div class="col col-lg-2">
-												<p class="card-selling">
-													<!-- 구매자의 환불신청이나 취소 신청시 -->
-													판매중
-												</p>
+												<p class="card-buying">구매상태 : 구매중</p>
 											</div>
 											<div class="col col-lg-2">
-												<p class="card-selling">
-													<a
-														href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}"
-														class="btn btn-primary">판매상태변경</a>
+												<p class="card-selling">판매중
+													<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}&no=${sell.NO}&selling=3" class="btn btn-primary">판매완료</a>
 												</p>
 											</div>
 										</c:when>
 										<c:when test="${sell.SELLING ==  3}">
 											<div class="col col-lg-2">
-												<p class="card-selling">
-													<!-- 구매자의 환불신청이나 취소 신청시 -->
-													판매완료
-												</p>
+												<p class="card-selling">판매완료</p>
 											</div>
 											<div class="col col-lg-2"></div>
 										</c:when>
-										<c:otherwise>
-										</c:otherwise>
+										
 									</c:choose>
 								</c:when>
-								<c:otherwise>
-									<div class="col col-lg-2">
+								
+								<c:when test="${sell.BUYING==4 }">
+									<c:choose>
+										<c:when test="${sell.SELLING != 5 }">
+										<div class="col col-lg-2">
+											<p class="card-selling">구매상태 : 환불신청</p>
+										</div>
+										<div class="col col-lg-2">
 										<p class="card-selling">
-											<!-- 구매자의 환불신청이나 취소 신청시 -->
-											환불접수
+											<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}&no=${sell.NO}&selling=5" class="btn btn-primary">환불</a>
 										</p>
-									</div>
+										</div>
+										</c:when>
+			
+									</c:choose>
+								</c:when>
+								<c:when test="${sell.BUYING==5 }">
 									<div class="col col-lg-2">
-										<p class="card-selling">
-											<a
-												href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}"
-												class="btn btn-primary">판매상태변경</a>
-										</p>
-									</div>
-
-								</c:otherwise>
+												<p class="card-selling">환불완료</p>
+											</div>
+											<div class="col col-lg-2"></div>
+								</c:when>
 							</c:choose>
-
 						</div>
 					</c:forEach>
 				</div>

@@ -25,13 +25,18 @@ p  on p.selling=sell_state.no
 		select board.title, pay.* from board join pay on board.no  = pay.postno where seller = #{seller}
 	</select>
 	
-	<select id="getMysellno" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-		select * from pay where postno=#{postno}
+	<select id="getMysellno" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from pay where postno=#{postno} and no=#{no} and seller=#{seller}
 	</select>
 	
 	<!-- 판매상태 변경 -->
 	<update id="updateSelling" parameterType="java.util.HashMap">
 		update pay set selling=#{selling} where no=#{no}
+	</update>
+	
+	<!-- 환불 완료 -->
+	<update id="refundend" parameterType="java.util.HashMap">
+	 	update pay set buying=5 where no=${no} and selling=#{selling}
 	</update>
 	
 	
