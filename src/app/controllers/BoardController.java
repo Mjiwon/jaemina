@@ -88,11 +88,14 @@ public class BoardController {
 	
 			Map detail = boardrepo.getDetailBoard(detailno);
 			Integer avg = boardrepo.getDetailAvg(detailno);
-			System.out.println(avg);
 	
 			detail.put("avg", avg);			
 			
+		/*	for(int i = 0; i<detail.size();i++) {
+				detail.get("CONTENT");
+			}
 			
+			*/
 			System.out.println(detail);
 			String sellerid = (String) detail.get("WRITER");
 			Map writer = sellerrepo.getSeller(sellerid);

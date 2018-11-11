@@ -3,13 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <c:set var="path" value="${pageContext.servletContext.contextPath }" />
 
 <title>${detail.TITLE }</title>
 
  <body class="bg-light">
-	<div class="container">
+	<div class="container" style="margin-top: 5%;">
 		<div class="py-5 text-center">
 			<img class="d-block mx-auto mb-4"
 				src="${path }${detail.IMGPATH}" width="300" height="300" >
@@ -139,10 +139,14 @@
 					</div>
 
 					<div class="mb-3">
-						<label for="address">내용</label> <input type="text"
+						<label for="address">내용</label> 
+						<%-- <input type="text"
 							class="form-control" id="address" value="${detail.CONTENT }"
 							readonly="readonly"
-							style="background-color: white; height: 514px;">
+							style="background-color: white; height: 514px;"> --%>
+							<textarea rows="20" cols="20" class="form-control" name="content" id="content" readonly="readonly" style="background-color: white;" required autofocus>
+								${detail.CONTENT }
+							</textarea>
 						<div class="invalid-feedback">Please enter your shipping
 							address.</div>
 					</div>
