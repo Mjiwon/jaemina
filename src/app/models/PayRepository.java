@@ -31,12 +31,16 @@ public class PayRepository {
 		return template.selectList("pay.getMysellList", seller);
 	}
 
-	public Map getMysellno(int postno) {
-		return template.selectOne("pay.getMysellno", postno);
+	public Map getMysellno(Map data) {
+		return template.selectOne("pay.getMysellno", data);
 	}
 
 	public int updateSelling(Map data) {
 		return template.update("pay.updateSelling", data);
+	}
+	
+	public int refundend(Map data) {
+		return template.update("pay.refundend", data);
 	}
 
 }

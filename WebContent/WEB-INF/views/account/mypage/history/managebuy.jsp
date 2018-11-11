@@ -42,7 +42,7 @@
 										<p class="card-selling">구매상태 : 구매중</p>
 										<p class="card-selling">
 											<a
-												href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.QCSJ_C000000000500000}&buy=buying=4"
+												href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.QCSJ_C000000000500000}&buying=4"
 												class="btn btn-primary">환불신청</a>
 										</p>
 									</c:when>

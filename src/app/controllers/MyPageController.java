@@ -1,5 +1,6 @@
 package app.controllers;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,9 +72,9 @@ public class MyPageController {
 				int buying=1;
 				
 				if(Integer.parseInt((String)param.get("buying"))==3) {
-					buying=Integer.parseInt((String)param.get("buying")); // 환불신청
+					buying=3; // 환불신청
 				}else if(Integer.parseInt((String)param.get("buying"))==4) {
-					buying=Integer.parseInt((String)param.get("buying")); // 구매완료
+					buying=4; // 구매완료
 				}
 				System.out.println("buying : "+buying);
 				// 구매상태 변경하기
@@ -94,24 +95,6 @@ public class MyPageController {
 				return "redirect:managebuy.do";
 			}
 			
-			@PostMapping("/buychangestate.do")
-			public String buychangestatePostHandle(@RequestParam Map param, Map map) {
-				// param 확인
-				System.out.println("param : "+param);
-				
-				// param에서 필요한 데이터 추출 (no, selling)
-				int no = Integer.parseInt((String)param.get("no"));
-				int buying = Integer.parseInt((String)param.get("buying"));
-				
-				// 판매상태확인 변경
-				Map data = new HashMap();
-				data.put("no", no);
-				data.put("buying", buying);
-				int r = payrepo.updateBuying(data);
-				System.out.println("구매상태 변경 : "+r);
-				// 완료
-				return "account.history";
-			}
 			
 			
 	// 판매관리
@@ -136,36 +119,53 @@ public class MyPageController {
 	
 	// 판매상태 변경
 	@GetMapping("/sellchangestate.do")
-	public String sellchangestateGetHandle(@RequestParam Map param, Map map) {
+	public String sellchangestateGetHandle(@RequestParam Map param, HttpSession session, Map map) {
 		// param 확인
 		System.out.println("param : "+param);
-		// postno 뽑아오기
+		// postno, no뽑아오기
 		int postno = Integer.parseInt((String)param.get("postno"));
-		// 판매 정보 뽑아오기
-		Map mysell = payrepo.getMysellno(postno);
-			// 뷰에 판매정보 뿌리기
-			map.put("mysell", mysell);
-		return "mypage.sellchangestate";
-	}
-	
-	@PostMapping("/sellchangestate.do")
-	public String sellchangestatePostHandle(@RequestParam Map param, Map map) {
-		// param 확인
-		System.out.println("param : "+param);
-		
-		// param에서 필요한 데이터 추출 (no, selling)
 		int no = Integer.parseInt((String)param.get("no"));
-		int selling = Integer.parseInt((String)param.get("selling"));
 		
-		// 판매상태확인 변경
+		// 판매상태 변경 param 뽑기
+		// selling 뽑아오기
+		String seller = (String)session.getAttribute("loginId");
 		Map data = new HashMap();
 		data.put("no", no);
-		data.put("selling", selling);
-		int r = payrepo.updateSelling(data);
+		data.put("postno", postno);
+		data.put("seller", seller);
+		
+		Map mysellinfo = payrepo.getMysellno(data);
+		int selling = ((BigDecimal)mysellinfo.get("SELLING")).intValue();
+		System.out.println("param : "+param + " / selling : "+selling);
+		if(Integer.parseInt((String)param.get(("selling")))==2) {
+			selling = 2;
+		}else if(Integer.parseInt((String)param.get(("selling")))==3) {
+			selling = 3;
+		}else if(Integer.parseInt((String)param.get(("selling")))==5) {
+			selling = 5;
+		}
+		System.out.println("push button selling : "+selling);
+		
+		// 판매 상태 변경
+		
+		Map sellupdate = new HashMap();
+		sellupdate.put("no", no);
+		sellupdate.put("selling", selling);
+		
+		int r = payrepo.updateSelling(sellupdate);
 		System.out.println("판매상태 변경 : "+r);
-		// 완료
-		return "account.history";
+		if(selling == 5) {
+			Map refundend = new HashMap();
+			refundend.put("no", no);
+			refundend.put("selling",selling);
+			int refundendr = payrepo.refundend(refundend);
+			System.out.println("refundend : "+refundendr);
+		}
+		
+		return "redirect:managesell.do";
 	}
+	
+	
 	
 
 	
