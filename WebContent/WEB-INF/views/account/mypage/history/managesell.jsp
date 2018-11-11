@@ -15,7 +15,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 
-<div class="container">
+<div class="container" style="margin-top: 6%;">
 	<div class="row">
 		<div class="col-2">
 			<div class="nav flex-column nav-pills" id="v-pills-tab"

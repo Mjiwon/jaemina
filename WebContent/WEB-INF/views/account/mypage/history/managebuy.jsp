@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath }" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<div class="container">
+<div class="container" style="margin-top: 6%;">
 	<div class="row">
 		<div class="col">구매 건수 : ${buyListCnt }</div>
 		<div class="col">

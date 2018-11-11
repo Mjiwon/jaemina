@@ -127,6 +127,10 @@ public class BoardController {
 			map.put("detail", detail);
 			map.put("writer", writer);
 			map.put("cate", cate);
+			List<Map> bcatelist = caterepo.getBigCate();
+			List<Map> scatelist = caterepo.getSmallcateAllList();
+			map.put("smallcate", scatelist);
+			map.put("bigcate", bcatelist);
 			
 			// 구매자 목록 추가 
 			
@@ -162,6 +166,10 @@ public class BoardController {
 
 		map.put("detail", detail);
 		map.put("cate", cate);
+		List<Map> bcatelist = caterepo.getBigCate();
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
 
 		wr.setAttribute("boardNum", detailno, WebRequest.SCOPE_SESSION);
 		return "account.Modify";
@@ -214,6 +222,11 @@ public class BoardController {
 		map.put("detail", detail);
 		map.put("writer", writer);
 		map.put("cate", cate);
+		List<Map> bcatelist = caterepo.getBigCate();
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
+		
 
 		wr.removeAttribute("boardNum", WebRequest.SCOPE_SESSION);
 		return "account.boardDetail";
