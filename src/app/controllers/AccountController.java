@@ -200,10 +200,10 @@ public class AccountController {
 			}
 			if (mapp != null) { // 로그인이 되었을 경우
 				if (sessions.containsKey(id)) {
-					sessions.remove("user"); // 기존 로그인 사용자 없애기
-					sessions.remove("auth"); //
-					sessions.remove("loginId");
-					sessions.remove("sellerinfo");
+					wr.removeAttribute("user", WebRequest.SCOPE_SESSION); // 기존 로그인 사용자 없애기
+					wr.removeAttribute("auth", WebRequest.SCOPE_SESSION);
+					wr.removeAttribute("loginId", WebRequest.SCOPE_SESSION);
+					wr.removeAttribute("sellerinfo", WebRequest.SCOPE_SESSION);
 					wr.setAttribute("auth", true, WebRequest.SCOPE_SESSION); // 새로 로그인
 					wr.setAttribute("user", mapp, WebRequest.SCOPE_SESSION);
 					wr.setAttribute("loginId", id, WebRequest.SCOPE_SESSION);
