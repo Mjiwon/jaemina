@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="currentPage">${currentPage }</c:set>
 <c:set var="totalPage">${totalPage }</c:set>
-<c:set var="pageBlock">10</c:set>
+<c:set var="pageBlock">5</c:set>
 
 <fmt:parseNumber var="currentBlock" integerOnly="true"
 	value="${currentPage/pageBlock }" />
@@ -170,8 +170,7 @@
 												<c:choose>
 													<c:when test="${!empty wishlist}">
 														<c:forEach var="l" items="${wishlist }">
-															<li><a class="dropdown-item"
-																href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}">${l.SELLER }</a></li>
+															<li><a class="dropdown-item slog" id="${l.SELLER }">${l.SELLER }</a></li>
 														</c:forEach>
 													</c:when>
 													<c:otherwise>
@@ -386,7 +385,7 @@
 			"click",
 			function() {
 				console.log($(this).attr("id"));
-				/* ${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}&currentPage=1" */
+				/*${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${l.SELLER}&currentPage=1" */
 				window.open(
 
 				"${pageContext.servletContext.contextPath }/sellerboardlist.do?seller="

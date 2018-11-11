@@ -90,6 +90,7 @@ public class AccountController {
 		List<Map> bcatelist = caterepo.getBigCate();
 		List<Map> scatelist = caterepo.getSmallcateAllList();
 		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
 		
 		List rankCate =  boardrepo.getRankCate();
 		Map c1 = null;
@@ -145,7 +146,6 @@ public class AccountController {
 			wr.setAttribute("chatList", getChatList, WebRequest.SCOPE_SESSION);
 			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
 		}
-			map.put("bigcate", bcatelist);
 		int boardCount = boardrepo.boardCount();
 		map.put("boardCount", boardCount);
 		int payCount = buyrepo.allPayCount();
@@ -322,11 +322,11 @@ public class AccountController {
 
 		if (dbank != null) {
 			List<Map> MyBoard = boardrepo.getmyboard(id);
-			int startCount = (currentPage - 1) * 9 + 1;
-			int endCount = currentPage * 9;
+			int startCount = (currentPage - 1) * 4 + 1;
+			int endCount = currentPage * 4;
 			int boardCount = boardrepo.getmyboard(id).size();
-			int totalPage = boardCount / 9;
-			if ((boardCount % 9) > 0) {
+			int totalPage = boardCount / 4;
+			if ((boardCount % 4) > 0) {
 				totalPage++;
 			}
 			Map mapp = new HashMap<>();
@@ -362,6 +362,10 @@ public class AccountController {
 
 				// board에 타이틀 가져오기
 				List<Map> myboardlist = boardrepo.getmyboard(seller);
+				List<Map> bcatelist = caterepo.getBigCate();
+				List<Map> scatelist = caterepo.getSmallcateAllList();
+				map.put("smallcate", scatelist);
+				map.put("bigcate", bcatelist);
 		return "mypage.managesell";
 	}
 	// --------------------------------------------------------------------------------------

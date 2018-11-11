@@ -18,7 +18,7 @@
         padding: 0;
       }
  </style>
-<div class="container" style="margin-top: 6%;">
+<div class="container" style="margin-top: 8%;">
 
 		<h2 align="center">판매 글올리기</h2>
 	<div class="row">
@@ -98,7 +98,7 @@
 				<input type="text" id="addr" placeholder="주소" readonly="readonly" name="addr" style="width: 45%;"> <input
 					type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 				<div id="map"
-					style="width: 100%; height: 100%; margin-top: 10px;"></div>
+					style="width: 100%; height: 600px; margin-top: 10px;"></div>
 			
 			
 			
@@ -171,6 +171,7 @@
 																// 지도 중심을 변경한다.
 																map
 																		.setCenter(coords);
+																marker.setMap(map);
 																// 마커를 결과값으로 받은 위치로 옮긴다.
 																marker
 																		.setPosition(coords)

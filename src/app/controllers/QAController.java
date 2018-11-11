@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import app.models.CateRepository;
 import app.models.QAMessageRepository;
 import app.models.SellerRepository;
 import app.service.SocketService;
@@ -30,6 +31,9 @@ public class QAController {
 	
 	@Autowired
 	QAMessageRepository mrepo;
+
+	@Autowired
+	CateRepository caterepo;
 	
 	/*@GetMapping("/qalist.do")
 	public String buyqaHandle(Map map , HttpSession session, @RequestParam Map param) {
@@ -177,6 +181,10 @@ public class QAController {
 		System.out.println("모드가 " + (String)param.get("qamode"));
 		map.put("chatlog", maps.get("log"));
 		map.put("member", maps.get("member"));
+		List<Map> bcatelist = caterepo.getBigCate();
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
 		
 		
 		mrepo.updateCheckMember((String)param.get("qamode"),(String)user.get("ID"));

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="currentPage">${currentPage }</c:set>
 <c:set var="totalPage">${totalPage }</c:set>
-<c:set var="pageBlock">10</c:set>
+<c:set var="pageBlock">5</c:set>
 
 <fmt:parseNumber var="currentBlock" integerOnly="true" value="${currentPage/pageBlock }"/>
 <fmt:parseNumber var="lastBlock" integerOnly="true" value="${totalPage/pageBlock }"/>
@@ -48,13 +48,13 @@
                <c:if test="${currentPage != 1 }">
                   <%-- 
          <a id="firstbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=1" style="color: black;">[첫 페이지] | </a> --%>
-                  <li class="page-item disabled">
+                  <li class="page-item">
                      <a class="page-link" id="firstbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=1" tabindex="-1">첫 페이지</a>
                   </li>
                </c:if>
                <c:if test="${currentBlock == 1 }">
                   <%-- <a id="prevbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a> --%>
-                  <li class="page-item disabled" >
+                  <li class="page-item" >
                      <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${startNum-pageBlock+9 }" tabindex="-1">이전</a>
                   </li>
                </c:if>
@@ -104,7 +104,7 @@
                      href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=1"
                      style="color: black;">[첫 페이지] | </a> --%>
                      
-                     <li class="page-item disabled">
+                     <li class="page-item">
                      <a class="page-link" id="firstbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=1" tabindex="-1">첫 페이지</a>
                   </li>
                </c:if>
@@ -113,7 +113,7 @@
                      href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=${startNum-pageBlock+9 }"
                      style="color: black;"> [이전] |</a> --%>
                      
-                     <li class="page-item disabled" >
+                     <li class="page-item" >
                      <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=${startNum-pageBlock+9 }" tabindex="-1">이전</a>
                   </li>
                </c:if>
@@ -164,7 +164,7 @@
                      href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=1"
                      style="color: black;">[첫 페이지] | </a> --%>
                      
-                     <li class="page-item disabled">
+                     <li class="page-item">
                      <a class="page-link" id="firstbtn" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=1" tabindex="-1">첫 페이지</a>
                   </li>
                </c:if>
@@ -173,7 +173,7 @@
                      href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${startNum-pageBlock+9 }"
                      style="color: black;"> [이전] |</a> --%>
                      
-                     <li class="page-item disabled" >
+                     <li class="page-item" >
                      <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${startNum-pageBlock+9 }" tabindex="-1">이전</a>
                   </li>
                </c:if>

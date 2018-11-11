@@ -13,6 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.models.AdminQARepository;
+import app.models.CateRepository;
 
 @Controller
 public class ServiceCenterController {
@@ -20,14 +21,25 @@ public class ServiceCenterController {
 	@Autowired
 	AdminQARepository adminqarepo;
 	
+	@Autowired
+	CateRepository caterepo;
+	
 	@GetMapping("/serviceqa.do")
-	public String serviceQaHandle() {
+	public String serviceQaHandle(Map map) {
+		List<Map> bcatelist = caterepo.getBigCate();
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
 		return "account.serviceqa";
 	}
 	
 	@PostMapping("/serviceqa.do")
-	public String serviceQAPostHandle(@RequestParam Map param) {
+	public String serviceQAPostHandle(@RequestParam Map param, Map map) {
 		adminqarepo.addadminQA1(param);
+		List<Map> bcatelist = caterepo.getBigCate();
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
 		return "mypage.receiveqa";
 	}
 	
@@ -37,6 +49,10 @@ public class ServiceCenterController {
 		System.out.println(" 로그인 "+id);
 		List<Map> receiveList = adminqarepo.getReceiveQA(id);
 		map.put("receive", receiveList);
+		List<Map> bcatelist = caterepo.getBigCate();
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
 		System.out.println(receiveList);
 		return "mypage.receiveqa";
 	}

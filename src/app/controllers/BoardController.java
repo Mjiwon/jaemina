@@ -127,6 +127,10 @@ public class BoardController {
 			map.put("detail", detail);
 			map.put("writer", writer);
 			map.put("cate", cate);
+			List<Map> bcatelist = caterepo.getBigCate();
+			List<Map> scatelist = caterepo.getSmallcateAllList();
+			map.put("smallcate", scatelist);
+			map.put("bigcate", bcatelist);
 			
 			// 구매자 목록 추가 
 			
@@ -141,6 +145,10 @@ public class BoardController {
 	
 			return "account.boardDetail";
 		}catch(java.lang.NullPointerException e) {
+			List<Map> bcatelist = caterepo.getBigCate();
+			List<Map> scatelist = caterepo.getSmallcateAllList();
+			map.put("smallcate", scatelist);
+			map.put("bigcate", bcatelist);
 			return"err.index";
 		}
 	}
@@ -162,6 +170,10 @@ public class BoardController {
 
 		map.put("detail", detail);
 		map.put("cate", cate);
+		List<Map> bcatelist = caterepo.getBigCate();
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
 
 		wr.setAttribute("boardNum", detailno, WebRequest.SCOPE_SESSION);
 		return "account.Modify";
@@ -214,6 +226,11 @@ public class BoardController {
 		map.put("detail", detail);
 		map.put("writer", writer);
 		map.put("cate", cate);
+		List<Map> bcatelist = caterepo.getBigCate();
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
+		
 
 		wr.removeAttribute("boardNum", WebRequest.SCOPE_SESSION);
 		return "account.boardDetail";
@@ -247,8 +264,8 @@ public class BoardController {
 	@RequestMapping("/searchList.do")
 	public String searchListController(@RequestParam Map param, WebRequest wr, Map map) {
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
-		int startCount = (currentPage - 1) * 9 + 1;
-		int endCount = currentPage * 9;
+		int startCount = (currentPage - 1) * 6 + 1;
+		int endCount = currentPage * 6;
 
 		String searchKey = (String) param.get("searchKey");
 		List<String> li = new ArrayList<>();
@@ -264,8 +281,8 @@ public class BoardController {
 		mapp.put("list", li);
 		List<Map> list2 = boardrepo.getSearchListByMap(mapp);
 		map.put("boardlist", list2);
-		int totalPage = boardCount / 9;
-		if ((boardCount % 9) > 0) {
+		int totalPage = boardCount / 6;
+		if ((boardCount % 6) > 0) {
 			totalPage++;
 		}
 		map.put("totalPage", totalPage);

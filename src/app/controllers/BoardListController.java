@@ -67,8 +67,8 @@ public class BoardListController {
 		int bigcate = Integer.parseInt((String) param.get("bigcate"));
 		int smallcate = Integer.parseInt((String) param.get("smallcate"));
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
-		int startCount = (currentPage - 1) * 9 + 1;
-		int endCount = currentPage * 9;
+		int startCount = (currentPage - 1) * 6 + 1;
+		int endCount = currentPage * 6;
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 		wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
 		wr.setAttribute("smallCate", smallcate, WebRequest.SCOPE_SESSION);
@@ -85,8 +85,8 @@ public class BoardListController {
 		map.put("smallcate", scatelists);
 
 		int boardCount = boardrepo.getSmallCateBoard(param).size();
-		int totalPage = boardCount / 9;
-		if ((boardCount % 9) > 0) {
+		int totalPage = boardCount / 6;
+		if ((boardCount % 6) > 0) {
 			totalPage++;
 		}
 		Map mapp = new HashMap<>();
@@ -105,8 +105,8 @@ public class BoardListController {
 	public String boardListsHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		int bigcate = Integer.parseInt((String) param.get("bigcate"));
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
-		int startCount = (currentPage - 1) * 9 + 1;
-		int endCount = currentPage * 9;
+		int startCount = (currentPage - 1) * 6 + 1;
+		int endCount = currentPage * 6;
 
 		List<Map> scatelists = caterepo.getSmallcateAllList();
 		map.put("smallcate", scatelists);
@@ -121,8 +121,8 @@ public class BoardListController {
 		map.put("smallcates", scatelist);
 
 		int boardCount = boardrepo.getCateBoard(bigcate).size();
-		int totalPage = boardCount / 9;
-		if ((boardCount % 9) > 0) {
+		int totalPage = boardCount / 6;
+		if ((boardCount % 6) > 0) {
 			totalPage++;
 		}
 		Map mapp = new HashMap<>();

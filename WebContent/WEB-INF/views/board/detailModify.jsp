@@ -81,7 +81,7 @@
 				<input type="text" id="addr" placeholder="주소" readonly="readonly" name="addr" style="width: 45%;"> <input
 					type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 				<div id="map"
-					style="width: 100%; height: 100%; margin-top: 10px;"></div>
+					style="width: 100%; height: 600px; margin-top: 10px;"></div>
 				
 				<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 				<script
