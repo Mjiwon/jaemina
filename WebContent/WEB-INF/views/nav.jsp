@@ -165,7 +165,7 @@
 											href="javascript:jamilog">나의 재미로그</a></li>
 										<li class="dropdown-submenu"><a
 											class="dropdown-item dropdown-toggle test"
-											data-toggle="dropdown"> 관심 판매자 목록 <span class="caret"></span></a>
+											data-toggle="dropdown" style="width: 100%; height: 100%;"> 관심 판매자 목록 <span class="caret"></span></a>
 											<ul class="dropdown-menu dropright sub">
 												<c:choose>
 													<c:when test="${!empty wishlist}">
@@ -180,7 +180,7 @@
 											</ul></li>
 										<li class="dropdown-submenu"><a
 											class="dropdown-item dropdown-toggle test"
-											data-toggle="dropdown">계정설정<span class="caret"></span></a>
+											data-toggle="dropdown" style="width: 100%; height: 100%;">계정설정<span class="caret"></span></a>
 											<ul class="dropdown-menu dropright sub">
 												<li><a class="dropdown-item" id="changePass"
 													href="javascript:changePass">비밀번호 변경</a></li>
