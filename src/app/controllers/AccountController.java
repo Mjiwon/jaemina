@@ -92,19 +92,23 @@ public class AccountController {
 		map.put("smallcate", scatelist);
 		
 		List rankCate =  boardrepo.getRankCate();
-		
-		/*List rankBoard = new ArrayList<>();
-		Map c1 = (Map)rankCate.get(0);
-		Map c2 = (Map)rankCate.get(1);
-		Map c3 = (Map)rankCate.get(2);
-		
-		List li1 = boardrepo.getRankBoard(((BigDecimal)c1.get("BIGCATE")).intValue());
-		List li2 = boardrepo.getRankBoard(((BigDecimal)c2.get("BIGCATE")).intValue());
-		List li3 = boardrepo.getRankBoard(((BigDecimal)c3.get("BIGCATE")).intValue());
-
-		map.put("rank1", li1);
-		map.put("rank2", li2);
-		map.put("rank3", li3);*/
+		Map c1;
+		Map c2;
+		Map c3;
+		if(rankCate.size() != 0) {
+			List rankBoard = new ArrayList<>();
+			c1 = (Map)rankCate.get(0);
+			c2 = (Map)rankCate.get(1);
+			c3 = (Map)rankCate.get(2);
+			
+			List li1 = boardrepo.getRankBoard(((BigDecimal)c1.get("BIGCATE")).intValue());
+			List li2 = boardrepo.getRankBoard(((BigDecimal)c2.get("BIGCATE")).intValue());
+			List li3 = boardrepo.getRankBoard(((BigDecimal)c3.get("BIGCATE")).intValue());
+			
+			map.put("rank1", li1);
+			map.put("rank2", li2);
+			map.put("rank3", li3);
+		}
 		
 		if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
 			List<Map> wishlist = wishrepo.getWishlist((String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
@@ -137,12 +141,13 @@ public class AccountController {
 		}
 			map.put("bigcate", bcatelist);
 		int boardCount = boardrepo.boardCount();
-			map.put("boardCount", boardCount);
+		map.put("boardCount", boardCount);
 		int payCount = buyrepo.allPayCount();
-			map.put("payCount", payCount);
-/*		int payPercent = buyrepo.allPercent();
-			map.put("payPercent", payPercent);*/
-
+		map.put("payCount", payCount);
+		if(buyrepo.allPercent() != null) {
+			int payPercent = buyrepo.allPercent();
+			map.put("payPercent", payPercent);
+		}
 			
 		// loginCooke가 설정 되었을 경우 세션에  세팅 해주기
 		Cookie[] cookies = req.getCookies();
