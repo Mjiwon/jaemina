@@ -354,7 +354,6 @@ public class AccountController {
 				if (mysellList != null) {
 					map.put("sellList", mysellList);
 					map.put("sellListCnt", mysellList.size());
-
 				}
 
 				// board에 타이틀 가져오기
