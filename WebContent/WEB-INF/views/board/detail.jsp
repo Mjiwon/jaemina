@@ -141,7 +141,7 @@
                <div class="mb-3">
 
                   <label for="address">내용</label> 
-                  <textarea rows="20" cols="20" class="form-control" name="content" id="content" readonly="readonly" style="background-color: white;" required autofocus><c:out value=" ${detail.CONTENT }" /></textarea>
+                  <textarea rows="20" cols="20" class="form-control" name="content1" id="content1" readonly="readonly" style="background-color: white;" required autofocus><c:out value=" ${detail.CONTENT }" /></textarea>
 
                   <div class="invalid-feedback">Please enter your shipping
                      address.</div>
@@ -302,14 +302,19 @@
          </form>
       </div>
 
-      <div class="container">
-         <button class="btn btn-defaut" id="replylistbtn">댓글보기</button>
+      <div class="container" id="replydiv1">
+         <button class="btn btn-defaut" id="replylistbtn1">댓글보기</button>
          <div class="commentList"></div>
       </div>
 
 
 
       <div id="reply"></div>
+      
+      <div class="container" id="replydiv2" hidden="hidden">
+         <button class="btn btn-defaut" id="replylistbtn2">댓글접기</button>
+         <div class="commentList"></div>
+      </div>
 
 
       <script type="text/javascript">   
@@ -352,9 +357,11 @@
       };
       
       
-      
-      $("#replylistbtn").on("click",function() {
-            ListReply();
+      // 댓글 리스트
+      $("#replylistbtn1").on("click",function() {
+    	  $("#replydiv1").prop("hidden", true);
+    	  $("#replydiv2").prop("hidden", false);
+          ListReply();
       });
 
          function ListReply(){
@@ -381,6 +388,16 @@
          $("#reply").html(html);
          });
          }
+       $("#replylistbtn2").on("click",function() {
+     	  $("#replydiv1").prop("hidden", false);
+     	  $("#replydiv2").prop("hidden", true);
+           ListReply1();
+       });
+       function ListReply1(){
+    	   var html = "";
+    	   $("#reply").html(html);
+       };
+         
          
 
             
@@ -411,8 +428,7 @@ $("#replybtn").on("click",function() {
          case "5":
             star="★★★★★";
             break;
-         }
-         console.log(별);   
+         } 
          var param = {
             "bno" : ${detail.NO},
             "writer": "${user.ID}",
