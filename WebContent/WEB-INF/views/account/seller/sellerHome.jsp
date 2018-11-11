@@ -2,6 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="currentPage">${currentPage }</c:set>
 <c:set var="totalPage">${totalPage }</c:set>
 <c:set var="pageBlock">5</c:set>
@@ -141,7 +142,7 @@
                            src="${pageContext.servletContext.contextPath }${l.IMGPATH}"
                            width="286" height="180">
                         <div class="card-body">
-                           <p class="card-text">${l.TITLE }</p>
+                           <p class="card-text">${fn:substring(l.TITLE, 0, 20) }<c:if test="${fn:length(l.TITLE) >20 }">...</c:if></p>
                            <p class="card-text" style="color: red;">
                               <b><fmt:formatNumber>${l.PRICE }</fmt:formatNumber>원</b>
                            </p> 
