@@ -16,10 +16,6 @@ public class AdminQARepository {
 		return template.insert("adminqa.addQA1", data);
 	}
 	
-	public int addadminQA2(Map data) {
-		return template.insert("adminqa.addQA2", data);
-	}
-	
 	public Map getadminQAinfo(int no) {
 		return template.selectOne("adminqa.getadminQAinfo", no);
 	}

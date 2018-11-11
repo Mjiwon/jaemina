@@ -5,10 +5,6 @@
 		insert into adminqa values(adminqa_seq.nextval, #{title}, #{sender}, sysdate, #{content}, 'admin', null, null,null)
 	</insert>
 	
-	<insert id="addQA2" parameterType="java.util.HashMap">
-		insert into adminqa values(adminqa_seq.nextval, #{title}, #{sender}, sysdate, #{content}, 'admin', null, #{imgpath}, null)
-	</insert>
-	
 	<!-- select -->
 	<select id="getadminQAinfo" parameterType="java.lang.Integer" resultType="java.util.HashMap">
 		select * from adminqa where no=#{no} 

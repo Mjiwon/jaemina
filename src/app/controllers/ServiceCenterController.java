@@ -23,16 +23,8 @@ public class ServiceCenterController {
 	}
 	
 	@PostMapping("/serviceqa.do")
-	public String serviceQAPostHandle(@RequestParam Map param, @RequestParam MultipartFile imgpath) {
-		if(imgpath == null) {
-			int r = adminqarepo.addadminQA1(param);
-			return "";
-		}else {
-			Map data = param;
-			String path = imgpath.toString();
-			data.put("imgpath", path);
-			int r = adminqarepo.addadminQA2(data);
-			return "";
-		}
+	public String serviceQAPostHandle(@RequestParam Map param) {
+		adminqarepo.addadminQA1(param);
+		return "redirect:index.do";
 	}
 }

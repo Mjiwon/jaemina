@@ -44,20 +44,14 @@
 					<div class="mb-3">
 						<label>제목</label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="title" name="title">
+							<input type="text" class="form-control" id="title" name="title" required autofocus>
 						</div>
 					</div>
 				</div>
 				<div class="col">
 					<div class="mb-3">
 						<label for="address2">상세내용</label>
-						<textarea rows="10" cols="10" class="form-control" name="content"></textarea>
-					</div>
-				</div>
-				<div class="col">
-					<div class="mb-3">
-						<label>파일첨부</label> <input type="file" class="form-control"
-							id="img" name="imgpath">
+						<textarea rows="10" cols="10" class="form-control" name="content" required autofocus></textarea>
 					</div>
 				</div>
 				<div class="col" align="right">
