@@ -77,7 +77,12 @@
 								<fmt:formatNumber>${sell.PRICE }</fmt:formatNumber>원
 							</div>
 							<c:choose>
-							
+								<c:when test="${sell.SELLING==6 }">
+									<div class="col col-lg-2">
+												<p class="card-selling">판매취소</p>
+											</div>
+											<div class="col col-lg-2"></div>
+								</c:when>
 								<c:when test="${sell.BUYING == 2}">
 									<c:choose>
 
@@ -90,6 +95,9 @@
 												<p class="card-selling">판매접수
 													<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}&no=${sell.NO}&selling=2" class="btn btn-primary">판매중</a>
 												</p>
+												<p class="card-selling">판매접수
+													<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}&no=${sell.NO}&selling=6" class="btn btn-primary">판매취소</a>
+												</p>
 											</div>
 										</c:when>
 										<c:when test="${sell.SELLING ==  2}">
@@ -97,8 +105,11 @@
 												<p class="card-buying">구매상태 : 구매중</p>
 											</div>
 											<div class="col col-lg-2">
-												<p class="card-selling">판매중
+												<p class="card-selling">
 													<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}&no=${sell.NO}&selling=3" class="btn btn-primary">판매완료</a>
+												</p>
+												<p class="card-selling">
+													<a href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}&no=${sell.NO}&selling=6" class="btn btn-primary">판매취소</a>
 												</p>
 											</div>
 										</c:when>
@@ -133,6 +144,7 @@
 											</div>
 											<div class="col col-lg-2"></div>
 								</c:when>
+								
 							</c:choose>
 						</div>
 					</c:forEach>

@@ -143,6 +143,8 @@ public class MyPageController {
 			selling = 3;
 		}else if(Integer.parseInt((String)param.get(("selling")))==5) {
 			selling = 5;
+		}else if(Integer.parseInt((String)param.get(("selling")))==6) {
+			selling =6;
 		}
 		System.out.println("push button selling : "+selling);
 		

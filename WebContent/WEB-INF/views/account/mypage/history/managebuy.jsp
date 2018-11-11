@@ -56,6 +56,12 @@
 											<!-- <a href="${path }/mypage/buychangestate.do?postno=${buy.POSTNO}&no=${buy.NO}" class="btn btn-primary">환불신청</a> -->
 										</p>
 									</c:when>
+									<c:when test="${buy.SELLING == 6 }">
+										<p class="card-buying">판매 상태 : 판매취소</p>
+										<p class="card-selling">구매상태 : 구매중(취소대기)</p>
+										<p class="card-selling">
+											
+									</c:when>
 
 								</c:choose>
 							</c:when>
@@ -78,7 +84,7 @@
 									환불완료
 								</p>
 							</c:when>
-
+							
 						</c:choose>
 					</div>
 				</div>
