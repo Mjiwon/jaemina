@@ -155,7 +155,7 @@
 						<div id="map" style="width: 100%; height: 350px;"></div>
 
 						<script type="text/javascript"
-							src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e052486c871660466bd9c17d3ee084a7&libraries=services"></script>
+							src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b9a4dbed24071c798a9982657770a5f4&libraries=services"></script>
 						<script>
 							var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
     						mapOption = {
