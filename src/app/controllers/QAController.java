@@ -108,6 +108,47 @@ public class QAController {
 		return "redirect:/chatLog.do";
 	}
 	
+	@GetMapping("/qa/buyqaa.do")
+	public String buyqaaHandle(@RequestParam Map param,@RequestParam String[] members, Map map, HttpSession session) {
+		String writer = (String)param.get("writer");
+		map.put("writer", (String)param.get("writer"));
+		map.put("members", members);
+		Map user = (Map)session.getAttribute("user");
+		String userid = (String)user.get("ID");
+		
+		Map writers = sellerrepo.getSeller((String)param.get("writer"));
+		map.put("Seller", writers);
+		
+		List<Map> getChatLog = mrepo.getChatLog(members[0], members[1]);
+		System.out.println("작성자 " + (String)param.get("writer") + " / 나 " + (String)user.get("ID") );
+		if(getChatLog.size()==0) {
+			String room = UUID.randomUUID().toString().split("-")[0].toString();	
+			
+			List member = new ArrayList<>();
+			member.add((String)param.get("writer"));
+			member.add(user.get("ID"));
+
+			
+			Map log = new HashMap<>();
+			log.put("room", room);
+			log.put("writer", writer);
+			log.put("member", member);	
+			log.put("log", new ArrayList<>());
+			
+			mrepo.insertOne(log);
+			
+			map.put("qamode", room);
+			
+		}else {
+			Map maps = getChatLog.get(0);
+			String room = (String)maps.get("room");
+			map.put("qamode", room);
+			map.put("chatlog", maps.get("log"));
+		}
+
+		return "redirect:/chatLog.do";
+	}
+	
 	
 	
 	@GetMapping("/chatLog.do")

@@ -49,11 +49,13 @@
 				<li><a href="#three">포트폴리오</a></li>
 			</ul>
 		</nav>
-		<footer style="background-color: #ea1d5d">
-			<ul class="icons">
-				<li><a href="${pageContext.servletContext.contextPath }/qa/buyqa.do?writer=${Seller.ID}" class="icon fa-envelope">문의하기</a></li>
-			</ul>
-		</footer>
+		<c:if test="${user.ID != Seller.ID }">
+			<footer style="background-color: #ea1d5d">
+				<ul class="icons">
+					<li><a href="${pageContext.servletContext.contextPath }/qa/buyqaa.do?writer=${Seller.ID}&members=${Seller.ID}&members=${user.ID}" class="icon fa-envelope">문의하기</a></li>
+				</ul>
+			</footer>
+		</c:if>
 	</section>
 
 	<!-- Wrapper -->
