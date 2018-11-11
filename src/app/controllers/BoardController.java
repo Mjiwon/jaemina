@@ -145,6 +145,10 @@ public class BoardController {
 	
 			return "account.boardDetail";
 		}catch(java.lang.NullPointerException e) {
+			List<Map> bcatelist = caterepo.getBigCate();
+			List<Map> scatelist = caterepo.getSmallcateAllList();
+			map.put("smallcate", scatelist);
+			map.put("bigcate", bcatelist);
 			return"err.index";
 		}
 	}
