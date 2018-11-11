@@ -12,7 +12,7 @@
 }
 </style>
 
-<div class="row" s>
+<div class="row" style="margin-top: 8%;">
 	
 	<div class="col" style="margin-left: 4%;">
 	

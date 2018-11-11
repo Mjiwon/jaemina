@@ -101,7 +101,6 @@
 			</div>
 
 			<c:choose>
-
 				<c:when test="${empty auth}">
 					<div class="col-lg-3 col-md-3 right-side-cart" id="right_sidebar">
 						<div class="cart-icons">
@@ -277,7 +276,7 @@
 
 			<ul class="navbar-nav ">
 				<li class="nav-item active"><a class="nav-link"
-					href="index.html">Home <span class="sr-only">(current)</span></a></li>
+					href="${pageContext.servletContext.contextPath }/index.do"">Home <span class="sr-only">(current)</span></a></li>
 				<c:forEach var="big"
 						items="${bigcate }" varStatus="ss">
 				<li class="nav-item dropdown drop_scroll">

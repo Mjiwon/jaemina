@@ -18,7 +18,7 @@
         padding: 0;
       }
  </style>
-<div class="container">
+<div class="container" style="margin-top: 5%;">
 
 		<h2 align="center">판매 글올리기</h2>
 	<div class="row">
