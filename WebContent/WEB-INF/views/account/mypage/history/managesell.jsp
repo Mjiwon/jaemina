@@ -5,7 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="path" value="${pageContext.servletContext.contextPath }" />
-<%-- <fmt:formatNumber></fmt:formatNumber ---%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -21,9 +20,9 @@
 		<div class="col-2">
 			<div class="nav flex-column nav-pills" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
-				<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
+				<a class="nav-link active alert-light" id="v-pills-home-tab" data-toggle="pill"
 					href="#v-pills-home" role="tab" aria-controls="v-pills-home"
-					aria-selected="true">판매관리</a> <a class="nav-link"
+					aria-selected="true">판매관리</a> <a class="nav-link alert-light"
 					id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
 					role="tab" aria-controls="v-pills-profile" aria-selected="false">수익관리</a>
 			</div>

@@ -82,7 +82,9 @@ public class BoardWriteController {
 			}else {
 				List<Map> bcatelist = caterepo.getBigCate();
 				map.put("bigcate", bcatelist);
-				
+				map.put("bigcates", bcatelist);
+				List<Map> scatelist = caterepo.getSmallcateAllList();
+				map.put("smallcate", scatelist);
 				return "account.boardWrite";
 			}
 		}

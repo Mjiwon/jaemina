@@ -18,7 +18,7 @@
         padding: 0;
       }
  </style>
-<div class="container" style="margin-top: 10%;">
+<div class="container" style="margin-top: 6%;">
 
 		<h2 align="center">판매 글올리기</h2>
 	<div class="row">
@@ -37,7 +37,7 @@
 						<label>★대분류</label> <select id="bigcate" name="bigcate"
 							class="form-control">
 							<option>카테고리를 선택하세요</option>
-							<c:forEach var="big" items="${bigcate }">
+							<c:forEach var="big" items="${bigcates }">
 								<option value="${big.NO}">${big.NO }:${big.BIGCATE }</option>
 							</c:forEach>
 						</select>
@@ -233,7 +233,7 @@
 				            }
 				        }
 				    }    
-				};
+				}
 				</script>
 
 				<hr class="mb-4">
