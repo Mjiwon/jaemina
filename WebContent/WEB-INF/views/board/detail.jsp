@@ -75,7 +75,7 @@
 											<a
 												href="${path }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
 												class="btn btn-primary" style="margin-bottom: 10px">판매자에게
-												문의하기</a>
+												문의하기</a><br/>
 										</c:otherwise>
 									</c:choose>
 									<c:choose>
@@ -444,9 +444,9 @@ $("#replybtn").on("click",function() {
 </script>
 
 
-		<footer class="my-5 pt-5 text-muted text-center text-small">
+		<div class="my-5 pt-5 text-muted text-center text-small">
 			<p class="mb-1">&copy; 2018-2019 재미나</p>
-		</footer>
+		</div>
 	</div> 
 <%-- 	<body class="bg-light">
 	<div class="container">

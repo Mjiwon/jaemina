@@ -151,34 +151,99 @@
 					</div>
 				</c:forEach>
 			</div>
-						<c:if test="${!empty Myck }">
-               <c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
-               <c:if test="${currentBlock == 1 }"><a id="prevbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a></c:if>
-            
-               <c:forEach var="index" begin="${startNum }" end="${endNum }" varStatus="status">
-                  <c:choose>
-                     <c:when test="${index == currentPage }"><b>${index }</b></c:when>
-                     <c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
-                  </c:choose>
-                  <c:if test="${!status.last }"> | </c:if>
-               </c:forEach>
-               <c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
-               <c:if test="${currentPage != totalPage && totalPage > 1}"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
-            </c:if>
-            <c:if test="${!empty Sellerck }">
-               <c:if test="${currentPage != 1 }"><a id="firstbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=1" style="color: black;">[첫 페이지] | </a></c:if>
-               <c:if test="${currentBlock == 1 }"><a id="prevbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a></c:if>
-            
-               <c:forEach var="index" begin="${startNum }" end="${endNum }" varStatus="status">
-                  <c:choose>
-                     <c:when test="${index == currentPage }"><b>${index }</b></c:when>
-                     <c:otherwise><a id="pagebtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${index}" style="color: black;">${index }</a></c:otherwise>
-                  </c:choose>
-                  <c:if test="${!status.last }"> | </c:if>
-               </c:forEach>
-               <c:if test="${currentBlock != lastBlock}"><a id="nextbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum+pageBlock }" style="color: black;"> | [다음]</a></c:if>
-               <c:if test="${currentPage != totalPage }"><a id="lastbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${totalPage}" style="color: black;"> | [마지막 페이지]</a></c:if>
-            </c:if>
+						<nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                     <c:if test="${!empty Myck }">
+                        <c:if test="${currentPage != 1 }">
+                           <%-- <a id="firstbtn"
+                              href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=1"
+                              style="color: black;">[첫 페이지] | </a> --%>
+                     <a class="page-link" id="firstbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=1" tabindex="-1">첫 페이지</a>   
+                              
+                        </c:if>
+                        <c:if test="${currentBlock == 1 }">
+                           <%-- <a id="prevbtn"
+                              href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${startNum-pageBlock+9 }"
+                              style="color: black;"> [이전] |</a> --%>
+                              
+                     <a class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${startNum-pageBlock+9 }">이전</a>
+                        </c:if>
+
+                        <c:forEach var="index" begin="${startNum }" end="${endNum }"
+                           varStatus="status">
+                           <c:choose>
+                              <c:when test="${index == currentPage }">
+                              <a id="pagebtn" class="page-link" href="#">${index }</a>
+                              </c:when>
+
+                              <c:otherwise>
+                                 <%-- <a id="pagebtn"
+                                    href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${index}"
+                                    style="color: black;">${index }</a> --%>
+                              <a id="pagebtn" class="page-link" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${index}">${index }</a>
+                              </c:otherwise>
+                           </c:choose>
+                           <c:if test="${!status.last }"> | </c:if>
+                        </c:forEach>
+                        <c:if test="${currentBlock != lastBlock}">
+                           <%-- <a id="nextbtn"
+                              href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${startNum+pageBlock }"
+                              style="color: black;"> | [다음]</a> --%>
+                              
+                        <a class="page-link" id="nextbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${startNum+pageBlock }">다음</a>
+                        </c:if>
+                        <c:if test="${currentPage != totalPage && totalPage > 1}">
+                           <%-- <a id="lastbtn"
+                              href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${totalPage}"
+                              style="color: black;"> | [마지막 페이지]</a> --%>
+                        <a class="page-link" id="lastbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${totalPage}">마지막페이지</a>
+                        </c:if>
+                     </c:if>
+                     <c:if test="${!empty Sellerck }">
+                        <c:if test="${currentPage != 1 }">
+                           <%-- <a id="firstbtn"
+                              href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=1"
+                              style="color: black;">[첫 페이지] | </a> --%>
+                     <a class="page-link" id="firstbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=1" tabindex="-1">첫 페이지</a>
+                        </c:if>
+                        <c:if test="${currentBlock == 1 }">
+                           <%-- <a id="prevbtn"
+                              href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum-pageBlock+9 }"
+                              style="color: black;"> [이전] |</a> --%>
+                     <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum-pageBlock+9 }" tabindex="-1">이전</a>
+                        </c:if>
+
+                        <c:forEach var="index" begin="${startNum }" end="${endNum }"
+                           varStatus="status">
+                           <c:choose>
+                              <c:when test="${index == currentPage }">
+                                 <%-- <b>${index }</b> --%>
+                              <a id="pagebtn" class="page-link" href="#">${index }</a>
+                              </c:when>
+                              <c:otherwise>
+                                 <%-- <a id="pagebtn"
+                                    href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${index}"
+                                    style="color: black;">${index }</a> --%>
+                              <a id="pagebtn" class="page-link" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${index}">${index }</a>
+                              </c:otherwise>
+                           </c:choose>
+                           <c:if test="${!status.last }"> | </c:if>
+                        </c:forEach>
+                        <c:if test="${currentBlock != lastBlock}">
+                           <%-- <a id="nextbtn"
+                              href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum+pageBlock }"
+                              style="color: black;"> | [다음]</a> --%>
+                        <a class="page-link" id="nextbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum+pageBlock }">다음</a>
+                        </c:if>
+                        <c:if test="${currentPage != totalPage }">
+                           <%-- <a id="lastbtn"
+                              href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${totalPage}"
+                              style="color: black;"> | [마지막 페이지]</a> --%>
+                        <a class="page-link" id="lastbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${totalPage}">마지막페이지</a>
+                        </c:if>
+                     </c:if>
+                  </ul>
+               </nav>
 			</div>
 		</section>
 
