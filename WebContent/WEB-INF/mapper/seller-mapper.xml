@@ -33,15 +33,15 @@
 	</select>
 
 	<select id="dayprices" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select to_char(buydate,'YY-MM-DD')as d,seller,sum(price) as sum from pay	where buydate &gt;=#{date1} and #{date2}&gt; buydate and seller=#{seller} group by to_char(buydate,'YY-MM-DD'),seller order by dasc
+		select to_char(buydate,'YY-MM-DD')as d,seller,sum(price) as sum from pay where buydate &gt;=#{date1} and #{date2}&gt; buydate and seller=#{seller} group by to_char(buydate,'YY-MM-DD'),seller order by d asc
 	</select>
 
 	<select id="Moonprices" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select to_char(buydate,'YY-MM')as d,seller,sum(price) as sum from pay where buydate &gt;=#{date1} and #{date2}&gt; buydate and seller=#{seller} group by to_char(buydate,'YY-MM'),seller order by desc
+		select to_char(buydate,'YY-MM')as d,seller,sum(price) as sum from pay where buydate &gt;=#{date1} and #{date2}&gt; buydate and seller=#{seller} group by to_char(buydate,'YY-MM'),seller order by d asc	
 	</select>
 
 	<select id="yearprices" resultType="java.util.HashMap"	parameterType="java.util.HashMap">
-		select to_char(buydate,'YY')as d,seller,sum(price) as sum from pay where buydate &gt;=#{date1} and #{date2}&gt; buydate and seller=#{seller} group by to_char(buydate,'YY'),seller order by desc
+		select to_char(buydate,'YY')as d,seller,sum(price) as sum from pay where buydate &gt;=#{date1} and #{date2}&gt; buydate and seller=#{seller} group by to_char(buydate,'YY'),seller order by d asc
 	</select>
 
 
