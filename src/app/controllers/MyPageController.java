@@ -53,6 +53,10 @@ public class MyPageController {
 				map.put("bigcatelist", bigcatelist);
 				map.put("smallcatelist", smallcatelist);
 			}
+			List<Map> bcatelist = caterepo.getBigCate();
+			List<Map> scatelist = caterepo.getSmallcateAllList();
+			map.put("smallcate", scatelist);
+			map.put("bigcate", bcatelist);
 			
 			return "mypage.managebuy";
 		}
@@ -113,6 +117,10 @@ public class MyPageController {
 
 		// board에 타이틀 가져오기
 		List<Map> myboardlist = boardrepo.getmyboard(seller);
+		List<Map> bcatelist = caterepo.getBigCate();
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
+		map.put("bigcate", bcatelist);
 
 		return "mypage.managesell";
 	}
