@@ -106,13 +106,16 @@ public class BoardListController {
 		int currentPage = Integer.parseInt((String) param.get("currentPage"));
 		int startCount = (currentPage-1)*9+1;
 		int endCount = currentPage*9;
-			
+		
+		List<Map> scatelists = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelists);
+
 			wr.removeAttribute("smallCate", WebRequest.SCOPE_SESSION);
 			wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 			wr.setAttribute("bigCate", bigcate, WebRequest.SCOPE_SESSION);
 
 		List<Map> bcatelist = caterepo.getBigCate();
-			map.put("bigcates", bcatelist);
+			map.put("bigcate", bcatelist);
 		List<Map> scatelist = caterepo.getSmallCate(bigcate);
 			map.put("smallcates", scatelist);
 			

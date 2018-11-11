@@ -6,7 +6,7 @@
 	<select id="getBigCate" resultType="java.util.HashMap">
 		select * from bigcate
 	</select>
-	
+
 	<!-- smallcate -->
 	<select id="getSmallCate" parameterType="java.lang.Integer" resultType="java.util.HashMap">
 		select * from smallcate where bigno=#{bigno} order by smallno asc

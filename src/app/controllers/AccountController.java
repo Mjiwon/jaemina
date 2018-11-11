@@ -88,11 +88,12 @@ public class AccountController {
 		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 		map.put("boardlist", boardrepo.getCateBoard(1));
 		List<Map> bcatelist = caterepo.getBigCate();
-		
+		List<Map> scatelist = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelist);
 		
 		List rankCate =  boardrepo.getRankCate();
 		
-		List rankBoard = new ArrayList<>();
+		/*List rankBoard = new ArrayList<>();
 		Map c1 = (Map)rankCate.get(0);
 		Map c2 = (Map)rankCate.get(1);
 		Map c3 = (Map)rankCate.get(2);
@@ -103,7 +104,7 @@ public class AccountController {
 
 		map.put("rank1", li1);
 		map.put("rank2", li2);
-		map.put("rank3", li3);
+		map.put("rank3", li3);*/
 		
 		if (wr.getAttribute("auth", WebRequest.SCOPE_SESSION) != null) {
 			List<Map> wishlist = wishrepo.getWishlist((String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION));
@@ -139,8 +140,8 @@ public class AccountController {
 			map.put("boardCount", boardCount);
 		int payCount = buyrepo.allPayCount();
 			map.put("payCount", payCount);
-		int payPercent = buyrepo.allPercent();
-			map.put("payPercent", payPercent);
+/*		int payPercent = buyrepo.allPercent();
+			map.put("payPercent", payPercent);*/
 
 			
 		// loginCooke가 설정 되었을 경우 세션에  세팅 해주기
@@ -420,12 +421,37 @@ public class AccountController {
 
 		List<Object[]> data = new ArrayList<>();
 		data.add(new Object[] { "date", "PROCEED" });
-
 		for (int i = 0; i < dbdate.size(); i++) {
-			data.add(new Object[] { dbdate.get(i).get("D"), dbdate.get(i).get("SUM") });
+			data.add(new Object[] { dbdate.get(i).get("D"), dbdate.get(i).get("SUM")});
 		}
 		String str = gson.toJson(data);
+		
+		return str;
+	}
+	
+	@RequestMapping(path = "/ajaxsum.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String ajaxajaxsum(@RequestParam Map map) throws Exception {
+		String date_type = (String) map.get("date_type");
+		List<Map> dbdate = new ArrayList<>();
+		if (date_type.equals("year")) {
+			dbdate = sellerrepo.yearprices(map);
 
+		} else if (date_type.equals("moon")) {
+			dbdate = sellerrepo.Moonprices(map);
+
+		} else {
+			dbdate = sellerrepo.dayproceeds(map);
+		}
+
+		Map maps = new HashMap<>();
+		int sum =0;
+		for (int i = 0; i < dbdate.size(); i++) {
+			sum += ((BigDecimal)dbdate.get(i).get("SUM")).intValue();
+		}
+		maps.put("sum", sum);
+		String str = gson.toJson(maps);
+		System.out.println(maps);
 		return str;
 	}
 
