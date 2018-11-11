@@ -14,6 +14,7 @@ import app.models.AccountRepository;
 import app.models.AdminQARepository;
 import app.models.AdminRepository;
 import app.models.BoardRepository;
+import app.models.PayRepository;
 
 @Controller
 @RequestMapping("/admin")
@@ -68,6 +69,9 @@ public class AdminManagementController {
 	@Autowired
 	AdminQARepository adminqarepo;
 	
+	@Autowired
+	PayRepository payrepo;
+	
 	// 안읽은 문의 가져오기
 	@GetMapping("/qa.do")
 	public String adminqaGetHandle(Map map) {
@@ -90,7 +94,19 @@ public class AdminManagementController {
 		return "admin.adminqa";
 	}
 	
-	// 전제 문의 리스트 가져오기
+	// 거래 관리
+	// 판매완료, 환불, 취소 등등 리스트를 가져와서 계좌로 보내주기(형식만)
+	@GetMapping("/managepay.do")
+	public String payGetHandle() {
+		// 판매완료
+		List<Map> payend = payrepo.payendlist();
+		System.out.println("거래완료 리스트 : "+payend);
+		List<Map> refundend = payrepo.refundendlist();
+		System.out.println("환불 완료 리스트 : "+refundend + "환불완료 건스 : "+refundend.size());
+		List<Map> cancel = payrepo.cancelpaylist();
+		System.out.println("취소 완료 리스트 : "+cancel+" / 취소완료 건수 : "+cancel.size());
+		return "";
+	}
 	
 	
 	

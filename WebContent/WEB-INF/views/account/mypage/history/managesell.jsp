@@ -138,11 +138,11 @@
 			
 									</c:choose>
 								</c:when>
-								<c:when test="${sell.BUYING==5 }">
+								<c:when test="${sell.SELLING==5 }">
 									<div class="col col-lg-2">
-												<p class="card-selling">환불완료</p>
-											</div>
-											<div class="col col-lg-2"></div>
+										<p class="card-selling">환불완료</p>
+									</div>
+									<div class="col col-lg-2"></div>
 								</c:when>
 								
 							</c:choose>
