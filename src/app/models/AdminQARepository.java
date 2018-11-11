@@ -30,4 +30,9 @@ public class AdminQARepository {
 	public int replyadminqa(Map data) {
 		return template.update("adminqa.replyadminqa", data);
 	}
+	
+	public List<Map> getReceiveQA(String id){
+		return template.selectList("adminqa.getReceiveQA",id);
+	}
+	
 }

@@ -77,6 +77,7 @@
 	<!-- paging -->
 	<select id="getbigcatelistforpaging" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from (select a.*, rownum as rnum from(select * from board join bigcate on board.bigcate = bigcate.No where board.bigcate =#{bigcate} order by board.wrdate desc) a where rownum <![CDATA[<=]]> ${endCount } ) where rnum <![CDATA[>=]]> ${startCount }
+		
 	</select>
 	
 	<select id="getsmallcatelistforpaging" parameterType="java.util.HashMap" resultType="java.util.HashMap">

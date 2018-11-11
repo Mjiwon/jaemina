@@ -42,6 +42,16 @@ public class Filters extends HttpFilter {
 			case "/board/lists.do":
 			case "/waiting.do":
 			case "/ajax/replylist.do":
+			case "/admin/index.do":
+			case "/admin/login.do":
+			case "/admin/join.do":
+			case "/admin/account.do":
+			case "/admin/deluser.do":
+			case "/admin/board.do":
+			case "/admin/delboard.do":
+			case "/admin/permitsellerlist.do":
+			case "/admin/qa.do":
+			case "/admin/replyqa.do":				
 				chain.doFilter(req, res);
 				break;
 			}

@@ -28,6 +28,7 @@ import app.models.AccountRepository;
 import app.models.BoardRepository;
 import app.models.BuyRepository;
 import app.models.CateRepository;
+import app.models.PayRepository;
 import app.models.ProfileRepository;
 import app.models.QAMessageRepository;
 import app.models.SellerRepository;
@@ -40,6 +41,10 @@ public class AccountController {
 	
 	@Autowired
 	ServletContext ctx;
+	
+	@Autowired
+	PayRepository payrepo;
+
 	
 	@Autowired
 	Gson gson;
@@ -328,8 +333,21 @@ public class AccountController {
 	// 회원 마이 페이지 이동
 	// 구현중
 	@RequestMapping("/history.do")
-	public String historyHendle() {
-		return "account.history";
+	public String historyHendle(HttpSession session, Map map ) {
+		// seller 의 아이디 뽑기
+				String seller = (String) session.getAttribute("loginId");
+				// seller 의 판매 내역을 뽑아오기
+				List<Map> mysellList = payrepo.getMysellList(seller);
+				// view로 판매내역을 전달해 주기
+				if (mysellList != null) {
+					map.put("sellList", mysellList);
+					map.put("sellListCnt", mysellList.size());
+
+				}
+
+				// board에 타이틀 가져오기
+				List<Map> myboardlist = boardrepo.getmyboard(seller);
+		return "mypage.managesell";
 	}
 	// --------------------------------------------------------------------------------------
 	// 비밀번호 변경
@@ -387,14 +405,14 @@ public class AccountController {
 	@RequestMapping(path = "/ajaxchart.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String ajaxchart(@RequestParam Map map) throws Exception {
-
+		System.out.println("차트 아작스 파라미트 "+map);
 		String date_type = (String) map.get("date_type");
 		List<Map> dbdate = new ArrayList<>();
 		if (date_type.equals("year")) {
-			dbdate = sellerrepo.yearproceeds(map);
+			dbdate = sellerrepo.yearprices(map);
 
 		} else if (date_type.equals("moon")) {
-			dbdate = sellerrepo.Moonproceeds(map);
+			dbdate = sellerrepo.Moonprices(map);
 
 		} else {
 			dbdate = sellerrepo.dayproceeds(map);

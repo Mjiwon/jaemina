@@ -22,5 +22,10 @@
 	<update id="replyadminqa" parameterType="java.util.HashMap">
 		update adminqa set chkdate=sysdate, replycontent=#{replycontent} where no=#{no} and sender=#{sender}
 	</update>
+	
+	<!-- 고객센터 문의글 가져오기 -->
+	<select id="getReceiveQA" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from adminqa where sender = #{sender}
+	</select>
 
 </mapper>

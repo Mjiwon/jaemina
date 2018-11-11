@@ -25,17 +25,17 @@ public class SellerRepository {
 	}
 
 	public List<Map> dayproceeds(Map data){ 
-		return template.selectList("seller.dayproceeds",data);
+		return template.selectList("seller.dayprices",data);
 	}
 	
-	public List<Map> Moonproceeds(Map data){ 
-		return template.selectList("seller.Moonproceeds",data);
+	public List<Map> Moonprices(Map data){ 
+		return template.selectList("seller.Moonprices",data);
 	}
 	
 	//----------------------------------
 	//��Ʈ
-	public List<Map> yearproceeds(Map data){ 
-		return template.selectList("seller.yearproceeds",data);
+	public List<Map> yearprices(Map data){ 
+		return template.selectList("seller.yearprices",data);
 	}
 	
 	

@@ -2,24 +2,34 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	
-	<definition name="mypage.managesell" template="/WEB-INF/tiles/indexTiles.jsp">
+	<definition name="mypage.managesell" template="/WEB-INF/tiles/historyTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="secondnav" value="/WEB-INF/views/account/mypage/history/history.jsp"  />
 		<put-attribute name="center" value="/WEB-INF/views/account/mypage/history/managesell.jsp"/>
 	</definition>
 	
-	<definition name="mypage.sellchangestate" template="/WEB-INF/tiles/indexTiles.jsp">
+	<definition name="mypage.sellchangestate" template="/WEB-INF/tiles/historyTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="secondnav" value="/WEB-INF/views/account/mypage/history/history.jsp"  />
 		<put-attribute name="center" value="/WEB-INF/views/account/mypage/history/sellchangestate.jsp"/>
 	</definition>
 
-	<definition name="mypage.managebuy" template="/WEB-INF/tiles/indexTiles.jsp">
+	<definition name="mypage.managebuy" template="/WEB-INF/tiles/historyTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="secondnav" value="/WEB-INF/views/account/mypage/history/history.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/account/mypage/history/managebuy.jsp"/>
 	</definition>
 	
-	<definition name="mypage.buychangestate" template="/WEB-INF/tiles/indexTiles.jsp">
+	<definition name="mypage.buychangestate" template="/WEB-INF/tiles/historyTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="secondnav" value="/WEB-INF/views/account/mypage/history/history.jsp"/>
 		<put-attribute name="center" value="/WEB-INF/views/account/mypage/history/buychangestate.jsp"/>
+	</definition>
+	
+	<definition name="mypage.receiveqa" template="/WEB-INF/tiles/historyTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="secondnav" value="/WEB-INF/views/account/mypage/history/history.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/account/mypage/receiveqa.jsp"/>
 	</definition>
 	
 	

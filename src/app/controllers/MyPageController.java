@@ -105,7 +105,6 @@ public class MyPageController {
 		String seller = (String) session.getAttribute("loginId");
 		// seller 의 판매 내역을 뽑아오기
 		List<Map> mysellList = payrepo.getMysellList(seller);
-		System.out.println("mysellList : "+mysellList);
 		// view로 판매내역을 전달해 주기
 		if (mysellList != null) {
 			map.put("sellList", mysellList);

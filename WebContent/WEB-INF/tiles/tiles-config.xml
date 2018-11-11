@@ -65,13 +65,17 @@
 		<put-attribute name="center" value="/WEB-INF/views/board/boardlist2.jsp"/>
 	</definition>
 	
+	<!-- 고객센터 문의 타일즈 -->
+	<definition name="account.serviceqa" template="/WEB-INF/tiles/basicTiles.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="center" value="/WEB-INF/views/servicecenter/serviceqa.jsp"/>
+	</definition>
+
 	<!-- 에러 페이지 -->
 	<definition name="err.index" template="/WEB-INF/tiles/basicTiles.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
 		<put-attribute name="center" value="/WEB-INF/views/err.jsp"/>
 	</definition>
-	
-	
-	
+
 	
 </tiles-definitions>
