@@ -1,17 +1,18 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
+<c:set var="path" value="${pageContext.servletContext.contextPath }" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<div class="container">	
-<div class="row"> 
-	<div class="col">
-		구매 건수 : ${buyListCnt }
-	</div>
-	<div class="col">
+
+<div class="container">
+	<div class="row">
+		<div class="col">구매 건수 : ${buyListCnt }</div>
+		<div class="col">
 			<c:forEach var="buy" items="${buyList }">
 				<div class="card" style="width: 20rem;">
 					<img class="card-img-top" src="..." alt="Card image cap">
@@ -75,11 +76,5 @@
 				</div>
 			</c:forEach>
 		</div>
+	</div>
 </div>
-
-</div>
-
-
-
-
-

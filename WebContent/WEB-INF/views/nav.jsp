@@ -27,14 +27,14 @@
 			href="${path}/index.do">JAEMINA</a>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<form
-				action="${path}/searchList.do?currentPage=1"
+				action="${path}/board/searchList.do?currentPage=1"
 				method="post">
 				<div class="row">
 					<div class="col">
 						<div class="input-group">
 							<input type="text" class="form-control"
 								placeholder="Search for..." aria-label="Search for..."
-								id="searchKey" name="searchKey"> <span
+								id="searchKey" name="searchKey" required autofocus> <span
 								class="input-group-btn">
 								<button class="btn btn-secondary" type="submit">Go!</button>
 							</span>
@@ -89,7 +89,7 @@
 						</c:otherwise>
 					</c:choose>
 						<li class="nav-item"><a class="nav-link disabled"
-							href="${path}/lists.do?bigcate=1&currentPage=1"
+							href="${path}/board/lists.do?bigcate=1&currentPage=1"
 							style="color: black;"><b>구매</b></a></li>
 
 						<li class="nav-item dropdown">

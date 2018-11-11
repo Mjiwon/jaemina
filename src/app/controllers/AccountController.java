@@ -83,6 +83,9 @@ public class AccountController {
 	// Index!!!!
 	@RequestMapping("/index.do")
 	public String indexHendler(HttpSession session, WebRequest wr, Map map, HttpServletRequest req) {
+		wr.removeAttribute("bigCate", WebRequest.SCOPE_SESSION);
+		wr.removeAttribute("smallCate", WebRequest.SCOPE_SESSION);
+		wr.removeAttribute("searchLog", WebRequest.SCOPE_SESSION);
 		map.put("boardlist", boardrepo.getCateBoard(1));
 		List<Map> bcatelist = caterepo.getBigCate();
 		

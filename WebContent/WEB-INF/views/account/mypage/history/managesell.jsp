@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:set var="path" value="${pageContext.servletContext.contextPath }" />
 <%-- <fmt:formatNumber></fmt:formatNumber ---%>
 <script
@@ -16,120 +17,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 
 <div class="container">
-	<%-- <div class="row">
-		<div class="col col-lg-2">
-			<ul class="nav flex-column">
-				<li class="nav-item"><a class="nav-link active" href="#">수익관리</a>
-				</li>
-			</ul>
-		</div>
-		<div class="col">
-			<div align="right">
-				<label class="alert-warning">총 판매 건수 : ${sellListCnt }건</label>
-			</div>
-			<div class="row"
-				style="text-align: center; border: 1px solid gray; border-radius: 2px; padding-top: 3px;">
-				<div class="col col-1" style="width: 45px;">
-					<b>NO</b>
-				</div>
-				<div class="col col-lg-3 ">
-					<b>제 목</b>
-				</div>
-				<div class="col col-lg-2">
-					<b>날짜</b>
-				</div>
-				<div class="col col-lg-2">
-					<b>금액</b>
-				</div>
-				<div class="col col-lg-2">
-					<b>판매상태</b>
-				</div>
-				<div class="col">
-					<b>상태변경</b>
-				</div>
-
-			</div>
-
-			<c:forEach var="sell" items="${sellList }" varStatus="status">
-				<div class="row"
-					style="text-align: center; border: 1px solid gray; border-radius: 2px; padding-top: 3px;">
-					<div class="col col-1" style="width: 45px;">${status.count}</div>
-					<div class="col col-lg-3 ">${sell.TITLE }</div>
-					<div class="col col-lg-2">
-						<fmt:formatDate value="${sell.BUYDATE }" pattern="yy-MM-dd HH:mm" />
-					</div>
-					<div class="col col-lg-2">
-						<fmt:formatNumber>${sell.PRICE }</fmt:formatNumber>
-					</div>
-					<c:choose>
-						<c:when test="${sell.BUYING == 2}">
-							<c:choose>
-
-								<c:when test="${sell.SELLING ==  1}">
-									<!-- 구매자의 환불신청이나 취소 신청시 -->
-									<div class="col col-lg-2">
-										<p class="card-selling">판매접수</p>
-									</div>
-									<div class="col col-lg-2">
-										<p class="card-selling">
-											<a
-												href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}"
-												class="btn btn-primary">판매상태변경</a>
-										</p>
-									</div>
-								</c:when>
-								<c:when test="${sell.SELLING ==  2}">
-									<div class="col col-lg-2">
-										<p class="card-selling">
-											<!-- 구매자의 환불신청이나 취소 신청시 -->
-											판매중
-										</p>
-									</div>
-									<div class="col col-lg-2">
-										<p class="card-selling">
-											<a
-												href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}"
-												class="btn btn-primary">판매상태변경</a>
-										</p>
-									</div>
-								</c:when>
-								<c:when test="${sell.SELLING ==  3}">
-									<div class="col col-lg-2">
-										<p class="card-selling">
-											<!-- 구매자의 환불신청이나 취소 신청시 -->
-											판매완료
-										</p>
-									</div>
-									<div class="col col-lg-2"></div>
-								</c:when>
-								<c:otherwise>
-								</c:otherwise>
-							</c:choose>
-						</c:when>
-						<c:otherwise>
-							<div class="col col-lg-2">
-								<p class="card-selling">
-									<!-- 구매자의 환불신청이나 취소 신청시 -->
-									환불접수
-								</p>
-							</div>
-							<div class="col col-lg-2">
-								<p class="card-selling">
-									<a
-										href="${path }/mypage/sellchangestate.do?postno=${sell.POSTNO}"
-										class="btn btn-primary">판매상태변경</a>
-								</p>
-							</div>
-
-						</c:otherwise>
-					</c:choose>
-
-				</div>
-			</c:forEach>
-
-		</div>
-	</div> --%>
-
 	<div class="row">
 		<div class="col-2">
 			<div class="nav flex-column nav-pills" id="v-pills-tab"

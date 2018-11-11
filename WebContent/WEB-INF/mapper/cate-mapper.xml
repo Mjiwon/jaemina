@@ -12,6 +12,10 @@
 		select * from smallcate where bigno=#{bigno} order by smallno asc
 	</select>
 	
+	<select id="getSmallcateAllList" resultType="java.util.HashMap">
+		select * from smallcate
+	</select>
+	
 	
 	<select id="getCate" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from bigcate join smallcate on bigcate.no = smallcate.bigno where bigcate.no = #{bigcate} and smallcate.smallno = #{smallcate}

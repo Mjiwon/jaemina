@@ -80,63 +80,66 @@ public class BoardController {
 	// 상세페이지
 	@RequestMapping("/detail.do")
 	public String boardDetailHandle(@RequestParam Map param, Map map, WebRequest wr) {
-		
-		int detailno = Integer.parseInt((String) param.get("no"));
-
-		// 게시물 클릭시 조회수 증가
-		boardrepo.addBoardsearchcount(detailno);
-
-		Map detail = boardrepo.getDetailBoard(detailno);
-		Integer avg = boardrepo.getDetailAvg(detailno);
-		System.out.println(avg);
-
-		detail.put("avg", avg);			
-		
-		
-		System.out.println(detail);
-		String sellerid = (String) detail.get("WRITER");
-		Map writer = sellerrepo.getSeller(sellerid);
-		String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
-		if (id != null) {
-			List<Map> wishlist = wishrepo.getWishlist(id);
-			wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
-			wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
-
-			for (Map<String, String> list : wishlist) {
-				if (list.get("SELLER").equals(sellerid)) {
-					wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
-					break;
-				} else {
+		try {
+			int detailno = Integer.parseInt((String) param.get("no"));
+	
+			// 게시물 클릭시 조회수 증가
+			boardrepo.addBoardsearchcount(detailno);
+	
+			Map detail = boardrepo.getDetailBoard(detailno);
+			Integer avg = boardrepo.getDetailAvg(detailno);
+			System.out.println(avg);
+	
+			detail.put("avg", avg);			
+			
+			
+			System.out.println(detail);
+			String sellerid = (String) detail.get("WRITER");
+			Map writer = sellerrepo.getSeller(sellerid);
+			String id = (String) wr.getAttribute("loginId", WebRequest.SCOPE_SESSION);
+			if (id != null) {
+				List<Map> wishlist = wishrepo.getWishlist(id);
+				wr.removeAttribute("wishlist", WebRequest.SCOPE_SESSION);
+				wr.setAttribute("wishlist", wishlist, WebRequest.SCOPE_SESSION);
+	
+				for (Map<String, String> list : wishlist) {
+					if (list.get("SELLER").equals(sellerid)) {
+						wr.setAttribute("wishlistcheck", true, WebRequest.SCOPE_REQUEST);
+						break;
+					} else {
+					}
+				}
+				map.put("loginOk", id);
+			}
+	
+			String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
+			String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
+	
+			Map cates = new HashMap<>();
+			cates.put("bigcate", bigcate);
+			cates.put("smallcate", smallcate);
+	
+			Map cate = caterepo.getCate(cates);
+			
+			map.put("detail", detail);
+			map.put("writer", writer);
+			map.put("cate", cate);
+			
+			// 구매자 목록 추가 
+			
+			List<Map> buyerList = boardrepo.getBuyerList(detailno);
+			for (int i = 0; i < buyerList.size(); i++) {
+				if(buyerList.get(i).get("BUYER").equals(id)) {
+					map.put("isBuyer", true);
+				}else {
+					map.put("isBuyer", false);
 				}
 			}
-			map.put("loginOk", id);
+	
+			return "account.boardDetail";
+		}catch(java.lang.NullPointerException e) {
+			return"err.index";
 		}
-
-		String bigcate = ((BigDecimal) detail.get("BIGCATE")).toString();
-		String smallcate = ((BigDecimal) detail.get("SMALLCATE")).toString();
-
-		Map cates = new HashMap<>();
-		cates.put("bigcate", bigcate);
-		cates.put("smallcate", smallcate);
-
-		Map cate = caterepo.getCate(cates);
-		
-		map.put("detail", detail);
-		map.put("writer", writer);
-		map.put("cate", cate);
-		
-		// 구매자 목록 추가 
-		
-		List<Map> buyerList = boardrepo.getBuyerList(detailno);
-		for (int i = 0; i < buyerList.size(); i++) {
-			if(buyerList.get(i).get("BUYER").equals(id)) {
-				map.put("isBuyer", true);
-			}else {
-				map.put("isBuyer", false);
-			}
-		}
-
-		return "account.boardDetail";
 	}
 
 	@RequestMapping("/modifyDetail.do")
@@ -215,6 +218,7 @@ public class BoardController {
 
 	@RequestMapping("/deleteDetail.do")
 	public String boardDetailDeleteHandle(@RequestParam Map param, Map map, WebRequest wr) {
+				
 		boardrepo.deleteDetailBoard(Integer.parseInt((String) param.get("no")));
 
 		if (wr.getAttribute("searchLog", WebRequest.SCOPE_SESSION) != null) {
@@ -225,7 +229,9 @@ public class BoardController {
 			map.put("smallcate", (int) wr.getAttribute("smallCate", WebRequest.SCOPE_SESSION));
 			map.put("currentPage", 1);
 			return "redirect:list.do";
-		} else {
+		} else if(wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION) == null){
+			return "/index.do";
+		}else {
 			map.put("bigcate", (int) wr.getAttribute("bigCate", WebRequest.SCOPE_SESSION));
 			map.put("currentPage", 1);
 			return "redirect:lists.do";
