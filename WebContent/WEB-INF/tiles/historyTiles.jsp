@@ -19,9 +19,6 @@
 	href="${pageContext.servletContext.contextPath }/css/index/flexslider.css"
 	rel="stylesheet" type="text/css" media="all" />
 <link
-	href="${pageContext.servletContext.contextPath }/css/index/JiSlider.css"
-	rel="stylesheet">
-<link
 	href="${pageContext.servletContext.contextPath }/css/index/shop.css"
 	rel="stylesheet" type="text/css" />
 <link
@@ -51,7 +48,7 @@
 	<div>
 		<tiles:insertAttribute name="secondnav" />
 	</div>
-	<div style="margin-top: 5%;">
+	<div>
 		<tiles:insertAttribute name="center" />
 	</div>
 </body>

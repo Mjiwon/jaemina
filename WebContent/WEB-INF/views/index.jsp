@@ -43,7 +43,7 @@
 					<div class="container">
 						<div class="slider-info">
 							<h5>
-								나만의 선생님을 만나다 <br>재미냥 
+								나만의 선생님을 만나다 <br>재미냥
 							</h5>
 							<!-- <div class="bottom-info">
 								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
@@ -420,84 +420,30 @@
 
 <!-- Session_03 -->
 <section class="">
-	<div class="container py-lg-5 py-md-5 py-sm-4 py-3">
+	<div class="container card py-lg-5 py-md-5 py-sm-4 py-3">
 		<h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3"
 			style="margin-bottom: 20px;">DETAIL CATE</h3>
-
-		<p
-			style="margin: 60px 0 20px 0; font-size: 25px; color: #ea1d5d; font-weight: bold;">IT·프로그래밍</p>
 		<div class="row">
-			<div class="col-lg-3 ">
-				<div class="toys-img-one-two"></div>
-				<div class="product-info-img">
-					<div class="clients_more-buttn">
-						<a href="shop.html">Shop Now</a>
+			<c:forEach var="nb" items="${newBoard }">
+				<div class="col-lg-3 card">
+					<img class="card-img-top" alt=""
+						src="${pageContext.servletContext.contextPath }${nb.IMGPATH}"
+						width="217.5" height="266">
+					<div class="card-title">
+						${nb.TITLE }
+						<hr/>
+						<div align="right">
+							작성자 : <b>${nb.WRITER }</b>
+						</div>
+						<div class="clients_more-buttn" style="height: 45px;">
+							<a href="${pageContext.servletContext.contextPath }/board/detail.do?no=${nb.NO}">글보기</a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-3 ">
-				<div class="toys-img-one-two"></div>
-				<div class="product-info-img">
-					<div class="clients_more-buttn">
-						<a href="shop.html">Shop Now</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 ">
-				<div class="toys-img-one-two"></div>
-				<div class="product-info-img">
-					<div class="clients_more-buttn">
-						<a href="shop.html">Shop Now</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 ">
-				<div class="toys-img-one-two"></div>
-				<div class="product-info-img">
-					<div class="clients_more-buttn">
-						<a href="shop.html">Shop Now</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<p
-			style="margin-bottom: 20px; font-size: 25px; color: #ea1d5d; font-weight: bold;">IT·프로그래밍</p>
-		<div class="row">
-			<div class="col-lg-3 ">
-				<div class="toys-img-one-two"></div>
-				<div class="product-info-img">
-					<div class="clients_more-buttn">
-						<a href="shop.html">Shop Now</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 ">
-				<div class="toys-img-one-two"></div>
-				<div class="product-info-img">
-					<div class="clients_more-buttn">
-						<a href="shop.html">Shop Now</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 ">
-				<div class="toys-img-one-two"></div>
-				<div class="product-info-img">
-					<div class="clients_more-buttn">
-						<a href="shop.html">Shop Now</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 ">
-				<div class="toys-img-one-two"></div>
-				<div class="product-info-img">
-					<div class="clients_more-buttn">
-						<a href="shop.html">Shop Now</a>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
+
 </section>
 <!-- // Session_03 -->
 
@@ -572,9 +518,7 @@
 <!-- footer -->
 <footer class="py-lg-4 py-md-3 py-sm-3 py-3 text-center">
 	<div class="copy-agile-right">
-		<p>
-			2018-2019 재미나
-		</p>
+		<p>2018-2019 재미나</p>
 	</div>
 </footer>
 <!-- //footer -->

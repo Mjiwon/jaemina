@@ -174,7 +174,11 @@ public class AccountController {
 			}
 		}
 		
-		
+		// 최신글 8개
+		List<Map> newBoard = boardrepo.newBoard();	
+		if(newBoard.size()>0) {
+			map.put("newBoard", newBoard);
+		}
 		return "account.index";
 	}
 

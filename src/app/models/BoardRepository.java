@@ -139,7 +139,11 @@ public class BoardRepository {
 		return template.delete("board.deleteDetailBoard", no);
 	}
 	
+//	최신 게시글 8개
 	
+	public List<Map> newBoard(){
+		return template.selectList("board.newBoard");
+	}
 	
 	
 	

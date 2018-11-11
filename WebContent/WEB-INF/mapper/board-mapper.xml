@@ -126,5 +126,9 @@
 		select j.*, rownum as rnum from (select * from board join (select bno, avg(star_num)s from reply group by bno order by bno)b on board.no = b.bno where board.bigcate=#{bigcate} order by b.s desc)j where rownum &lt;=5
 	</select>
 	
+	<!-- 최신 게시글 8개 -->
+	<select id="newBoard" resultType="java.util.HashMap">
+		select* from board where rownum &lt;=8 order by wrdate desc 
+	</select>	
 
 </mapper>

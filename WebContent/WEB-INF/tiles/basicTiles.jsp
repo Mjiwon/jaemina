@@ -13,7 +13,6 @@
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" >
 	<link href="${pageContext.servletContext.contextPath }/css/index/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
 	<link href="${pageContext.servletContext.contextPath }/css/index/flexslider.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="${pageContext.servletContext.contextPath }/css/index/JiSlider.css" rel="stylesheet">
 	<link href="${pageContext.servletContext.contextPath }/css/index/shop.css" rel="stylesheet" type="text/css" />
 	<link href="${pageContext.servletContext.contextPath }/css/index/style.css" rel='stylesheet' type='text/css' media="all">
 	
