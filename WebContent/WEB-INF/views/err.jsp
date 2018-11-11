@@ -107,7 +107,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="buttom">
 				<div class="seach_bar">
 					<p>
-						홈으로 이동하시려면 <span><a href="#">home</a></span>을 눌러주세요.
+						홈으로 이동하시려면 <span><a href="${path}/index.do">home</a></span>을 눌러주세요.
 					</p>
 					<!-----start-sear-box--------->
 					<form action="${path}/board/searchList.do?currentPage=1" method="post">
