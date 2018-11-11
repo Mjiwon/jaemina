@@ -80,7 +80,7 @@ public class BoardListController {
 
 		List<Map> scatelist = caterepo.getSmallCate(bigcate);
 		map.put("smallcates", scatelist);
-		
+
 		List<Map> scatelists = caterepo.getSmallcateAllList();
 		map.put("smallcate", scatelists);
 
