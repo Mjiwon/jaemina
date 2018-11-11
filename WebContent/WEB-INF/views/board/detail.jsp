@@ -293,7 +293,7 @@
 				<div class="input-group">
 					<input type="hidden" name="bno" value="${detail.bno}" /> <input
 						type="textarea " class="form-control" id="content" name="content"
-						placeholder="수정할 내용을 입력하세요." min="10"> <span
+						placeholder="댓글 내용을 입력하세요." min="10"> <span
 						class="input-group-btn"> &nbsp;
 						<button class="btn btn-default" type="button" name="replybtn"
 							id="replybtn">등록</button>

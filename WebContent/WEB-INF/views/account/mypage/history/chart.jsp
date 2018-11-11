@@ -17,7 +17,7 @@
 <input type="date" id="date2">까지
 
 <!-- 월별 -->
-<button type="button" id="ybtn" value="year">년별</button>
+<button type="button" id="ybtn" value="year">연도별</button>
     <script type="text/javascript">
     $("#ybtn").on("click",function(){ 
 

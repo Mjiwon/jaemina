@@ -26,12 +26,6 @@
 					aria-selected="true">판매관리</a> <a class="nav-link"
 					id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
 					role="tab" aria-controls="v-pills-profile" aria-selected="false">수익관리</a>
-				<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill"
-					href="#v-pills-messages" role="tab"
-					aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-				<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill"
-					href="#v-pills-settings" role="tab"
-					aria-controls="v-pills-settings" aria-selected="false">Settings</a>
 			</div>
 		</div>
 		<div class="col-9">
@@ -213,9 +207,96 @@
 																					options);
 																}
 															});
+											ytotal();
 										});
+						
+						var ytotal = function(){
+							var date1 = $("#date1").val();
+							var date2 = $("#date2").val();
+							var ty = $("#ybtn").val();
+							console.log(date1);
+							console.log(date2);
+							var param = {
+								"seller" : "${user.ID}",
+								"date_type" : ty,
+								"date1" : date1,
+								"date2" : date2,
+							}
+							$
+							.post(
+									"${pageContext.servletContext.contextPath }/ajaxsum.do",
+									param)
+							.done(
+									function(rst) {
+										console.log(rst);
+										
+										var html = "";
+										
+										html+= "<div id=\"totalsum\" style=\"margin-top: 2%;\" class=\"alert-warning\"> 총 수입 : "+ rst.sum+"</div>";
+										$("#totalsum").html(html); 
+										
+										
+									});
+						};
+						
+						var mtotal = function(){
+							var date1 = $("#date1").val();
+							var date2 = $("#date2").val();
+							var ty = $("#ybtn").val();
+							console.log(date1);
+							console.log(date2);
+							var param = {
+								"seller" : "${user.ID}",
+								"date_type" : ty,
+								"date1" : date1,
+								"date2" : date2,
+							}
+							$
+							.post(
+									"${pageContext.servletContext.contextPath }/ajaxsum.do",
+									param)
+							.done(
+									function(rst) {
+										console.log(rst);
+										
+										var html = "";
+										
+										html+= "<div id=\"totalsum\" style=\"margin-top: 2%;\" class=\"alert-warning\"> 총 수입 : "+ rst.sum+"</div>";
+										$("#totalsum").html(html); 
+										
+										
+									});
+						};
+						
+						var dtotal = function(){
+							var date1 = $("#date1").val();
+							var date2 = $("#date2").val();
+							var ty = $("#ybtn").val();
+							console.log(date1);
+							console.log(date2);
+							var param = {
+								"seller" : "${user.ID}",
+								"date_type" : ty,
+								"date1" : date1,
+								"date2" : date2,
+							}
+							$
+							.post(
+									"${pageContext.servletContext.contextPath }/ajaxsum.do",
+									param)
+							.done(
+									function(rst) {
+										console.log(rst);
+										
+										var html = "";
+										
+										html+= "<div id=\"totalsum\" style=\"margin-top: 2%;\" class=\"alert-warning\"> 총 수입 : "+ rst.sum+"</div>";
+										$("#totalsum").html(html); 
+										
+										
+									});
+						};
 					</script>
-
 					<!-- 월별 -->
 					<button type="button" id="mbtn" value="moon">월별</button>
 					<script type="text/javascript">
@@ -275,6 +356,8 @@
 																					options);
 																}
 															});
+											mtotal();
+											
 										});
 					</script>
 
@@ -323,8 +406,9 @@
 
 																	console
 																			.log(data)
+																			
+																			console.log(rst + "rst");
 																	var options = {
-
 																		title : '수입'
 																	};
 
@@ -337,15 +421,15 @@
 																					options);
 																}
 															});
+											dtotal();
 										});
 					</script>
-
-					<div id="chart_div" style="width: 900px; height: 500px;"></div>
+					
+					<div id="totalsum" class="alert-warning"></div>
+					<div id="chart_div" style="width: 900px; height: 500px;">
+					
+					</div>
 				</div>
-				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
-					aria-labelledby="v-pills-messages-tab">...</div>
-				<div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
-					aria-labelledby="v-pills-settings-tab">...</div>
 			</div>
 		</div>
 	</div>

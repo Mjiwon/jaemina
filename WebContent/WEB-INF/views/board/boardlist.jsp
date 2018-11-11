@@ -12,15 +12,8 @@
 <c:set var="startNum" value="${currentBlock*pageBlock+1 }"/>
 <c:set var="endNum" value="${currentBlock*pageBlock+pageBlock }"/>
 <c:if test="${endNum > totalPage }"><c:set var="endNum" value="${totalPage }"/></c:if>
-<div align="center">
-	<ul class="nav justify-content-center">
-		<c:forEach var="i" items="${bigcates }">
-			<li class="nav-item" value="${i.NO }"><a class="nav-link disabled" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${i.NO}&currentPage=1"><b>${i.BIGCATE }</b></a></li>
-		</c:forEach>
-	</ul>
 
-</div>
-<div class="row" style="margin-top: 2%;">
+<div class="row" style="margin-top: 8%;">
 	<div class="col-2">
 		<ul class="list-group list-group-flush" style="text-align: center; margin-left: 2%;">
      		<c:forEach var="i" items="${smallcates}">

@@ -3,6 +3,8 @@ package app.models;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.transform.Templates;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,4 +31,5 @@ public class CateRepository {
 			return template.selectList("cate.getSmallcateAllList");
 		}
 		
+
 }

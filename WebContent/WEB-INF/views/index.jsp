@@ -1,358 +1,608 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<header>
+<!-- Slideshow 4 -->
+<div class="slider text-center">
+	<div class="callbacks_container">
+		<ul class="rslides" id="slider4">
+			<li>
+				<div class="slider-img one-img">
+					<div class="container">
+						<div class="slider-info ">
+							<h5>
+								Pick The Best Toy For <br>Your Kid
+							</h5>
+							<div class="bottom-info">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
+									elit.Aenean commodo ligula eget dolorL orem ipsum dolor sit
+									amet eget dolor</p>
+							</div>
+							<div class="outs_more-buttn">
+								<a href="#">Read More</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
 
-	<div id="carouselExampleIndicators" class="carousel"
-		data-ride="carousel">
+			<li>
+				<div class="slider-img two-img">
+					<div class="container">
+						<div class="slider-info ">
+							<h5>
+								Sort Toys And Teddy bears<br>For Kids
+							</h5>
+							<div class="bottom-info">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
+									elit.Aenean commodo ligula eget dolorL orem ipsum dolor sit
+									amet eget dolor</p>
+							</div>
+							<div class="outs_more-buttn">
+								<a href="#">Read More</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
 
-		<div class="carousel-inner" role="listbox">
+			<li>
+				<div class="slider-img three-img">
+					<div class="container">
+						<div class="slider-info">
+							<h5>
+								Best Toys And Dolls<br> For Kids
+							</h5>
+							<div class="bottom-info">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
+									elit.Aenean commodo ligula eget dolorL orem ipsum dolor sit
+									amet eget dolor</p>
+							</div>
+							<div class="outs_more-buttn">
+								<a href="#">Read More</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+		<div class="carousel-caption d-none d-md-block" style="z-index: 20000">
+			<div class="row">
+				<div class="col">
+					<u><b><font size="3" style="text-decoration: none;">등록된
+								서비스</font></b></u><br /> <b><font size="6">${boardCount }건</font></b>
+				</div>
+				<div class="col">
+					<u><b><font size="3">총 거래 건 수</font></b></u><br /> <b><font
+						size="6">${payCount }건</font></b>
+				</div>
+				<div class="col">
+					<u><b><font size="3">의뢰인 평균 만족도</font></b></u><br /> <b><font
+						size="6">${payPercent }%</font></b>
+				</div>
+			</div>
+		</div>
+		<div
+			style="position: absolute; bottom: 0; width: 100%; height: 150px; z-index: 200; background-color: #fff; opacity: 0.7;"></div>
+
+	</div>
+	<div class="clearfix"></div>
+</div>
+<!-- // header -->
 
 
-			<!-- Slide One - Set the background image for this slide in the line below -->
 
-			<div class="carousel-item active"
-				style="background-image: url('${pageContext.servletContext.contextPath }/images/home_images/2.jpeg'); background-size:cover;">
+<!-- Session_01 -->
+<section style="height: 570px;"
+	class="about py-lg-4 py-md-3 py-sm-3 py-3" id="about">
+	<div class="container py-lg-5 py-md-5 py-sm-4 py-4">
+		<h3 class="title text-center mb-lg-5 mb-md-4  mb-sm-4 mb-3">CATEGORI</h3>
+		<div class="row banner-below-w3l">
 
-				<div class="carousel-caption d-none d-md-block">
+			<c:forEach var="big" items="${bigcate }">
 
+				<div class="col-lg-2  text-center banner-agile-flowers">
+					<a href="#" id="test"> <img class=""
+						src="${pageContext.servletContext.contextPath }/images/images/${big.NO=1 }.svg"
+						onmouseover="this.src='${pageContext.servletContext.contextPath }/images/images/${big.NO=2 }.svg'"
+						onmouseout="this.src='${pageContext.servletContext.contextPath }/images/images/${big.NO=1 }.svg'" />
+					</a>
+
+					<div class="banner-right-icon">
+						<h4 class="pt-4">${big.BIGCATE }</h4>
+					</div>
+				</div>
+
+
+			</c:forEach>
+
+			<!-- <div class="col-lg-2 text-center banner-agile-flowers">
+				<a href=""></a>
+				<div class="banner-right-icon">
+					<h4 class="pt-4">Soft Toys</h4>
+				</div>
+			</div> -->
+		</div>
+	</div>
+</section>
+<!-- // Session_01 -->
+
+
+<!-- Session_02 -->
+<section class="clients py-lg-4 py-md-3 py-sm-3 py-3" id="clients">
+	<div class="container py-lg-5 py-md-5 py-sm-4 py-3">
+		<h3 class="title clr text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">BEST
+			???</h3>
+		<div id="carouselExampleControls" class="carousel slide"
+			data-ride="carousel">
+
+			<!-- All Slide -->
+			<div class="carousel-inner">
+
+				<!-- Slide_01 -->
+				<div class="carousel-item active">
 					<div class="row">
-
-						<div class="col">
-
-							<u><b><font size="3">등록된 서비스</font></b></u> <br /> <b><font
-								size="6">${boardCount }건</font></b>
-
+						<div class="col-lg-4 clients-w3layouts-row">
+							<div class="least-w3layouts-text-gap">
+								<div class="row">
+									<div class="col-md-4 col-sm-4 news-img">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/t1.jpg"
+											alt="" class="image-fluid">
+									</div>
+									<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+										<h4>Milky Deo</h4>
+										<span class="mt-2">Duis posuere</span>
+									</div>
+									<div class="mt-3 news-agile-text">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/tt1.jpg"
+											alt="" class="image-fluid">
+										<p class="mt-3">
+											<span class="fas fa-quote-left"></span> velit sagittis
+											vehicula. Duis posuere ex in mollis iaculis. Suspendisse
+											tincidunt velit sagittis vehicula. Duis posuere velit
+											sagittis vehicula. Duis posuere <span
+												class="fas fa-quote-right"></span>
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
-
-						<div class="col">
-
-							<u><b><font size="3">총 거래 건 수</font></b></u> <br /> <b><font
-								size="6">${payCount }건</font></b>
-
+						<div class="col-lg-4 clients-w3layouts-row">
+							<div class="least-w3layouts-text-gap">
+								<div class="row">
+									<div class="col-md-4 col-sm-4 news-img">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/t2.jpg"
+											alt="" class="image-fluid">
+									</div>
+									<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+										<h4>Sam Deo</h4>
+										<span class="mt-2">Duis posuere</span>
+									</div>
+									<div class="mt-3 news-agile-text">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/tt2.jpg"
+											alt="" class="image-fluid">
+										<p class="mt-3">
+											<span class="fas fa-quote-left"></span> velit sagittis
+											vehicula. Duis posuere ex in mollis iaculis. Suspendisse
+											tincidunt velit sagittis vehicula. Duis posuere velit
+											sagittis vehicula. Duis posuere <span
+												class="fas fa-quote-right"></span>
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
-
-						<div class="col">
-
-							<u><b><font size="3">의뢰인 평균 만족도</font></b></u> <br /> <b><font
-								size="6">${payPercent }%</font></b>
-
+						<div class="col-lg-4 clients-w3layouts-row">
+							<div class="least-w3layouts-text-gap">
+								<div class="row">
+									<div class="col-md-4 col-sm-4 news-img">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/t2.jpg"
+											alt="" class="image-fluid">
+									</div>
+									<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+										<h4>Sam Deo</h4>
+										<span class="mt-2">Duis posuere</span>
+									</div>
+									<div class="mt-3 news-agile-text">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/tt2.jpg"
+											alt="" class="image-fluid">
+										<p class="mt-3">
+											<span class="fas fa-quote-left"></span> velit sagittis
+											vehicula. Duis posuere ex in mollis iaculis. Suspendisse
+											tincidunt velit sagittis vehicula. Duis posuere velit
+											sagittis vehicula. Duis posuere <span
+												class="fas fa-quote-right"></span>
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
-
-
 					</div>
-
 				</div>
+				<!-- // Slide_01 -->
 
-			</div>
-
-
-			<form
-				action="${pageContext.servletContext.contextPath }/board/searchList.do?currentPage=1"
-				method="post">
-
-				<div id="r" class="row">
-
-					<div class="col-lg-6">
-
-						<div class="input-group">
-
-							<input type="text" class="form-control"
-								placeholder="Search for..." aria-label="Search for..."
-								id="searchKey" name="searchKey" required autofocus> <span
-								class="input-group-btn">
-
-								<button class="btn btn-secondary" type="submit">Go!</button>
-
-							</span>
-
+				<!-- Slide_02 -->
+				<div class="carousel-item">
+					<div class="row">
+						<div class="col-lg-4 clients-w3layouts-row">
+							<div class="least-w3layouts-text-gap">
+								<div class="row">
+									<div class="col-md-4 col-sm-4 news-img">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/t1.jpg"
+											alt="" class="image-fluid">
+									</div>
+									<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+										<h4>Milky Deo</h4>
+										<span class="mt-2">Duis posuere</span>
+									</div>
+									<div class="mt-3 news-agile-text">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/tt1.jpg"
+											alt="" class="image-fluid">
+										<p class="mt-3">
+											<span class="fas fa-quote-left"></span> velit sagittis
+											vehicula. Duis posuere ex in mollis iaculis. Suspendisse
+											tincidunt velit sagittis vehicula. Duis posuere velit
+											sagittis vehicula. Duis posuere <span
+												class="fas fa-quote-right"></span>
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
-
+						<div class="col-lg-4 clients-w3layouts-row">
+							<div class="least-w3layouts-text-gap">
+								<div class="row">
+									<div class="col-md-4 col-sm-4 news-img">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/t2.jpg"
+											alt="" class="image-fluid">
+									</div>
+									<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+										<h4>Sam Deo</h4>
+										<span class="mt-2">Duis posuere</span>
+									</div>
+									<div class="mt-3 news-agile-text">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/tt2.jpg"
+											alt="" class="image-fluid">
+										<p class="mt-3">
+											<span class="fas fa-quote-left"></span> velit sagittis
+											vehicula. Duis posuere ex in mollis iaculis. Suspendisse
+											tincidunt velit sagittis vehicula. Duis posuere velit
+											sagittis vehicula. Duis posuere <span
+												class="fas fa-quote-right"></span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 clients-w3layouts-row">
+							<div class="least-w3layouts-text-gap">
+								<div class="row">
+									<div class="col-md-4 col-sm-4 news-img">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/t2.jpg"
+											alt="" class="image-fluid">
+									</div>
+									<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+										<h4>Sam Deo</h4>
+										<span class="mt-2">Duis posuere</span>
+									</div>
+									<div class="mt-3 news-agile-text">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/tt2.jpg"
+											alt="" class="image-fluid">
+										<p class="mt-3">
+											<span class="fas fa-quote-left"></span> velit sagittis
+											vehicula. Duis posuere ex in mollis iaculis. Suspendisse
+											tincidunt velit sagittis vehicula. Duis posuere velit
+											sagittis vehicula. Duis posuere <span
+												class="fas fa-quote-right"></span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-
 				</div>
+				<!-- // Slide_02 -->
 
-			</form>
+				<!-- Slide_03 -->
+				<div class="carousel-item">
+					<div class="row">
+						<div class="col-lg-4 clients-w3layouts-row">
+							<div class="least-w3layouts-text-gap">
+								<div class="row">
+									<div class="col-md-4 col-sm-4 news-img">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/t1.jpg"
+											alt="" class="image-fluid">
+									</div>
+									<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+										<h4>Milky Deo</h4>
+										<span class="mt-2">Duis posuere</span>
+									</div>
+									<div class="mt-3 news-agile-text">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/tt1.jpg"
+											alt="" class="image-fluid">
+										<p class="mt-3">
+											<span class="fas fa-quote-left"></span> velit sagittis
+											vehicula. Duis posuere ex in mollis iaculis. Suspendisse
+											tincidunt velit sagittis vehicula. Duis posuere velit
+											sagittis vehicula. Duis posuere <span
+												class="fas fa-quote-right"></span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 clients-w3layouts-row">
+							<div class="least-w3layouts-text-gap">
+								<div class="row">
+									<div class="col-md-4 col-sm-4 news-img">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/t2.jpg"
+											alt="" class="image-fluid">
+									</div>
+									<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+										<h4>Sam Deo</h4>
+										<span class="mt-2">Duis posuere</span>
+									</div>
+									<div class="mt-3 news-agile-text">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/tt2.jpg"
+											alt="" class="image-fluid">
+										<p class="mt-3">
+											<span class="fas fa-quote-left"></span> velit sagittis
+											vehicula. Duis posuere ex in mollis iaculis. Suspendisse
+											tincidunt velit sagittis vehicula. Duis posuere velit
+											sagittis vehicula. Duis posuere <span
+												class="fas fa-quote-right"></span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 clients-w3layouts-row">
+							<div class="least-w3layouts-text-gap">
+								<div class="row">
+									<div class="col-md-4 col-sm-4 news-img">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/t2.jpg"
+											alt="" class="image-fluid">
+									</div>
+									<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+										<h4>Sam Deo</h4>
+										<span class="mt-2">Duis posuere</span>
+									</div>
+									<div class="mt-3 news-agile-text">
+										<img
+											src="${pageContext.servletContext.contextPath }/images/images/tt2.jpg"
+											alt="" class="image-fluid">
+										<p class="mt-3">
+											<span class="fas fa-quote-left"></span> velit sagittis
+											vehicula. Duis posuere ex in mollis iaculis. Suspendisse
+											tincidunt velit sagittis vehicula. Duis posuere velit
+											sagittis vehicula. Duis posuere <span
+												class="fas fa-quote-right"></span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- // Slide_03 -->
+
+			</div>
+			<!-- // All Slide -->
+
+			<!-- pn_bar -->
+			<a class="carousel-control-prev" href="#carouselExampleControls"
+				role="button" data-slide="prev"> <span
+				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+				class="sr-only">Previous</span>
+			</a> <a class="carousel-control-next" href="#carouselExampleControls"
+				role="button" data-slide="next"> <span
+				class="carousel-control-next-icon" aria-hidden="true"></span> <span
+				class="sr-only">Next</span>
+			</a>
+			<!-- // pn_bar -->
 
 		</div>
-
 	</div>
+</section>
+<!-- // Session_02 -->
 
-</header>
 
 
-<!-- Page Content -->
+<!-- Session_03 -->
+<section class="">
+	<div class="container py-lg-5 py-md-5 py-sm-4 py-3">
+		<h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3"
+			style="margin-bottom: 20px;">DETAIL CATE</h3>
 
-<div class="container" style="padding-bottom: 20px;">
-
-
-	<div id="row_1" class="row">
-
-		<c:forEach var="big" items="${bigcate }">
-
-			<div class="col-lg-2">
-
-				<img class="rounded-circle"
-					src="${pageContext.servletContext.contextPath }/images/home_images/${big.NO }.svg"
-					alt="Generic placeholder image" width="100" height="140">
-
-				<h5>${big.BIGCATE }</h5>
-
-				<p>
-
-					<a class="btn btn-secondary"
-						href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${big.NO}&currentPage=1"
-						role="button">View details &raquo;</a>
-
-				</p>
-
-			</div>
-
-		</c:forEach>
-
-	</div>
-
-
-
-	<h3>마케팅 카테고리</h3>
-
-	<div class="row">
-
-		<div class="col-lg-4 col-sm-6 portfolio-item">
-
-			<div class="card h-100">
-
-				<a href="#"><img class="card-img-top"
-					src="${pageContext.servletContext.contextPath }/images/home_images/post1.png"
-					alt=""></a>
-
-				<div class="card-body">
-
-					<div class="card-title">
-
-						<a href="#">Project One</a>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-		<div class="col-lg-4 col-sm-6 portfolio-item">
-
-			<div class="card h-100">
-
-				<a href="#"><img class="card-img-top"
-					src="${pageContext.servletContext.contextPath }/images/home_images/post2.png"
-					alt=""></a>
-
-				<div class="card-body">
-
-					<div class="card-title">
-
-						<a href="#">Project Two</a>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-		<div class="col-lg-4 col-sm-6 portfolio-item">
-
-			<div class="card h-100">
-
-				<a href="#"><img class="card-img-top"
-					src="${pageContext.servletContext.contextPath }/images/home_images/post3.png"
-					alt=""></a>
-
-				<div class="card-body">
-
-					<div class="card-title">
-
-						<a href="#">Project Three</a>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-
-
-	<!-- 		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-
-  <ol class="carousel-indicators">
-
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-
-  </ol>
-
-  <div class="carousel-inner">
-
-    <div class="carousel-item active">
-
-      <img class="d-block w-100" src=".../800x400?auto=yes&bg=777&fg=555&text=First slide" alt="First slide">
-
-    </div>
-
-    <div class="carousel-item">
-
-      <img class="d-block w-100" src=".../800x400?auto=yes&bg=666&fg=444&text=Second slide" alt="Second slide">
-
-    </div>
-
-    <div class="carousel-item">
-
-      <img class="d-block w-100" src=".../800x400?auto=yes&bg=555&fg=333&text=Third slide" alt="Third slide">
-
-    </div>
-
-  </div>
-
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-
-    <span class="sr-only">Previous</span>
-
-  </a>
-
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-
-    <span class="sr-only">Next</span>
-
-  </a>
-
-</div>
-
- -->
-
-	<h3>디자인 카테고리</h3>
-
-	<div class="row">
-
-		<div class="col-lg-4 col-sm-6 portfolio-item">
-
-			<div class="card h-100">
-
-				<a href="#"><img class="card-img-top"
-					src="http://placehold.it/700x400" alt=""></a>
-
-				<div class="card-body">
-
-					<div class="card-title">
-
-						<a href="#">Project Four</a>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-		<div class="col-lg-4 col-sm-6 portfolio-item">
-
-			<div class="card h-100">
-
-				<a href="#"><img class="card-img-top"
-					src="http://placehold.it/700x400" alt=""></a>
-
-				<div class="card-body">
-
-					<div class="card-title">
-
-						<a href="#">Project Five</a>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-		<div class="col-lg-4 col-sm-6 portfolio-item">
-
-			<div class="card h-100">
-
-				<a href="#"><img class="card-img-top"
-					src="http://placehold.it/700x400" alt=""></a>
-
-				<div class="card-body">
-
-					<div class="card-title">
-
-						<a href="#">Project Six</a>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-
-	<div align="center" style="border: 1px gray solid;">
-
-		<br />
-
-		<h4>카테고리별 전문가 랭킹</h4>
+		<p
+			style="margin: 60px 0 20px 0; font-size: 25px; color: #ea1d5d; font-weight: bold;">IT·프로그래밍</p>
 		<div class="row">
-			<div class="col">
-				<label>${rank1[0].BIGCATE_STR }</label>
-				<c:forEach var="r" items="${rank1 }" varStatus="stau">
-					<div class="row justify-content-md-center">
-						<div class="col col-lg-2">${stau.count }위</div>
-						<div class="col-md-auto">${r.TITLE }</div>
-						<div class="col col-lg-2">${r.WRITER }</div>
+			<div class="col-lg-3 ">
+				<div class="toys-img-one-two"></div>
+				<div class="product-info-img">
+					<div class="clients_more-buttn">
+						<a href="shop.html">Shop Now</a>
 					</div>
-				</c:forEach>
-
-			</div>
-			<div class="col">
-				<label>${rank2[0].BIGCATE_STR }</label>
-				<c:forEach var="r" items="${rank2 }" varStatus="stau">
-					<div class="row justify-content-md-center">
-						<div class="col col-lg-2">${stau.count }위</div>
-						<div class="col-md-auto">${r.TITLE }</div>
-						<div class="col col-lg-2">${r.WRITER }</div>
-					</div>
-				</c:forEach>
-			</div>
-			<div class="col">
-				<label>${rank3[0].BIGCATE_STR }</label>
-				<div class="row justify-content-md-center">
-					<c:forEach var="r" items="${rank3 }" varStatus="stau">
-						<div class="col col-lg-2">${stau.count }위</div>
-						<div class="col-md-auto">${r.TITLE }</div>
-						<div class="col col-lg-2">${r.WRITER }</div>
 				</div>
-				</c:forEach>
+			</div>
+			<div class="col-lg-3 ">
+				<div class="toys-img-one-two"></div>
+				<div class="product-info-img">
+					<div class="clients_more-buttn">
+						<a href="shop.html">Shop Now</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 ">
+				<div class="toys-img-one-two"></div>
+				<div class="product-info-img">
+					<div class="clients_more-buttn">
+						<a href="shop.html">Shop Now</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 ">
+				<div class="toys-img-one-two"></div>
+				<div class="product-info-img">
+					<div class="clients_more-buttn">
+						<a href="shop.html">Shop Now</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<p
+			style="margin-bottom: 20px; font-size: 25px; color: #ea1d5d; font-weight: bold;">IT·프로그래밍</p>
+		<div class="row">
+			<div class="col-lg-3 ">
+				<div class="toys-img-one-two"></div>
+				<div class="product-info-img">
+					<div class="clients_more-buttn">
+						<a href="shop.html">Shop Now</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 ">
+				<div class="toys-img-one-two"></div>
+				<div class="product-info-img">
+					<div class="clients_more-buttn">
+						<a href="shop.html">Shop Now</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 ">
+				<div class="toys-img-one-two"></div>
+				<div class="product-info-img">
+					<div class="clients_more-buttn">
+						<a href="shop.html">Shop Now</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 ">
+				<div class="toys-img-one-two"></div>
+				<div class="product-info-img">
+					<div class="clients_more-buttn">
+						<a href="shop.html">Shop Now</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+</section>
+<!-- // Session_03 -->
 
-</div>
+<section class="clients py-lg-4 py-md-3 py-sm-3 py-3" id="clients"
+	style="margin-bottom: 50px;">
+	<div class="container py-lg-5 py-md-5 py-sm-4 py-3"
+		style="position: relative;">
+		<div align="center"
+			style="background-color: #000; opacity: 0.6; width: 100%; height: 330px; position: absolute; top: 50%; left: 0; margin-top: -165px;"></div>
+		<div align="center" style="font-weight: bold;">
+			<br />
+			<!-- <div class="row">카테고리별 전문가 랭킹</div> -->
+
+			<div class="row" style="margin-left: 4%; margin-bottom: 20px;">
+				<div class="col">
+					<label
+						style="color: #fff; font-size: 25px; margin-bottom: 30px; margin-left: -300px;">${rank1[0].BIGCATE_STR }</label>
+					<table class="table" style="color: #BDBDBD;">
+						<tbody>
+							<c:forEach var="r" items="${rank1 }" varStatus="stau">
+								<tr>
+									<th scope="row">${stau.count }위</th>
+									<td>${r.TITLE }</td>
+									<td style="border-right: 2px solid #ea1d5d;"><A href="#"
+										style="color: #ea1d5d;">${r.WRITER} </A></td>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+					</table>
+				</div>
+				<div class="col">
+					<label
+						style="color: #fff; font-size: 25px; margin-bottom: 30px; margin-left: -210px;">${rank2[0].BIGCATE_STR }</label>
+					<table class="table" style="color: #BDBDBD; padding-right: -50px;">
+						<tbody>
+							<c:forEach var="r" items="${rank2 }" varStatus="stau">
+								<tr>
+									<th scope="row">${stau.count }위</th>
+									<td>${r.TITLE }</td>
+									<td style="border-right: 2px solid #ea1d5d;"><A href="#"
+										style="color: #ea1d5d;">${r.WRITER} </A></td>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+					</table>
+				</div>
+				<div class="col">
+					<label
+						style="color: #fff; font-size: 25px; margin-bottom: 30px; margin-left: -280px;">${rank3[0].BIGCATE_STR }</label>
+					<table class="table" style="color: #BDBDBD;">
+						<tbody>
+							<c:forEach var="r" items="${rank3 }" varStatus="stau">
+								<tr>
+									<th scope="row">${stau.count }위</th>
+									<td>${r.TITLE }</td>
+									<td style="border-right: 2px solid #ea1d5d;"><A href="#"
+										style="color: #ea1d5d;">${r.WRITER} </A></td>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- footer -->
+<footer class="py-lg-4 py-md-3 py-sm-3 py-3 text-center">
+	<div class="copy-agile-right">
+		<p>
+			© 2018 Toys-Shop. All Rights Reserved | Design by <a
+				href="http://www.W3Layouts.com" target="_blank">W3Layouts</a>
+		</p>
+	</div>
+</footer>
+<!-- //footer -->
+
+<script src='js/jquery-2.2.3.min.js'></script>
+<script src="js/minicart.js"></script>
+<script>
+	toys.render();
+
+	toys.cart.on('toys_checkout', function(evt) {
+		var items, len, i;
+
+		if (this.subtotal() > 0) {
+			items = this.items();
+
+			for (i = 0, len = items.length; i < len; i++) {
+			}
+		}
+	});
+</script>
+
 

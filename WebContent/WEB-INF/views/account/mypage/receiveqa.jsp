@@ -55,7 +55,6 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							v
 							<div class="modal-body">
 								<label><b>문의내용 : </b></label>
 								<div>${fn:replace(re.SENDCONTENT,newLineChar,"<br/>") }</div>

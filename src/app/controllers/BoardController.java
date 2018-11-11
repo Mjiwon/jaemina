@@ -273,7 +273,11 @@ public class BoardController {
 		wr.removeAttribute("smallCate", WebRequest.SCOPE_SESSION);
 
 		List<Map> bcatelist = caterepo.getBigCate();
-		map.put("bigcates", bcatelist);
+		map.put("bigcate", bcatelist);
+		
+		List<Map> scatelists = caterepo.getSmallcateAllList();
+		map.put("smallcate", scatelists);
+
 		List<Map> scatelist = caterepo.getSmallCate(1);
 		map.put("smallcates", scatelist);
 
