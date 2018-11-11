@@ -39,6 +39,19 @@ p  on p.selling=sell_state.no
 	 	update pay set buying=5 where no=${no} and selling=#{selling}
 	</update>
 	
+	<!-- 관리자가 사용할 sql문 -->
+	<!-- 판매완료 된 거래내역들 가져오기 -->
+	<select id="payendlist" resultType="java.util.HashMap">
+		select * from pay where buying=3 and selling=3
+	</select>
 	
+	<!-- 환불 완료된 거래리스트 가져오기 -->
+	<select id="refundendlist" resultType="java.util.HashMap">
+		select * from pay where buying=5 and selling=5
+	</select>	
+	
+	<select id="cancelpaylist" resultType="java.util.HashMap">
+		select * from pay where selling=6
+	</select>
 	
 </mapper>

@@ -20,6 +20,9 @@
             <li class="nav-item">
               <a class="nav-link" href="${path }/admin/qa.do">문의관리</a>
             </li>
+             <li class="nav-item">
+              <a class="nav-link" href="${path }/admin/managepay.do">거래관리</a>
+            </li>
           </ul>
           <br/>
         </nav>

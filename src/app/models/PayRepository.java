@@ -42,5 +42,17 @@ public class PayRepository {
 	public int refundend(Map data) {
 		return template.update("pay.refundend", data);
 	}
-
+	
+	// 관리자 판매완료 리스트 가져오기
+	public List<Map> payendlist(){
+		return template.selectList("pay.payendlist");
+	}
+	// 관리자 환불 리스트 가져오기
+	public List<Map> refundendlist(){
+		return template.selectList("pay.refundendlist");
+	}
+	// 관리자 취소 리스트 가져오기
+	public List<Map> cancelpaylist(){
+		return template.selectList("pay.cancelpaylist");
+	}
 }
