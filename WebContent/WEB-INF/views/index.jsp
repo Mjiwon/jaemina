@@ -11,16 +11,8 @@
 					<div class="container">
 						<div class="slider-info ">
 							<h5>
-								Pick The Best Toy For <br>Your Kid
+								프리랜서 마켓<br> 재미냥
 							</h5>
-							<div class="bottom-info">
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
-									elit.Aenean commodo ligula eget dolorL orem ipsum dolor sit
-									amet eget dolor</p>
-							</div>
-							<div class="outs_more-buttn">
-								<a href="#">Read More</a>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -31,16 +23,16 @@
 					<div class="container">
 						<div class="slider-info ">
 							<h5>
-								Sort Toys And Teddy bears<br>For Kids
+								아름다운 재능을 나누다<br>재미냥
 							</h5>
-							<div class="bottom-info">
+							<!-- <div class="bottom-info">
 								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
 									elit.Aenean commodo ligula eget dolorL orem ipsum dolor sit
 									amet eget dolor</p>
 							</div>
 							<div class="outs_more-buttn">
 								<a href="#">Read More</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -51,16 +43,16 @@
 					<div class="container">
 						<div class="slider-info">
 							<h5>
-								Best Toys And Dolls<br> For Kids
+								나만의 선생님을 만나다 <br>재미냥 
 							</h5>
-							<div class="bottom-info">
+							<!-- <div class="bottom-info">
 								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
 									elit.Aenean commodo ligula eget dolorL orem ipsum dolor sit
 									amet eget dolor</p>
 							</div>
 							<div class="outs_more-buttn">
 								<a href="#">Read More</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
