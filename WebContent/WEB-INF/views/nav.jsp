@@ -27,7 +27,7 @@
 			href="${path}/index.do">JAEMINA</a>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<form
-				action="${path}/searchList.do?currentPage=1"
+				action="${path}/board/searchList.do?currentPage=1"
 				method="post">
 				<div class="row">
 					<div class="col">
