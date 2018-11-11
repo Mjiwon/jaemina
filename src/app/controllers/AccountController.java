@@ -92,18 +92,24 @@ public class AccountController {
 		map.put("smallcate", scatelist);
 		
 		List rankCate =  boardrepo.getRankCate();
-		Map c1;
-		Map c2;
-		Map c3;
-		if(rankCate.size() != 0) {
+		Map c1 = null;
+		Map c2 = null;
+		Map c3 = null;
+		List li1 = null;
+		List li2 = null;
+		List li3 = null;
+		if(rankCate.size() > 1) {
 			List rankBoard = new ArrayList<>();
 			c1 = (Map)rankCate.get(0);
-			c2 = (Map)rankCate.get(1);
-			c3 = (Map)rankCate.get(2);
-			
-			List li1 = boardrepo.getRankBoard(((BigDecimal)c1.get("BIGCATE")).intValue());
-			List li2 = boardrepo.getRankBoard(((BigDecimal)c2.get("BIGCATE")).intValue());
-			List li3 = boardrepo.getRankBoard(((BigDecimal)c3.get("BIGCATE")).intValue());
+			li1 = boardrepo.getRankBoard(((BigDecimal)c1.get("BIGCATE")).intValue());
+			if(rankCate.size() > 1) {
+				c2 = (Map)rankCate.get(1);
+				li2 = boardrepo.getRankBoard(((BigDecimal)c2.get("BIGCATE")).intValue());
+			}
+			if(rankCate.size() > 2) {
+				c3 = (Map)rankCate.get(2);
+				li3 = boardrepo.getRankBoard(((BigDecimal)c3.get("BIGCATE")).intValue());
+			}
 			
 			map.put("rank1", li1);
 			map.put("rank2", li2);

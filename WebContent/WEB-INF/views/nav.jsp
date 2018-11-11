@@ -160,7 +160,7 @@
 									<ul class="dropdown-menu dropright"
 										style="background-color: white; background-color: white; justify-content: center;">
 										<li><a class="dropdown-item"
-											href="${pageContext.servletContext.contextPath }/sellHistory.do"><b
+											href="${pageContext.servletContext.contextPath }/history.do"><b
 												style="color: green;">${user.ID }</b>의 재미나</a></li>
 										<li><a class="dropdown-item" id="jamilog"
 											href="javascript:jamilog">나의 재미로그</a></li>
@@ -246,13 +246,17 @@
 					<div id="r_sidebar" style="width: 25%;">
 						<ul class="navbar-nav "
 							style="display: inline-block; width: 30%; margin-top: 9px; position: absolute; top: 0; right: -130px; margin-top: 27px">
-							<li class="nav-item"><a class="nav-link disabled"
+							<c:if test="${sellerinfo != null }">
+								<li class="nav-item"><a class="nav-link disabled"
 								style="float: left;"
 								href="${pageContext.servletContext.contextPath }/write.do"><b>판매글올리기</b></a></li>
-							<li class="nav-item"><a class="nav-link disabled"
-								style="float: left;"
-								href="${pageContext.servletContext.contextPath }/addseller.do"><b>판매자
-										등록하기</b></a></li>
+							</c:if>
+							<c:if test="${sellerinfo == null }">
+								<li class="nav-item"><a class="nav-link disabled"
+									style="float: left;"
+									href="${pageContext.servletContext.contextPath }/addseller.do"><b>판매자
+											등록하기</b></a></li>
+							</c:if>
 							<li class="nav-item"><a class="nav-link disabled"
 								style="float: left;"
 								href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=1&currentPage=1"><b>구매</b></a></li>
