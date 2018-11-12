@@ -164,11 +164,11 @@ textarea::placeholder {
 					<div class="fields">
 						<div class="field half">
 							<input type="text" name="academy" id="academy" placeholder="학력"
-								lder="Name" style="color: black;" onkeyup="check();">
+								lder="Name" style="color: black;" onkeyup="check();" maxlength="40">
 						</div>
 						<div class="field half">
 							<input type="text" name="licence" id="licence" placeholder="자격증"
-								onkeyup="check();" />
+								onkeyup="check();" maxlength="40"/>
 						</div>
 						<div class="field">
 							<input type="text" name="career" id="career" placeholder="경력"
@@ -182,11 +182,11 @@ textarea::placeholder {
 								<option>국민은행</option>
 								<option>신한은행</option>
 								<option>우리은행</option>
-								<option>국민은행</option>
+								<option>기업은행</option>
 							</select> 
 							<input type="text" name="bank" id="bank"
 								placeholder="- 제외한 12자리" onkeyup="bankcheck(this)"
-								onchange="check();" /> 
+								onchange="check();" maxlength="12"/> 
 								<small id="checkbank"></small>
 						</div>
 						<script type="text/javascript">
@@ -206,7 +206,7 @@ textarea::placeholder {
 
 						<div class="field">
 							<textarea name="introduce" placeholder="소개" id="introduce"
-								rows="6" onkeyup="check();"></textarea>
+								rows="6" onkeyup="check();" maxlength="1000"></textarea>
 						</div>
 					</div>
 					<ul>
