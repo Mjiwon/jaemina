@@ -71,14 +71,13 @@
 									<c:choose>
 										<c:when test="${empty user }">
 											<a class="btn btn-primary notLog"
-												style="margin-bottom: 10px; color: white;">판매자에게 문의하기</a>
+												style="margin-bottom: 10px; color: white;">판매자에게 문의하기</a><br/>
 										</c:when>
 										<c:otherwise>
 											<a
 												href="${path }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
 												class="btn btn-primary" style="margin-bottom: 10px">판매자에게
-												문의하기</a>
-											<br />
+												문의하기</a><br/>
 										</c:otherwise>
 									</c:choose>
 									<c:choose>
@@ -109,8 +108,8 @@
 				</form>
 			</div>
 			<div class="col-md-8 order-md-1">
-				<h4 class="mb-3">카테고리 : ${cate.BIGCATE} | ${cate.SMALLCATE}</h4>
 				<form class="needs-validation" novalidate>
+				<h4 class="mb-3">카테고리 : ${cate.BIGCATE} | ${cate.SMALLCATE}</h4>
 					<div class="mb-3">
 						<label for="username">작성 날짜</label>
 						<div class="input-group" style="">
@@ -159,64 +158,65 @@
 
 					<div class="invalid-feedback">Please enter your shipping
 						address.</div>
-			</div>
-
-			<div class="mb-3">
-				<label for="address2">주소 : ${detail.ADDR }</label>
-			</div>
-			<c:if test="${!empty detail.ADDR }">
-				<div id="map" style="width: 100%; height: 350px;"></div>
-
-				<script type="text/javascript"
-					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b9a4dbed24071c798a9982657770a5f4&libraries=services"></script>
-				<script>
-                     var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
-                      mapOption = {
-                          center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                          level: 3 // 지도의 확대 레벨
-                      };  
-
-                     // 지도를 생성합니다    
-                     var map = new daum.maps.Map(mapContainer, mapOption); 
-
-                     // 주소-좌표 변환 객체를 생성합니다
-                     var geocoder = new daum.maps.services.Geocoder();
-
-                     // 주소로 좌표를 검색합니다
-                     geocoder.addressSearch("${detail.ADDR}", function(result, status) {
-                     
-                         // 정상적으로 검색이 완료됐으면 
-                          if (status === daum.maps.services.Status.OK) {
-
-                             var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-                     
-                             // 결과값으로 받은 위치를 마커로 표시합니다
-                             var marker = new daum.maps.Marker({
-                                 map: map,
-                                 position: coords
-                             });
-                          // 인포윈도우로 장소에 대한 설명을 표시합니다
-                             var infowindow = new daum.maps.InfoWindow({
-                                 content: '<div style="width:150px;text-align:center;padding:6px 0;">거래 장소</div>'
-                             });
-                             infowindow.open(map, marker);
-                             
-                          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                             map.setCenter(coords);
-                             
-                          } 
-                     });
-                  </script>
-			</c:if>
-
-			<hr class="mb-4">
-			<input hidden="" id="postno" name="postno" value="${detail.NO }" /><br />
-			<input hidden="" id="seller" name="seller" value="${detail.WRITER }" /><br />
-			<input hidden="" id="price" name="price" value="${detail.PRICE}" /><br />
-			<input hidden="" id="buyer" name="buyer" value="${user.ID}" /><br />
-			<button class="btn btn-primary btn-lg btn-block" type="button"
+					<div class="mb-3">
+						<label for="address2">주소 : ${detail.ADDR }</label>
+					</div>
+					<c:if test="${!empty detail.ADDR }">
+						<div id="map" style="width: 100%; height: 350px;"></div>
+		
+						<script type="text/javascript"
+							src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b9a4dbed24071c798a9982657770a5f4&libraries=services"></script>
+						<script>
+		                     var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
+		                      mapOption = {
+		                          center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		                          level: 3 // 지도의 확대 레벨
+		                      };  
+		
+		                     // 지도를 생성합니다    
+		                     var map = new daum.maps.Map(mapContainer, mapOption); 
+		
+		                     // 주소-좌표 변환 객체를 생성합니다
+		                     var geocoder = new daum.maps.services.Geocoder();
+		
+		                     // 주소로 좌표를 검색합니다
+		                     geocoder.addressSearch("${detail.ADDR}", function(result, status) {
+		                     
+		                         // 정상적으로 검색이 완료됐으면 
+		                          if (status === daum.maps.services.Status.OK) {
+		
+		                             var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+		                     
+		                             // 결과값으로 받은 위치를 마커로 표시합니다
+		                             var marker = new daum.maps.Marker({
+		                                 map: map,
+		                                 position: coords
+		                             });
+		                          // 인포윈도우로 장소에 대한 설명을 표시합니다
+		                             var infowindow = new daum.maps.InfoWindow({
+		                                 content: '<div style="width:150px;text-align:center;padding:6px 0;">거래 장소</div>'
+		                             });
+		                             infowindow.open(map, marker);
+		                             
+		                          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		                             map.setCenter(coords);
+		                             
+		                          } 
+		                     });
+		                  </script>
+					</c:if>
+					<button class="btn btn-primary btn-lg btn-block" type="button"
 				id="buybtn">구매하기</button>
 			</form>
+					
+					<hr class="mb-4">
+					<input hidden="" id="postno" name="postno" value="${detail.NO }" /><br />
+					<input hidden="" id="seller" name="seller" value="${detail.WRITER }" /><br />
+					<input hidden="" id="price" name="price" value="${detail.PRICE}" /><br />
+					<input hidden="" id="buyer" name="buyer" value="${user.ID}" /><br />
+			</div>
+
+			
 			<script
 				src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 			<script type="text/javascript"
@@ -290,7 +290,7 @@
    
    
    
-   </script>
+   			</script>
 		</div>
 	</div>
 	<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
