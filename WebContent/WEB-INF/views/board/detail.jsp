@@ -140,9 +140,8 @@
 
 					<div class="mb-3">
 
-						<label for="address">내용</label> <textarea rows="20" cols="20" class="form-control" name="content" id="content" readonly="readonly" style="background-color: white;" required autofocus>
-                        ${detail.CONTENT }
-                     </textarea>
+						<label for="address">내용</label> 
+						<textarea rows="20" cols="20" class="form-control" name="content" id="content" readonly="readonly" style="background-color: white;" required autofocus><c:out value=" ${detail.CONTENT }" /></textarea>
 
 						<div class="invalid-feedback">Please enter your shipping
 							address.</div>
