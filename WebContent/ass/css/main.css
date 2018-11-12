@@ -667,7 +667,7 @@ input, select, textarea {
 		-webkit-transition: background-color 0.2s ease-in-out;
 		-ms-transition: background-color 0.2s ease-in-out;
 		transition: background-color 0.2s ease-in-out;
-		/* background-color: #ea1d5d; */
+		background-color: #fff;
 		border: 2px solid #ea1d5d;
 		border-radius: 3.5em;
 		color: #ea1d5d;
@@ -725,7 +725,8 @@ input, select, textarea {
 		input[type="reset"]:hover,
 		.button:hover,
 		button:hover {
-			background-color: #000;
+			background-color: #ea1d5d;;
+			color:#fff;
 		}
 
 		input[type="button"]:active,
@@ -1820,14 +1821,13 @@ input, select, textarea {
 		}
 
 /* Header */
-
 	#header {
 		position: fixed;
 		z-index: 10000;
 		left: 0;
 		top: 0;
 		width: 100%;
-		background: rgba(255, 255, 255, 0.95);
+		/* background: rgba(255, 255, 255, 0.95); */
 		height: 3em;
 		line-height: 3em;
 		box-shadow: 0 0 0.15em 0 rgba(0, 0, 0, 0.1);
@@ -2239,14 +2239,11 @@ input, select, textarea {
 /* Intro */
 
 	#intro {
-		background: url("images/overlay.png"), url("../../images/intro.jpg");
-		background: url("../../images/images/3.jpg") no-repeat center center; 
+		/* background: url("images/overlay.png"), url("../../images/intro.jpg"); */
+		background: url("../../images/images/8.jpg") no-repeat center center; 
 		/* background-color:#000; */
 		background-size: cover;
-		background-attachment: fixed, fixed;
-		background-position: top left, bottom center;
-		background-repeat: repeat, no-repeat;
-		opacity: 0.8;
+		/* opacity: 0.8; */
 	}
 
 /* One */
@@ -2254,27 +2251,23 @@ input, select, textarea {
 	#one {
 		/* background: url("images/overlay.png"), url("../../images/one.jpg");
 		background-size: 256px 256px, cover; */
-		background-color:#000;
-		background-attachment: fixed, fixed;
-		background-position: top left, center center;
+		background: url("../../images/images/7.jpg") no-repeat center center; 
+		background-size: cover;
+		/* background-color:#000; */
 	}
 
 /* Two */
 
 	#two {
-		background: url("images/overlay.png"), url("../../images/two.jpg");
-		background-size: 256px 256px, cover;
-		background-attachment: fixed, fixed;
-		background-position: top left, center center;
+		background: url("../../images/images/9.jpg") no-repeat center center; 
+		background-size: cover;
 	}
 	
 	/* Three */
 
 	#three {
-		background: url("images/overlay.png"), url("../../images/three.jpg");
-		background-size: 256px 256px, cover;
-		background-attachment: fixed, fixed;
-		background-position: top left, center center;
+		background: url("../../images/images/10.jpg") no-repeat center center; 
+		background-size: cover;
 	}
 
 /* Contact */
