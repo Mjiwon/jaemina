@@ -1,57 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<% pageContext.setAttribute("newLineChar", "\n"); %>
+<%
+	pageContext.setAttribute("newLineChar", "\n");
+%>
 <c:set var="path" value="${pageContext.servletContext.contextPath }" />
 
 <title>${detail.TITLE }</title>
 
- <body class="bg-light">
-   <div class="container" style="margin-top: 5%;">
-      <div class="py-5 text-center">
-         <img class="d-block mx-auto mb-4"
-            src="${path }${detail.IMGPATH}" width="300" height="300" >
+<body class="bg-light">
+	<div class="container" style="margin-top: 5%;">
+		<div class="py-5 text-center">
+			<img class="d-block mx-auto mb-4" src="${path }${detail.IMGPATH}"
+				width="300" height="300">
 
-         <c:forEach begin="1" end="${detail.avg }" step="1">
-            <img src="${path }/images/star1.png" width="25" height="25">
-         </c:forEach>
-         <c:forEach begin="1" end="${5-detail.avg }" step="1">
-            <img src="${path}/images/star2.png" width="25" height="25">
-         </c:forEach>
-         [평점 : ${detail.avg }점]
-         <h2>제목 : ${detail.TITLE }</h2>
-      </div>
+			<c:forEach begin="1" end="${detail.avg }" step="1">
+				<img src="${path }/images/star1.png" width="25" height="25">
+			</c:forEach>
+			<c:forEach begin="1" end="${5-detail.avg }" step="1">
+				<img src="${path}/images/star2.png" width="25" height="25">
+			</c:forEach>
+			[평점 : ${detail.avg }점]
+			<h2>제목 : ${detail.TITLE }</h2>
+		</div>
 
-      <div class="row">
-         <div class="col-md-4 order-md-2 mb-4">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-               <span class="text-muted">판매자 정보</span>
-            </h4>
+		<div class="row">
+			<div class="col-md-4 order-md-2 mb-4">
+				<h4 class="d-flex justify-content-between align-items-center mb-3">
+					<span class="text-muted">판매자 정보</span>
+				</h4>
 
 
-            <form class="card p-2">
-               <div class="card" style="width: auto;">
-                  <a
-                     href="${path }/sellerboardlist.do?seller=${writer.ID }&currentPage=1">
-                     <img class="card-img-top" src="${path }${writer.IMGPATH}"
-                     alt="Card image cap" style="height: 8cm;">
-                  </a> <a onclick="paging();" class="replygaing" id="${l }"></a>
-                  <div class="card-body">
-                     <h5 class="card-title">${writer.WRITER }</h5>
-                     <p>판매자 : ${writer.ID }</p>
-                     <p>학력 : ${writer.ACADEMY }</p>
-                     <p>경력 : ${writer.CAREER }</p>
-                     <p>소개 : ${writer.INTRODUCE }</p>
-                     <c:choose>
-                        <c:when test="${writer.ID == user.ID }">
-                           <a href="${path }/board/modifyDetail.do?no=${detail.NO}"><button
-                                 type="button">수정</button></a>
-                           <a href="javascript:goDelete(${detail.NO });"><button
-                                 type="button">삭제</button></a>
+				<form class="card p-2">
+					<div class="card" style="width: auto;">
+						<a
+							href="${path }/sellerboardlist.do?seller=${writer.ID }&currentPage=1">
+							<img class="card-img-top" src="${path }${writer.IMGPATH}"
+							alt="Card image cap" style="height: 8cm;">
+						</a> <a onclick="paging();" class="replygaing" id="${l }"></a>
+						<div class="card-body">
+							<h5 class="card-title">${writer.WRITER }</h5>
+							<p>판매자 : ${writer.ID }</p>
+							<p>학력 : ${writer.ACADEMY }</p>
+							<p>경력 : ${writer.CAREER }</p>
+							<p>소개 : ${writer.INTRODUCE }</p>
+							<c:choose>
+								<c:when test="${writer.ID == user.ID }">
+									<a href="${path }/board/modifyDetail.do?no=${detail.NO}"><button
+											type="button">수정</button></a>
+									<a href="javascript:goDelete(${detail.NO });"><button
+											type="button">삭제</button></a>
 
-                           <script>
+									<script>
                               var goDelete = function(no) {
                                  if (window.confirm("정말삭제하시겠습니까?") == true) {
                                     window.alert("삭제되었습니다.");
@@ -64,98 +66,110 @@
                               };
                               
                            </script>
-                        </c:when>
-                        <c:otherwise>
-                           <c:choose>
-                              <c:when test="${empty user }">
-                                 <a class="btn btn-primary notLog"
-                                    style="margin-bottom: 10px; color: white;">판매자에게 문의하기</a>
-                              </c:when>
-                              <c:otherwise>
-                                 <a
-                                    href="${path }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
-                                    class="btn btn-primary" style="margin-bottom: 10px">판매자에게
-                                    문의하기</a><br/>
-                              </c:otherwise>
-                           </c:choose>
-                           <c:choose>
-                              <c:when test="${empty user }">
-                                 <a class="btn btn-primary notLog" style="color: white;">관심
-                                    판매자로 등록</a>
-                              </c:when>
-                              <c:otherwise>
-                                 <c:choose>
-                                    <c:when test="${empty wishlistcheck}">
-                                       <a
-                                          href="${pageContext.servletContext.contextPath }/addWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
-                                          class="btn btn-primary" id="addlike">관심 판매자로 등록</a>
-                                    </c:when>
-                                    <c:otherwise>
-                                       <a
-                                          href="${pageContext.servletContext.contextPath }/deleteWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
-                                          class="btn btn-primary" id="deletelike">관심 판매자에서 제거</a>
-                                    </c:otherwise>
-                                 </c:choose>
-                              </c:otherwise>
-                           </c:choose>
-                        </c:otherwise>
-                     </c:choose>
-                  </div>
-               </div>
+								</c:when>
+								<c:otherwise>
+									<c:choose>
+										<c:when test="${empty user }">
+											<a class="btn btn-primary notLog"
+												style="margin-bottom: 10px; color: white;">판매자에게 문의하기</a>
+										</c:when>
+										<c:otherwise>
+											<a
+												href="${path }/qa/buyqa.do?no=${detail.NO }&writer=${detail.WRITER}&members=${detail.WRITER}&members=${user.ID}"
+												class="btn btn-primary" style="margin-bottom: 10px">판매자에게
+												문의하기</a>
+											<br />
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${empty user }">
+											<a class="btn btn-primary notLog" style="color: white;">관심
+												판매자로 등록</a>
+										</c:when>
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${empty wishlistcheck}">
+													<a
+														href="${pageContext.servletContext.contextPath }/addWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+														class="btn btn-primary" id="addlike">관심 판매자로 등록</a>
+												</c:when>
+												<c:otherwise>
+													<a
+														href="${pageContext.servletContext.contextPath }/deleteWishlist.do?no=${detail.NO}&writer=${detail.WRITER}"
+														class="btn btn-primary" id="deletelike">관심 판매자에서 제거</a>
+												</c:otherwise>
+											</c:choose>
+										</c:otherwise>
+									</c:choose>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
 
-            </form>
-         </div>
-         <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">카테고리 : ${cate.BIGCATE} | ${cate.SMALLCATE}</h4>
-            <form class="needs-validation" novalidate>
-               <div class="mb-3">
-                  <label for="username">작성 날짜</label>
-                  <div class="input-group" style="">
-                     <input type="text" class="form-control" id="username"
-                        value="${detail.WRDATE}" style="background-color: white;"
-                        readonly>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-6 mb-3">
-                     <label for="firstName">작성자</label> <input type="text"
-                        class="form-control" id="firstName" placeholder=""
-                        value="${detail.WRITER }" readonly="readonly"
-                        style="width: 730; background-color: white;">
-                  </div>
-               </div>
+				</form>
+			</div>
+			<div class="col-md-8 order-md-1">
+				<h4 class="mb-3">카테고리 : ${cate.BIGCATE} | ${cate.SMALLCATE}</h4>
+				<form class="needs-validation" novalidate>
+					<div class="mb-3">
+						<label for="username">작성 날짜</label>
+						<div class="input-group" style="">
+							<input type="text" class="form-control" id="username"
+								value="${detail.WRDATE}" style="background-color: white;"
+								readonly>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="firstName">작성자</label> <input type="text"
+								class="form-control" id="firstName" placeholder=""
+								value="${detail.WRITER }" readonly="readonly"
+								style="width: 730; background-color: white;">
+						</div>
+					</div>
 
 
 
-               <div class="mb-3">
-                  <label for="username">금액</label>
-                  <div class="input-group">
-                     <input type="text" class="form-control" id="username"
-                        value="<fmt:formatNumber>${detail.PRICE }</fmt:formatNumber>원"
-                        readonly="readonly" style="background-color: white;">
-                     <div class="invalid-feedback" style="width: 100%;">Your
-                        username is required.</div>
-                  </div>
-               </div>
+					<div class="mb-3">
+						<label for="username">금액</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="username"
+								value="<fmt:formatNumber>${detail.PRICE }</fmt:formatNumber>원"
+								readonly="readonly" style="background-color: white;">
+							<div class="invalid-feedback" style="width: 100%;">Your
+								username is required.</div>
+						</div>
+					</div>
+					<div class="mb-3">
 
-               <div class="mb-3">
+						<label for="address">내용</label>
+						<textarea rows="20" cols="20" class="form-control" name="content"
+							id="content" readonly="readonly" style="background-color: white;"
+							required autofocus><c:out value=" ${detail.CONTENT }" /></textarea>
 
-                  <label for="address">내용</label> 
-                  <textarea rows="20" cols="20" class="form-control" name="content1" id="content1" readonly="readonly" style="background-color: white;" required autofocus><c:out value=" ${detail.CONTENT }" /></textarea>
+						<div class="invalid-feedback">Please enter your shipping
+							address.</div>
+					</div>
 
-                  <div class="invalid-feedback">Please enter your shipping
-                     address.</div>
-               </div>
 
-               <div class="mb-3">
-                  <label for="address2">주소 : ${detail.ADDR }</label>
-               </div>
-               <c:if test="${!empty detail.ADDR }">
-                  <div id="map" style="width: 100%; height: 350px;"></div>
+					<label for="address">내용</label>
+					<textarea rows="20" cols="20" class="form-control" name="content1"
+						id="content1" readonly="readonly" style="background-color: white;"
+						required autofocus><c:out value=" ${detail.CONTENT }" /></textarea>
 
-                  <script type="text/javascript"
-                     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b9a4dbed24071c798a9982657770a5f4&libraries=services"></script>
-                  <script>
+					<div class="invalid-feedback">Please enter your shipping
+						address.</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="address2">주소 : ${detail.ADDR }</label>
+			</div>
+			<c:if test="${!empty detail.ADDR }">
+				<div id="map" style="width: 100%; height: 350px;"></div>
+
+				<script type="text/javascript"
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b9a4dbed24071c798a9982657770a5f4&libraries=services"></script>
+				<script>
                      var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
                       mapOption = {
                           center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -193,22 +207,21 @@
                           } 
                      });
                   </script>
-               </c:if>
+			</c:if>
 
-               <hr class="mb-4">
-               <input hidden="" id="postno" name="postno" value="${detail.NO }" /><br />
-               <input hidden="" id="seller" name="seller"
-                  value="${detail.WRITER }" /><br /> <input hidden="" id="price"
-                  name="price" value="${detail.PRICE}" /><br /> <input hidden=""
-                  id="buyer" name="buyer" value="${user.ID}" /><br />
-               <button class="btn btn-primary btn-lg btn-block" type="button"
-                  id="buybtn">구매하기</button>
-            </form>
-            <script
-               src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script type="text/javascript"
-               src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-            <script type="text/javascript">
+			<hr class="mb-4">
+			<input hidden="" id="postno" name="postno" value="${detail.NO }" /><br />
+			<input hidden="" id="seller" name="seller" value="${detail.WRITER }" /><br />
+			<input hidden="" id="price" name="price" value="${detail.PRICE}" /><br />
+			<input hidden="" id="buyer" name="buyer" value="${user.ID}" /><br />
+			<button class="btn btn-primary btn-lg btn-block" type="button"
+				id="buybtn">구매하기</button>
+			</form>
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<script type="text/javascript"
+				src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+			<script type="text/javascript">
                // 결제후 paydb insert
                var paydbinsert = function(){
                   var postno = $("#postno").val();
@@ -278,46 +291,46 @@
    
    
    </script>
-         </div>
-      </div>
-      <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-      <div class="container">
-         <label for="content">${user.ID }</label> <select id="star">
-            <option value="1">★☆☆☆☆</option>
-            <option value="2">★★☆☆☆</option>
-            <option value="3">★★★☆☆</option>
-            <option value="4">★★★★☆</option>
-            <option value="5">★★★★★</option>
-         </select>
-         <form name="commentInsertForm">
-            <div class="input-group">
-               <input type="hidden" name="bno" value="${detail.bno}" /> <input
-                  type="textarea " class="form-control" id="content" name="content"
-                  placeholder="댓글 내용을 입력하세요." min="10"> <span
-                  class="input-group-btn"> &nbsp;
-                  <button class="btn btn-default" type="button" name="replybtn"
-                     id="replybtn">등록</button>
-               </span>
-            </div>
-         </form>
-      </div>
+		</div>
+	</div>
+	<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+	<div class="container">
+		<label for="content">${user.ID }</label> <select id="star">
+			<option value="1">★☆☆☆☆</option>
+			<option value="2">★★☆☆☆</option>
+			<option value="3">★★★☆☆</option>
+			<option value="4">★★★★☆</option>
+			<option value="5">★★★★★</option>
+		</select>
+		<form name="commentInsertForm">
+			<div class="input-group">
+				<input type="hidden" name="bno" value="${detail.bno}" /> <input
+					type="textarea " class="form-control" id="content" name="content"
+					placeholder="댓글 내용을 입력하세요." min="10"> <span
+					class="input-group-btn"> &nbsp;
+					<button class="btn btn-default" type="button" name="replybtn"
+						id="replybtn">등록</button>
+				</span>
+			</div>
+		</form>
+	</div>
 
-      <div class="container" id="replydiv1">
-         <button class="btn btn-defaut" id="replylistbtn1">댓글보기</button>
-         <div class="commentList"></div>
-      </div>
-
-
-
-      <div id="reply"></div>
-      
-      <div class="container" id="replydiv2" hidden="hidden">
-         <button class="btn btn-defaut" id="replylistbtn2">댓글접기</button>
-         <div class="commentList"></div>
-      </div>
+	<div class="container" id="replydiv1">
+		<button class="btn btn-defaut" id="replylistbtn1">댓글보기</button>
+		<div class="commentList"></div>
+	</div>
 
 
-      <script type="text/javascript">   
+
+	<div id="reply"></div>
+
+	<div class="container" id="replydiv2" hidden="hidden">
+		<button class="btn btn-defaut" id="replylistbtn2">댓글접기</button>
+		<div class="commentList"></div>
+	</div>
+
+
+	<script type="text/javascript">   
       
       $(".notLog").on("click",function(){
          window.alert("로그인 후 이용해주세요.");
@@ -460,11 +473,11 @@ $("#replybtn").on("click",function() {
 </script>
 
 
-      <div class="my-5 pt-5 text-muted text-center text-small">
-         <p class="mb-1">&copy; 2018-2019 재미나</p>
-      </div>
-   </div> 
-<%--    <body class="bg-light">
+	<div class="my-5 pt-5 text-muted text-center text-small">
+		<p class="mb-1">&copy; 2018-2019 재미나</p>
+	</div>
+	</div>
+	<%--    <body class="bg-light">
    <div class="container">
       <div class="row">
       <div class="py-5 text-center col">

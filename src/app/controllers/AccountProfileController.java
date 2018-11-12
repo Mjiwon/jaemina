@@ -91,8 +91,8 @@ public class AccountProfileController {
 			
 		String paramFileName = imgpath.getName();
 		String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
-		String realpath = ctx.getRealPath("/storage/sellerProfile");
-		String path = "/storage/sellerProfile";
+		String realpath = ctx.getRealPath("\\storage\\sellerProfile");
+		String path = "\\storage\\sellerProfile";
 
 		File dir = new File(realpath);
 		if (!dir.exists()) {

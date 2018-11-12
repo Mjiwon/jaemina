@@ -193,7 +193,7 @@ public class BoardController {
 			}
 		} else {
 			String filename = param.get("writer") + "-" + detailno + "-" + detail1.get("TITLE") + "-board" + ".jpg";
-			String path = ctx.getRealPath("/storage/board");
+			String path = ctx.getRealPath("\\storage\\board");
 			File dir = new File(path);
 			if (!dir.exists()) {
 				dir.mkdirs();
@@ -202,7 +202,7 @@ public class BoardController {
 			imgpath.transferTo(dst);
 
 			String img = path + "\\" + filename;
-			param.put("imgpath", "/storage/board" + "\\" + filename);
+			param.put("imgpath", "\\storage\\board" + "\\" + filename);
 			if (param.get("addr").equals("")) {
 				boardrepo.updateDetailBoard2(param);
 			} else {
