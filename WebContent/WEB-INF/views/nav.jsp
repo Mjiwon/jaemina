@@ -95,7 +95,7 @@
 					action="${pageContext.servletContext.contextPath }/board/searchList.do?currentPage=1"
 					method="post">
 					<input class="form-control mr-sm-2" type="search"
-						placeholder="Search" name="searchKey">
+						placeholder="Search" name="searchKey" maxlength="30">
 					<button class="btn" type="submit">Search</button>
 				</form>
 			</div>

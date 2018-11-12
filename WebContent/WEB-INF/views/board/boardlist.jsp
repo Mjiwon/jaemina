@@ -56,7 +56,7 @@
                <c:if test="${currentBlock == 1 }">
                   <%-- <a id="prevbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${startNum-pageBlock+9 }" style="color: black;"> [이전] |</a> --%>
                   <li class="page-item" >
-                     <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${startNum-pageBlock+6 }" tabindex="-1">이전</a>
+                     <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/board/searchList.do?searchKey=${searchLog }&currentPage=${startNum-pageBlock+4 }" tabindex="-1">이전</a>
                   </li>
                </c:if>
 
@@ -115,7 +115,7 @@
                      style="color: black;"> [이전] |</a> --%>
                      
                      <li class="page-item" >
-                     <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=${startNum-pageBlock+6 }" tabindex="-1">이전</a>
+                     <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${bigCate }&currentPage=${startNum-pageBlock+4 }" tabindex="-1">이전</a>
                   </li>
                </c:if>
 
@@ -175,7 +175,7 @@
                      style="color: black;"> [이전] |</a> --%>
                      
                      <li class="page-item" >
-                     <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${startNum-pageBlock+6 }" tabindex="-1">이전</a>
+                     <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/board/list.do?bigcate=${bigCate }&smallcate=${smallCate }&currentPage=${startNum-pageBlock+4 }" tabindex="-1">이전</a>
                   </li>
                </c:if>
                <c:forEach var="index" begin="${startNum }" end="${endNum }"

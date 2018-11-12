@@ -116,7 +116,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<div class="input-group">
 									<input type="text" class="form-control"
 										placeholder="Search for..." aria-label="Search for..."
-										id="searchKey" name="searchKey" required autofocus> <span
+										id="searchKey" name="searchKey" maxlength="30" required autofocus> <span
 										class="input-group-btn">
 										<button class="btn btn-secondary" type="submit" >Go!</button>
 									</span>

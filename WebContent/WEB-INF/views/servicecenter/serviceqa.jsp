@@ -31,14 +31,14 @@
 					<div class="mb-3">
 						<label>제목</label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="title" name="title" required autofocus>
+							<input type="text" class="form-control" id="title" name="title" maxlength="50" required autofocus>
 						</div>
 					</div>
 				</div>
 				<div class="col">
 					<div class="mb-3">
 						<label for="address2">상세내용</label>
-						<textarea rows="10" cols="10" class="form-control" name="content" required autofocus></textarea>
+						<textarea rows="10" cols="10" class="form-control" name="content" maxlength="1000" required autofocus></textarea>
 					</div>
 				</div>
 				<div class="col" align="right">

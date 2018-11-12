@@ -70,7 +70,7 @@
 				<div class="mb-3">
 					<label for="address">내용</label>
 					<textarea rows="12" cols="81" class="form control" id="content"
-						name="content" required autofocus>${detail.CONTENT }</textarea>
+						name="content" maxlength="1000" required autofocus>${detail.CONTENT }</textarea>
 					<div class="invalid-feedback">내용을 입력해주세요.</div>
 				</div>
 				<c:if test="${!empty detail.ADDR }">

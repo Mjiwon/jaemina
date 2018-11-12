@@ -75,7 +75,7 @@
 				<div class="mb-3">
 					<label>★제목</label>
 					<div class="input-group">
-						<input type="text" class="form-control" id="title" name="title" required autofocus>
+						<input type="text" class="form-control" id="title" name="title" maxlength="100" required autofocus>
 					</div>
 				</div>
 
@@ -92,7 +92,7 @@
 
 				<div class="mb-3">
 					<label for="address2">★상세내용</label>
-					<textarea rows="20" cols="20" class="form-control" name="content" id="content" required autofocus></textarea>
+					<textarea rows="20" cols="20" class="form-control" name="content" id="content" maxlength="1000" required autofocus></textarea>
 				</div>
 
 				<input type="text" id="addr" placeholder="주소" readonly="readonly" name="addr" style="width: 45%;"> <input

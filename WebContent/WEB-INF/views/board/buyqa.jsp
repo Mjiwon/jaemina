@@ -86,7 +86,7 @@
 				<span class="input-group-text" id="chatView">CHAT</span>
 			</div>
 			<input type="text" class="form-control"
-				aria-describedby="basic-addon1" id="inputs">
+				aria-describedby="basic-addon1" id="inputs" maxlength="100">
 		</div>
 	</div>
 	<div class="col col-lg-3" style="margin-top: 3%; margin-right: 4%;">
