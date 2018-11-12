@@ -349,7 +349,7 @@ margin: 0;
 max-width: none;
 }
 .slider-info {
-padding: 23em 0 0;
+padding: 19em 0 0;
 }
 .slider-info h5 {
     font-size: 62px;
@@ -476,6 +476,7 @@ border: 4px solid #d24055;
 }
 
 .banner-right-icon h4,.clients-says-w3layouts h4{
+	padding-top: 50px;
 	font-weight: bold;
     font-size: 22px;
     color: #000;
@@ -1008,7 +1009,7 @@ filter: alpha(opacity=0);
     letter-spacing: 2px;
 }
 .slider-info {
-    padding: 22em 0 0;
+    padding: 19em 0 0;
 }
 .page-not-agile h4 {
     font-size: 9em;

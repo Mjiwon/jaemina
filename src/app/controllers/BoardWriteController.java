@@ -98,7 +98,7 @@ public class BoardWriteController {
 			map.put("no", no); // 뷰로 보낼 게시판 번호
 
 			String filename = map.get("writer") + "-" + no + "-board" + ".jpg";
-			String path = ctx.getRealPath("\\storage\\board");
+			String path = ctx.getRealPath("/storage/board");
 			String addr = (String) map.get("addr");
 			System.out.println(addr);
 
@@ -108,8 +108,8 @@ public class BoardWriteController {
 			}
 			File dst = new File(dir, filename);
 			imgpath.transferTo(dst);
-			String img = path + "\\" + filename;
-			map.put("imgpath", "\\storage\\board" + "\\" + filename);
+			String img = path + "/" + filename;
+			map.put("imgpath", "/storage/board" + "/" + filename);
 				
 			if(addr != null) {
 				boardrepo.addBoard2(map);

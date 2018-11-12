@@ -10,9 +10,10 @@
 				<div class="slider-img one-img">
 					<div class="container">
 						<div class="slider-info ">
-							<h5>
-								프리랜서 마켓<br> 재미냥
-							</h5>
+							<h5>IT 현직자가 알려주는 실전 JAVA</h5><br><p style="font-size: 20px; color:#ea1d5d; font-weight: bold;"> - JAEMINA - </p>
+							<div class="outs_more-buttn" style="margin-top: 3em;">
+								<a href="${pageContext.servletContext.contextPath }/board/detail.do?no=8">Read More</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -22,17 +23,15 @@
 				<div class="slider-img two-img">
 					<div class="container">
 						<div class="slider-info ">
-							<h5>
-								아름다운 재능을 나누다<br>재미냥
-							</h5>
+							<h5>이력서 작성해드립니다.</h5><br><p style="font-size: 20px; color:#ea1d5d; font-weight: bold;"> - JAEMINA - </p>
 							<!-- <div class="bottom-info">
 								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
 									elit.Aenean commodo ligula eget dolorL orem ipsum dolor sit
 									amet eget dolor</p>
-							</div>
-							<div class="outs_more-buttn">
-								<a href="#">Read More</a>
 							</div> -->
+							<div class="outs_more-buttn" style="margin-top: 3em;">
+								<a href="${pageContext.servletContext.contextPath }/board/detail.do?no=2">Read More</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -42,17 +41,15 @@
 				<div class="slider-img three-img">
 					<div class="container">
 						<div class="slider-info">
-							<h5>
-								나만의 선생님을 만나다 <br>재미냥
-							</h5>
+							<h5>기린반 - 세상제일 쉬운 JAVA 수업</h5><br><p style="font-size: 20px; color:#ea1d5d; font-weight: bold;"> - JAEMINA - </p>
 							<!-- <div class="bottom-info">
 								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
 									elit.Aenean commodo ligula eget dolorL orem ipsum dolor sit
 									amet eget dolor</p>
-							</div>
-							<div class="outs_more-buttn">
-								<a href="#">Read More</a>
 							</div> -->
+							<div class="outs_more-buttn" style="margin-top: 3em;">
+								<a href="${pageContext.servletContext.contextPath }/board/detail.do?no=31">Read More</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -95,14 +92,15 @@
 			<c:forEach var="big" items="${bigcate }">
 
 				<div class="col-lg-2  text-center banner-agile-flowers">
-					<a href="#" id="test"> <img class=""
-						src="${pageContext.servletContext.contextPath }/images/images/${big.NO=1 }.svg"
-						onmouseover="this.src='${pageContext.servletContext.contextPath }/images/images/${big.NO=2 }.svg'"
-						onmouseout="this.src='${pageContext.servletContext.contextPath }/images/images/${big.NO=1 }.svg'" />
+					<a href="${pageContext.servletContext.contextPath }/board/lists.do?bigcate=${big.NO}&currentPage=1" id="test"> 
+					<img class=""
+						src="${pageContext.servletContext.contextPath }/images/images/0${big.NO }.png"
+						onmouseover="this.src='${pageContext.servletContext.contextPath }/images/images/0${big.NO }_1.png'"
+						onmouseout="this.src='${pageContext.servletContext.contextPath }/images/images/0${big.NO }.png'" />
 					</a>
 
 					<div class="banner-right-icon">
-						<h4 class="pt-4">${big.BIGCATE }</h4>
+						<h4 class="">${big.BIGCATE }</h4>
 					</div>
 				</div>
 
