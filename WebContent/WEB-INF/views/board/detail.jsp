@@ -149,15 +149,6 @@
 						<div class="invalid-feedback">Please enter your shipping
 							address.</div>
 					</div>
-
-
-					<label for="address">내용</label>
-					<textarea rows="20" cols="20" class="form-control" name="content1"
-						id="content1" readonly="readonly" style="background-color: white;"
-						required autofocus><c:out value=" ${detail.CONTENT }" /></textarea>
-
-					<div class="invalid-feedback">Please enter your shipping
-						address.</div>
 					<div class="mb-3">
 						<label for="address2">주소 : ${detail.ADDR }</label>
 					</div>
