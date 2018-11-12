@@ -167,7 +167,7 @@
                               href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${startNum-pageBlock+9 }"
                               style="color: black;"> [이전] |</a> --%>
                               
-                     <a class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${startNum-pageBlock+9 }">이전</a>
+                     <a class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/jaemilog.do?currentPage=${startNum-pageBlock+4 }">이전</a>
                         </c:if>
 
                         <c:forEach var="index" begin="${startNum }" end="${endNum }"
@@ -211,7 +211,7 @@
                            <%-- <a id="prevbtn"
                               href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum-pageBlock+9 }"
                               style="color: black;"> [이전] |</a> --%>
-                     <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum-pageBlock+9 }" tabindex="-1">이전</a>
+                     <a   class="page-link" id="prevbtn" href="${pageContext.servletContext.contextPath }/sellerboardlist.do?seller=${Seller.ID}&currentPage=${startNum-pageBlock+4 }" tabindex="-1">이전</a>
                         </c:if>
 
                         <c:forEach var="index" begin="${startNum }" end="${endNum }"
