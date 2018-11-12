@@ -91,8 +91,8 @@ public class AccountProfileController {
 			
 		String paramFileName = imgpath.getName();
 		String fileName = id + "-seller" + "-" + paramFileName + ".jpg";
-		String realpath = ctx.getRealPath("\\storage\\sellerProfile");
-		String path = "\\storage\\sellerProfile";
+		String realpath = ctx.getRealPath("/storage/sellerProfile");
+		String path = "/storage/sellerProfile";
 
 		File dir = new File(realpath);
 		if (!dir.exists()) {
@@ -101,7 +101,7 @@ public class AccountProfileController {
 		File dst = new File(dir, fileName);
 		imgpath.transferTo(dst);
 
-		String img = path + "\\" + fileName;
+		String img = path + "/" + fileName;
 		param.put("imgpath", img);
 
 		System.out.println("뭐나오냐"+param);
